@@ -7,11 +7,11 @@
     "project": ".",
 
     // The project's homepage
-    "project_url": "https://github.com/anhaidgroup/py-stringmatching/",
+    "project_url": "https://github.com/anhaidgroup/py_stringmatching/",
 
     // The URL or local path of the source code repository for the
     // project being benchmarked
-    "repo": "https://github.com/anhaidgroup/py-stringmatching.git",
+    "repo": "https://github.com/anhaidgroup/py_stringmatching.git",
 
     // List of branches to benchmark. If not provided, defaults to "master"
     // (for git) or "tip" (for mercurial).
