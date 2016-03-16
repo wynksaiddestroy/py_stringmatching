@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
 
 import math
-
 import unittest
 
 from nose.tools import *
+
+
 # sequence based similarity measures
 from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
     smith_waterman, affine
@@ -144,8 +145,8 @@ class HammingDistanceTestCases(unittest.TestCase):
     def test_valid_input_compatibility(self):
         self.assertEqual(hamming_distance(u'karolin', u'kathrin'), 3)
         self.assertEqual(hamming_distance(u'', u''), 0)
-        str_1 = u'foo'.encode(encoding='UTF-8', errors='strict')
-        str_2 = u'bar'.encode(encoding='UTF-8', errors='strict')
+        # str_1 = u'foo'.encode(encoding='UTF-8', errors='strict')
+        # str_2 = u'bar'.encode(encoding='UTF-8', errors='strict')
         # self.assertEqual(hamming_distance(str_1, str_2), 3) # check with Ali - python 3 returns type error
         # self.assertEqual(hamming_distance(str_1, str_1), 0) # check with Ali - python 3 returns type error
 
@@ -180,9 +181,9 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         self.assertEqual(needleman_wunsch('dva', 'deeve', 0.0), 2.0)
         self.assertEqual(needleman_wunsch('dva', 'deeve', 1.0, sim_score=lambda s1, s2: (2 if s1 == s2 else -1)), 1.0)
         self.assertEqual(
-                needleman_wunsch('GCATGCUA', 'GATTACA', gap_cost=0.5,
-                                 sim_score=lambda s1, s2: (1 if s1 == s2 else -1)),
-                2.5)
+            needleman_wunsch('GCATGCUA', 'GATTACA', gap_cost=0.5,
+                             sim_score=lambda s1, s2: (1 if s1 == s2 else -1)),
+            2.5)
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -201,12 +202,12 @@ class SmithWatermanTestCases(unittest.TestCase):
     def test_valid_input(self):
         self.assertEqual(smith_waterman('cat', 'hat'), 2.0)
         self.assertEqual(smith_waterman('dva', 'deeve', 2.2), 1.0)
-        self.assertEqual(smith_waterman('dva', 'deeve', 1, sim_score=lambda s1, s2 : (2 if s1 == s2 else -1)), 2.0)
+        self.assertEqual(smith_waterman('dva', 'deeve', 1, sim_score=lambda s1, s2: (2 if s1 == s2 else -1)), 2.0)
         self.assertEqual(
             smith_waterman('GCATGCU', 'GATTACA', gap_cost=1, sim_score=lambda s1, s2: (int(1 if s1 == s2 else -1))),
             2.0)
         self.assertEqual(
-            smith_waterman('GCATAGCU', 'GATTACA', gap_cost=1.4, sim_score=lambda s1, s2 : (1.5 if s1 == s2 else 0.5)),
+            smith_waterman('GCATAGCU', 'GATTACA', gap_cost=1.4, sim_score=lambda s1, s2: (1.5 if s1 == s2 else 0.5)),
             6.5)
 
     @raises(TypeError)
@@ -305,9 +306,11 @@ class CosineTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         cosine(None, None)
 
+
 class TfidfTestCases(unittest.TestCase):
     def test_valid_input(self):
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True), 0.11166746710505392)
+        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True),
+                         0.11166746710505392)
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a']]), 0.17541160386140586)
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a'], [['a', 'b', 'a'], ['a', 'c'], ['a']]), 0.5547001962252291)
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a']), 0.7071067811865475)
@@ -329,6 +332,7 @@ class TfidfTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         tfidf(None, None)
+
 
 # ---------------------- bag based similarity measures  ----------------------
 # class CosineTestCases(unittest.TestCase):
@@ -383,21 +387,23 @@ class Soft_TfidfTestCases(unittest.TestCase):
 
 class MongeElkanTestCases(unittest.TestCase):
     def test_valid_input(self):
-        self.assertEqual(monge_elkan([''], ['']), 1.0) # need to check this
+        self.assertEqual(monge_elkan([''], ['']), 1.0)  # need to check this
 
         self.assertEqual(monge_elkan([''], ['a']), 0.0)
         self.assertEqual(monge_elkan(['a'], ['a']), 1.0)
 
         self.assertEqual(monge_elkan(['Niall'], ['Neal']), 0.8049999999999999)
         self.assertEqual(monge_elkan(['Niall'], ['Njall']), 0.88)
-        # self.assertEqual(monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-        #                              ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.8677218614718616)
         self.assertEqual(monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                                     sim_func=needleman_wunsch), 2.0)
-        self.assertEqual(monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                                     sim_func=affine), 2.25)
+                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.8364448051948052)
+        self.assertEqual(
+            monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                        sim_func=needleman_wunsch), 2.0)
+        self.assertEqual(
+            monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                        sim_func=affine), 2.25)
         self.assertEqual(monge_elkan(['Niall'], ['Niel']), 0.8266666666666667)
         self.assertEqual(monge_elkan(['Niall'], ['Nigel']), 0.7866666666666667)
 
