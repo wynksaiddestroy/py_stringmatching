@@ -14,7 +14,7 @@ import sys
 
 setup(
         name='py_stringmatching',
-        version='0.1',
+        version='0.1.0',
         description='Python library for string matching.',
         long_description="""
     String matching is an important problem in many settings such as data integration, natural language processing,etc.
