@@ -4,7 +4,7 @@ Similarity Functions
 .. automodule:: py_stringmatching.simfunctions
 
 
-    .. autofunction:: levenshtein(string1, string2)
+.. autofunction:: levenshtein(string1, string2)
 .. autofunction:: hamming_distance(string1, string2)
 .. autofunction:: jaro(string1, string2)
 .. autofunction:: jaro_winkler(string1, string2, prefix_weight=0.1)
