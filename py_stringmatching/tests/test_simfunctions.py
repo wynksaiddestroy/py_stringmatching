@@ -27,6 +27,7 @@ class AffineTestCases(unittest.TestCase):
             4.4)
         self.assertAlmostEqual(
             affine(' ', ' ', gap_continuation=0.2, sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0))), 1)
+        self.assertEqual(affine('', 'deeva'), 0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -55,6 +56,7 @@ class JaroTestCases(unittest.TestCase):
         self.assertAlmostEqual(jaro('MARTHA', 'MARHTA'), 0.9444444444444445)
         self.assertAlmostEqual(jaro('DWAYNE', 'DUANE'), 0.8222222222222223)
         self.assertAlmostEqual(jaro('DIXON', 'DICKSONX'), 0.7666666666666666)
+        self.assertEqual(jaro('', 'deeva'), 0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -197,6 +199,15 @@ class NeedlemanWunschTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         needleman_wunsch(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        needleman_wunsch(['a'], 'b')
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        needleman_wunsch('a', ['b'])
+
+
 
 class SmithWatermanTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -316,6 +327,8 @@ class TfidfTestCases(unittest.TestCase):
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a']), 0.7071067811865475)
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a'], [['x', 'y'], ['w'], ['q']]), 0.0)
         self.assertEqual(tfidf(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
+        self.assertEqual(tfidf([], ['a', 'b', 'a']), 0.0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -367,6 +380,9 @@ class Soft_TfidfTestCases(unittest.TestCase):
         self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a'], [['x', 'y'], ['w'], ['q']]), 0.0)
         self.assertEqual(soft_tfidf(['aa', 'bb', 'a'], ['ab', 'ba'], sim_func=affine, threshold=0.6),
                          0.81649658092772592)
+        self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
+        self.assertEqual(soft_tfidf([], ['a', 'b', 'a']), 0.0)
+
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -406,6 +422,7 @@ class MongeElkanTestCases(unittest.TestCase):
                         sim_func=affine), 2.25)
         self.assertEqual(monge_elkan(['Niall'], ['Niel']), 0.8266666666666667)
         self.assertEqual(monge_elkan(['Niall'], ['Nigel']), 0.7866666666666667)
+        self.assertEqual(monge_elkan([], ['Nigel']), 0.0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
@@ -422,3 +439,12 @@ class MongeElkanTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         monge_elkan(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        monge_elkan("temp", "temp")
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        monge_elkan(['temp'], 'temp')
+
