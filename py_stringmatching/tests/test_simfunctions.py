@@ -274,15 +274,15 @@ class JaccardTestCases(unittest.TestCase):
         jaccard(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
+    def test_invalid_input2(self):
         jaccard(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
+    def test_invalid_input3(self):
         jaccard(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
+    def test_invalid_input4(self):
         jaccard(None, None)
 
 
@@ -429,10 +429,6 @@ class MongeElkanTestCases(unittest.TestCase):
         monge_elkan(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        monge_elkan(['a'], None)
-
-    @raises(TypeError)
     def test_invalid_input2(self):
         monge_elkan(None, ['b'])
 
@@ -447,4 +443,10 @@ class MongeElkanTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input5(self):
         monge_elkan(['temp'], 'temp')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        monge_elkan(['a'], None)
+
+
 
