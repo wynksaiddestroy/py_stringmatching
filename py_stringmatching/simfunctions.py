@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 import collections
 import math
 
-import Levenshtein
 import numpy as np
 
 from py_stringmatching import utils

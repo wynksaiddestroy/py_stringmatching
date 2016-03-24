@@ -20,15 +20,14 @@ setup(
     String matching is an important problem in many settings such as data integration, natural language processing,etc.
     This package aims to implement most commonly used string matching measures.
     """,
-        url='http://github.com/kvpradap/py_stringmatching',
+        url='http://github.com/anhaidgroup/py_stringmatching',
         author='Pradap Konda',
         author_email='pradap@cs.wisc.edu',
         license=['MIT'],
         packages=['py_stringmatching'],
         install_requires=[
             'numpy >= 1.7.0',
-            'six',
-            'python-Levenshtein >= 0.12.0'
+            'six'
         ],
         include_package_data=True,
         zip_safe=False

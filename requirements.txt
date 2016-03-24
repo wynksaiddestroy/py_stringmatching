@@ -1,3 +1,2 @@
 numpy>=1.7.0
 six
-python-Levenshtein >= 0.12.0
