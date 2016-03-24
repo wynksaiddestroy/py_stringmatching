@@ -12,7 +12,6 @@ Dependencies
 ------------
     * numpy>=1.7.0
     * six
-    * python-Levenshtein >= 0.12.0
 
 .. note::
 
@@ -23,7 +22,7 @@ Dependencies
 Step by Step Installation Instruction
 -------------------------------------
 Step 1: Download the py_stringmatching package from `here
-<http://pradap-www.cs.wisc.edu/py_stringmatching/py_stringmatching-0.1.tar.gz>`_
+<http://pradap-www.cs.wisc.edu/py_stringmatching/anhaidgroup/py_stringmatching-0.1.0tar.gz>`_
 into your home directory.
 
 You can download into any directory within your home directory. For now we assume that you use a
@@ -35,12 +34,12 @@ Step 2: Unzip the package by executing the following command::
 
     tar -xzvf py_stringmatching.tar.gz
 
-py_stringmatching will be unpackaged into directory "HOME/py_stringmatching-0.1
+py_stringmatching will be unpackaged into directory "HOME/py_stringmatching-0.1.0
 
 
 Step 3: At the command prompt execute the following commands::
 
-    cd HOME/py_stringmatching-0.1
+    cd HOME/py_stringmatching-0.1.0
     python setup.py install
 
 This will install py_stringmatching package.
