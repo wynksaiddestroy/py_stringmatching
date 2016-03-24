@@ -278,16 +278,42 @@ def levenshtein(string1, string2):
         6
 
 
-    Note:
-        This implementation internally uses python-levenshtein package to compute the Levenshtein distance
 
     """
     # input validations
     utils.sim_check_for_none(string1, string2)
     utils.sim_check_for_string_inputs(string1, string2)
-    # using Levenshtein library
-    return Levenshtein.distance(string1, string2)
+    if utils.sim_check_for_exact_match(string1, string2):
+        return 0.0
 
+    ins_cost, del_cost, sub_cost, trans_cost = (1, 1, 1, 1)
+
+    len_str1 = len(string1)
+    len_str2 = len(string2)
+
+    if len_str1 == 0:
+        return len_str2 * ins_cost
+
+    if len_str2 == 0:
+        return len_str1 * del_cost
+
+    d_mat = np.zeros((len_str1 + 1, len_str2 + 1), dtype=np.int)
+
+    for i in _range(len_str1 + 1):
+        d_mat[i, 0] = i * del_cost
+
+    for j in _range(len_str2 + 1):
+        d_mat[0, j] = j * ins_cost
+
+    for i in _range(len_str1):
+        for j in _range(len_str2):
+            d_mat[i + 1, j + 1] = min(
+                d_mat[i + 1, j] + ins_cost,
+                d_mat[i, j + 1] + del_cost,
+                d_mat[i, j] + (sub_cost if string1[i] != string2[j] else 0)
+            )
+
+    return d_mat[len_str1, len_str2]
 
 def needleman_wunsch(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     """
