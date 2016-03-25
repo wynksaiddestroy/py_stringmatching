@@ -116,16 +116,19 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 
-<span class="kn">import</span> <span class="nn">Levenshtein</span>
-<span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c"># noinspection PyProtectedMember,PyProtectedMember</span>
 <span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">_range</span>
 
 
 <span class="k">def</span> <span class="nf">sim_ident</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span><span class="p">)</span>
+
 
 <span class="c"># ---------------------- sequence based similarity measures  ----------------------</span>
 
@@ -160,39 +163,45 @@
 <span class="sd">        1.5</span>
 <span class="sd">        &gt;&gt;&gt; affine(&#39;dva&#39;, &#39;deeve&#39;, gap_start=2, gap_continuation=0.5)</span>
 <span class="sd">        -0.5</span>
-<span class="sd">        &gt;&gt;&gt; affine(&#39;AAAGAATTCA&#39;, &#39;AAATCA&#39;, gap_continuation=0.2, sim_score=lambda s1, s2 : (int(1 if s1 == s2 else 0)))</span>
+<span class="sd">        &gt;&gt;&gt; affine(&#39;AAAGAATTCA&#39;, &#39;AAATCA&#39;, gap_continuation=0.2, sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0)))</span>
 <span class="sd">        4.4</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
 
     <span class="n">gap_start</span> <span class="o">=</span> <span class="o">-</span><span class="n">gap_start</span>
     <span class="n">gap_continuation</span> <span class="o">=</span> <span class="o">-</span><span class="n">gap_continuation</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="c"># DP initialization</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
-        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">gap_start</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gap_continuation</span>
-        <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
-
+        <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">gap_start</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gap_continuation</span>
+        <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
+    <span class="c"># DP initialization</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
-        <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
-        <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">gap_start</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gap_continuation</span>
-
+        <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="s">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">gap_start</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gap_continuation</span>
+    <span class="c"># affine gap calculation using DP</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_score</span><span class="p">(</span><span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gap_start</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">gap_continuation</span> <span class="o">+</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
-            <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gap_start</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">gap_continuation</span> <span class="o">+</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)],</span> <span class="n">X</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)],</span> <span class="n">Y</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)])</span>
+            <span class="c"># best score between x_1....x_i and y_1....y_j given that x_i is aligned to y_j</span>
+            <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_score</span><span class="p">(</span><span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="c"># the best score given that x_i is aligned to a gap</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gap_start</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">gap_continuation</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+            <span class="c"># the best score given that y_j is aligned to a gap</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">gap_start</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">gap_continuation</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)],</span> <span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)],</span> <span class="n">y</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)][</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)])</span>
 
 
-<span class="c"># jaro</span></div>
+<span class="c"># jaro</span>
+<span class="c"># noinspection PyUnboundLocalVariable,PyUnboundLocalVariable,PyUnboundLocalVariable,PyUnboundLocalVariable</span></div>
 <div class="viewcode-block" id="jaro"><a class="viewcode-back" href="../../Simfunctions.html#py_stringmatching.simfunctions.jaro">[docs]</a><span class="k">def</span> <span class="nf">jaro</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the Jaro measure between two strings.</span>
@@ -222,8 +231,10 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
 
@@ -249,7 +260,6 @@
                 <span class="k">break</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">common_chars</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
-
     <span class="n">k</span> <span class="o">=</span> <span class="n">trans_count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f_s1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">flags_s1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">f_s1</span><span class="p">:</span>
@@ -260,9 +270,6 @@
             <span class="k">if</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
                 <span class="n">trans_count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">trans_count</span> <span class="o">/=</span> <span class="mi">2</span>
-    <span class="c"># print trans_count, common_chars</span>
-
-
     <span class="n">common_chars</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">common_chars</span><span class="p">)</span>
     <span class="n">weight</span> <span class="o">=</span> <span class="p">((</span><span class="n">common_chars</span> <span class="o">/</span> <span class="n">len_s1</span> <span class="o">+</span> <span class="n">common_chars</span> <span class="o">/</span> <span class="n">len_s2</span> <span class="o">+</span>
                <span class="p">(</span><span class="n">common_chars</span> <span class="o">-</span> <span class="n">trans_count</span><span class="p">)</span> <span class="o">/</span> <span class="n">common_chars</span><span class="p">))</span> <span class="o">/</span> <span class="mi">3</span>
@@ -299,20 +306,22 @@
 <span class="sd">        0.8133333333333332</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
 
     <span class="n">jw_score</span> <span class="o">=</span> <span class="n">jaro</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">min_len</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">))</span>
+    <span class="c"># prefix length can be at max 4</span>
     <span class="n">j</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_len</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">string2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="n">i</span><span class="p">:</span>
         <span class="n">jw_score</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">prefix_weight</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">jw_score</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">jw_score</span>
 
 </div>
@@ -346,9 +355,13 @@
 <span class="sd">        &gt;&gt;&gt; hamming_distance(&#39;JOHN&#39;, &#39;john&#39;)</span>
 <span class="sd">        4</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="c"># for Hamming Distance string length should be same</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_same_len</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="c"># sum all the mismatch characters at the corresponding index of</span>
+    <span class="c"># input strings</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c2</span><span class="p">))</span> <span class="k">for</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">))</span>
 
 </div>
@@ -378,15 +391,42 @@
 <span class="sd">        6</span>
 
 
-<span class="sd">    Note:</span>
-<span class="sd">        This implementation internally uses python-levenshtein package to compute the Levenshtein distance</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_string_inputs</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
 
-    <span class="k">return</span> <span class="n">Levenshtein</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
+    <span class="n">ins_cost</span><span class="p">,</span> <span class="n">del_cost</span><span class="p">,</span> <span class="n">sub_cost</span><span class="p">,</span> <span class="n">trans_cost</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
+    <span class="n">len_str1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span>
+    <span class="n">len_str2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">len_str1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">len_str2</span> <span class="o">*</span> <span class="n">ins_cost</span>
+
+    <span class="k">if</span> <span class="n">len_str2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">len_str1</span> <span class="o">*</span> <span class="n">del_cost</span>
+
+    <span class="n">d_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">len_str1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len_str2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="n">len_str1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">del_cost</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="n">len_str2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">d_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span> <span class="o">*</span> <span class="n">ins_cost</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="n">len_str1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="n">len_str2</span><span class="p">):</span>
+            <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">ins_cost</span><span class="p">,</span>
+                <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">del_cost</span><span class="p">,</span>
+                <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">sub_cost</span> <span class="k">if</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d_mat</span><span class="p">[</span><span class="n">len_str1</span><span class="p">,</span> <span class="n">len_str2</span><span class="p">]</span>
 </div>
 <div class="viewcode-block" id="needleman_wunsch"><a class="viewcode-back" href="../../Simfunctions.html#py_stringmatching.simfunctions.needleman_wunsch">[docs]</a><span class="k">def</span> <span class="nf">needleman_wunsch</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">gap_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="n">sim_ident</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -425,14 +465,18 @@
 <span class="sd">        &gt;&gt;&gt; needleman_wunsch(&#39;GCATGCUA&#39;, &#39;GATTACA&#39;, gap_cost=0.5, sim_score=lambda s1, s2 : (1.0 if s1 == s2 else -1.0))</span>
 <span class="sd">        2.5</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_string_inputs</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
 
     <span class="n">dist_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="c"># DP initialization</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">dist_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">gap_cost</span><span class="p">)</span>
+    <span class="c"># DP initialization</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">dist_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="n">gap_cost</span><span class="p">)</span>
+    <span class="c"># Needleman-Wunsch DP calculation</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">match</span> <span class="o">=</span> <span class="n">dist_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sim_score</span><span class="p">(</span><span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
@@ -475,11 +519,13 @@
 <span class="sd">        &gt;&gt;&gt; smith_waterman(&#39;GCATAGCU&#39;, &#39;GATTACA&#39;, gap_cost=1.4, sim_score=lambda s1, s2 : (1.5 if s1 == s2 else 0.5))</span>
 <span class="sd">        6.5</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_string_inputs</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
 
     <span class="n">dist_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
     <span class="n">max_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c"># Smith Waterman DP calculations</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">match</span> <span class="o">=</span> <span class="n">dist_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sim_score</span><span class="p">(</span><span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
@@ -523,10 +569,13 @@
 <span class="sd">        * String similarity joins: An Experimental Evaluation (VLDB 2014)</span>
 <span class="sd">        * Project flamingo : Mike carey, Vernica</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+    <span class="c"># if exact match return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
@@ -567,10 +616,13 @@
 <span class="sd">        &gt;&gt;&gt; jaccard([&#39;data&#39;, &#39;management&#39;], [&#39;data&#39;, &#39;data&#39;, &#39;science&#39;])</span>
 <span class="sd">        0.3333333333333333</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+    <span class="c"># if exact match return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
@@ -614,10 +666,13 @@
 <span class="sd">        * Simmetrics library</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
+    <span class="c"># if exact match return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
@@ -628,8 +683,9 @@
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">set1</span> <span class="o">&amp;</span> <span class="n">set2</span><span class="p">))</span> <span class="o">/</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">set1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">set2</span><span class="p">))</span>
 
 
-<span class="c"># ---------------------- bag based similarity measures  ----------------------</span></div>
-<div class="viewcode-block" id="tfidf"><a class="viewcode-back" href="../../Simfunctions.html#py_stringmatching.simfunctions.tfidf">[docs]</a><span class="k">def</span> <span class="nf">tfidf</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">,</span> <span class="n">corpus_list</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">dampen</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="c"># ---------------------- bag based similarity measures  ----------------------</span>
+<span class="c"># noinspection PyArgumentList,PyArgumentList</span></div>
+<div class="viewcode-block" id="tfidf"><a class="viewcode-back" href="../../Simfunctions.html#py_stringmatching.simfunctions.tfidf">[docs]</a><span class="k">def</span> <span class="nf">tfidf</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">,</span> <span class="n">corpus_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dampen</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute tfidf measures between two lists given the corpus information.</span>
 <span class="sd">    This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to find documents that</span>
@@ -665,35 +721,47 @@
 <span class="sd">        &gt;&gt;&gt; tfidf([&#39;a&#39;, &#39;b&#39;, &#39;a&#39;], [&#39;a&#39;])</span>
 <span class="sd">        0.7071067811865475</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
+    <span class="c"># if the strings match exactly return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
+    <span class="c"># if corpus is not provided treat input string as corpus</span>
     <span class="k">if</span> <span class="n">corpus_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">corpus_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">]</span>
     <span class="n">corpus_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus_list</span><span class="p">)</span>
+    <span class="c"># term frequency for input strings</span>
     <span class="n">tf_x</span><span class="p">,</span> <span class="n">tf_y</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag1</span><span class="p">),</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag2</span><span class="p">)</span>
+    <span class="c"># number of documents an element appeared</span>
     <span class="n">element_freq</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c"># set of unique element</span>
     <span class="n">total_unique_elements</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">corpus_list</span><span class="p">:</span>
         <span class="n">temp_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+            <span class="c"># adding element only if it is present in one of two input string</span>
             <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bag1</span> <span class="ow">or</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bag2</span><span class="p">:</span>
                 <span class="n">temp_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                 <span class="n">total_unique_elements</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="c"># update element document frequency for this document</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">temp_set</span><span class="p">:</span>
-            <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">element_freq</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">element_freq</span> <span class="k">else</span> <span class="mi">1</span>
     <span class="n">idf_element</span><span class="p">,</span> <span class="n">v_x</span><span class="p">,</span> <span class="n">v_y</span><span class="p">,</span> <span class="n">v_x_y</span><span class="p">,</span> <span class="n">v_x_2</span><span class="p">,</span> <span class="n">v_y_2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+    <span class="c"># tfidf calculation</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">total_unique_elements</span><span class="p">:</span>
         <span class="n">idf_element</span> <span class="o">=</span> <span class="n">corpus_size</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
-        <span class="n">v_x</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_x</span> <span class="k">else</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">idf_element</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tf_x</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">dampen</span> <span class="k">else</span> <span class="p">(</span><span class="n">idf_element</span> <span class="o">*</span> <span class="n">tf_x</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
-        <span class="n">v_y</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_y</span> <span class="k">else</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">idf_element</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tf_y</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">dampen</span> <span class="k">else</span> <span class="p">(</span><span class="n">idf_element</span> <span class="o">*</span> <span class="n">tf_y</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+        <span class="n">v_x</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_x</span> <span class="k">else</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">idf_element</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tf_x</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">dampen</span> <span class="k">else</span> <span class="p">(</span>
+            <span class="n">idf_element</span> <span class="o">*</span> <span class="n">tf_x</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+        <span class="n">v_y</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_y</span> <span class="k">else</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">idf_element</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tf_y</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">dampen</span> <span class="k">else</span> <span class="p">(</span>
+            <span class="n">idf_element</span> <span class="o">*</span> <span class="n">tf_y</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
         <span class="n">v_x_y</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">v_y</span>
         <span class="n">v_x_2</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">v_x</span>
         <span class="n">v_y_2</span> <span class="o">+=</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">v_y</span>
-    <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">v_x_y</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">v_x_y</span><span class="o">/</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_x_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_y_2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">v_x_y</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">v_x_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_x_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_y_2</span><span class="p">))</span>
 
 
 <span class="c"># hybrid similarity measures</span></div>
@@ -736,12 +804,17 @@
 <span class="sd">    References:</span>
 <span class="sd">        * Principles of Data Integration book</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
+    <span class="c"># if exact match return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
+    <span class="c"># aggregated sum of all the max sim score of all the elements in bag1</span>
+    <span class="c"># with elements in bag2</span>
     <span class="n">sum_of_maxes</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">t1</span> <span class="ow">in</span> <span class="n">bag1</span><span class="p">:</span>
         <span class="n">max_sim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">&#39;-inf&#39;</span><span class="p">)</span>
@@ -751,7 +824,8 @@
     <span class="n">sim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sum_of_maxes</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bag1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">sim</span>
 
-</div>
+
+<span class="c"># noinspection PyArgumentList,PyArgumentList</span></div>
 <div class="viewcode-block" id="soft_tfidf"><a class="viewcode-back" href="../../Simfunctions.html#py_stringmatching.simfunctions.soft_tfidf">[docs]</a><span class="k">def</span> <span class="nf">soft_tfidf</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">,</span> <span class="n">corpus_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">jaro</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute Soft-tfidf measures between two lists given the corpus information.</span>
@@ -787,36 +861,48 @@
 <span class="sd">    References:</span>
 <span class="sd">        * Principles of Data Integration book</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># input validations</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
+    <span class="c"># if the strings match exactly return 1.0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="c"># if one of the strings is empty return 0</span>
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="k">return</span> <span class="mi">0</span>
+    <span class="c"># if corpus is not provided treat input string as corpus</span>
     <span class="k">if</span> <span class="n">corpus_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">corpus_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">]</span>
     <span class="n">corpus_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">corpus_list</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>
+    <span class="c"># term frequency for input strings</span>
     <span class="n">tf_x</span><span class="p">,</span> <span class="n">tf_y</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag1</span><span class="p">),</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag2</span><span class="p">)</span>
+    <span class="c"># number of documents an element appeared</span>
     <span class="n">element_freq</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c"># set of unique element</span>
     <span class="n">total_unique_elements</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">corpus_list</span><span class="p">:</span>
         <span class="n">temp_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+            <span class="c"># adding element only if it is present in one of two input string</span>
             <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bag1</span> <span class="ow">or</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">bag2</span><span class="p">:</span>
                 <span class="n">temp_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                 <span class="n">total_unique_elements</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="c"># update element document frequency for this document</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">temp_set</span><span class="p">:</span>
-            <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">element_freq</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">element_freq</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">element_freq</span> <span class="k">else</span> <span class="mi">1</span>
     <span class="n">similarity_map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c"># calculating the term sim score against the input string 2, construct similarity map</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bag1</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">similarity_map</span><span class="p">:</span>
             <span class="n">max_score</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">bag2</span><span class="p">:</span>
-                <span class="n">score</span> <span class="o">=</span> <span class="n">sim_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">sim_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="c"># adding sim only if it is above threshold and highest for this element</span>
                 <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="ow">and</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">max_score</span><span class="p">:</span>
                     <span class="n">similarity_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Similarity</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
                     <span class="n">max_score</span> <span class="o">=</span> <span class="n">score</span>
     <span class="n">result</span><span class="p">,</span> <span class="n">v_x_2</span><span class="p">,</span> <span class="n">v_y_2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+    <span class="c"># soft-tfidf calculation</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">total_unique_elements</span><span class="p">:</span>
         <span class="c"># numerator</span>
         <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">similarity_map</span><span class="p">:</span>
@@ -834,7 +920,7 @@
         <span class="n">v_x_2</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">v_x</span>
         <span class="n">v_y</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">element</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_y</span> <span class="k">else</span> <span class="n">idf</span> <span class="o">*</span> <span class="n">tf_y</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
         <span class="n">v_y_2</span> <span class="o">+=</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">v_y</span>
-    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">v_x_2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">result</span><span class="o">/</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_x_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_y_2</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">v_x_2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">result</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_x_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_y_2</span><span class="p">))</span></div>
 </pre></div>
 
           </div>

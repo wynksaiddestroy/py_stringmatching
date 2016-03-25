@@ -145,10 +145,6 @@ If the inputs are not strings</td>
 <span class="go">6</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This implementation internally uses python-levenshtein package to compute the Levenshtein distance</p>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -375,7 +371,7 @@ If the inputs are not strings or if one of the inputs is None.</p>
 <span class="go">1.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">affine</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">,</span> <span class="n">gap_start</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="go">-0.5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">affine</span><span class="p">(</span><span class="s">&#39;AAAGAATTCA&#39;</span><span class="p">,</span> <span class="s">&#39;AAATCA&#39;</span><span class="p">,</span> <span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">affine</span><span class="p">(</span><span class="s">&#39;AAAGAATTCA&#39;</span><span class="p">,</span> <span class="s">&#39;AAATCA&#39;</span><span class="p">,</span> <span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)))</span>
 <span class="go">4.4</span>
 </pre></div>
 </div>

@@ -112,8 +112,8 @@
           <div role="main" class="document">
             
   <h1>Source code for py_stringmatching.tokenizers</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">_range</span>
 <span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.compat</span> <span class="kn">import</span> <span class="n">_range</span>
 
 
 <span class="c"># @todo: add examples in the comments</span>
@@ -154,7 +154,7 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">qval</span> <span class="ow">or</span> <span class="n">qval</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">qgram_list</span>
 
-    <span class="n">qgram_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">qval</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">qval</span><span class="o">-</span><span class="mi">1</span><span class="p">))]</span>
+    <span class="n">qgram_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">qval</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">_range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">qval</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))]</span>
     <span class="k">return</span> <span class="n">qgram_list</span>
 
 </div>
@@ -214,8 +214,8 @@
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_none</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
     <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">input_string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-</pre></div></div>
+    <span class="k">return</span> <span class="n">input_string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span></div>
+</pre></div>
 
           </div>
           <footer>
