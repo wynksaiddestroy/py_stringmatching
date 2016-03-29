@@ -1,6 +1,5 @@
-# [![Build Status](https://travis-ci.org/anhaidgroup/py_stringmatching.svg?branch=master)](https://travis-ci.org/anhaidgroup/py_stringmatching)
+# py_stringmatching [![Build Status](https://travis-ci.org/anhaidgroup/py_stringmatching.svg?branch=master)](https://travis-ci.org/anhaidgroup/py_stringmatching)
 
-# py-stringmatching
 py_stringmatching is an open-source BSD-licensed Python library for string matching.  Our goal is to provide a comprehensive set of string similarity measures in Python.
 
 Important links:
