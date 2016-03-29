@@ -1,5 +1,5 @@
 # py-stringmatching
-A comprehensive and scalable string matching library in python
+py_stringmatching is an open-source BSD-licensed Python library for string matching.  Our goal is to provide a comprehensive set of string similarity measures in Python.
 
 Important links:
  * Installation: http://anhaidgroup.github.io/py_stringmatching/Installation.html
