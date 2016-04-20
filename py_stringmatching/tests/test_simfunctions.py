@@ -49,6 +49,10 @@ class AffineTestCases(unittest.TestCase):
     def test_invalid_input5(self):
         affine(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        affine(12.90, 12.90)
+
 
 class JaroTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -70,6 +74,18 @@ class JaroTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         jaro(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        jaro('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        jaro(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        jaro(12.90, 12.90)
+
 
 class JaroWinklerTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -89,6 +105,18 @@ class JaroWinklerTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         jaro_winkler(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        jaro_winkler('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        jaro_winkler(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        jaro_winkler(12.90, 12.90)
 
 
 class LevenshteinTestCases(unittest.TestCase):
@@ -134,6 +162,18 @@ class LevenshteinTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         levenshtein(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        levenshtein('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        levenshtein(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        levenshtein(12.90, 12.90)
+
 
 class HammingDistanceTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -176,6 +216,18 @@ class HammingDistanceTestCases(unittest.TestCase):
     def test_invalid_input6(self):
         hamming_distance('ali', 'alex')
 
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        hamming_distance('MA', 12)
+
+    @raises(TypeError)
+    def test_invalid_input8(self):
+        hamming_distance(12, 'MA')
+
+    @raises(TypeError)
+    def test_invalid_input9(self):
+        hamming_distance(12, 12)
+
 
 class NeedlemanWunschTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -207,6 +259,10 @@ class NeedlemanWunschTestCases(unittest.TestCase):
     def test_invalid_input5(self):
         needleman_wunsch('a', ['b'])
 
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        needleman_wunsch(['a'], ['b'])
+
 
 
 class SmithWatermanTestCases(unittest.TestCase):
@@ -233,6 +289,18 @@ class SmithWatermanTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         smith_waterman(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        smith_waterman('MARHTA', 12)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        smith_waterman(12, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        smith_waterman(12, 12)
+
 
 # ---------------------- token based similarity measures  ----------------------
 
@@ -256,6 +324,18 @@ class OverlapCoefficientTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         overlap_coefficient(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        overlap_coefficient(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        overlap_coefficient('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        overlap_coefficient('MARTHA', 'MARTHA')
 
 
 class JaccardTestCases(unittest.TestCase):
@@ -284,6 +364,18 @@ class JaccardTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input4(self):
         jaccard(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        jaccard(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        jaccard('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        jaccard('MARTHA', 'MARTHA')
 
 
 class CosineTestCases(unittest.TestCase):
@@ -317,6 +409,18 @@ class CosineTestCases(unittest.TestCase):
     def test_invalid_input3(self):
         cosine(None, None)
 
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        cosine(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        cosine('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        cosine('MARTHA', 'MARTHA')
+
 
 class TfidfTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -345,6 +449,18 @@ class TfidfTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         tfidf(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        tfidf(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        tfidf('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        tfidf('MARTHA', 'MARTHA')
 
 
 # ---------------------- bag based similarity measures  ----------------------
@@ -383,7 +499,6 @@ class Soft_TfidfTestCases(unittest.TestCase):
         self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
         self.assertEqual(soft_tfidf([], ['a', 'b', 'a']), 0.0)
 
-
     @raises(TypeError)
     def test_invalid_input1(self):
         soft_tfidf(1, 1)
@@ -399,6 +514,18 @@ class Soft_TfidfTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input3(self):
         soft_tfidf(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        soft_tfidf(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        soft_tfidf('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        soft_tfidf('MARTHA', 'MARTHA')
 
 
 class MongeElkanTestCases(unittest.TestCase):
@@ -448,5 +575,6 @@ class MongeElkanTestCases(unittest.TestCase):
     def test_invalid_input6(self):
         monge_elkan(['a'], None)
 
-
-
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        monge_elkan('temp', ['temp'])
