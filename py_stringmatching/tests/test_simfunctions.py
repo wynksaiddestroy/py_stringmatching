@@ -8,7 +8,7 @@ from nose.tools import *
 
 # sequence based similarity measures
 from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
-    smith_waterman, affine
+    smith_waterman, affine, editex
 # token based similarity measures
 from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf
 # hybrid similarity measures
@@ -52,6 +52,48 @@ class AffineTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input6(self):
         affine(12.90, 12.90)
+
+
+class EditexTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(editex('MARTHA', 'MARTHA'), 0)
+        self.assertEqual(editex('MARTHA', 'MARHTA'), 3)
+        self.assertEqual(editex('ALIE', 'ALI'), 1)
+        self.assertEqual(editex('ALIE', 'ALI', match_cost=2), 7)
+        self.assertEqual(editex('ALIE', 'ALIF', mismatch_cost=2), 2)
+        self.assertEqual(editex('ALIE', 'ALIF', mismatch_cost=1), 1)
+        self.assertEqual(editex('ALIP', 'ALIF', mismatch_cost=3, group_cost=2), 2)
+        self.assertEqual(editex('ALIe', 'ALIF', mismatch_cost=3, group_cost=2), 3)
+        self.assertEqual(editex('WALIW', 'HALIH', mismatch_cost=3, group_cost=2, local=True), 6)
+        self.assertEqual(editex('niall', 'nihal', local=True), 2)
+        self.assertEqual(editex('nihal', 'niall', local=True), 2)
+        self.assertEqual(editex('neal', 'nihl', local=True), 3)
+        self.assertEqual(editex('nihl', 'neal', local=True), 3)
+
+
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        editex(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        editex('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        editex(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        editex('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        editex(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        editex(12.90, 12.90)
 
 
 class JaroTestCases(unittest.TestCase):
