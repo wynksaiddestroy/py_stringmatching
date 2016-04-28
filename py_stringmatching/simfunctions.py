@@ -471,6 +471,78 @@ def cosine(set1, set2):
     return float(len(set1 & set2)) / (math.sqrt(float(len(set1))) * math.sqrt(float(len(set2))))
 
 
+def generalized_jaccard(set1, set2, sim_func=jaro, threshold=0.5):
+    """
+    Computes the Generalized Jaccard measure between two sets.
+
+    This similarity measure is softened version of the Jaccard measure. The Jaccard measure is
+    promising candidate for tokens which exactly match across the sets. However, in practice tokens
+    are often misspelled, such as energy vs. eneryg. THe generalized Jaccard measure will enable
+    matching in such cases.
+
+    Args:
+        set1,set2 (set or list): Input sets (or lists) of strings. Input lists are converted to sets.
+        sim_func (func): similarity function. This should return a similarity score between two strings in set (optional),
+            default is jaro similarity measure
+        threshold (float): Threshold value (defaults to 0.5). If the similarity of a token pair exceeds the threshold,
+        then the token pair is considered a match.
+
+    Returns:
+        Generalized Jaccard similarity (float)
+
+    Raises:
+        TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
+        ValueError : If the similarity measure doesn't return values in the range [0.1]
+
+    Examples:
+        >>> generalized_jaccard(['data', 'science'], ['data'])
+        0.5
+        >>> generalized_jaccard(['data', 'management'], ['data', 'data', 'science'])
+        0.3333333333333333
+        >>> generalized_jaccard(['Niall'], ['Neal', 'Njall'])
+        0.43333333333333335
+        >>> generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+        sim_func=jaro_winkler, threshold=0.8)
+        0.45810185185185187
+    """
+    # input validations
+    utils.sim_check_for_none(set1, set2)
+    utils.sim_check_for_list_or_set_inputs(set1, set2)
+    # if exact match return 1.0
+    if utils.sim_check_for_exact_match(set1, set2):
+        return 1.0
+    # if one of the strings is empty return 0
+    if utils.sim_check_for_empty(set1, set2):
+        return 0
+    if not isinstance(set1, set):
+        set1 = set(set1)
+    if not isinstance(set2, set):
+        set2 = set(set2)
+    set1_x = set()
+    set2_y = set()
+    match_score = 0.0
+    match_count = 0
+    list_matches = []
+    for element in set1:
+        for item in set2:
+            score = sim_func(element, item)
+            if score > 1 or score < 0:
+                raise ValueError('Similarity measure should return value in the range [0,1]')
+            if score > threshold:
+                list_matches.append(utils.Similarity(element, item, score))
+    # sort the score of all the pairs
+    list_matches.sort(key=lambda x: x.similarity_score, reverse=True)
+    # select score in increasing order of their weightage, do not reselect the same element from either set.
+    for element in list_matches:
+        if element.first_string not in set1_x and element.second_string not in set2_y:
+            set1_x.add(element.first_string)
+            set2_y.add(element.second_string)
+            match_score += element.similarity_score
+            match_count += 1
+    return float(match_score) / float(len(set1) + len(set2) - match_count)
+
+
 def jaccard(set1, set2):
     """
     Computes the Jaccard measure between two sets.

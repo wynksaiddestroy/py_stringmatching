@@ -12,6 +12,7 @@ Similarity Functions
 .. autofunction:: smith_waterman(string1, string2, gap_cost=1, sim_score=sim_ident)
 .. autofunction:: affine(string1, string2, gap_start=1, gap_continuation=0.5, sim_score=sim_ident)
 .. autofunction:: jaccard(set1, set2)
+.. autofunction:: generalized_jaccard(set1, set2, sim_func=jaro, threshold=0.5)
 .. autofunction:: overlap_coefficient(set1, set2)
 .. autofunction:: cosine(set1, set2)
 .. autofunction:: monge_elkan(bag1, bag2, sim_func=levenshtein)

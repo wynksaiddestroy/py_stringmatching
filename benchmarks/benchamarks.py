@@ -244,6 +244,44 @@ class TimeJaccard:
         simfunctions.jaccard(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
 
 
+class TimeGeneralizedJaccard:
+    def time_small_small_wo_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wo_rep, _small_num_tokens_wo_rep)
+
+    def time_small_small_wi_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wi_rep, _small_num_tokens_wi_rep)
+
+    def time_medium_medium_wo_rep(self):
+        simfunctions.generalized_jaccard(_med_num_tokens_wo_rep, _med_num_tokens_wo_rep)
+
+    def time_medium_medium_wi_rep(self):
+        simfunctions.generalized_jaccard(_med_num_tokens_wi_rep, _med_num_tokens_wi_rep)
+
+    def time_large_large_wo_rep(self):
+        simfunctions.generalized_jaccard(_large_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_large_large_wi_rep(self):
+        simfunctions.generalized_jaccard(_large_num_tokens_wi_rep, _large_num_tokens_wi_rep)
+
+    def time_small_medium_wo_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wo_rep, _med_num_tokens_wo_rep)
+
+    def time_small_medium_wi_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wi_rep, _med_num_tokens_wi_rep)
+
+    def time_small_large_wo_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_small_large_wi_rep(self):
+        simfunctions.generalized_jaccard(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep)
+
+    def time_medium_large_wo_rep(self):
+        simfunctions.generalized_jaccard(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_medium_large_wi_rep(self):
+        simfunctions.generalized_jaccard(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+
 class TimeOverlap:
     def time_small_small_wo_rep(self):
         simfunctions.overlap_coefficient(_small_num_tokens_wo_rep, _small_num_tokens_wo_rep)
