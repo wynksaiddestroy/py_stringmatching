@@ -5,6 +5,7 @@ Similarity Functions
 
 
 .. autofunction:: levenshtein(string1, string2)
+.. autofunction:: editex(string1, string2, match_cost=0, group_cost=1, mismatch_cost=2, local=False)
 .. autofunction:: hamming_distance(string1, string2)
 .. autofunction:: jaro(string1, string2)
 .. autofunction:: jaro_winkler(string1, string2, prefix_weight=0.1)

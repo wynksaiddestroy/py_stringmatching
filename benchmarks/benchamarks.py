@@ -108,6 +108,26 @@ class TimeHammingDistance:
 #         Levenshtein.jaro(_medium_string_1, _long_string_1)
 #
 #
+class TimeEditex:
+    def time_short_short(self):
+        simfunctions.editex(_short_string_1, _short_string_2)
+
+    def time_medium_medium(self):
+        simfunctions.editex(_medium_string_1, _medium_string_2)
+
+    def time_long_long(self):
+        simfunctions.editex(_long_string_1, _long_string_2)
+
+    def time_short_medium(self):
+        simfunctions.editex(_short_string_1, _medium_string_1)
+
+    def time_short_long(self):
+        simfunctions.editex(_short_string_1, _long_string_1)
+
+    def time_medium_long(self):
+        simfunctions.editex(_medium_string_1, _long_string_1)
+
+
 class TimeLevenshtein:
     def time_short_short(self):
         simfunctions.levenshtein(_short_string_1, _short_string_2)

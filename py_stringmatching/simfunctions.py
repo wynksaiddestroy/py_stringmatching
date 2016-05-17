@@ -4,12 +4,13 @@ from __future__ import unicode_literals
 
 import collections
 import math
+import unicodedata
 
 import numpy as np
 
 from py_stringmatching import utils
 # noinspection PyProtectedMember,PyProtectedMember
-from .compat import _range
+from .compat import _range, _unicode
 
 
 def sim_ident(s1, s2):
@@ -84,6 +85,88 @@ def affine(string1, string2, gap_start=1, gap_continuation=0.5, sim_score=sim_id
             # the best score given that y_j is aligned to a gap
             y[i][j] = max(gap_start + m[i][j - 1], gap_continuation + y[i][j - 1])
     return max(m[len(string1)][len(string2)], x[len(string1)][len(string2)], y[len(string1)][len(string2)])
+
+
+def editex(string1, string2, match_cost=0, group_cost=1, mismatch_cost=2, local=False):
+    """
+    Computes the editex distance between two strings.
+
+    As described on pages 3 & 4 of
+    Zobel, Justin and Philip Dart. 1996. Phonetic string matching: Lessons from
+    information retrieval. In: Proceedings of the ACM-SIGIR Conference on
+    Research and Development in Information Retrieval, Zurich, Switzerland.
+    166–173. http://goanna.cs.rmit.edu.au/~jz/fulltext/sigir96.pdf
+
+    The local variant is based on
+    Ring, Nicholas and Alexandra L. Uitdenbogerd. 2009. Finding ‘Lucy in
+    Disguise’: The Misheard Lyric Matching Problem. In: Proceedings of the 5th
+    Asia Information Retrieval Symposium, Sapporo, Japan. 157-167.
+    http://www.seg.rmit.edu.au/research/download.php?manuscript=404
+
+    Args:
+        string1,string2 (str): Input strings
+        match_cost (int): Weight to give the correct char match, default=0
+        group_cost (int): Weight to give if the chars are in the same editex group, default=1
+        mismatch_cost (int): Weight to give the incorrect char match, default=2
+        local (boolean): Local variant on/off, default=False
+
+    Returns:
+        Editex distance (int)
+
+    Raises:
+        TypeError : If the inputs are not strings
+
+    Examples:
+        >>> editex('cat', 'hat')
+        2
+        >>> editex('Niall', 'Neil')
+        2
+        >>> editex('aluminum', 'Catalan')
+        12
+        >>> editex('ATCG', 'TAGC')
+        6
+
+    References:
+        * Abydos Library - https://github.com/chrislit/abydos/blob/master/abydos/distance.py
+    """
+    # input validations
+    utils.sim_check_for_none(string1, string2)
+    utils.sim_check_for_string_inputs(string1, string2)
+    if utils.sim_check_for_exact_match(string1, string2):
+        return 0
+    # convert both the strings to NFKD normalized unicode
+    string1 = unicodedata.normalize('NFKD', _unicode(string1.upper()))
+    string2 = unicodedata.normalize('NFKD', _unicode(string2.upper()))
+    # convert ß to SS (for Python2)
+    string1 = string1.replace('ß', 'SS')
+    string2 = string2.replace('ß', 'SS')
+
+    if string1 == string2:
+        return 0
+    if len(string1) == 0:
+        return len(string2) * mismatch_cost
+    if len(string2) == 0:
+        return len(string1) * mismatch_cost
+
+    d_mat = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.int)
+    len1 = len(string1)
+    len2 = len(string2)
+    string1 = ' ' + string1
+    string2 = ' ' + string2
+    editex_helper = utils.Editex(match_cost, mismatch_cost, group_cost)
+    if not local:
+        for i in _range(1, len1 + 1):
+            d_mat[i, 0] = d_mat[i - 1, 0] + editex_helper.d_cost(string1[i - 1], string1[i])
+    for j in _range(1, len2 + 1):
+        d_mat[0, j] = d_mat[0, j - 1] + editex_helper.d_cost(string2[j - 1], string2[j])
+
+    for i in _range(1, len1 + 1):
+        for j in _range(1, len2 + 1):
+            d_mat[i, j] = min(d_mat[i - 1, j] + editex_helper.d_cost(string1[i - 1], string1[i]),
+                              d_mat[i, j - 1] + editex_helper.d_cost(string2[j - 1], string2[j]),
+                              d_mat[i - 1, j - 1] + editex_helper.r_cost(string1[i], string2[j]))
+
+    return d_mat[len1, len2]
 
 
 # jaro
