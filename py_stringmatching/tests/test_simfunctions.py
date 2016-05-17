@@ -10,7 +10,7 @@ from nose.tools import *
 from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
     smith_waterman, affine
 # token based similarity measures
-from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf
+from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf, generalized_jaccard
 # hybrid similarity measures
 from py_stringmatching.simfunctions import monge_elkan
 
@@ -376,6 +376,67 @@ class JaccardTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input7(self):
         jaccard('MARTHA', 'MARTHA')
+
+
+class GeneralizedJaccardTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(generalized_jaccard([''], ['']), 1.0)  # need to check this
+
+        self.assertEqual(generalized_jaccard([''], ['a']), 0.0)
+        self.assertEqual(generalized_jaccard(['a'], ['a']), 1.0)
+
+        self.assertEqual(generalized_jaccard(['Niall'], ['Neal']), 0.7833333333333333)
+        self.assertEqual(generalized_jaccard(['Niall'], ['Njall', 'Neal']), 0.43333333333333335)
+        self.assertEqual(generalized_jaccard(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
+        self.assertEqual(generalized_jaccard(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.6800468975468975)
+        self.assertEqual(
+            generalized_jaccard(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                        sim_func=jaro_winkler), 0.7220003607503608)
+        self.assertEqual(
+            generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                        sim_func=jaro_winkler), 0.7075277777777778)
+        self.assertEqual(
+            generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                        sim_func=jaro_winkler, threshold=0.8), 0.45810185185185187)
+        self.assertEqual(generalized_jaccard([], ['Nigel']), 0.0)
+
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        generalized_jaccard(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        generalized_jaccard(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        generalized_jaccard(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        generalized_jaccard("temp", "temp")
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        generalized_jaccard(['temp'], 'temp')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        generalized_jaccard(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        generalized_jaccard('temp', ['temp'])
+
+    @raises(ValueError)
+    def test_invalid_sim_measure(self):
+        generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                    ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
+                    sim_func=needleman_wunsch, threshold=0.8)
 
 
 class CosineTestCases(unittest.TestCase):
