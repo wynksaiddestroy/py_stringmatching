@@ -1,0 +1,8 @@
+{
+    "arch": "x86_64", 
+    "cpu": "Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz", 
+    "machine": "trinity.cs.wisc.edu", 
+    "os": "Linux 2.6.32-573.7.1.el6.x86_64", 
+    "ram": "16218308", 
+    "version": 1
+}

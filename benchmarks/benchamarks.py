@@ -148,6 +148,26 @@ class TimeLevenshtein:
         simfunctions.levenshtein(_medium_string_1, _long_string_1)
 
 
+class TimeBagDistance:
+    def time_short_short(self):
+        simfunctions.bag_distance(_short_string_1, _short_string_2)
+
+    def time_medium_medium(self):
+        simfunctions.bag_distance(_medium_string_1, _medium_string_2)
+
+    def time_long_long(self):
+        simfunctions.bag_distance(_long_string_1, _long_string_2)
+
+    def time_short_medium(self):
+        simfunctions.bag_distance(_short_string_1, _medium_string_1)
+
+    def time_short_long(self):
+        simfunctions.bag_distance(_short_string_1, _long_string_1)
+
+    def time_medium_long(self):
+        simfunctions.bag_distance(_medium_string_1, _long_string_1)
+
+
 class TimeNeedlemanWunsch:
     def time_short_short(self):
         simfunctions.needleman_wunsch(_short_string_1, _short_string_2)
@@ -187,6 +207,25 @@ class TimeSmithWaterman:
     def time_medium_long(self):
         simfunctions.smith_waterman(_medium_string_1, _long_string_1)
 
+class TimeSoundex:
+    def time_short_short(self):
+        simfunctions.soundex(_short_string_1, _short_string_2)
+
+    def time_medium_medium(self):
+        simfunctions.soundex(_medium_string_1, _medium_string_2)
+
+    def time_long_long(self):
+        simfunctions.soundex(_long_string_1, _long_string_2)
+
+    def time_short_medium(self):
+        simfunctions.soundex(_short_string_1, _medium_string_1)
+
+    def time_short_long(self):
+        simfunctions.soundex(_short_string_1, _long_string_1)
+
+    def time_medium_long(self):
+        simfunctions.soundex(_medium_string_1, _long_string_1)
+
 
 class TimeCosine:
     def time_small_small_wo_rep(self):
@@ -224,6 +263,43 @@ class TimeCosine:
 
     def time_medium_large_wi_rep(self):
         simfunctions.cosine(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+class TimeDice:
+    def time_small_small_wo_rep(self):
+        simfunctions.dice(_small_num_tokens_wo_rep, _small_num_tokens_wo_rep)
+
+    def time_small_small_wi_rep(self):
+        simfunctions.dice(_small_num_tokens_wi_rep, _small_num_tokens_wi_rep)
+
+    def time_medium_medium_wo_rep(self):
+        simfunctions.dice(_med_num_tokens_wo_rep, _med_num_tokens_wo_rep)
+
+    def time_medium_medium_wi_rep(self):
+        simfunctions.dice(_med_num_tokens_wi_rep, _med_num_tokens_wi_rep)
+
+    def time_large_large_wo_rep(self):
+        simfunctions.dice(_large_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_large_large_wi_rep(self):
+        simfunctions.dice(_large_num_tokens_wi_rep, _large_num_tokens_wi_rep)
+
+    def time_small_medium_wo_rep(self):
+        simfunctions.dice(_small_num_tokens_wo_rep, _med_num_tokens_wo_rep)
+
+    def time_small_medium_wi_rep(self):
+        simfunctions.dice(_small_num_tokens_wi_rep, _med_num_tokens_wi_rep)
+
+    def time_small_large_wo_rep(self):
+        simfunctions.dice(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_small_large_wi_rep(self):
+        simfunctions.dice(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep)
+
+    def time_medium_large_wo_rep(self):
+        simfunctions.dice(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
+
+    def time_medium_large_wi_rep(self):
+        simfunctions.dice(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
 
 
 class TimeJaccard:
@@ -559,45 +635,6 @@ class TimeSoftTfIdf:
         simfunctions.soft_tfidf(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep)
 
     def time_small_large_wi_rep_no_corpus(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep)
-
-    def time_medium_large_wo_rep_no_corpus(self):
-        simfunctions.soft_tfidf(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-    def time_medium_large_wi_rep_no_corpus(self):
-        simfunctions.soft_tfidf(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-    # with corpus list
-    def time_small_small_wo_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wo_rep, _small_num_tokens_wo_rep, corpus_list=self.corpus_list)
-
-    def time_small_small_wi_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wi_rep, _small_num_tokens_wi_rep, corpus_list=self.corpus_list)
-
-    def time_medium_medium_wo_rep(self):
-        simfunctions.soft_tfidf(_med_num_tokens_wo_rep, _med_num_tokens_wo_rep, corpus_list=self.corpus_list)
-
-    def time_medium_medium_wi_rep(self):
-        simfunctions.soft_tfidf(_med_num_tokens_wi_rep, _med_num_tokens_wi_rep, corpus_list=self.corpus_list)
-
-    def time_large_large_wo_rep(self):
-        simfunctions.soft_tfidf(_large_num_tokens_wo_rep, _large_num_tokens_wo_rep, corpus_list=self.corpus_list)
-
-    def time_large_large_wi_rep(self):
-        simfunctions.soft_tfidf(_large_num_tokens_wi_rep, _large_num_tokens_wi_rep, corpus_list=self.corpus_list)
-
-    def time_small_medium_wo_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wo_rep, _med_num_tokens_wo_rep, corpus_list=self.corpus_list)
-
-    def time_small_medium_wi_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wi_rep, _med_num_tokens_wi_rep, corpus_list=self.corpus_list)
-
-    def time_small_large_wo_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep, corpus_list=self.corpus_list)
-
-    def time_small_large_wi_rep(self):
-        simfunctions.soft_tfidf(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep, corpus_list=self.corpus_list)
-
     def time_medium_large_wo_rep(self):
         simfunctions.soft_tfidf(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep, corpus_list=self.corpus_list)
 

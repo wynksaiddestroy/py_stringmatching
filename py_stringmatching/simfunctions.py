@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import collections
 import math
 import unicodedata
+import re
 
 import numpy as np
 
@@ -86,6 +87,53 @@ def affine(string1, string2, gap_start=1, gap_continuation=0.5, sim_score=sim_id
             y[i][j] = max(gap_start + m[i][j - 1], gap_continuation + y[i][j - 1])
     return max(m[len(string1)][len(string2)], x[len(string1)][len(string2)], y[len(string1)][len(string2)])
 
+def bag_distance(string1, string2):
+    """
+    Computes the bag distance between two strings.
+    For two strings X and Y, the Bag distance is:
+    :math:`max( |multiset(string1)-multiset(string2)|, |multiset(string2)-multiset(string1)| )`
+    Args:
+        string1,string2 (str): Input strings
+    Returns:
+        Bag distance (int)
+    Raises:
+        TypeError : If the inputs are not strings
+    Examples:
+        >>> bag_distance('cat', 'hat')
+        1
+        >>> bag_distance('Niall', 'Neil')
+        2
+        >>> bag_distance('aluminum', 'Catalan')
+        5
+        >>> bag_distance('ATCG', 'TAGC')
+        0
+        >>> bag_distance('abcde', 'xyz')
+        5
+    References:
+        * http://www.icmlc.org/icmlc2011/018_icmlc2011.pdf
+    """
+    # input validations
+    utils.sim_check_for_none(string1, string2)
+    utils.sim_check_for_string_inputs(string1, string2)
+    if utils.sim_check_for_exact_match(string1, string2):
+        return 0
+
+    len_str1 = len(string1)
+    len_str2 = len(string2)
+
+    if len_str1 == 0:
+        return len_str2
+
+    if len_str2 == 0:
+        return len_str1
+
+    bag1 = collections.Counter(string1)
+    bag2 = collections.Counter(string2)
+
+    size1 = sum((bag1-bag2).values())
+    size2 = sum((bag2-bag1).values())
+    # returning the max of difference of sets
+    return max(size1, size2)
 
 def editex(string1, string2, match_cost=0, group_cost=1, mismatch_cost=2, local=False):
     """
@@ -455,6 +503,7 @@ def needleman_wunsch(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     return dist_mat[dist_mat.shape[0] - 1, dist_mat.shape[1] - 1]
 
 
+
 def smith_waterman(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     """
     Computes the Smith-Waterman measure between two strings.
@@ -503,6 +552,69 @@ def smith_waterman(string1, string2, gap_cost=1.0, sim_score=sim_ident):
             dist_mat[i, j] = max(0, match, delete, insert)
             max_value = max(max_value, dist_mat[i, j])
     return max_value
+
+
+def soundex(string1, string2):
+    """
+    Computes the Soundex phonetic similarity between two strings.
+    Phonetic measure such as soundex match string based on their sound. These
+    measures have been especially effective in matching names, since names are
+    often spelled in different ways that sound the same. For example, Meyer, Meier,
+    and Mire sound the same, as do Smith, Smithe, and Smythe.
+    Soundex is used primarily to match surnames. It does not work as well for names
+    of East Asian origins, because much of the discriminating power of these names
+    resides in the vowel sounds, which the code ignores.
+    Args:
+        string1,string2 (str): Input strings
+    Returns:
+        Soundex similarity score (int)
+    Raises:
+        TypeError : If the inputs are not strings
+    Examples:
+        >>> soundex('Robert', 'Rupert')
+        1
+        >>> soundex('Sue', 's')
+        1
+        >>> soundex('Gough', 'Goff')
+        0
+        >>> soundex('a,,li', 'ali')
+        1
+    """
+    # input validations
+    utils.sim_check_for_none(string1, string2)
+    utils.sim_check_for_string_inputs(string1, string2)
+    if utils.sim_check_for_exact_match(string1, string2):
+        return 1
+    utils.sim_check_for_zero_len(string1, string2)
+    string1, string2 = string1.upper(), string2.upper()
+    firstLetter1, firstLetter2 = string1[0], string2[0]
+    string1, string2 = string1[1:], string2[1:]
+    # remove occurrences of vowels, 'y', 'w' and 'h'
+    string1 = re.sub('[AEIOUYWH]', '', string1)
+    string2 = re.sub('[AEIOUYWH]', '', string2)
+
+    # replace (B,F,P,V)->1 (C,G,J,K,Q,S,X,Z)->2 (D,T)->3 (L)->4 (M,N)->5 (R)->6
+    string1 = re.sub('[BFPV]', '1', string1)
+    string1 = re.sub('[CGJKQSXZ]', '2', string1)
+    string1 = re.sub('[DT]', '3', string1)
+    string1 = re.sub('[L]', '4', string1)
+    string1 = re.sub('[MN]', '5', string1)
+    string1 = re.sub('[R]', '6', string1)
+
+    string2 = re.sub('[BFPV]', '1', string2)
+    string2 = re.sub('[CGJKQSXZ]', '2', string2)
+    string2 = re.sub('[DT]', '3', string2)
+    string2 = re.sub('[L]', '4', string2)
+    string2 = re.sub('[MN]', '5', string2)
+    string2 = re.sub('[R]', '6', string2)
+
+    # remove all chars but digits
+    string1 = re.sub("\D", "", string1)
+    string2 = re.sub("\D", "", string2)
+
+    string1 = firstLetter1 + string1[:3]
+    string2 = firstLetter2 + string2[:3]
+    return 1 if string1 == string2 else 0
 
 
 # ---------------------- token based similarity measures  ----------------------
@@ -626,6 +738,45 @@ def generalized_jaccard(set1, set2, sim_func=jaro, threshold=0.5):
     return float(match_score) / float(len(set1) + len(set2) - match_count)
 
 
+def dice(set1, set2):
+    """
+    Computes the Dice similarity coefficient between two sets.
+    The similarity is defined as twice the shared information (intersection) divided by sum of cardinalities.
+    For two sets X and Y, the Dice similarity coefficient is:
+    :math:`dice(X, Y) = \\frac{2 * |X \\cap Y|}{|X| + |Y|}`
+    Args:
+        set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+    Returns:
+        Dice similarity coefficient (float)
+    Raises:
+        TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
+    Examples:
+        >>> dice(['data', 'science'], ['data'])
+        0.6666666666666666
+        >>> dice({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8})
+        0.5454545454545454
+        >>> dice(['data', 'management'], ['data', 'data', 'science'])
+        0.5
+    References:
+        * Wikipedia article : https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient
+        * Simmetrics library
+    """
+    # input validations
+    utils.sim_check_for_none(set1, set2)
+    utils.sim_check_for_list_or_set_inputs(set1, set2)
+    # if exact match return 1.0
+    if utils.sim_check_for_exact_match(set1, set2):
+        return 1.0
+    # if one of the strings is empty return 0
+    if utils.sim_check_for_empty(set1, set2):
+        return 0
+    if not isinstance(set1, set):
+        set1 = set(set1)
+    if not isinstance(set2, set):
+        set2 = set(set2)
+    return 2.0 * float(len(set1 & set2)) / float(len(set1) + len(set2))
+
+
 def jaccard(set1, set2):
     """
     Computes the Jaccard measure between two sets.
@@ -722,6 +873,49 @@ def overlap_coefficient(set1, set2):
         set2 = set(set2)
 
     return float(len(set1 & set2)) / min(len(set1), len(set2))
+def tversky_index(set1, set2, alpha=0.5, beta=0.5):
+    """
+    Computes the Tversky index similarity between two sets.
+    The Tversky index is an asymmetric similarity measure on sets that compares a variant to a prototype. The
+    Tversky index can be seen as a generalization of Dice's coefficient and Tanimoto coefficient.
+    For sets X and Y the Tversky index is a number between 0 and 1 given by:
+    :math:`tversky_index(X, Y) = \\frac{|X \\cap Y|}{|X \\cap Y| + \alpha |X-Y| + \beta |Y-X|}`
+    where, :math: \alpha, \beta >=0
+    Args:
+        set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+    Returns:
+        Tversly index similarity (float)
+    Raises:
+        TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
+    Examples:
+        >>> tversky_index(['data', 'science'], ['data'])
+        0.6666666666666666
+        >>> tversky_index({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8})
+        0.5454545454545454
+        >>> tversky_index({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}, 0.5, 0.5)
+        0.5454545454545454
+        >>> tversky_index(['data', 'management'], ['data', 'data', 'science'])
+        0.5
+        >>> tversky_index(['data', 'management'], ['data', 'data', 'science'], beta=0.5)
+        0.5
+    """
+    # input validations
+    utils.sim_check_for_none(set1, set2)
+    utils.sim_check_for_list_or_set_inputs(set1, set2)
+    utils.sim_check_tversky_parameters(alpha, beta)
+    # if exact match return 1.0
+    if utils.sim_check_for_exact_match(set1, set2):
+        return 1.0
+    # if one of the strings is empty return 0
+    if utils.sim_check_for_empty(set1, set2):
+        return 0
+    if not isinstance(set1, set):
+        set1 = set(set1)
+    if not isinstance(set2, set):
+        set2 = set(set2)
+    intersection = float(len(set1 & set2))
+    return 1.0 * intersection / (intersection + (alpha * len(set1 - set2))
+                                            + (beta * len(set2 - set1)))
 
 
 # ---------------------- bag based similarity measures  ----------------------

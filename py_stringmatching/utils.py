@@ -135,10 +135,17 @@ def sim_check_for_list_or_set_inputs(*args):
             raise TypeError('Second argument is expected to be a python list or set')
 
 
+def sim_check_tversky_parameters(alpha, beta):
+        if alpha < 0 or beta < 0:
+            raise ValueError('Tversky parameters should be greater than or equal to zero')
+
 def sim_check_for_exact_match(*args):
     if args[0] == args[1]:
         return True
 
+def sim_check_for_zero_len(*args):
+    if len(args[0].strip()) == 0 or len(args[1].strip()) == 0:
+        raise ValueError("Undefined for string of zero length")
 
 def tok_check_for_string_input(*args):
     for i in range(len(args)):

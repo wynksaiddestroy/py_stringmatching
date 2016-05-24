@@ -8,9 +8,10 @@ from nose.tools import *
 
 # sequence based similarity measures
 from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
-    smith_waterman, affine, editex
+    smith_waterman, affine, editex, bag_distance, soundex
 # token based similarity measures
-from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf, generalized_jaccard
+from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf, generalized_jaccard, \
+    dice, tversky_index
 # hybrid similarity measures
 from py_stringmatching.simfunctions import monge_elkan
 
@@ -53,6 +54,59 @@ class AffineTestCases(unittest.TestCase):
     def test_invalid_input6(self):
         affine(12.90, 12.90)
 
+class BagDistanceTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(bag_distance('a', ''), 1)
+        self.assertEqual(bag_distance('', 'a'), 1)
+        self.assertEqual(bag_distance('abc', ''), 3)
+        self.assertEqual(bag_distance('', 'abc'), 3)
+        self.assertEqual(bag_distance('', ''), 0)
+        self.assertEqual(bag_distance('a', 'a'), 0)
+        self.assertEqual(bag_distance('abc', 'abc'), 0)
+        self.assertEqual(bag_distance('', 'a'), 1)
+        self.assertEqual(bag_distance('a', 'ab'), 1)
+        self.assertEqual(bag_distance('b', 'ab'), 1)
+        self.assertEqual(bag_distance('ac', 'abc'), 1)
+        self.assertEqual(bag_distance('abcdefg', 'xabxcdxxefxgx'), 6)
+        self.assertEqual(bag_distance('a', ''), 1)
+        self.assertEqual(bag_distance('ab', 'a'), 1)
+        self.assertEqual(bag_distance('ab', 'b'), 1)
+        self.assertEqual(bag_distance('abc', 'ac'), 1)
+        self.assertEqual(bag_distance('xabxcdxxefxgx', 'abcdefg'), 6)
+        self.assertEqual(bag_distance('a', 'b'), 1)
+        self.assertEqual(bag_distance('ab', 'ac'), 1)
+        self.assertEqual(bag_distance('ac', 'bc'), 1)
+        self.assertEqual(bag_distance('abc', 'axc'), 1)
+        self.assertEqual(bag_distance('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(bag_distance('example', 'samples'), 2)
+        self.assertEqual(bag_distance('sturgeon', 'urgently'), 2)
+        self.assertEqual(bag_distance('bag_distance', 'frankenstein'), 6)
+        self.assertEqual(bag_distance('distance', 'difference'), 5)
+        self.assertEqual(bag_distance('java was neat', 'scala is great'), 6)
+
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        bag_distance('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        bag_distance(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        bag_distance(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        bag_distance('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        bag_distance(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        bag_distance(12.90, 12.90)
 
 class EditexTestCases(unittest.TestCase):
     def test_valid_input(self):
@@ -342,6 +396,39 @@ class SmithWatermanTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input6(self):
         smith_waterman(12, 12)
+class SoundexTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(soundex('Robert', 'Rupert'), 1)
+        self.assertEqual(soundex('Sue', 'S'), 1)
+        self.assertEqual(soundex('robert', 'rupert'), 1)
+        self.assertEqual(soundex('Gough', 'goff'), 0)
+        self.assertEqual(soundex('gough', 'Goff'), 0)
+        self.assertEqual(soundex('ali', 'a,,,li'), 1)
+        self.assertEqual(soundex('Jawornicki', 'Yavornitzky'), 0)
+
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        soundex('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        soundex(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        soundex(None, None)
+
+    @raises(ValueError)
+    def test_invalid_input4(self):
+        soundex('a', '')
+
+    @raises(ValueError)
+    def test_invalid_input5(self):
+        soundex('', 'This is a long string')
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        soundex('xyz', [''])
 
 
 # ---------------------- token based similarity measures  ----------------------
@@ -378,6 +465,47 @@ class OverlapCoefficientTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input6(self):
         overlap_coefficient('MARTHA', 'MARTHA')
+
+
+class DiceTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(dice(['data', 'science'], ['data']), 2 * 1.0 / 3.0)
+        self.assertEqual(dice(['data', 'science'], ['science', 'good']), 2 * 1.0 / 4.0)
+        self.assertEqual(dice([], ['data']), 0)
+        self.assertEqual(dice(['data', 'data', 'science'], ['data', 'management']), 2 * 1.0 / 4.0)
+        self.assertEqual(dice(['data', 'management'], ['data', 'data', 'science']), 2 * 1.0 / 4.0)
+        self.assertEqual(dice([], []), 1.0)
+        self.assertEqual(dice(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(dice(set([]), set([])), 1.0)
+        self.assertEqual(dice({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 2 * 3.0 / 11.0)
+
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        dice(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        dice(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        dice(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        dice(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        dice(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        dice('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        dice('MARHTA', 'MARTHA')
 
 
 class JaccardTestCases(unittest.TestCase):
@@ -564,7 +692,61 @@ class TfidfTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input7(self):
         tfidf('MARTHA', 'MARTHA')
+class TverskyIndexTestCases(unittest.TestCase):
+    def test_valid_input(self):
+        self.assertEqual(tversky_index(['data', 'science'], ['data'], 0.5, 0.5), 1.0 / (1.0 + 0.5*1 + 0.5*0))
+        self.assertEqual(tversky_index(['data', 'science'], ['science', 'good']), 1.0 / (1.0 + 0.5*1 + 0.5*1))
+        self.assertEqual(tversky_index([], ['data']), 0)
+        self.assertEqual(tversky_index(['data', 'data', 'science'], ['data', 'management'], 0.7, 0.8),
+                         1.0 / (1.0 + 0.7*1 + 0.8*1))
+        self.assertEqual(tversky_index(['data', 'management', 'science'], ['data', 'data', 'science'], 0.2, 0.4),
+                         2.0 / (2.0 + 0.2*1 + 0))
+        self.assertEqual(tversky_index([], []), 1.0)
+        self.assertEqual(tversky_index(['a', 'b'], ['b', 'a'], 0.9, 0.8), 1.0)
+        self.assertEqual(tversky_index(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(tversky_index(set([]), set([])), 1.0)
+        self.assertEqual(tversky_index({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}, 0.45, 0.85),
+                         3.0 / (3.0 + 0.45*1 + 0.85*4))
 
+    @raises(TypeError)
+    def test_invalid_input1(self):
+        tversky_index(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2(self):
+        tversky_index(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input3(self):
+        tversky_index(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input4(self):
+        tversky_index(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5(self):
+        tversky_index(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input6(self):
+        tversky_index('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input7(self):
+        tversky_index('MARHTA', 'MARTHA')
+
+    @raises(ValueError)
+    def test_invalid_input8(self):
+        tversky_index(['MARHTA'], ['MARTHA'], 0.5, -0.9)
+
+    @raises(ValueError)
+    def test_invalid_input9(self):
+        tversky_index(['MARHTA'], ['MARTHA'], -0.5, 0.9)
+
+    @raises(ValueError)
+    def test_invalid_input10(self):
+        tversky_index(['MARHTA'], ['MARTHA'], -0.5, -0.9)
 
 # ---------------------- bag based similarity measures  ----------------------
 # class CosineTestCases(unittest.TestCase):
