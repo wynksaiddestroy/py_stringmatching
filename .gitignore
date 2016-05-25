@@ -64,3 +64,5 @@ scratch/
 # idea files
 .idea/
 # Created by .ignore support plugin (hsz.mobi)
+
+results/

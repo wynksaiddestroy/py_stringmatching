@@ -635,6 +635,8 @@ class TimeSoftTfIdf:
         simfunctions.soft_tfidf(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep)
 
     def time_small_large_wi_rep_no_corpus(self):
+        simfunctions.soft_tfidf(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep)
+
     def time_medium_large_wo_rep(self):
         simfunctions.soft_tfidf(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep, corpus_list=self.corpus_list)
 

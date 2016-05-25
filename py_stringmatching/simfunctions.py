@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 import collections
 import math
-import unicodedata
 import re
+import unicodedata
 
 import numpy as np
 
@@ -87,6 +87,7 @@ def affine(string1, string2, gap_start=1, gap_continuation=0.5, sim_score=sim_id
             y[i][j] = max(gap_start + m[i][j - 1], gap_continuation + y[i][j - 1])
     return max(m[len(string1)][len(string2)], x[len(string1)][len(string2)], y[len(string1)][len(string2)])
 
+
 def bag_distance(string1, string2):
     """
     Computes the bag distance between two strings.
@@ -130,10 +131,11 @@ def bag_distance(string1, string2):
     bag1 = collections.Counter(string1)
     bag2 = collections.Counter(string2)
 
-    size1 = sum((bag1-bag2).values())
-    size2 = sum((bag2-bag1).values())
+    size1 = sum((bag1 - bag2).values())
+    size2 = sum((bag2 - bag1).values())
     # returning the max of difference of sets
     return max(size1, size2)
+
 
 def editex(string1, string2, match_cost=0, group_cost=1, mismatch_cost=2, local=False):
     """
@@ -445,6 +447,7 @@ def levenshtein(string1, string2):
 
     return d_mat[len_str1, len_str2]
 
+
 def needleman_wunsch(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     """
     Computes the Needleman-Wunsch measure between two strings.
@@ -503,7 +506,6 @@ def needleman_wunsch(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     return dist_mat[dist_mat.shape[0] - 1, dist_mat.shape[1] - 1]
 
 
-
 def smith_waterman(string1, string2, gap_cost=1.0, sim_score=sim_ident):
     """
     Computes the Smith-Waterman measure between two strings.
@@ -557,19 +559,25 @@ def smith_waterman(string1, string2, gap_cost=1.0, sim_score=sim_ident):
 def soundex(string1, string2):
     """
     Computes the Soundex phonetic similarity between two strings.
+
     Phonetic measure such as soundex match string based on their sound. These
     measures have been especially effective in matching names, since names are
     often spelled in different ways that sound the same. For example, Meyer, Meier,
     and Mire sound the same, as do Smith, Smithe, and Smythe.
+
     Soundex is used primarily to match surnames. It does not work as well for names
     of East Asian origins, because much of the discriminating power of these names
     resides in the vowel sounds, which the code ignores.
+
     Args:
         string1,string2 (str): Input strings
+
     Returns:
-        Soundex similarity score (int)
+        Soundex similarity score (int) is returned
+
     Raises:
         TypeError : If the inputs are not strings
+
     Examples:
         >>> soundex('Robert', 'Rupert')
         1
@@ -579,6 +587,7 @@ def soundex(string1, string2):
         0
         >>> soundex('a,,li', 'ali')
         1
+
     """
     # input validations
     utils.sim_check_for_none(string1, string2)
@@ -873,6 +882,8 @@ def overlap_coefficient(set1, set2):
         set2 = set(set2)
 
     return float(len(set1 & set2)) / min(len(set1), len(set2))
+
+
 def tversky_index(set1, set2, alpha=0.5, beta=0.5):
     """
     Computes the Tversky index similarity between two sets.
@@ -881,12 +892,16 @@ def tversky_index(set1, set2, alpha=0.5, beta=0.5):
     For sets X and Y the Tversky index is a number between 0 and 1 given by:
     :math:`tversky_index(X, Y) = \\frac{|X \\cap Y|}{|X \\cap Y| + \alpha |X-Y| + \beta |Y-X|}`
     where, :math: \alpha, \beta >=0
+
     Args:
         set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+
     Returns:
         Tversly index similarity (float)
+
     Raises:
         TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
+
     Examples:
         >>> tversky_index(['data', 'science'], ['data'])
         0.6666666666666666
@@ -915,7 +930,7 @@ def tversky_index(set1, set2, alpha=0.5, beta=0.5):
         set2 = set(set2)
     intersection = float(len(set1 & set2))
     return 1.0 * intersection / (intersection + (alpha * len(set1 - set2))
-                                            + (beta * len(set2 - set1)))
+                                 + (beta * len(set2 - set1)))
 
 
 # ---------------------- bag based similarity measures  ----------------------
