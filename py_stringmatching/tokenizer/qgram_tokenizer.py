@@ -56,7 +56,7 @@ class QgramTokenizer(DefinitionTokenizer):
 
         qgram_list = [input_string[i:i + self.qval] for i in 
                           _range(len(input_string) - (self.qval - 1))]
-        qgram_list = filter(None, qgram_list)
+        qgram_list = list(filter(None, qgram_list))
 
         if self.return_set:
             return utils.convert_bag_to_set(qgram_list)            

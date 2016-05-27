@@ -53,7 +53,7 @@ class DelimiterTokenizer(Tokenizer):
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
     
-        token_list = filter(None, self.__delim_regex.split(input_string))
+        token_list = list(filter(None, self.__delim_regex.split(input_string)))
 
         if self.return_set:
             return utils.convert_bag_to_set(token_list)
