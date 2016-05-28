@@ -10,8 +10,11 @@ from nose.tools import *
 from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
     smith_waterman, affine, editex, bag_distance, soundex
 # token based similarity measures
-from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf, generalized_jaccard, \
-    dice, tversky_index
+from py_stringmatching.similarity_measure.cosine import Cosine
+from py_stringmatching.similarity_measure.dice import Dice
+from py_stringmatching.similarity_measure.jaccard import Jaccard
+from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
+from py_stringmatching.simfunctions import tfidf, soft_tfidf, generalized_jaccard, tversky_index
 # hybrid similarity measures
 from py_stringmatching.simfunctions import monge_elkan
 
@@ -435,117 +438,145 @@ class SoundexTestCases(unittest.TestCase):
 
 # ---------------------- set based similarity measures  ----------------------
 class OverlapCoefficientTestCases(unittest.TestCase):
+    def setUp(self):
+        self.oc = OverlapCoefficient()
+
     def test_valid_input(self):
-        self.assertEqual(overlap_coefficient([], []), 1.0)
-        self.assertEqual(overlap_coefficient(['data', 'science'], ['data']), 1.0 / min(2.0, 1.0))
-        self.assertEqual(overlap_coefficient(['data', 'science'], ['science', 'good']), 1.0 / min(2.0, 3.0))
-        self.assertEqual(overlap_coefficient([], ['data']), 0)
-        self.assertEqual(overlap_coefficient(['data', 'data', 'science'], ['data', 'management']), 1.0 / min(3.0, 2.0))
+        self.assertEqual(self.oc.get_raw_score([], []), 1.0)
+        self.assertEqual(self.oc.get_raw_score(['data', 'science'], ['data']),
+                         1.0 / min(2.0, 1.0))
+        self.assertEqual(self.oc.get_raw_score(['data', 'science'],
+                                               ['science', 'good']), 1.0 / min(2.0, 3.0))
+        self.assertEqual(self.oc.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.oc.get_raw_score(['data', 'data', 'science'],
+                                               ['data', 'management']), 1.0 / min(3.0, 2.0))
+        self.assertEqual(self.oc.get_sim_score(['data', 'science'], ['data']),
+                         1.0 / min(2.0, 1.0))
 
     @raises(TypeError)
     def test_invalid_input1(self):
-        overlap_coefficient(['a'], None)
+        self.oc.get_raw_score(['a'], None)
 
     @raises(TypeError)
     def test_invalid_input2(self):
-        overlap_coefficient(None, ['b'])
+        self.oc.get_raw_score(None, ['b'])
 
     @raises(TypeError)
     def test_invalid_input3(self):
-        overlap_coefficient(None, None)
+        self.oc.get_raw_score(None, None)
 
     @raises(TypeError)
     def test_invalid_input4(self):
-        overlap_coefficient(['MARHTA'], 'MARTHA')
+        self.oc.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
     def test_invalid_input5(self):
-        overlap_coefficient('MARHTA', ['MARTHA'])
+        self.oc.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
     def test_invalid_input6(self):
-        overlap_coefficient('MARTHA', 'MARTHA')
+        self.oc.get_raw_score('MARTHA', 'MARTHA')
 
 
 class DiceTestCases(unittest.TestCase):
+    def setUp(self):
+        self.dice = Dice()
+
     def test_valid_input(self):
-        self.assertEqual(dice(['data', 'science'], ['data']), 2 * 1.0 / 3.0)
-        self.assertEqual(dice(['data', 'science'], ['science', 'good']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice([], ['data']), 0)
-        self.assertEqual(dice(['data', 'data', 'science'], ['data', 'management']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice(['data', 'management'], ['data', 'data', 'science']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice([], []), 1.0)
-        self.assertEqual(dice(['a', 'b'], ['b', 'a']), 1.0)
-        self.assertEqual(dice(set([]), set([])), 1.0)
-        self.assertEqual(dice({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 2 * 3.0 / 11.0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'science'], ['data']),
+                         2 * 1.0 / 3.0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'science'], ['science', 'good']),
+                         2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'data', 'science'],
+                                                 ['data', 'management']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'management'],
+                                                 ['data', 'data', 'science']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score([], []), 1.0)
+        self.assertEqual(self.dice.get_raw_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.dice.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.dice.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+                         2 * 3.0 / 11.0)
+        self.assertEqual(self.dice.get_sim_score(['data', 'science'], ['data']),
+                         2 * 1.0 / 3.0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
-        dice(1, 1)
+        self.dice.get_raw_score(1, 1)
 
     @raises(TypeError)
     def test_invalid_input2(self):
-        dice(['a'], None)
+        self.dice.get_raw_score(['a'], None)
 
     @raises(TypeError)
     def test_invalid_input3(self):
-        dice(None, ['b'])
+        self.dice.get_raw_score(None, ['b'])
 
     @raises(TypeError)
     def test_invalid_input4(self):
-        dice(None, None)
+        self.dice.get_raw_score(None, None)
 
     @raises(TypeError)
     def test_invalid_input5(self):
-        dice(None, 'MARHTA')
+        self.dice.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
     def test_invalid_input6(self):
-        dice('MARHTA', None)
+        self.dice.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
     def test_invalid_input7(self):
-        dice('MARHTA', 'MARTHA')
+        self.dice.get_raw_score('MARHTA', 'MARTHA')
 
 
 class JaccardTestCases(unittest.TestCase):
+    def setUp(self):
+        self.jac = Jaccard()
+
     def test_valid_input(self):
-        self.assertEqual(jaccard(['data', 'science'], ['data']), 1.0 / 2.0)
-        self.assertEqual(jaccard(['data', 'science'], ['science', 'good']), 1.0 / 3.0)
-        self.assertEqual(jaccard([], ['data']), 0)
-        self.assertEqual(jaccard(['data', 'data', 'science'], ['data', 'management']), 1.0 / 3.0)
-        self.assertEqual(jaccard(['data', 'management'], ['data', 'data', 'science']), 1.0 / 3.0)
-        self.assertEqual(jaccard([], []), 1.0)
-        self.assertEqual(jaccard(set([]), set([])), 1.0)
-        self.assertEqual(jaccard({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'science'], ['data']),
+                         1.0 / 2.0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'science'],
+                                                ['science', 'good']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'data', 'science'],
+                             ['data', 'management']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'management'],
+                             ['data', 'data', 'science']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score([], []), 1.0)
+        self.assertEqual(self.jac.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.jac.get_raw_score({1, 1, 2, 3, 4},
+                             {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
+        self.assertEqual(self.jac.get_sim_score(['data', 'science'], ['data']),
+                         1.0 / 2.0)
 
     @raises(TypeError)
     def test_invalid_input1(self):
-        jaccard(1, 1)
+        self.jac.get_raw_score(1, 1)
 
     @raises(TypeError)
     def test_invalid_input2(self):
-        jaccard(['a'], None)
+        self.jac.get_raw_score(['a'], None)
 
     @raises(TypeError)
     def test_invalid_input3(self):
-        jaccard(None, ['b'])
+        self.jac.get_raw_score(None, ['b'])
 
     @raises(TypeError)
     def test_invalid_input4(self):
-        jaccard(None, None)
+        self.jac.get_raw_score(None, None)
 
     @raises(TypeError)
     def test_invalid_input5(self):
-        jaccard(['MARHTA'], 'MARTHA')
+        self.jac.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
     def test_invalid_input6(self):
-        jaccard('MARHTA', ['MARTHA'])
+        self.jac.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
     def test_invalid_input7(self):
-        jaccard('MARTHA', 'MARTHA')
+        self.jac.get_raw_score('MARTHA', 'MARTHA')
 
 
 class GeneralizedJaccardTestCases(unittest.TestCase):
@@ -610,47 +641,51 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
 
 
 class CosineTestCases(unittest.TestCase):
+    def setUp(self):
+        self.cos = Cosine()
+
     def test_valid_input(self):
-        self.assertEqual(cosine(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
-        self.assertEqual(cosine(['data', 'science'], ['science', 'good']),
+        self.assertEqual(self.cos.get_raw_score(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
+        self.assertEqual(self.cos.get_raw_score(['data', 'science'], ['science', 'good']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine([], ['data']), 0.0)
-        self.assertEqual(cosine(['data', 'data', 'science'], ['data', 'management']),
+        self.assertEqual(self.cos.get_raw_score([], ['data']), 0.0)
+        self.assertEqual(self.cos.get_raw_score(['data', 'data', 'science'], ['data', 'management']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine(['data', 'management'], ['data', 'data', 'science']),
+        self.assertEqual(self.cos.get_raw_score(['data', 'management'], ['data', 'data', 'science']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine([], []), 1.0)
-        self.assertEqual(cosine(set([]), set([])), 1.0)
-        self.assertEqual(cosine({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+        self.assertEqual(self.cos.get_raw_score([], []), 1.0)
+        self.assertEqual(self.cos.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.cos.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (math.sqrt(4) * math.sqrt(7)))
+        self.assertEqual(self.cos.get_sim_score(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
 
     @raises(TypeError)
     def test_invalid_input1(self):
-        cosine(1, 1)
+        self.cos.get_raw_score(1, 1)
 
     @raises(TypeError)
     def test_invalid_input4(self):
-        cosine(['a'], None)
+        self.cos.get_raw_score(['a'], None)
 
     @raises(TypeError)
     def test_invalid_input2(self):
-        cosine(None, ['b'])
+        self.cos.get_raw_score(None, ['b'])
 
     @raises(TypeError)
     def test_invalid_input3(self):
-        cosine(None, None)
+        self.cos.get_raw_score(None, None)
 
     @raises(TypeError)
     def test_invalid_input5(self):
-        cosine(['MARHTA'], 'MARTHA')
+        self.cos.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
     def test_invalid_input6(self):
-        cosine('MARHTA', ['MARTHA'])
+        self.cos.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
     def test_invalid_input7(self):
-        cosine('MARTHA', 'MARTHA')
+        self.cos.get_raw_score('MARTHA', 'MARTHA')
 
 
 class TfidfTestCases(unittest.TestCase):
