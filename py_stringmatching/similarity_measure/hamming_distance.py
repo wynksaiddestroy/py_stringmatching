@@ -6,6 +6,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class HammingDistance(SequenceSimilarityMeasure):
+    """Hamming distance measure class.
+    """
     def __init__(self):
         super(HammingDistance, self).__init__()
 

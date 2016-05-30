@@ -7,6 +7,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Jaro(SequenceSimilarityMeasure):
+    """Jaro similarity measure class.
+    """
     def __init__(self):
         super(Jaro, self).__init__()
 

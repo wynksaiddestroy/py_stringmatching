@@ -7,6 +7,14 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class GeneralizedJaccard(HybridSimilarityMeasure):
+    """Generalized jaccard similarity measure class.
+
+    Attributes:
+        sim_func (function): similarity function. This should return a similarity score between two strings in set (optional),
+                             default is jaro similarity measure
+        threshold (float): Threshold value (defaults to 0.5). If the similarity of a token pair exceeds the threshold,
+                           then the token pair is considered a match.
+    """
     def __init__(self, sim_func=Jaro().get_raw_score, threshold=0.5):
         self.sim_func = sim_func
         self.threshold = threshold

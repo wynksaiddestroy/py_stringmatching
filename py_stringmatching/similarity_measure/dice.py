@@ -8,6 +8,8 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Dice(TokenSimilarityMeasure):
+    """Dice similarity measure class.
+    """
     def __init__(self):
         super(Dice, self).__init__()
 

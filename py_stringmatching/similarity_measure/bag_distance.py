@@ -8,6 +8,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class BagDistance(SequenceSimilarityMeasure):
+    """Bag distance measure class.
+    """
     def __init__(self):
         super(BagDistance, self).__init__()
 

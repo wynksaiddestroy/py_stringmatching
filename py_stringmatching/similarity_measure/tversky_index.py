@@ -6,6 +6,11 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class TverskyIndex(TokenSimilarityMeasure):
+    """Tversky index similarity measure class.
+
+    Attributes:
+        alpha, beta (float): Tversky index parameters (defaults to 0.5).
+    """
     def __init__(self, alpha=0.5, beta=0.5):
         # validate alpha and beta 
         utils.sim_check_tversky_parameters(alpha, beta)

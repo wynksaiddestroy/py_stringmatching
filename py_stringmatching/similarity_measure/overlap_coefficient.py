@@ -8,6 +8,8 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class OverlapCoefficient(TokenSimilarityMeasure):
+    """Overlap coefficient similarity measure class.
+    """
     def __init__(self):
         super(OverlapCoefficient, self).__init__()
 

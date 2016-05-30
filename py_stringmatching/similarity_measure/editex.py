@@ -13,6 +13,14 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Editex(SequenceSimilarityMeasure):
+    """Editex distance measure class.
+
+    Attributes:
+        match_cost (int): Weight to give the correct char match, default=0
+        group_cost (int): Weight to give if the chars are in the same editex group, default=1
+        mismatch_cost (int): Weight to give the incorrect char match, default=2
+        local (boolean): Local variant on/off, default=False
+    """
     def __init__(self, match_cost=0, group_cost=1, mismatch_cost=2, local=False):
         self.match_cost = match_cost
         self.group_cost = group_cost

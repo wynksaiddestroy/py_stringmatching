@@ -11,6 +11,16 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class SoftTfIdf(HybridSimilarityMeasure):
+    """Soft-TfIdf similarity measure class.
+
+    Attributes:
+        corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
+                                     the input list are considered the only corpus
+        sim_func (function): Secondary similarity function. This should return a similarity score between two strings (optional),
+                             default is jaro similarity measure
+        threshold (float): Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
+                           of a token pair exceeds the threshold, then the token pair is considered a match.
+    """
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score, threshold=0.5):
         self._corpus_list = corpus_list
         self._df = {}

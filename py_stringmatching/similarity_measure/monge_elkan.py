@@ -7,6 +7,12 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class MongeElkan(HybridSimilarityMeasure):
+    """Monge-Elkan similarity measure class.
+
+    Attributes:
+        sim_func (function): Secondary similarity function. This is expected to be a sequence-based
+                             similarity measure (defaults to jaro-winkler similarity measure)
+    """
     def __init__(self, sim_func=JaroWinkler().get_raw_score):
         self.sim_func = sim_func
         super(MongeElkan, self).__init__()

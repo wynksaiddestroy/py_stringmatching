@@ -9,6 +9,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Levenshtein(SequenceSimilarityMeasure):
+    """Levenshtein distance measure class.
+    """
     def __init__(self):
         super(Levenshtein, self).__init__()
 

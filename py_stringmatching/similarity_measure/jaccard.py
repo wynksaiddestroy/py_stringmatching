@@ -6,6 +6,8 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Jaccard(TokenSimilarityMeasure):
+    """Jaccard similarity measure class.
+    """
     def __init__(self):
         super(Jaccard, self).__init__()
 

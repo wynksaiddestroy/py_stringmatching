@@ -8,6 +8,8 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Cosine(TokenSimilarityMeasure):
+    """Cosine similarity measure class.
+    """
     def __init__(self):
         super(Cosine, self).__init__()
 

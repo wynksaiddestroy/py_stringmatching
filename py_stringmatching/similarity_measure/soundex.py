@@ -8,6 +8,8 @@ from py_stringmatching.similarity_measure.phonetic_similarity_measure import \
 
 
 class Soundex(PhoneticSimilarityMeasure):
+    """Soundex phonetic similarity measure class.
+    """
     def __init__(self):
         super(Soundex, self).__init__()
 

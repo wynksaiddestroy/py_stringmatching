@@ -8,6 +8,11 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class JaroWinkler(SequenceSimilarityMeasure):
+    """Jaro-Winkler similarity measure class.
+
+    Attributes:
+        prefix_weight (float): Weight to give the prefix (defaults to 0.1)
+    """
     def __init__(self, prefix_weight=0.1):
         self.prefix_weight = 0.1
         super(JaroWinkler, self).__init__()
