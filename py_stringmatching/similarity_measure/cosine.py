@@ -32,13 +32,13 @@ class Cosine(TokenSimilarityMeasure):
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
 
         Examples:
-         >>> cos = Cosine()
-         >>> cos.get_raw_score(['data', 'science'], ['data'])
-         0.7071067811865475
-         >>> cos.get_raw_score(['data', 'data', 'science'], ['data', 'management'])
-         0.4999999999999999
-         >>> cos.get_raw_score([], ['data'])
-         0.0
+            >>> cos = Cosine()
+            >>> cos.get_raw_score(['data', 'science'], ['data'])
+            0.7071067811865475
+            >>> cos.get_raw_score(['data', 'data', 'science'], ['data', 'management'])
+            0.4999999999999999
+            >>> cos.get_raw_score([], ['data'])
+            0.0
 
         References:
             * String similarity joins: An Experimental Evaluation (VLDB 2014)
@@ -77,8 +77,13 @@ class Cosine(TokenSimilarityMeasure):
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
 
         Examples:
-         >>> cos = Cosine()
-         >>> cos.get_sim_score(['data', 'science'], ['data'])
-         0.7071067811865475
+            >>> cos = Cosine()
+            >>> cos.get_sim_score(['data', 'science'], ['data'])
+            0.7071067811865475
+            >>> cos.get_sim_score(['data', 'data', 'science'], ['data', 'management'])
+            0.4999999999999999
+            >>> cos.get_sim_score([], ['data'])
+            0.0
+
         """
         return self.get_raw_score(set1, set2)

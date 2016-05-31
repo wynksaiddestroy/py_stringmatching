@@ -82,6 +82,10 @@ class JaroWinkler(SequenceSimilarityMeasure):
             >>> jw = JaroWinkler()
             >>> jw.get_sim_score('MARTHA', 'MARHTA')
             0.9611111111111111
+            >>> jw.get_sim_score('DWAYNE', 'DUANE')
+            0.84
+            >>> jw.get_sim_score('DIXON', 'DICKSONX')
+            0.8133333333333332
 
         """
         return self.get_raw_score(string1, string2)

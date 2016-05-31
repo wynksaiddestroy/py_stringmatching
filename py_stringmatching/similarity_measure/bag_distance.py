@@ -1,5 +1,6 @@
 """Bag distance measure"""
 
+from __future__ import division
 import collections
 
 from py_stringmatching import utils
@@ -68,3 +69,39 @@ class BagDistance(SequenceSimilarityMeasure):
 
         # returning the max of difference of sets
         return max(size1, size2)
+
+    def get_sim_score(self, string1, string2):
+        """
+        Computes the normalized bag similarity between two strings.
+
+        Args:
+            string1,string2 (str): Input strings
+
+        Returns:
+            Normalized bag similarity (float)
+
+        Raises:
+            TypeError : If the inputs are not strings
+
+        Examples:
+            >>> bd = BagDistance()
+            >>> bd.get_sim_score('cat', 'hat')
+            0.6666666666666667
+            >>> bd.get_sim_score('Niall', 'Neil')
+            0.6
+            >>> bd.get_sim_score('aluminum', 'Catalan')
+            0.375
+            >>> bd.get_sim_score('ATCG', 'TAGC')
+            1.0
+            >>> bd.get_sim_score('abcde', 'xyz')
+            0.0
+
+        References:
+            * http://www.icmlc.org/icmlc2011/018_icmlc2011.pdf
+        """
+        raw_score = self.get_raw_score(string1, string2)
+        string1_len = len(string1)
+        string2_len = len(string2)
+        if string1_len == 0 and string2_len == 0:
+            return 1.0
+        return 1 - (raw_score / max(string1_len, string2_len))

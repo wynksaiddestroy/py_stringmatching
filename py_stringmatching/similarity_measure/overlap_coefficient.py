@@ -84,5 +84,10 @@ class OverlapCoefficient(TokenSimilarityMeasure):
             >>> oc = OverlapCoefficient()
             >>> oc.get_sim_score(['data', 'science'], ['data'])
             1.0
+            >>> oc.get_sim_score([], [])
+            1.0
+            >>> oc.get_sim_score([], ['data'])
+            0
+
         """
         return self.get_raw_score(set1, set2)

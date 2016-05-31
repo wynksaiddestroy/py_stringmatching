@@ -36,13 +36,13 @@ class SoftTfIdf(HybridSimilarityMeasure):
 
     def get_raw_score(self, bag1, bag2):
         """
-        Compute Soft-tfidf measure between two lists given the corpus information.
+        Compute Soft TF-IDF measure between two lists given the corpus information.
 
         Args:
             bag1,bag2 (list): Input lists
 
         Returns:
-            Soft TF-IDF measure between the input lists
+            Soft TF-IDF measure between the input lists (float)
 
         Raises:
             TypeError : If the inputs are not lists or if one of the inputs is None.
@@ -121,3 +121,35 @@ class SoftTfIdf(HybridSimilarityMeasure):
             v_y = idf * tf_y.get(element, 0)
             v_y_2 += v_y * v_y
         return result if v_x_2 == 0 else result / (sqrt(v_x_2) * sqrt(v_y_2))
+
+    def get_sim_score(self, bag1, bag2):
+        """
+        Compute normalized Soft TF-IDF similarity between two lists given the corpus information.
+
+        Args:
+            bag1,bag2 (list): Input lists
+
+        Returns:
+            Normalized Soft TF-IDF measure between the input lists (float)
+
+        Raises:
+            TypeError : If the inputs are not lists or if one of the inputs is None.
+
+        Examples:
+            >>> soft_tfidf = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']], sim_func=Jaro().get_raw_score, threshold=0.8)
+            >>> soft_tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
+            0.17541160386140586
+            >>> soft_tfidf = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']], threshold=0.9)
+            >>> soft_tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.5547001962252291
+            >>> soft_tfidf = SoftTfIdf([['x', 'y'], ['w'], ['q']])
+            >>> soft_tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.0
+            >>> soft_tfidf = SoftTfIdf(sim_func=Affine().get_raw_score, threshold=0.6)
+            >>> soft_tfidf.get_sim_score(['aa', 'bb', 'a'], ['ab', 'ba'])
+            0.81649658092772592
+
+        References:
+            * Principles of Data Integration book
+        """
+        return self.get_raw_score(bag1, bag2)

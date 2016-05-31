@@ -103,6 +103,10 @@ class Jaro(SequenceSimilarityMeasure):
             >>> jaro = Jaro()
             >>> jaro.get_sim_score('MARTHA', 'MARHTA')
             0.9444444444444445
+            >>> jaro.get_sim_score('DWAYNE', 'DUANE')
+            0.8222222222222223
+            >>> jaro.get_sim_score('DIXON', 'DICKSONX')
+            0.7666666666666666
 
         """
         return self.get_raw_score(string1, string2)

@@ -94,7 +94,7 @@ class Soundex(PhoneticSimilarityMeasure):
             string1,string2 (str): Input strings
 
         Returns:
-            Normalized soundex similarity (float)
+            Normalized soundex similarity (int)
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.

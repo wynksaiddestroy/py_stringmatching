@@ -31,7 +31,7 @@ class TfIdf(TokenSimilarityMeasure):
 
     def get_raw_score(self, bag1, bag2):
         """
-        Compute tfidf measures between two lists given the corpus information.
+        Compute TF-IDF measure between two lists given the corpus information.
 
         This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
         find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
@@ -109,3 +109,42 @@ class TfIdf(TokenSimilarityMeasure):
             v_y_2 += v_y * v_y
 
         return 0.0 if v_x_y == 0 else v_x_y / (sqrt(v_x_2) * sqrt(v_y_2))
+
+    def get_sim_score(self, bag1, bag2):
+        """
+        Compute normalized TF-IDF similarity between two lists given the corpus information.
+
+        This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
+        find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
+        is that two strings are similar if they share distinguishing terms.
+
+        Args:
+            bag1,bag2 (list): Input lists
+
+        Returns:
+            Normalized TF-IDF similarity between the input lists (float)
+
+        Raises:
+            TypeError : If the inputs are not lists or if one of the inputs is None
+
+        Examples:
+            
+            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
+            0.17541160386140586
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.5547001962252291
+            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True)
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
+            0.11166746710505392
+            >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']])
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.0
+            >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']], True)
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.0
+            >>> tfidf = TfIdf()
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.7071067811865475
+        """
+        return self.get_raw_score(bag1, bag2)

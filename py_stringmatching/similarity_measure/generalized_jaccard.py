@@ -37,7 +37,7 @@ class GeneralizedJaccard(HybridSimilarityMeasure):
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
-            ValueError : If the similarity measure doesn't return values in the range [0.1]
+            ValueError : If the similarity measure doesn't return values in the range [0,1]
 
         Examples:
             >>> gj = GeneralizedJaccard()
@@ -97,7 +97,7 @@ class GeneralizedJaccard(HybridSimilarityMeasure):
 
     def get_sim_score(self, set1, set2):
         """
-        Computes the normalized Generalized Jaccard measure between two sets.
+        Computes the normalized Generalized Jaccard similarity between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists) of strings. Input lists are converted to sets.
@@ -107,11 +107,20 @@ class GeneralizedJaccard(HybridSimilarityMeasure):
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
-            ValueError : If the similarity measure doesn't return values in the range [0.1]
+            ValueError : If the similarity measure doesn't return values in the range [0,1]
 
         Examples:
             >>> gj = GeneralizedJaccard()
             >>> gj.get_sim_score(['data', 'science'], ['data'])
             0.5
+            >>> gj.get_sim_score(['data', 'management'], ['data', 'data', 'science'])
+            0.3333333333333333
+            >>> gj.get_sim_score(['Niall'], ['Neal', 'Njall'])
+            0.43333333333333335
+            >>> gj = GeneralizedJaccard(sim_func=JaroWinkler().get_raw_score, threshold=0.8)
+            >>> gj.get_sim_score(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                                 ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'])
+            0.45810185185185187
+
         """
         return self.get_raw_score(set1, set2)

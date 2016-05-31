@@ -1,6 +1,7 @@
 # coding=utf-8
 """Editex distance measure"""
 
+from __future__ import division
 from __future__ import unicode_literals
 import unicodedata
 
@@ -111,3 +112,38 @@ class Editex(SequenceSimilarityMeasure):
                                   d_mat[i - 1, j - 1] + editex_helper.r_cost(string1[i], string2[j]))
 
         return d_mat[len1, len2]
+
+    def get_sim_score(self, string1, string2):
+        """
+        Computes the normalized editex similarity between two strings.
+
+        Args:
+            string1,string2 (str): Input strings
+
+        Returns:
+            Normalized editex similarity (float)
+
+        Raises:
+            TypeError : If the inputs are not strings
+
+        Examples:
+            >>> ed = Editex()
+            >>> ed.get_raw_score('cat', 'hat')
+            0.66666666666666674
+            >>> ed.get_raw_score('Niall', 'Neil')
+            0.80000000000000004
+            >>> ed.get_raw_score('aluminum', 'Catalan')
+            0.25
+            >>> ed.get_raw_score('ATCG', 'TAGC')
+            0.25
+
+        References:
+            * Abydos Library - https://github.com/chrislit/abydos/blob/master/abydos/distance.py
+        """
+        raw_score = self.get_raw_score(string1, string2)
+        string1_len = len(string1)
+        string2_len = len(string2)
+        if string1_len == 0 and string2_len == 0:
+            return 1.0
+        return 1 - (raw_score / max(string1_len * self.mismatch_cost,
+                                    string2_len * self.mismatch_cost))

@@ -1,5 +1,7 @@
 """Levenshtein distance measure"""
 
+from __future__ import division
+
 import numpy as np
 
 from py_stringmatching import utils
@@ -75,3 +77,32 @@ class Levenshtein(SequenceSimilarityMeasure):
                 )
 
         return d_mat[len_str1, len_str2]
+
+    def get_sim_score(self, string1, string2):
+        """
+        Computes the normalized levenshtein similarity between two strings.
+
+        Args:
+            string1,string2 (str): Input strings
+
+        Returns:
+            Normalized levenshtein similarity (float)
+
+        Raises:
+            TypeError : If the inputs are not strings
+
+        Examples:
+            >>> lev = Levenshtein()
+            >>> lev.get_sim_score('a', '')
+            0.0
+            >>> lev.get_sim_score('example', 'samples')
+            0.5714285714285714
+            >>> lev.get_sim_score('levenshtein', 'frankenstein')
+            0.5
+
+        """
+        raw_score = self.get_raw_score(string1, string2)
+        max_len = max(len(string1), len(string2))
+        if max_len == 0:
+            return 1.0
+        return 1 - (raw_score / max_len)

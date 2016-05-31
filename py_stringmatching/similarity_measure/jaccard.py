@@ -79,5 +79,9 @@ class Jaccard(TokenSimilarityMeasure):
             >>> jac = Jaccard()
             >>> jac.get_sim_score(['data', 'science'], ['data'])
             0.5
+            >>> jac.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8})
+            0.375
+            >>> jac.get_sim_score(['data', 'management'], ['data', 'data', 'science'])
+            0.3333333333333333
         """
         return self.get_raw_score(set1, set2)

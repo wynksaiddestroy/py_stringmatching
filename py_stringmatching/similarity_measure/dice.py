@@ -80,5 +80,10 @@ class Dice(TokenSimilarityMeasure):
             >>> dice = Dice()
             >>> dice.get_sim_score(['data', 'science'], ['data'])
             0.6666666666666666
+            >>> dice.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8})
+            0.5454545454545454
+            >>> dice.get_sim_score(['data', 'management'], ['data', 'data', 'science'])
+            0.5
+
         """
         return self.get_raw_score(set1, set2)
