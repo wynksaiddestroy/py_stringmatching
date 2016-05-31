@@ -1524,20 +1524,6 @@ class Soft_TfidfTestCases(unittest.TestCase):
                          ['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
         self.assertEqual(self.soft_tfidf.get_raw_score([], ['a', 'b', 'a']), 0.0)
 
-    def test_valid_input_sim_score(self):
-        self.assertEqual(self.soft_tfidf_with_params1.get_sim_score(
-                         ['a', 'b', 'a'], ['a', 'c']), 0.17541160386140586)
-        self.assertEqual(self.soft_tfidf_with_params2.get_sim_score(
-                         ['a', 'b', 'a'], ['a']), 0.5547001962252291)
-        self.assertEqual(self.soft_tfidf_with_params3.get_sim_score(
-                         ['a', 'b', 'a'], ['a']), 0.0)
-        self.assertEqual(self.soft_tfidf_with_params4.get_sim_score(
-                             ['aa', 'bb', 'a'], ['ab', 'ba']),
-                         0.81649658092772592)
-        self.assertEqual(self.soft_tfidf.get_sim_score(
-                         ['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
-        self.assertEqual(self.soft_tfidf.get_sim_score([], ['a', 'b', 'a']), 0.0)
-
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
         self.soft_tfidf.get_raw_score(1, 1)
@@ -1565,34 +1551,6 @@ class Soft_TfidfTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input7_raw_score(self):
         self.soft_tfidf.get_raw_score('MARTHA', 'MARTHA')
-
-    @raises(TypeError)
-    def test_invalid_input1_sim_score(self):
-        self.soft_tfidf.get_sim_score(1, 1)
-
-    @raises(TypeError)
-    def test_invalid_input4_sim_score(self):
-        self.soft_tfidf.get_sim_score(['a'], None)
-
-    @raises(TypeError)
-    def test_invalid_input2_sim_score(self):
-        self.soft_tfidf.get_sim_score(None, ['b'])
-
-    @raises(TypeError)
-    def test_invalid_input3_sim_score(self):
-        self.soft_tfidf.get_sim_score(None, None)
-
-    @raises(TypeError)
-    def test_invalid_input5_sim_score(self):
-        self.soft_tfidf.get_sim_score(['MARHTA'], 'MARTHA')
-
-    @raises(TypeError)
-    def test_invalid_input6_sim_score(self):
-        self.soft_tfidf.get_sim_score('MARHTA', ['MARTHA'])
-
-    @raises(TypeError)
-    def test_invalid_input7_sim_score(self):
-        self.soft_tfidf.get_sim_score('MARTHA', 'MARTHA')
 
 
 class MongeElkanTestCases(unittest.TestCase):
