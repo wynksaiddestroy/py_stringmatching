@@ -15,7 +15,7 @@ def sim_ident(s1, s2):
 class Affine(SequenceSimilarityMeasure):
     """Affine similarity measure class.
 
-    Attributes:
+    Parameters:
         gap_start (float): Cost for the gap at the start (defaults to 1)
         gap_continuation (float): Cost for the gap continuation (defaults to 0.5)
         sim_score (function): Function computing similarity score between two chars, represented as strings

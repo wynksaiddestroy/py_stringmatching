@@ -7,7 +7,7 @@ from py_stringmatching.tokenizer.delimiter_tokenizer import DelimiterTokenizer
 class WhitespaceTokenizer(DelimiterTokenizer):
     """Whitespace tokenizer class.
 
-    Attributes:
+    Parameters:
         return_set (boolean): flag to indicate whether to return a set of
                               tokens. (defaults to False) 
     """

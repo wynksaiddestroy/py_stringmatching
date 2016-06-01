@@ -9,7 +9,7 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 class AlphanumericTokenizer(DefinitionTokenizer):
     """Alphanumeric tokenizer class.
 
-    Attributes:
+    Parameters:
         return_set (boolean): flag to indicate whether to return a set of
                               tokens. (defaults to False) 
     """

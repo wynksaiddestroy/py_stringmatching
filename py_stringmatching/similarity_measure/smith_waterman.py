@@ -16,7 +16,7 @@ def sim_ident(s1, s2):
 class SmithWaterman(SequenceSimilarityMeasure):
     """Smith-Waterman similarity measure class.
 
-    Attributes:
+    Parameters:
         gap_cost (float): Cost of gap (defaults to 1.0)
         sim_score (function): Similarity function to give a score for the correspondence between characters. Defaults
                               to an identity function, where if two characters are same it returns 1 else returns 0.

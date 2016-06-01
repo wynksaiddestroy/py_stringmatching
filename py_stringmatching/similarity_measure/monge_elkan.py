@@ -9,7 +9,7 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 class MongeElkan(HybridSimilarityMeasure):
     """Monge-Elkan similarity measure class.
 
-    Attributes:
+    Parameters:
         sim_func (function): Secondary similarity function. This is expected to be a sequence-based
                              similarity measure (defaults to jaro-winkler similarity measure)
     """

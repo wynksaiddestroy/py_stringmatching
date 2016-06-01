@@ -12,7 +12,7 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 class TfIdf(TokenSimilarityMeasure):
     """Tf-Idf similarity measure class.
 
-    Attributes:
+    Parameters:
         corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
                                      the input list are considered the only corpus.
         dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.

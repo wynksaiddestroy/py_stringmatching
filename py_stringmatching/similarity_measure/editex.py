@@ -16,7 +16,7 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 class Editex(SequenceSimilarityMeasure):
     """Editex distance measure class.
 
-    Attributes:
+    Parameters:
         match_cost (int): Weight to give the correct char match, default=0
         group_cost (int): Weight to give if the chars are in the same editex group, default=1
         mismatch_cost (int): Weight to give the incorrect char match, default=2
@@ -128,13 +128,13 @@ class Editex(SequenceSimilarityMeasure):
 
         Examples:
             >>> ed = Editex()
-            >>> ed.get_raw_score('cat', 'hat')
+            >>> ed.get_sim_score('cat', 'hat')
             0.66666666666666674
-            >>> ed.get_raw_score('Niall', 'Neil')
+            >>> ed.get_sim_score('Niall', 'Neil')
             0.80000000000000004
-            >>> ed.get_raw_score('aluminum', 'Catalan')
+            >>> ed.get_sim_score('aluminum', 'Catalan')
             0.25
-            >>> ed.get_raw_score('ATCG', 'TAGC')
+            >>> ed.get_sim_score('ATCG', 'TAGC')
             0.25
 
         References:

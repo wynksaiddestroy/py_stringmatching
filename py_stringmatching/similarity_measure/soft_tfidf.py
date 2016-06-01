@@ -13,7 +13,7 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 class SoftTfIdf(HybridSimilarityMeasure):
     """Soft-TfIdf similarity measure class.
 
-    Attributes:
+    Parameters:
         corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
                                      the input list are considered the only corpus
         sim_func (function): Secondary similarity function. This should return a similarity score between two strings (optional),

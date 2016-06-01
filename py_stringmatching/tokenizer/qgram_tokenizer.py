@@ -8,7 +8,7 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 class QgramTokenizer(DefinitionTokenizer):
     """Qgram tokenizer class.
 
-    Attributes:
+    Parameters:
         qval (int): Q-gram length (defaults to 2)
         return_set (boolean): flag to indicate whether to return a set of
                               tokens. (defaults to False) 

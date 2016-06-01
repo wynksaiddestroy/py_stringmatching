@@ -19,7 +19,7 @@ class BagDistance(SequenceSimilarityMeasure):
         Computes the bag distance between two strings.
 
         For two strings X and Y, the Bag distance is:
-        :math:`max( |multiset(string1)-multiset(string2)|, |multiset(string2)-multiset(string1)| )`
+        :math:`max( |bag(string1)-bag(string2)|, |bag(string2)-bag(string1)| )`
 
         Args:
             string1,string2 (str): Input strings
