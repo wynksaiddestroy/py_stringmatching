@@ -7,746 +7,1473 @@ from nose.tools import *
 
 
 # sequence based similarity measures
-from py_stringmatching.simfunctions import levenshtein, jaro, jaro_winkler, hamming_distance, needleman_wunsch, \
-    smith_waterman, affine, editex, bag_distance, soundex
+from py_stringmatching.similarity_measure.affine import Affine
+from py_stringmatching.similarity_measure.bag_distance import BagDistance
+from py_stringmatching.similarity_measure.editex import Editex
+from py_stringmatching.similarity_measure.hamming_distance import HammingDistance
+from py_stringmatching.similarity_measure.jaro import Jaro
+from py_stringmatching.similarity_measure.jaro_winkler import JaroWinkler
+from py_stringmatching.similarity_measure.levenshtein import Levenshtein
+from py_stringmatching.similarity_measure.needleman_wunsch import NeedlemanWunsch
+from py_stringmatching.similarity_measure.smith_waterman import SmithWaterman
 # token based similarity measures
-from py_stringmatching.simfunctions import overlap_coefficient, jaccard, cosine, tfidf, soft_tfidf, generalized_jaccard, \
-    dice, tversky_index
+from py_stringmatching.similarity_measure.cosine import Cosine
+from py_stringmatching.similarity_measure.dice import Dice
+from py_stringmatching.similarity_measure.jaccard import Jaccard
+from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
+from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
+from py_stringmatching.similarity_measure.tfidf import TfIdf
+from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
 # hybrid similarity measures
-from py_stringmatching.simfunctions import monge_elkan
+from py_stringmatching.similarity_measure.generalized_jaccard import GeneralizedJaccard
+from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
+#phonetic similarity measures
+from py_stringmatching.similarity_measure.soundex import Soundex
 
 
 # ---------------------- sequence based similarity measures  ----------------------
 
 
 class AffineTestCases(unittest.TestCase):
+    def setUp(self):
+        self.affine = Affine()
+        self.affine_with_params1 = Affine(gap_start=2, gap_continuation=0.5)
+        self.affine_with_params2 = Affine(gap_continuation=0.2,
+                sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0)))
+
     def test_valid_input(self):
-        self.assertAlmostEqual(affine('dva', 'deeva'), 1.5)
-        self.assertAlmostEqual(affine('dva', 'deeve', gap_start=2, gap_continuation=0.5), -0.5)
-        self.assertAlmostEqual(
-            affine('AAAGAATTCA', 'AAATCA', gap_continuation=0.2, sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0))),
-            4.4)
-        self.assertAlmostEqual(
-            affine(' ', ' ', gap_continuation=0.2, sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0))), 1)
-        self.assertEqual(affine('', 'deeva'), 0)
+        self.assertAlmostEqual(self.affine.get_raw_score('dva', 'deeva'), 1.5)
+        self.assertAlmostEqual(self.affine_with_params1.get_raw_score('dva', 'deeve'), -0.5)
+        self.assertAlmostEqual(self.affine_with_params2.get_raw_score('AAAGAATTCA', 'AAATCA'),
+                               4.4)
+        self.assertAlmostEqual(self.affine_with_params2.get_raw_score(' ', ' '), 1)
+        self.assertEqual(self.affine.get_raw_score('', 'deeva'), 0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        affine(None, 'MARHTA')
+    def test_invalid_input1_raw_score(self):
+        self.affine.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        affine('MARHTA', None)
+    def test_invalid_input2_raw_score(self):
+        self.affine.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        affine('MARHTA', 12.90)
+    def test_invalid_input3_raw_score(self):
+        self.affine.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        affine(12.90, 'MARTHA')
+    def test_invalid_input4_raw_score(self):
+        self.affine.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        affine(None, None)
+    def test_invalid_input5_raw_score(self):
+        self.affine.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        affine(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.affine.get_raw_score(12.90, 12.90)
+
 
 class BagDistanceTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(bag_distance('a', ''), 1)
-        self.assertEqual(bag_distance('', 'a'), 1)
-        self.assertEqual(bag_distance('abc', ''), 3)
-        self.assertEqual(bag_distance('', 'abc'), 3)
-        self.assertEqual(bag_distance('', ''), 0)
-        self.assertEqual(bag_distance('a', 'a'), 0)
-        self.assertEqual(bag_distance('abc', 'abc'), 0)
-        self.assertEqual(bag_distance('', 'a'), 1)
-        self.assertEqual(bag_distance('a', 'ab'), 1)
-        self.assertEqual(bag_distance('b', 'ab'), 1)
-        self.assertEqual(bag_distance('ac', 'abc'), 1)
-        self.assertEqual(bag_distance('abcdefg', 'xabxcdxxefxgx'), 6)
-        self.assertEqual(bag_distance('a', ''), 1)
-        self.assertEqual(bag_distance('ab', 'a'), 1)
-        self.assertEqual(bag_distance('ab', 'b'), 1)
-        self.assertEqual(bag_distance('abc', 'ac'), 1)
-        self.assertEqual(bag_distance('xabxcdxxefxgx', 'abcdefg'), 6)
-        self.assertEqual(bag_distance('a', 'b'), 1)
-        self.assertEqual(bag_distance('ab', 'ac'), 1)
-        self.assertEqual(bag_distance('ac', 'bc'), 1)
-        self.assertEqual(bag_distance('abc', 'axc'), 1)
-        self.assertEqual(bag_distance('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
-        self.assertEqual(bag_distance('example', 'samples'), 2)
-        self.assertEqual(bag_distance('sturgeon', 'urgently'), 2)
-        self.assertEqual(bag_distance('bag_distance', 'frankenstein'), 6)
-        self.assertEqual(bag_distance('distance', 'difference'), 5)
-        self.assertEqual(bag_distance('java was neat', 'scala is great'), 6)
+    def setUp(self):
+        self.bd = BagDistance()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.bd.get_raw_score('a', ''), 1)
+        self.assertEqual(self.bd.get_raw_score('', 'a'), 1)
+        self.assertEqual(self.bd.get_raw_score('abc', ''), 3)
+        self.assertEqual(self.bd.get_raw_score('', 'abc'), 3)
+        self.assertEqual(self.bd.get_raw_score('', ''), 0)
+        self.assertEqual(self.bd.get_raw_score('a', 'a'), 0)
+        self.assertEqual(self.bd.get_raw_score('abc', 'abc'), 0)
+        self.assertEqual(self.bd.get_raw_score('a', 'ab'), 1)
+        self.assertEqual(self.bd.get_raw_score('b', 'ab'), 1)
+        self.assertEqual(self.bd.get_raw_score('ac', 'abc'), 1)
+        self.assertEqual(self.bd.get_raw_score('abcdefg', 'xabxcdxxefxgx'), 6)
+        self.assertEqual(self.bd.get_raw_score('ab', 'a'), 1)
+        self.assertEqual(self.bd.get_raw_score('ab', 'b'), 1)
+        self.assertEqual(self.bd.get_raw_score('abc', 'ac'), 1)
+        self.assertEqual(self.bd.get_raw_score('xabxcdxxefxgx', 'abcdefg'), 6)
+        self.assertEqual(self.bd.get_raw_score('a', 'b'), 1)
+        self.assertEqual(self.bd.get_raw_score('ab', 'ac'), 1)
+        self.assertEqual(self.bd.get_raw_score('ac', 'bc'), 1)
+        self.assertEqual(self.bd.get_raw_score('abc', 'axc'), 1)
+        self.assertEqual(self.bd.get_raw_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(self.bd.get_raw_score('example', 'samples'), 2)
+        self.assertEqual(self.bd.get_raw_score('sturgeon', 'urgently'), 2)
+        self.assertEqual(self.bd.get_raw_score('bag_distance', 'frankenstein'), 6)
+        self.assertEqual(self.bd.get_raw_score('distance', 'difference'), 5)
+        self.assertEqual(self.bd.get_raw_score('java was neat', 'scala is great'), 6)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.bd.get_sim_score('a', ''), 0.0)
+        self.assertEqual(self.bd.get_sim_score('', 'a'), 0.0)
+        self.assertEqual(self.bd.get_sim_score('abc', ''), 0.0)
+        self.assertEqual(self.bd.get_sim_score('', 'abc'), 0.0)
+        self.assertEqual(self.bd.get_sim_score('', ''), 1.0)
+        self.assertEqual(self.bd.get_sim_score('a', 'a'), 1.0)
+        self.assertEqual(self.bd.get_sim_score('abc', 'abc'), 1.0)
+        self.assertEqual(self.bd.get_sim_score('a', 'ab'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('b', 'ab'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('ac', 'abc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.bd.get_sim_score('abcdefg', 'xabxcdxxefxgx'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.bd.get_sim_score('ab', 'a'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('ab', 'b'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('abc', 'ac'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.bd.get_sim_score('xabxcdxxefxgx', 'abcdefg'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.bd.get_sim_score('a', 'b'), 0.0)
+        self.assertEqual(self.bd.get_sim_score('ab', 'ac'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('ac', 'bc'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.bd.get_sim_score('abc', 'axc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.bd.get_sim_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.bd.get_sim_score('example', 'samples'), 1.0 - (2.0/7.0))
+        self.assertEqual(self.bd.get_sim_score('sturgeon', 'urgently'), 1.0 - (2.0/8.0))
+        self.assertEqual(self.bd.get_sim_score('bag_distance', 'frankenstein'), 1.0 - (6.0/12.0))
+        self.assertEqual(self.bd.get_sim_score('distance', 'difference'), 1.0 - (5.0/10.0))
+        self.assertEqual(self.bd.get_sim_score('java was neat', 'scala is great'), 1.0 - (6.0/14.0))
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        bag_distance('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.bd.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        bag_distance(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.bd.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        bag_distance(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.bd.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        bag_distance('MARHTA', 12.90)
+    def test_invalid_input4_raw_score(self):
+        self.bd.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        bag_distance(12.90, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.bd.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        bag_distance(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.bd.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.bd.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.bd.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.bd.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.bd.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.bd.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.bd.get_sim_score(12.90, 12.90)
+
 
 class EditexTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(editex('MARTHA', 'MARTHA'), 0)
-        self.assertEqual(editex('MARTHA', 'MARHTA'), 3)
-        self.assertEqual(editex('ALIE', 'ALI'), 1)
-        self.assertEqual(editex('ALIE', 'ALI', match_cost=2), 7)
-        self.assertEqual(editex('ALIE', 'ALIF', mismatch_cost=2), 2)
-        self.assertEqual(editex('ALIE', 'ALIF', mismatch_cost=1), 1)
-        self.assertEqual(editex('ALIP', 'ALIF', mismatch_cost=3, group_cost=2), 2)
-        self.assertEqual(editex('ALIe', 'ALIF', mismatch_cost=3, group_cost=2), 3)
-        self.assertEqual(editex('WALIW', 'HALIH', mismatch_cost=3, group_cost=2, local=True), 6)
-        self.assertEqual(editex('niall', 'nihal', local=True), 2)
-        self.assertEqual(editex('nihal', 'niall', local=True), 2)
-        self.assertEqual(editex('neal', 'nihl', local=True), 3)
-        self.assertEqual(editex('nihl', 'neal', local=True), 3)
+    def setUp(self):
+        self.ed = Editex()
+        self.ed_with_params1 = Editex(match_cost=2)
+        self.ed_with_params2 = Editex(mismatch_cost=2)
+        self.ed_with_params3 = Editex(mismatch_cost=1)
+        self.ed_with_params4 = Editex(mismatch_cost=3, group_cost=2)
+        self.ed_with_params5 = Editex(mismatch_cost=3, group_cost=2, local=True)
+        self.ed_with_params6 = Editex(local=True)
 
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.ed.get_raw_score('MARTHA', 'MARTHA'), 0)
+        self.assertEqual(self.ed.get_raw_score('MARTHA', 'MARHTA'), 3)
+        self.assertEqual(self.ed.get_raw_score('ALIE', 'ALI'), 1)
+        self.assertEqual(self.ed_with_params1.get_raw_score('ALIE', 'ALI'), 7)
+        self.assertEqual(self.ed_with_params2.get_raw_score('ALIE', 'ALIF'), 2)
+        self.assertEqual(self.ed_with_params3.get_raw_score('ALIE', 'ALIF'), 1)
+        self.assertEqual(self.ed_with_params4.get_raw_score('ALIP', 'ALIF'), 2)
+        self.assertEqual(self.ed_with_params4.get_raw_score('ALIe', 'ALIF'), 3)
+        self.assertEqual(self.ed_with_params5.get_raw_score('WALIW', 'HALIH'), 6)
+        self.assertEqual(self.ed_with_params6.get_raw_score('niall', 'nihal'), 2)
+        self.assertEqual(self.ed_with_params6.get_raw_score('nihal', 'niall'), 2)
+        self.assertEqual(self.ed_with_params6.get_raw_score('neal', 'nihl'), 3)
+        self.assertEqual(self.ed_with_params6.get_raw_score('nihl', 'neal'), 3)
+        self.assertEqual(self.ed.get_raw_score('', ''), 0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.ed.get_sim_score('MARTHA', 'MARTHA'), 1.0)
+        self.assertEqual(self.ed.get_sim_score('MARTHA', 'MARHTA'), 1.0 - (3.0/12.0))
+        self.assertEqual(self.ed.get_sim_score('ALIE', 'ALI'), 1.0 - (1.0/8.0))
+        self.assertEqual(self.ed_with_params1.get_sim_score('ALIE', 'ALI'), 1.0 - (7.0/8.0))
+        self.assertEqual(self.ed_with_params2.get_sim_score('ALIE', 'ALIF'), 1.0 - (2.0/8.0))
+        self.assertEqual(self.ed_with_params3.get_sim_score('ALIE', 'ALIF'), 1.0 - (1.0/4.0))
+        self.assertEqual(self.ed_with_params4.get_sim_score('ALIP', 'ALIF'), 1.0 - (2.0/12.0))
+        self.assertEqual(self.ed_with_params4.get_sim_score('ALIe', 'ALIF'), 1.0 - (3.0/12.0))
+        self.assertEqual(self.ed_with_params5.get_sim_score('WALIW', 'HALIH'), 1.0 - (6.0/15.0))
+        self.assertEqual(self.ed_with_params6.get_sim_score('niall', 'nihal'), 1.0 - (2.0/10.0))
+        self.assertEqual(self.ed_with_params6.get_sim_score('nihal', 'niall'), 1.0 - (2.0/10.0))
+        self.assertEqual(self.ed_with_params6.get_sim_score('neal', 'nihl'), 1.0 - (3.0/8.0))
+        self.assertEqual(self.ed_with_params6.get_sim_score('nihl', 'neal'), 1.0 - (3.0/8.0))
+        self.assertEqual(self.ed.get_sim_score('', ''), 1.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        editex(None, 'MARHTA')
+    def test_invalid_input1_raw_score(self):
+        self.ed.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        editex('MARHTA', None)
+    def test_invalid_input2_raw_score(self):
+        self.ed.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        editex(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.ed.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        editex('MARHTA', 12.90)
+    def test_invalid_input4_raw_score(self):
+        self.ed.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        editex(12.90, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.ed.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        editex(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.ed.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.ed.get_sim_score(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.ed.get_sim_score('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.ed.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.ed.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.ed.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.ed.get_sim_score(12.90, 12.90)
 
 
 class JaroTestCases(unittest.TestCase):
-    def test_valid_input(self):
+    def setUp(self):
+        self.jaro = Jaro()
+
+    def test_valid_input_raw_score(self):
         # https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
-        self.assertAlmostEqual(jaro('MARTHA', 'MARHTA'), 0.9444444444444445)
-        self.assertAlmostEqual(jaro('DWAYNE', 'DUANE'), 0.8222222222222223)
-        self.assertAlmostEqual(jaro('DIXON', 'DICKSONX'), 0.7666666666666666)
-        self.assertEqual(jaro('', 'deeva'), 0)
+        self.assertAlmostEqual(self.jaro.get_raw_score('MARTHA', 'MARHTA'),
+                               0.9444444444444445)
+        self.assertAlmostEqual(self.jaro.get_raw_score('DWAYNE', 'DUANE'),
+                               0.8222222222222223)
+        self.assertAlmostEqual(self.jaro.get_raw_score('DIXON', 'DICKSONX'),
+                               0.7666666666666666)
+        self.assertEqual(self.jaro.get_raw_score('', 'deeva'), 0)
+
+    def test_valid_input_sim_score(self):
+        self.assertAlmostEqual(self.jaro.get_sim_score('MARTHA', 'MARHTA'),
+                               0.9444444444444445)
+        self.assertAlmostEqual(self.jaro.get_sim_score('DWAYNE', 'DUANE'),
+                               0.8222222222222223)
+        self.assertAlmostEqual(self.jaro.get_sim_score('DIXON', 'DICKSONX'),
+                               0.7666666666666666)
+        self.assertEqual(self.jaro.get_sim_score('', 'deeva'), 0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        jaro(None, 'MARHTA')
+    def test_invalid_input1_raw_score(self):
+        self.jaro.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        jaro('MARHTA', None)
+    def test_invalid_input2_raw_score(self):
+        self.jaro.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        jaro(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.jaro.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        jaro('MARHTA', 12.90)
+    def test_invalid_input4_raw_score(self):
+        self.jaro.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        jaro(12.90, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.jaro.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        jaro(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.jaro.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.jaro.get_sim_score(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.jaro.get_sim_score('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.jaro.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.jaro.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.jaro.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.jaro.get_sim_score(12.90, 12.90)
 
 
 class JaroWinklerTestCases(unittest.TestCase):
-    def test_valid_input(self):
+    def setUp(self):
+        self.jw = JaroWinkler()
+
+    def test_valid_input_raw_score(self):
         # https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
-        self.assertAlmostEqual(jaro_winkler('MARTHA', 'MARHTA'), 0.9611111111111111)
-        self.assertAlmostEqual(jaro_winkler('DWAYNE', 'DUANE'), 0.84)
-        self.assertAlmostEqual(jaro_winkler('DIXON', 'DICKSONX'), 0.8133333333333332)
+        self.assertAlmostEqual(self.jw.get_raw_score('MARTHA', 'MARHTA'),
+                               0.9611111111111111)
+        self.assertAlmostEqual(self.jw.get_raw_score('DWAYNE', 'DUANE'), 0.84)
+        self.assertAlmostEqual(self.jw.get_raw_score('DIXON', 'DICKSONX'),
+                               0.8133333333333332)
+
+    def test_valid_input_sim_score(self):
+        self.assertAlmostEqual(self.jw.get_sim_score('MARTHA', 'MARHTA'),
+                               0.9611111111111111)
+        self.assertAlmostEqual(self.jw.get_sim_score('DWAYNE', 'DUANE'), 0.84)
+        self.assertAlmostEqual(self.jw.get_sim_score('DIXON', 'DICKSONX'),
+                               0.8133333333333332)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        jaro_winkler(None, 'MARHTA')
+    def test_invalid_input1_raw_score(self):
+        self.jw.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        jaro_winkler('MARHTA', None)
+    def test_invalid_input2_raw_score(self):
+        self.jw.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        jaro_winkler(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.jw.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        jaro_winkler('MARHTA', 12.90)
+    def test_invalid_input4_raw_score(self):
+        self.jw.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        jaro_winkler(12.90, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.jw.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        jaro_winkler(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.jw.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.jw.get_sim_score(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.jw.get_sim_score('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.jw.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.jw.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.jw.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.jw.get_sim_score(12.90, 12.90)
 
 
 class LevenshteinTestCases(unittest.TestCase):
-    def test_valid_input(self):
+    def setUp(self):
+        self.lev = Levenshtein()
+
+    def test_valid_input_raw_score(self):
         # http://oldfashionedsoftware.com/tag/levenshtein-distance/
-        self.assertEqual(levenshtein('a', ''), 1)
-        self.assertEqual(levenshtein('', 'a'), 1)
-        self.assertEqual(levenshtein('abc', ''), 3)
-        self.assertEqual(levenshtein('', 'abc'), 3)
-        self.assertEqual(levenshtein('', ''), 0)
-        self.assertEqual(levenshtein('a', 'a'), 0)
-        self.assertEqual(levenshtein('abc', 'abc'), 0)
-        self.assertEqual(levenshtein('', 'a'), 1)
-        self.assertEqual(levenshtein('a', 'ab'), 1)
-        self.assertEqual(levenshtein('b', 'ab'), 1)
-        self.assertEqual(levenshtein('ac', 'abc'), 1)
-        self.assertEqual(levenshtein('abcdefg', 'xabxcdxxefxgx'), 6)
-        self.assertEqual(levenshtein('a', ''), 1)
-        self.assertEqual(levenshtein('ab', 'a'), 1)
-        self.assertEqual(levenshtein('ab', 'b'), 1)
-        self.assertEqual(levenshtein('abc', 'ac'), 1)
-        self.assertEqual(levenshtein('xabxcdxxefxgx', 'abcdefg'), 6)
-        self.assertEqual(levenshtein('a', 'b'), 1)
-        self.assertEqual(levenshtein('ab', 'ac'), 1)
-        self.assertEqual(levenshtein('ac', 'bc'), 1)
-        self.assertEqual(levenshtein('abc', 'axc'), 1)
-        self.assertEqual(levenshtein('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
-        self.assertEqual(levenshtein('example', 'samples'), 3)
-        self.assertEqual(levenshtein('sturgeon', 'urgently'), 6)
-        self.assertEqual(levenshtein('levenshtein', 'frankenstein'), 6)
-        self.assertEqual(levenshtein('distance', 'difference'), 5)
-        self.assertEqual(levenshtein('java was neat', 'scala is great'), 7)
+        self.assertEqual(self.lev.get_raw_score('a', ''), 1)
+        self.assertEqual(self.lev.get_raw_score('', 'a'), 1)
+        self.assertEqual(self.lev.get_raw_score('abc', ''), 3)
+        self.assertEqual(self.lev.get_raw_score('', 'abc'), 3)
+        self.assertEqual(self.lev.get_raw_score('', ''), 0)
+        self.assertEqual(self.lev.get_raw_score('a', 'a'), 0)
+        self.assertEqual(self.lev.get_raw_score('abc', 'abc'), 0)
+        self.assertEqual(self.lev.get_raw_score('a', 'ab'), 1)
+        self.assertEqual(self.lev.get_raw_score('b', 'ab'), 1)
+        self.assertEqual(self.lev.get_raw_score('ac', 'abc'), 1)
+        self.assertEqual(self.lev.get_raw_score('abcdefg', 'xabxcdxxefxgx'), 6)
+        self.assertEqual(self.lev.get_raw_score('ab', 'a'), 1)
+        self.assertEqual(self.lev.get_raw_score('ab', 'b'), 1)
+        self.assertEqual(self.lev.get_raw_score('abc', 'ac'), 1)
+        self.assertEqual(self.lev.get_raw_score('xabxcdxxefxgx', 'abcdefg'), 6)
+        self.assertEqual(self.lev.get_raw_score('a', 'b'), 1)
+        self.assertEqual(self.lev.get_raw_score('ab', 'ac'), 1)
+        self.assertEqual(self.lev.get_raw_score('ac', 'bc'), 1)
+        self.assertEqual(self.lev.get_raw_score('abc', 'axc'), 1)
+        self.assertEqual(self.lev.get_raw_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6)
+        self.assertEqual(self.lev.get_raw_score('example', 'samples'), 3)
+        self.assertEqual(self.lev.get_raw_score('sturgeon', 'urgently'), 6)
+        self.assertEqual(self.lev.get_raw_score('levenshtein', 'frankenstein'), 6)
+        self.assertEqual(self.lev.get_raw_score('distance', 'difference'), 5)
+        self.assertEqual(self.lev.get_raw_score('java was neat', 'scala is great'), 7)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.lev.get_sim_score('a', ''), 1.0 - (1.0/1.0))
+        self.assertEqual(self.lev.get_sim_score('', 'a'), 1.0 - (1.0/1.0))
+        self.assertEqual(self.lev.get_sim_score('abc', ''), 1.0 - (3.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('', 'abc'), 1.0 - (3.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('', ''), 1.0)
+        self.assertEqual(self.lev.get_sim_score('a', 'a'), 1.0)
+        self.assertEqual(self.lev.get_sim_score('abc', 'abc'), 1.0)
+        self.assertEqual(self.lev.get_sim_score('a', 'ab'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('b', 'ab'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('ac', 'abc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('abcdefg', 'xabxcdxxefxgx'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.lev.get_sim_score('ab', 'a'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('ab', 'b'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('abc', 'ac'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('xabxcdxxefxgx', 'abcdefg'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.lev.get_sim_score('a', 'b'), 1.0 - (1.0/1.0))
+        self.assertEqual(self.lev.get_sim_score('ab', 'ac'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('ac', 'bc'), 1.0 - (1.0/2.0))
+        self.assertEqual(self.lev.get_sim_score('abc', 'axc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 1.0 - (6.0/13.0))
+        self.assertEqual(self.lev.get_sim_score('example', 'samples'), 1.0 - (3.0/7.0))
+        self.assertEqual(self.lev.get_sim_score('sturgeon', 'urgently'), 1.0 - (6.0/8.0))
+        self.assertEqual(self.lev.get_sim_score('levenshtein', 'frankenstein'), 1.0 - (6.0/12.0))
+        self.assertEqual(self.lev.get_sim_score('distance', 'difference'), 1.0 - (5.0/10.0))
+        self.assertEqual(self.lev.get_sim_score('java was neat', 'scala is great'), 1.0 - (7.0/14.0))
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        levenshtein('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.lev.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        levenshtein(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.lev.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        levenshtein(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.lev.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        levenshtein('MARHTA', 12.90)
+    def test_invalid_input4_raw_score(self):
+        self.lev.get_raw_score('MARHTA', 12.90)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        levenshtein(12.90, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.lev.get_raw_score(12.90, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        levenshtein(12.90, 12.90)
+    def test_invalid_input6_raw_score(self):
+        self.lev.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.lev.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.lev.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.lev.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.lev.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.lev.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.lev.get_sim_score(12.90, 12.90)
 
 
 class HammingDistanceTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(hamming_distance('-789', 'john'), 4)
-        self.assertEqual(hamming_distance('a', '*'), 1)
-        self.assertEqual(hamming_distance('b', 'a'), 1)
-        self.assertEqual(hamming_distance('abc', 'p q'), 3)
-        self.assertEqual(hamming_distance('karolin', 'kathrin'), 3)
-        self.assertEqual(hamming_distance('KARI', 'kari'), 4)
+    def setUp(self):
+        self.hd = HammingDistance()
 
-    def test_valid_input_compatibility(self):
-        self.assertEqual(hamming_distance(u'karolin', u'kathrin'), 3)
-        self.assertEqual(hamming_distance(u'', u''), 0)
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.hd.get_raw_score('-789', 'john'), 4)
+        self.assertEqual(self.hd.get_raw_score('a', '*'), 1)
+        self.assertEqual(self.hd.get_raw_score('b', 'a'), 1)
+        self.assertEqual(self.hd.get_raw_score('abc', 'p q'), 3)
+        self.assertEqual(self.hd.get_raw_score('karolin', 'kathrin'), 3)
+        self.assertEqual(self.hd.get_raw_score('KARI', 'kari'), 4)
+        self.assertEqual(self.hd.get_raw_score('', ''), 0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.hd.get_sim_score('-789', 'john'), 1.0 - (4.0/4.0))
+        self.assertEqual(self.hd.get_sim_score('a', '*'), 1.0 - (1.0/1.0))
+        self.assertEqual(self.hd.get_sim_score('b', 'a'), 1.0 - (1.0/1.0))
+        self.assertEqual(self.hd.get_sim_score('abc', 'p q'), 1.0 - (3.0/3.0))
+        self.assertEqual(self.hd.get_sim_score('karolin', 'kathrin'), 1.0 - (3.0/7.0))
+        self.assertEqual(self.hd.get_sim_score('KARI', 'kari'), 1.0 - (4.0/4.0))
+        self.assertEqual(self.hd.get_sim_score('', ''), 1.0)
+
+    def test_valid_input_compatibility_raw_score(self):
+        self.assertEqual(self.hd.get_raw_score(u'karolin', u'kathrin'), 3)
+        self.assertEqual(self.hd.get_raw_score(u'', u''), 0)
         # str_1 = u'foo'.encode(encoding='UTF-8', errors='strict')
         # str_2 = u'bar'.encode(encoding='UTF-8', errors='strict')
-        # self.assertEqual(hamming_distance(str_1, str_2), 3) # check with Ali - python 3 returns type error
-        # self.assertEqual(hamming_distance(str_1, str_1), 0) # check with Ali - python 3 returns type error
+        # self.assertEqual(self.hd.get_raw_score(str_1, str_2), 3) # check with Ali - python 3 returns type error
+        # self.assertEqual(self.hd.get_raw_score(str_1, str_1), 0) # check with Ali - python 3 returns type error
+
+    def test_valid_input_compatibility_sim_score(self):
+        self.assertEqual(self.hd.get_sim_score(u'karolin', u'kathrin'), 1.0 - (3.0/7.0))
+        self.assertEqual(self.hd.get_sim_score(u'', u''), 1.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        hamming_distance('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.hd.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        hamming_distance(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.hd.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        hamming_distance(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.hd.get_raw_score(None, None)
 
     @raises(ValueError)
-    def test_invalid_input4(self):
-        hamming_distance('a', '')
+    def test_invalid_input4_raw_score(self):
+        self.hd.get_raw_score('a', '')
 
     @raises(ValueError)
-    def test_invalid_input5(self):
-        hamming_distance('', 'This is a long string')
+    def test_invalid_input5_raw_score(self):
+        self.hd.get_raw_score('', 'This is a long string')
 
     @raises(ValueError)
-    def test_invalid_input6(self):
-        hamming_distance('ali', 'alex')
+    def test_invalid_input6_raw_score(self):
+        self.hd.get_raw_score('ali', 'alex')
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        hamming_distance('MA', 12)
+    def test_invalid_input7_raw_score(self):
+        self.hd.get_raw_score('MA', 12)
 
     @raises(TypeError)
-    def test_invalid_input8(self):
-        hamming_distance(12, 'MA')
+    def test_invalid_input8_raw_score(self):
+        self.hd.get_raw_score(12, 'MA')
 
     @raises(TypeError)
-    def test_invalid_input9(self):
-        hamming_distance(12, 12)
+    def test_invalid_input9_raw_score(self):
+        self.hd.get_raw_score(12, 12)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.hd.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.hd.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.hd.get_sim_score(None, None)
+
+    @raises(ValueError)
+    def test_invalid_input4_sim_score(self):
+        self.hd.get_sim_score('a', '')
+
+    @raises(ValueError)
+    def test_invalid_input5_sim_score(self):
+        self.hd.get_sim_score('', 'This is a long string')
+
+    @raises(ValueError)
+    def test_invalid_input6_sim_score(self):
+        self.hd.get_sim_score('ali', 'alex')
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.hd.get_sim_score('MA', 12)
+
+    @raises(TypeError)
+    def test_invalid_input8_sim_score(self):
+        self.hd.get_sim_score(12, 'MA')
+
+    @raises(TypeError)
+    def test_invalid_input9_sim_score(self):
+        self.hd.get_sim_score(12, 12)
 
 
 class NeedlemanWunschTestCases(unittest.TestCase):
+    def setUp(self):
+        self.nw = NeedlemanWunsch()
+        self.nw_with_params1 = NeedlemanWunsch(0.0)
+        self.nw_with_params2 = NeedlemanWunsch(1.0,
+            sim_score=lambda s1, s2: (2 if s1 == s2 else -1))
+        self.nw_with_params3 = NeedlemanWunsch(gap_cost=0.5,
+            sim_score=lambda s1, s2: (1 if s1 == s2 else -1))
+
     def test_valid_input(self):
-        self.assertEqual(needleman_wunsch('dva', 'deeva'), 1.0)
-        self.assertEqual(needleman_wunsch('dva', 'deeve', 0.0), 2.0)
-        self.assertEqual(needleman_wunsch('dva', 'deeve', 1.0, sim_score=lambda s1, s2: (2 if s1 == s2 else -1)), 1.0)
-        self.assertEqual(
-            needleman_wunsch('GCATGCUA', 'GATTACA', gap_cost=0.5,
-                             sim_score=lambda s1, s2: (1 if s1 == s2 else -1)),
-            2.5)
+        self.assertEqual(self.nw.get_raw_score('dva', 'deeva'), 1.0)
+        self.assertEqual(self.nw_with_params1.get_raw_score('dva', 'deeve'), 2.0)
+        self.assertEqual(self.nw_with_params2.get_raw_score('dva', 'deeve'), 1.0)
+        self.assertEqual(self.nw_with_params3.get_raw_score('GCATGCUA', 'GATTACA'),
+                         2.5)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        needleman_wunsch('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.nw.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        needleman_wunsch(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.nw.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        needleman_wunsch(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.nw.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        needleman_wunsch(['a'], 'b')
+    def test_invalid_input4_raw_score(self):
+        self.nw.get_raw_score(['a'], 'b')
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        needleman_wunsch('a', ['b'])
+    def test_invalid_input5_raw_score(self):
+        self.nw.get_raw_score('a', ['b'])
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        needleman_wunsch(['a'], ['b'])
-
+    def test_invalid_input6_raw_score(self):
+        self.nw.get_raw_score(['a'], ['b'])
 
 
 class SmithWatermanTestCases(unittest.TestCase):
+    def setUp(self):
+        self.sw = SmithWaterman()
+        self.sw_with_params1 = SmithWaterman(2.2)
+        self.sw_with_params2 = SmithWaterman(1,
+            sim_score=lambda s1, s2: (2 if s1 == s2 else -1))
+        self.sw_with_params3 = SmithWaterman(gap_cost=1,
+            sim_score=lambda s1, s2: (int(1 if s1 == s2 else -1)))
+        self.sw_with_params4 = SmithWaterman(gap_cost=1.4,
+            sim_score=lambda s1, s2: (1.5 if s1 == s2 else 0.5))
+
     def test_valid_input(self):
-        self.assertEqual(smith_waterman('cat', 'hat'), 2.0)
-        self.assertEqual(smith_waterman('dva', 'deeve', 2.2), 1.0)
-        self.assertEqual(smith_waterman('dva', 'deeve', 1, sim_score=lambda s1, s2: (2 if s1 == s2 else -1)), 2.0)
-        self.assertEqual(
-            smith_waterman('GCATGCU', 'GATTACA', gap_cost=1, sim_score=lambda s1, s2: (int(1 if s1 == s2 else -1))),
-            2.0)
-        self.assertEqual(
-            smith_waterman('GCATAGCU', 'GATTACA', gap_cost=1.4, sim_score=lambda s1, s2: (1.5 if s1 == s2 else 0.5)),
-            6.5)
+        self.assertEqual(self.sw.get_raw_score('cat', 'hat'), 2.0)
+        self.assertEqual(self.sw_with_params1.get_raw_score('dva', 'deeve'), 1.0)
+        self.assertEqual(self.sw_with_params2.get_raw_score('dva', 'deeve'), 2.0)
+        self.assertEqual(self.sw_with_params3.get_raw_score('GCATGCU', 'GATTACA'),
+                         2.0)
+        self.assertEqual(self.sw_with_params4.get_raw_score('GCATAGCU', 'GATTACA'),
+                         6.5)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        smith_waterman('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.sw.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        smith_waterman(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.sw.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        smith_waterman(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.sw.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        smith_waterman('MARHTA', 12)
+    def test_invalid_input4_raw_score(self):
+        self.sw.get_raw_score('MARHTA', 12)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        smith_waterman(12, 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.sw.get_raw_score(12, 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        smith_waterman(12, 12)
+    def test_invalid_input6_raw_score(self):
+        self.sw.get_raw_score(12, 12)
+
+
 class SoundexTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(soundex('Robert', 'Rupert'), 1)
-        self.assertEqual(soundex('Sue', 'S'), 1)
-        self.assertEqual(soundex('robert', 'rupert'), 1)
-        self.assertEqual(soundex('Gough', 'goff'), 0)
-        self.assertEqual(soundex('gough', 'Goff'), 0)
-        self.assertEqual(soundex('ali', 'a,,,li'), 1)
-        self.assertEqual(soundex('Jawornicki', 'Yavornitzky'), 0)
+    def setUp(self):
+        self.sdx = Soundex()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.sdx.get_raw_score('Robert', 'Rupert'), 1)
+        self.assertEqual(self.sdx.get_raw_score('Sue', 'S'), 1)
+        self.assertEqual(self.sdx.get_raw_score('robert', 'rupert'), 1)
+        self.assertEqual(self.sdx.get_raw_score('Gough', 'goff'), 0)
+        self.assertEqual(self.sdx.get_raw_score('gough', 'Goff'), 0)
+        self.assertEqual(self.sdx.get_raw_score('ali', 'a,,,li'), 1)
+        self.assertEqual(self.sdx.get_raw_score('Jawornicki', 'Yavornitzky'), 0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.sdx.get_sim_score('Robert', 'Rupert'), 1)
+        self.assertEqual(self.sdx.get_sim_score('Sue', 'S'), 1)
+        self.assertEqual(self.sdx.get_sim_score('robert', 'rupert'), 1)
+        self.assertEqual(self.sdx.get_sim_score('Gough', 'goff'), 0)
+        self.assertEqual(self.sdx.get_sim_score('gough', 'Goff'), 0)
+        self.assertEqual(self.sdx.get_sim_score('ali', 'a,,,li'), 1)
+        self.assertEqual(self.sdx.get_sim_score('Jawornicki', 'Yavornitzky'), 0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        soundex('a', None)
+    def test_invalid_input1_raw_score(self):
+        self.sdx.get_raw_score('a', None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        soundex(None, 'b')
+    def test_invalid_input2_raw_score(self):
+        self.sdx.get_raw_score(None, 'b')
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        soundex(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.sdx.get_raw_score(None, None)
 
     @raises(ValueError)
-    def test_invalid_input4(self):
-        soundex('a', '')
+    def test_invalid_input4_raw_score(self):
+        self.sdx.get_raw_score('a', '')
 
     @raises(ValueError)
-    def test_invalid_input5(self):
-        soundex('', 'This is a long string')
+    def test_invalid_input5_raw_score(self):
+        self.sdx.get_raw_score('', 'This is a long string')
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        soundex('xyz', [''])
+    def test_invalid_input7_raw_score(self):
+        self.sdx.get_raw_score('xyz', [''])
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.sdx.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.sdx.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.sdx.get_sim_score(None, None)
+
+    @raises(ValueError)
+    def test_invalid_input4_sim_score(self):
+        self.sdx.get_sim_score('a', '')
+
+    @raises(ValueError)
+    def test_invalid_input5_sim_score(self):
+        self.sdx.get_sim_score('', 'This is a long string')
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.sdx.get_sim_score('xyz', [''])
 
 
 # ---------------------- token based similarity measures  ----------------------
 
 # ---------------------- set based similarity measures  ----------------------
 class OverlapCoefficientTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(overlap_coefficient([], []), 1.0)
-        self.assertEqual(overlap_coefficient(['data', 'science'], ['data']), 1.0 / min(2.0, 1.0))
-        self.assertEqual(overlap_coefficient(['data', 'science'], ['science', 'good']), 1.0 / min(2.0, 3.0))
-        self.assertEqual(overlap_coefficient([], ['data']), 0)
-        self.assertEqual(overlap_coefficient(['data', 'data', 'science'], ['data', 'management']), 1.0 / min(3.0, 2.0))
+    def setUp(self):
+        self.oc = OverlapCoefficient()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.oc.get_raw_score([], []), 1.0)
+        self.assertEqual(self.oc.get_raw_score(['data', 'science'], ['data']),
+                         1.0 / min(2.0, 1.0))
+        self.assertEqual(self.oc.get_raw_score(['data', 'science'],
+                                               ['science', 'good']), 1.0 / min(2.0, 3.0))
+        self.assertEqual(self.oc.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.oc.get_raw_score(['data', 'data', 'science'],
+                                               ['data', 'management']), 1.0 / min(3.0, 2.0))
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.oc.get_sim_score([], []), 1.0)
+        self.assertEqual(self.oc.get_sim_score(['data', 'science'], ['data']),
+                         1.0 / min(2.0, 1.0))
+        self.assertEqual(self.oc.get_sim_score(['data', 'science'],
+                                               ['science', 'good']), 1.0 / min(2.0, 3.0))
+        self.assertEqual(self.oc.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.oc.get_sim_score(['data', 'data', 'science'],
+                                               ['data', 'management']), 1.0 / min(3.0, 2.0))
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        overlap_coefficient(['a'], None)
+    def test_invalid_input1_raw_score(self):
+        self.oc.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        overlap_coefficient(None, ['b'])
+    def test_invalid_input2_raw_score(self):
+        self.oc.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        overlap_coefficient(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.oc.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        overlap_coefficient(['MARHTA'], 'MARTHA')
+    def test_invalid_input4_raw_score(self):
+        self.oc.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        overlap_coefficient('MARHTA', ['MARTHA'])
+    def test_invalid_input5_raw_score(self):
+        self.oc.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        overlap_coefficient('MARTHA', 'MARTHA')
+    def test_invalid_input6_raw_score(self):
+        self.oc.get_raw_score('MARTHA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.oc.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.oc.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.oc.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.oc.get_sim_score(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.oc.get_sim_score('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.oc.get_sim_score('MARTHA', 'MARTHA')
 
 
 class DiceTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(dice(['data', 'science'], ['data']), 2 * 1.0 / 3.0)
-        self.assertEqual(dice(['data', 'science'], ['science', 'good']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice([], ['data']), 0)
-        self.assertEqual(dice(['data', 'data', 'science'], ['data', 'management']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice(['data', 'management'], ['data', 'data', 'science']), 2 * 1.0 / 4.0)
-        self.assertEqual(dice([], []), 1.0)
-        self.assertEqual(dice(['a', 'b'], ['b', 'a']), 1.0)
-        self.assertEqual(dice(set([]), set([])), 1.0)
-        self.assertEqual(dice({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 2 * 3.0 / 11.0)
+    def setUp(self):
+        self.dice = Dice()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.dice.get_raw_score(['data', 'science'], ['data']),
+                         2 * 1.0 / 3.0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'science'], ['science', 'good']),
+                         2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'data', 'science'],
+                                                 ['data', 'management']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score(['data', 'management'],
+                                                 ['data', 'data', 'science']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_raw_score([], []), 1.0)
+        self.assertEqual(self.dice.get_raw_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.dice.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.dice.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+                         2 * 3.0 / 11.0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.dice.get_sim_score(['data', 'science'], ['data']),
+                         2 * 1.0 / 3.0)
+        self.assertEqual(self.dice.get_sim_score(['data', 'science'], ['science', 'good']),
+                         2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.dice.get_sim_score(['data', 'data', 'science'],
+                                                 ['data', 'management']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_sim_score(['data', 'management'],
+                                                 ['data', 'data', 'science']), 2 * 1.0 / 4.0)
+        self.assertEqual(self.dice.get_sim_score([], []), 1.0)
+        self.assertEqual(self.dice.get_sim_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.dice.get_sim_score(set([]), set([])), 1.0)
+        self.assertEqual(self.dice.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+                         2 * 3.0 / 11.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        dice(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.dice.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        dice(['a'], None)
+    def test_invalid_input2_raw_score(self):
+        self.dice.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        dice(None, ['b'])
+    def test_invalid_input3_raw_score(self):
+        self.dice.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        dice(None, None)
+    def test_invalid_input4_raw_score(self):
+        self.dice.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        dice(None, 'MARHTA')
+    def test_invalid_input5_raw_score(self):
+        self.dice.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        dice('MARHTA', None)
+    def test_invalid_input6_raw_score(self):
+        self.dice.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        dice('MARHTA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.dice.get_raw_score('MARHTA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.dice.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.dice.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.dice.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.dice.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.dice.get_sim_score(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.dice.get_sim_score('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.dice.get_sim_score('MARHTA', 'MARTHA')
 
 
 class JaccardTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(jaccard(['data', 'science'], ['data']), 1.0 / 2.0)
-        self.assertEqual(jaccard(['data', 'science'], ['science', 'good']), 1.0 / 3.0)
-        self.assertEqual(jaccard([], ['data']), 0)
-        self.assertEqual(jaccard(['data', 'data', 'science'], ['data', 'management']), 1.0 / 3.0)
-        self.assertEqual(jaccard(['data', 'management'], ['data', 'data', 'science']), 1.0 / 3.0)
-        self.assertEqual(jaccard([], []), 1.0)
-        self.assertEqual(jaccard(set([]), set([])), 1.0)
-        self.assertEqual(jaccard({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
+    def setUp(self):
+        self.jac = Jaccard()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.jac.get_raw_score(['data', 'science'], ['data']),
+                         1.0 / 2.0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'science'],
+                                                ['science', 'good']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'data', 'science'],
+                             ['data', 'management']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score(['data', 'management'],
+                             ['data', 'data', 'science']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_raw_score([], []), 1.0)
+        self.assertEqual(self.jac.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.jac.get_raw_score({1, 1, 2, 3, 4},
+                             {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.jac.get_sim_score(['data', 'science'], ['data']),
+                         1.0 / 2.0)
+        self.assertEqual(self.jac.get_sim_score(['data', 'science'],
+                                                ['science', 'good']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.jac.get_sim_score(['data', 'data', 'science'],
+                             ['data', 'management']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_sim_score(['data', 'management'],
+                             ['data', 'data', 'science']), 1.0 / 3.0)
+        self.assertEqual(self.jac.get_sim_score([], []), 1.0)
+        self.assertEqual(self.jac.get_sim_score(set([]), set([])), 1.0)
+        self.assertEqual(self.jac.get_sim_score({1, 1, 2, 3, 4},
+                             {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        jaccard(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.jac.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        jaccard(['a'], None)
+    def test_invalid_input2_raw_score(self):
+        self.jac.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        jaccard(None, ['b'])
+    def test_invalid_input3_raw_score(self):
+        self.jac.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        jaccard(None, None)
+    def test_invalid_input4_raw_score(self):
+        self.jac.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        jaccard(['MARHTA'], 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.jac.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        jaccard('MARHTA', ['MARTHA'])
+    def test_invalid_input6_raw_score(self):
+        self.jac.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        jaccard('MARTHA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.jac.get_raw_score('MARTHA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.jac.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.jac.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.jac.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.jac.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.jac.get_sim_score(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.jac.get_sim_score('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.jac.get_sim_score('MARTHA', 'MARTHA')
 
 
 class GeneralizedJaccardTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(generalized_jaccard([''], ['']), 1.0)  # need to check this
+    def setUp(self):
+        self.gen_jac = GeneralizedJaccard()
+        self.gen_jac_with_jw = GeneralizedJaccard(sim_func=JaroWinkler().get_raw_score)
+        self.gen_jac_with_jw_08 = GeneralizedJaccard(sim_func=JaroWinkler().get_raw_score,
+                                                     threshold=0.8)
+        self.gen_jac_invalid = GeneralizedJaccard(sim_func=NeedlemanWunsch().get_raw_score,
+                                                  threshold=0.8)
 
-        self.assertEqual(generalized_jaccard([''], ['a']), 0.0)
-        self.assertEqual(generalized_jaccard(['a'], ['a']), 1.0)
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.gen_jac.get_raw_score([''], ['']), 1.0)  # need to check this
 
-        self.assertEqual(generalized_jaccard(['Niall'], ['Neal']), 0.7833333333333333)
-        self.assertEqual(generalized_jaccard(['Niall'], ['Njall', 'Neal']), 0.43333333333333335)
-        self.assertEqual(generalized_jaccard(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
-        self.assertEqual(generalized_jaccard(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.6800468975468975)
-        self.assertEqual(
-            generalized_jaccard(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                        sim_func=jaro_winkler), 0.7220003607503608)
-        self.assertEqual(
-            generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                        sim_func=jaro_winkler), 0.7075277777777778)
-        self.assertEqual(
-            generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                        sim_func=jaro_winkler, threshold=0.8), 0.45810185185185187)
-        self.assertEqual(generalized_jaccard([], ['Nigel']), 0.0)
+        self.assertEqual(self.gen_jac.get_raw_score([''], ['a']), 0.0)
+        self.assertEqual(self.gen_jac.get_raw_score(['a'], ['a']), 1.0)
+
+        self.assertEqual(self.gen_jac.get_raw_score([], ['Nigel']), 0.0)
+        self.assertEqual(self.gen_jac.get_raw_score(['Niall'], ['Neal']), 0.7833333333333333)
+        self.assertEqual(self.gen_jac.get_raw_score(['Niall'], ['Njall', 'Neal']), 0.43333333333333335)
+        self.assertEqual(self.gen_jac.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
+        self.assertEqual(self.gen_jac.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.6800468975468975)
+
+        self.assertEqual(self.gen_jac_with_jw.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.7220003607503608)
+        self.assertEqual(self.gen_jac_with_jw.get_raw_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.7075277777777778)
+
+        self.assertEqual(self.gen_jac_with_jw_08.get_raw_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.45810185185185187)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.gen_jac.get_sim_score([''], ['']), 1.0)  # need to check this
+
+        self.assertEqual(self.gen_jac.get_sim_score([''], ['a']), 0.0)
+        self.assertEqual(self.gen_jac.get_sim_score(['a'], ['a']), 1.0)
+
+        self.assertEqual(self.gen_jac.get_sim_score([], ['Nigel']), 0.0)
+        self.assertEqual(self.gen_jac.get_sim_score(['Niall'], ['Neal']), 0.7833333333333333)
+        self.assertEqual(self.gen_jac.get_sim_score(['Niall'], ['Njall', 'Neal']), 0.43333333333333335)
+        self.assertEqual(self.gen_jac.get_sim_score(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
+        self.assertEqual(self.gen_jac.get_sim_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.6800468975468975)
+
+        self.assertEqual(self.gen_jac_with_jw.get_sim_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.7220003607503608)
+        self.assertEqual(self.gen_jac_with_jw.get_sim_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.7075277777777778)
+
+        self.assertEqual(self.gen_jac_with_jw_08.get_sim_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.45810185185185187)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        generalized_jaccard(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.gen_jac.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        generalized_jaccard(None, ['b'])
+    def test_invalid_input2_raw_score(self):
+        self.gen_jac.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        generalized_jaccard(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.gen_jac.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        generalized_jaccard("temp", "temp")
+    def test_invalid_input4_raw_score(self):
+        self.gen_jac.get_raw_score("temp", "temp")
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        generalized_jaccard(['temp'], 'temp')
+    def test_invalid_input5_raw_score(self):
+        self.gen_jac.get_raw_score(['temp'], 'temp')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        generalized_jaccard(['a'], None)
+    def test_invalid_input6_raw_score(self):
+        self.gen_jac.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        generalized_jaccard('temp', ['temp'])
+    def test_invalid_input7_raw_score(self):
+        self.gen_jac.get_raw_score('temp', ['temp'])
 
     @raises(ValueError)
     def test_invalid_sim_measure(self):
-        generalized_jaccard(['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                    ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                    sim_func=needleman_wunsch, threshold=0.8)
+        self.gen_jac_invalid.get_raw_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'])
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.gen_jac.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.gen_jac.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.gen_jac.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.gen_jac.get_sim_score("temp", "temp")
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.gen_jac.get_sim_score(['temp'], 'temp')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.gen_jac.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.gen_jac.get_sim_score('temp', ['temp'])
+
+    @raises(ValueError)
+    def test_invalid_sim_measure_sim_score(self):
+        self.gen_jac_invalid.get_sim_score(
+                ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'])
 
 
 class CosineTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(cosine(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
-        self.assertEqual(cosine(['data', 'science'], ['science', 'good']),
+    def setUp(self):
+        self.cos = Cosine()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.cos.get_raw_score(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
+        self.assertEqual(self.cos.get_raw_score(['data', 'science'], ['science', 'good']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine([], ['data']), 0.0)
-        self.assertEqual(cosine(['data', 'data', 'science'], ['data', 'management']),
+        self.assertEqual(self.cos.get_raw_score([], ['data']), 0.0)
+        self.assertEqual(self.cos.get_raw_score(['data', 'data', 'science'], ['data', 'management']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine(['data', 'management'], ['data', 'data', 'science']),
+        self.assertEqual(self.cos.get_raw_score(['data', 'management'], ['data', 'data', 'science']),
                          1.0 / (math.sqrt(2) * math.sqrt(2)))
-        self.assertEqual(cosine([], []), 1.0)
-        self.assertEqual(cosine(set([]), set([])), 1.0)
-        self.assertEqual(cosine({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+        self.assertEqual(self.cos.get_raw_score([], []), 1.0)
+        self.assertEqual(self.cos.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.cos.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+                         3.0 / (math.sqrt(4) * math.sqrt(7)))
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.cos.get_sim_score(['data', 'science'], ['data']), 1.0 / (math.sqrt(2) * math.sqrt(1)))
+        self.assertEqual(self.cos.get_sim_score(['data', 'science'], ['science', 'good']),
+                         1.0 / (math.sqrt(2) * math.sqrt(2)))
+        self.assertEqual(self.cos.get_sim_score([], ['data']), 0.0)
+        self.assertEqual(self.cos.get_sim_score(['data', 'data', 'science'], ['data', 'management']),
+                         1.0 / (math.sqrt(2) * math.sqrt(2)))
+        self.assertEqual(self.cos.get_sim_score(['data', 'management'], ['data', 'data', 'science']),
+                         1.0 / (math.sqrt(2) * math.sqrt(2)))
+        self.assertEqual(self.cos.get_sim_score([], []), 1.0)
+        self.assertEqual(self.cos.get_sim_score(set([]), set([])), 1.0)
+        self.assertEqual(self.cos.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (math.sqrt(4) * math.sqrt(7)))
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        cosine(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.cos.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        cosine(['a'], None)
+    def test_invalid_input4_raw_score(self):
+        self.cos.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        cosine(None, ['b'])
+    def test_invalid_input2_raw_score(self):
+        self.cos.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        cosine(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.cos.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        cosine(['MARHTA'], 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.cos.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        cosine('MARHTA', ['MARTHA'])
+    def test_invalid_input6_raw_score(self):
+        self.cos.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        cosine('MARTHA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.cos.get_raw_score('MARTHA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.cos.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.cos.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.cos.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.cos.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.cos.get_sim_score(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.cos.get_sim_score('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.cos.get_sim_score('MARTHA', 'MARTHA')
 
 
 class TfidfTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True),
+    def setUp(self):
+        self.tfidf = TfIdf()
+        self.tfidf_with_params1 = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True)
+        self.tfidf_with_params2 = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
+        self.tfidf_with_params3 = TfIdf([['x', 'y'], ['w'], ['q']])
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.tfidf_with_params1.get_raw_score(['a', 'b', 'a'], ['a', 'c']),
                          0.11166746710505392)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a']]), 0.17541160386140586)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a'], [['a', 'b', 'a'], ['a', 'c'], ['a']]), 0.5547001962252291)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a']), 0.7071067811865475)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a'], [['x', 'y'], ['w'], ['q']]), 0.0)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a']), 0.7071067811865475)
-        self.assertEqual(tfidf(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
-        self.assertEqual(tfidf([], ['a', 'b', 'a']), 0.0)
+        self.assertEqual(self.tfidf_with_params2.get_raw_score(['a', 'b', 'a'], ['a', 'c']),
+                         0.17541160386140586)
+        self.assertEqual(self.tfidf_with_params2.get_raw_score(['a', 'b', 'a'], ['a']),
+                         0.5547001962252291)
+        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf_with_params3.get_raw_score(['a', 'b', 'a'], ['a']), 0.0)
+        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
+        self.assertEqual(self.tfidf.get_raw_score([], ['a', 'b', 'a']), 0.0)
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.tfidf_with_params1.get_sim_score(['a', 'b', 'a'], ['a', 'c']),
+                         0.11166746710505392)
+        self.assertEqual(self.tfidf_with_params2.get_sim_score(['a', 'b', 'a'], ['a', 'c']),
+                         0.17541160386140586)
+        self.assertEqual(self.tfidf_with_params2.get_sim_score(['a', 'b', 'a'], ['a']),
+                         0.5547001962252291)
+        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf_with_params3.get_sim_score(['a', 'b', 'a'], ['a']), 0.0)
+        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
+        self.assertEqual(self.tfidf.get_sim_score([], ['a', 'b', 'a']), 0.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        tfidf(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.tfidf.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        tfidf(['a'], None)
+    def test_invalid_input4_raw_score(self):
+        self.tfidf.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        tfidf(None, ['b'])
+    def test_invalid_input2_raw_score(self):
+        self.tfidf.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        tfidf(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.tfidf.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        tfidf(['MARHTA'], 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.tfidf.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        tfidf('MARHTA', ['MARTHA'])
+    def test_invalid_input6_raw_score(self):
+        self.tfidf.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        tfidf('MARTHA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.tfidf.get_raw_score('MARTHA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.tfidf.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.tfidf.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.tfidf.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.tfidf.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.tfidf.get_sim_score(['MARHTA'], 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.tfidf.get_sim_score('MARHTA', ['MARTHA'])
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.tfidf.get_sim_score('MARTHA', 'MARTHA')
+
+
 class TverskyIndexTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(tversky_index(['data', 'science'], ['data'], 0.5, 0.5), 1.0 / (1.0 + 0.5*1 + 0.5*0))
-        self.assertEqual(tversky_index(['data', 'science'], ['science', 'good']), 1.0 / (1.0 + 0.5*1 + 0.5*1))
-        self.assertEqual(tversky_index([], ['data']), 0)
-        self.assertEqual(tversky_index(['data', 'data', 'science'], ['data', 'management'], 0.7, 0.8),
+    def setUp(self):
+        self.tvi = TverskyIndex()
+        self.tvi_with_params1 = TverskyIndex(0.5, 0.5)
+        self.tvi_with_params2 = TverskyIndex(0.7, 0.8)
+        self.tvi_with_params3 = TverskyIndex(0.2, 0.4)
+        self.tvi_with_params4 = TverskyIndex(0.9, 0.8)
+        self.tvi_with_params5 = TverskyIndex(0.45, 0.85)
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.tvi_with_params1.get_raw_score(['data', 'science'], ['data']),
+                         1.0 / (1.0 + 0.5*1 + 0.5*0))
+        self.assertEqual(self.tvi.get_raw_score(['data', 'science'], ['science', 'good']),
+                         1.0 / (1.0 + 0.5*1 + 0.5*1))
+        self.assertEqual(self.tvi.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.tvi_with_params2.get_raw_score(['data', 'data', 'science'],
+                                                             ['data', 'management']),
                          1.0 / (1.0 + 0.7*1 + 0.8*1))
-        self.assertEqual(tversky_index(['data', 'management', 'science'], ['data', 'data', 'science'], 0.2, 0.4),
+        self.assertEqual(self.tvi_with_params3.get_raw_score(['data', 'management', 'science'],
+                                                             ['data', 'data', 'science']),
                          2.0 / (2.0 + 0.2*1 + 0))
-        self.assertEqual(tversky_index([], []), 1.0)
-        self.assertEqual(tversky_index(['a', 'b'], ['b', 'a'], 0.9, 0.8), 1.0)
-        self.assertEqual(tversky_index(['a', 'b'], ['b', 'a']), 1.0)
-        self.assertEqual(tversky_index(set([]), set([])), 1.0)
-        self.assertEqual(tversky_index({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}, 0.45, 0.85),
+        self.assertEqual(self.tvi.get_raw_score([], []), 1.0)
+        self.assertEqual(self.tvi_with_params4.get_raw_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.tvi.get_raw_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.tvi.get_raw_score(set([]), set([])), 1.0)
+        self.assertEqual(self.tvi_with_params5.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
+                         3.0 / (3.0 + 0.45*1 + 0.85*4))
+
+    def test_valid_input_sim_score(self):
+        self.assertEqual(self.tvi_with_params1.get_sim_score(['data', 'science'], ['data']),
+                         1.0 / (1.0 + 0.5*1 + 0.5*0))
+        self.assertEqual(self.tvi.get_sim_score(['data', 'science'], ['science', 'good']),
+                         1.0 / (1.0 + 0.5*1 + 0.5*1))
+        self.assertEqual(self.tvi.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.tvi_with_params2.get_sim_score(['data', 'data', 'science'],
+                                                             ['data', 'management']),
+                         1.0 / (1.0 + 0.7*1 + 0.8*1))
+        self.assertEqual(self.tvi_with_params3.get_sim_score(['data', 'management', 'science'],
+                                                             ['data', 'data', 'science']),
+                         2.0 / (2.0 + 0.2*1 + 0))
+        self.assertEqual(self.tvi.get_sim_score([], []), 1.0)
+        self.assertEqual(self.tvi_with_params4.get_sim_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.tvi.get_sim_score(['a', 'b'], ['b', 'a']), 1.0)
+        self.assertEqual(self.tvi.get_sim_score(set([]), set([])), 1.0)
+        self.assertEqual(self.tvi_with_params5.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (3.0 + 0.45*1 + 0.85*4))
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        tversky_index(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.tvi.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        tversky_index(['a'], None)
+    def test_invalid_input2_raw_score(self):
+        self.tvi.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        tversky_index(None, ['b'])
+    def test_invalid_input3_raw_score(self):
+        self.tvi.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        tversky_index(None, None)
+    def test_invalid_input4_raw_score(self):
+        self.tvi.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        tversky_index(None, 'MARHTA')
+    def test_invalid_input5_raw_score(self):
+        self.tvi.get_raw_score(None, 'MARHTA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        tversky_index('MARHTA', None)
+    def test_invalid_input6_raw_score(self):
+        self.tvi.get_raw_score('MARHTA', None)
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        tversky_index('MARHTA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.tvi.get_raw_score('MARHTA', 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.tvi.get_sim_score(1, 1)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.tvi.get_sim_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.tvi.get_sim_score(None, ['b'])
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.tvi.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.tvi.get_sim_score(None, 'MARHTA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.tvi.get_sim_score('MARHTA', None)
+
+    @raises(TypeError)
+    def test_invalid_input7_sim_score(self):
+        self.tvi.get_sim_score('MARHTA', 'MARTHA')
 
     @raises(ValueError)
     def test_invalid_input8(self):
-        tversky_index(['MARHTA'], ['MARTHA'], 0.5, -0.9)
+        tvi_invalid = TverskyIndex(0.5, -0.9)
 
     @raises(ValueError)
     def test_invalid_input9(self):
-        tversky_index(['MARHTA'], ['MARTHA'], -0.5, 0.9)
+        tvi_invalid = TverskyIndex(-0.5, 0.9)
 
     @raises(ValueError)
     def test_invalid_input10(self):
-        tversky_index(['MARHTA'], ['MARTHA'], -0.5, -0.9)
+        tvi_invalid = TverskyIndex(-0.5, -0.9)
+
 
 # ---------------------- bag based similarity measures  ----------------------
 # class CosineTestCases(unittest.TestCase):
@@ -760,106 +1487,126 @@ class TverskyIndexTestCases(unittest.TestCase):
 #                                4/math.sqrt(9*7))
 #
 #     @raises(TypeError)
-#     def test_invalid_input1(self):
+#     def test_invalid_input1_raw_score(self):
 #         cosine(['a'], None)
 #     @raises(TypeError)
-#     def test_invalid_input2(self):
+#     def test_invalid_input2_raw_score(self):
 #         cosine(None, ['b'])
 #     @raises(TypeError)
-#     def test_invalid_input3(self):
+#     def test_invalid_input3_raw_score(self):
 #         cosine(None, None)
 
 
 # ---------------------- hybrid similarity measure  ----------------------
 
 class Soft_TfidfTestCases(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a', 'c'], [['a', 'b', 'a'], ['a', 'c'], ['a']], sim_func=jaro,
-                                    threshold=0.8), 0.17541160386140586)
-        self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a'], [['a', 'b', 'a'], ['a', 'c'], ['a']],
-                                    threshold=0.9), 0.5547001962252291)
-        self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a'], [['x', 'y'], ['w'], ['q']]), 0.0)
-        self.assertEqual(soft_tfidf(['aa', 'bb', 'a'], ['ab', 'ba'], sim_func=affine, threshold=0.6),
+    def setUp(self):
+        self.soft_tfidf = SoftTfIdf()
+        self.soft_tfidf_with_params1 = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']],
+                                                 sim_func=Jaro().get_raw_score,
+                                                 threshold=0.8)
+        self.soft_tfidf_with_params2 = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']],
+                                                 threshold=0.9)
+        self.soft_tfidf_with_params3 = SoftTfIdf([['x', 'y'], ['w'], ['q']])
+        self.soft_tfidf_with_params4 = SoftTfIdf(sim_func=Affine().get_raw_score, threshold=0.6)
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.soft_tfidf_with_params1.get_raw_score(
+                         ['a', 'b', 'a'], ['a', 'c']), 0.17541160386140586)
+        self.assertEqual(self.soft_tfidf_with_params2.get_raw_score(
+                         ['a', 'b', 'a'], ['a']), 0.5547001962252291)
+        self.assertEqual(self.soft_tfidf_with_params3.get_raw_score(
+                         ['a', 'b', 'a'], ['a']), 0.0)
+        self.assertEqual(self.soft_tfidf_with_params4.get_raw_score(
+                             ['aa', 'bb', 'a'], ['ab', 'ba']),
                          0.81649658092772592)
-        self.assertEqual(soft_tfidf(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
-        self.assertEqual(soft_tfidf([], ['a', 'b', 'a']), 0.0)
+        self.assertEqual(self.soft_tfidf.get_raw_score(
+                         ['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
+        self.assertEqual(self.soft_tfidf.get_raw_score([], ['a', 'b', 'a']), 0.0)
 
     @raises(TypeError)
-    def test_invalid_input1(self):
-        soft_tfidf(1, 1)
+    def test_invalid_input1_raw_score(self):
+        self.soft_tfidf.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        soft_tfidf(['a'], None)
+    def test_invalid_input4_raw_score(self):
+        self.soft_tfidf.get_raw_score(['a'], None)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        soft_tfidf(None, ['b'])
+    def test_invalid_input2_raw_score(self):
+        self.soft_tfidf.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        soft_tfidf(None, None)
+    def test_invalid_input3_raw_score(self):
+        self.soft_tfidf.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        soft_tfidf(['MARHTA'], 'MARTHA')
+    def test_invalid_input5_raw_score(self):
+        self.soft_tfidf.get_raw_score(['MARHTA'], 'MARTHA')
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        soft_tfidf('MARHTA', ['MARTHA'])
+    def test_invalid_input6_raw_score(self):
+        self.soft_tfidf.get_raw_score('MARHTA', ['MARTHA'])
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        soft_tfidf('MARTHA', 'MARTHA')
+    def test_invalid_input7_raw_score(self):
+        self.soft_tfidf.get_raw_score('MARTHA', 'MARTHA')
 
 
 class MongeElkanTestCases(unittest.TestCase):
+    def setUp(self):
+        self.me = MongeElkan()
+        self.me_with_nw = MongeElkan(NeedlemanWunsch().get_raw_score)
+        self.me_with_affine = MongeElkan(Affine().get_raw_score)
+
     def test_valid_input(self):
-        self.assertEqual(monge_elkan([''], ['']), 1.0)  # need to check this
+        self.assertEqual(self.me.get_raw_score([''], ['']), 1.0)  # need to check this
 
-        self.assertEqual(monge_elkan([''], ['a']), 0.0)
-        self.assertEqual(monge_elkan(['a'], ['a']), 1.0)
+        self.assertEqual(self.me.get_raw_score([''], ['a']), 0.0)
+        self.assertEqual(self.me.get_raw_score(['a'], ['a']), 1.0)
 
-        self.assertEqual(monge_elkan(['Niall'], ['Neal']), 0.8049999999999999)
-        self.assertEqual(monge_elkan(['Niall'], ['Njall']), 0.88)
-        self.assertEqual(monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                                     ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.8364448051948052)
-        self.assertEqual(
-            monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                        sim_func=needleman_wunsch), 2.0)
-        self.assertEqual(
-            monge_elkan(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                        ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'],
-                        sim_func=affine), 2.25)
-        self.assertEqual(monge_elkan(['Niall'], ['Niel']), 0.8266666666666667)
-        self.assertEqual(monge_elkan(['Niall'], ['Nigel']), 0.7866666666666667)
-        self.assertEqual(monge_elkan([], ['Nigel']), 0.0)
-
-    @raises(TypeError)
-    def test_invalid_input1(self):
-        monge_elkan(1, 1)
+        self.assertEqual(self.me.get_raw_score(['Niall'], ['Neal']), 0.8049999999999999)
+        self.assertEqual(self.me.get_raw_score(['Niall'], ['Njall']), 0.88)
+        self.assertEqual(self.me.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.8364448051948052)
+        self.assertEqual(self.me_with_nw.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 
+            2.0)
+        self.assertEqual(self.me_with_affine.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            2.25)
+        self.assertEqual(self.me.get_raw_score(['Niall'], ['Niel']), 0.8266666666666667)
+        self.assertEqual(self.me.get_raw_score(['Niall'], ['Nigel']), 0.7866666666666667)
+        self.assertEqual(self.me.get_raw_score([], ['Nigel']), 0.0)
 
     @raises(TypeError)
-    def test_invalid_input2(self):
-        monge_elkan(None, ['b'])
+    def test_invalid_input1_raw_score(self):
+        self.me.get_raw_score(1, 1)
 
     @raises(TypeError)
-    def test_invalid_input3(self):
-        monge_elkan(None, None)
+    def test_invalid_input2_raw_score(self):
+        self.me.get_raw_score(None, ['b'])
 
     @raises(TypeError)
-    def test_invalid_input4(self):
-        monge_elkan("temp", "temp")
+    def test_invalid_input3_raw_score(self):
+        self.me.get_raw_score(None, None)
 
     @raises(TypeError)
-    def test_invalid_input5(self):
-        monge_elkan(['temp'], 'temp')
+    def test_invalid_input4_raw_score(self):
+        self.me.get_raw_score("temp", "temp")
 
     @raises(TypeError)
-    def test_invalid_input6(self):
-        monge_elkan(['a'], None)
+    def test_invalid_input5_raw_score(self):
+        self.me.get_raw_score(['temp'], 'temp')
 
     @raises(TypeError)
-    def test_invalid_input7(self):
-        monge_elkan('temp', ['temp'])
+    def test_invalid_input6_raw_score(self):
+        self.me.get_raw_score(['a'], None)
+
+    @raises(TypeError)
+    def test_invalid_input7_raw_score(self):
+        self.me.get_raw_score('temp', ['temp'])
