@@ -201,6 +201,17 @@ class Editex:
             return self.group_cost
         return self.r_cost(ch1, ch2)
 
+
+def convert_bag_to_set(input_list):
+    seen_tokens = {}
+    output_set =[]
+    for token in input_list:
+        if seen_tokens.get(token) == None:
+            output_set.append(token)
+            seen_tokens[token] = True
+    return output_set 
+
+
 # # check for NaNs
 # def check_strings_for_nulls(func):
 #     @functools.wraps(func)
