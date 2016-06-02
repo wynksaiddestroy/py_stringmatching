@@ -12,11 +12,10 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
+import sys, os
 
 # add path - warning: needs to updated based on package path
-# sys.path.append('/scratch/pradap/python-work/py_stringmatching')
-sys.path.append('/Users/pradap/Documents/Research/Python-Package/py_stringmatching')
+sys.path.insert(0, os.path.abspath("../"))
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -67,8 +66,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'py_stringmatching'
-copyright = u'2016, Magellan Team'
-author = u'Magellan Team'
+copyright = u'2016, py_stringmatching Team'
+author = u'py_stringmatching Team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -242,7 +241,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'py_stringmatching.tex', u'py\\_stringmatching Documentation',
-     u'Magellan Team', 'manual'),
+     u'py_stringmatching Team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
