@@ -27,8 +27,8 @@ cdef inline int int_min(int a, int b, int c):
 
 def levenshtein(object string1, object string2):
 
-    cdef bytes bytes_s1 = string1.encode('UTF-8')
-    cdef bytes bytes_s2 = string2.encode('UTF-8')
+    cdef bytes bytes_s1 = string1.encode("UTF-8")
+    cdef bytes bytes_s2 = string2.encode("UTF-8")
 
     cdef int len_str1 = len(bytes_s1)
     cdef int len_str2 = len(bytes_s2)

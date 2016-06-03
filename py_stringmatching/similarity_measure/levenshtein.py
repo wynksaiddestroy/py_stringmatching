@@ -2,10 +2,8 @@
 
 from __future__ import division
 
-import numpy as np
-
+from cython_levenshtein import levenshtein
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
@@ -48,35 +46,7 @@ class Levenshtein(SequenceSimilarityMeasure):
         utils.sim_check_for_string_inputs(string1, string2)
         if utils.sim_check_for_exact_match(string1, string2):
             return 0.0
-
-        ins_cost, del_cost, sub_cost, trans_cost = (1, 1, 1, 1)
-
-        len_str1 = len(string1)
-        len_str2 = len(string2)
-
-        if len_str1 == 0:
-            return len_str2 * ins_cost
-
-        if len_str2 == 0:
-            return len_str1 * del_cost
-
-        d_mat = np.zeros((len_str1 + 1, len_str2 + 1), dtype=np.int)
-
-        for i in _range(len_str1 + 1):
-            d_mat[i, 0] = i * del_cost
-
-        for j in _range(len_str2 + 1):
-            d_mat[0, j] = j * ins_cost
-
-        for i in _range(len_str1):
-            for j in _range(len_str2):
-                d_mat[i + 1, j + 1] = min(
-                    d_mat[i + 1, j] + ins_cost,
-                    d_mat[i, j + 1] + del_cost,
-                    d_mat[i, j] + (sub_cost if string1[i] != string2[j] else 0)
-                )
-
-        return d_mat[len_str1, len_str2]
+        return levenshtein(string1, string2)
 
     def get_sim_score(self, string1, string2):
         """
