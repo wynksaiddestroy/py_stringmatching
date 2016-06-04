@@ -5,6 +5,7 @@ __pycache__/
 *$py.class
 
 # C extensions
+*.c
 *.so
 
 # Distribution / packaging
@@ -65,4 +66,5 @@ scratch/
 .idea/
 # Created by .ignore support plugin (hsz.mobi)
 
-results/
+# Project specific
+cythonize.dat
