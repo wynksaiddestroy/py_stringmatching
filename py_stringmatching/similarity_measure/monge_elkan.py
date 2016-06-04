@@ -71,10 +71,10 @@ class MongeElkan(HybridSimilarityMeasure):
         # aggregated sum of all the max sim score of all the elements in bag1
         # with elements in bag2
         sum_of_maxes = 0
-        for t1 in bag1:
+        for el1 in bag1:
             max_sim = float('-inf')
-            for t2 in bag2:
-                max_sim = max(max_sim, self.sim_func(t1, t2))
+            for el2 in bag2:
+                max_sim = max(max_sim, self.sim_func(el1, el2))
             sum_of_maxes += max_sim
 
         sim = float(sum_of_maxes) / float(len(bag1))

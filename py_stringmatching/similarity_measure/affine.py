@@ -8,8 +8,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
 
-def sim_ident(s1, s2):
-    return int(s1 == s2)
+def sim_ident(char1, char2):
+    return int(char1 == char2)
 
 
 class Affine(SequenceSimilarityMeasure):
@@ -85,9 +85,11 @@ class Affine(SequenceSimilarityMeasure):
         # affine gap calculation using DP
         for i in _range(1, len(string1) + 1):
             for j in _range(1, len(string2) + 1):
-                # best score between x_1....x_i and y_1....y_j given that x_i is aligned to y_j
+                # best score between x_1....x_i and y_1....y_j
+                # given that x_i is aligned to y_j
                 m[i][j] = (self.sim_score(string1[i - 1], string2[j - 1]) +
-                           max(m[i - 1][j - 1], x[i - 1][j - 1], y[i - 1][j - 1]))
+                           max(m[i - 1][j - 1], x[i - 1][j - 1],
+                               y[i - 1][j - 1]))
 
                 # the best score given that x_i is aligned to a gap
                 x[i][j] = max(gap_start + m[i - 1][j],

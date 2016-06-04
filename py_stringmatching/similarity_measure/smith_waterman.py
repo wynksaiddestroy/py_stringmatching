@@ -9,8 +9,8 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
 
-def sim_ident(s1, s2):
-    return int(s1 == s2)
+def sim_ident(char1, char2):
+    return int(char1 == char2)
 
 
 class SmithWaterman(SequenceSimilarityMeasure):
@@ -62,12 +62,14 @@ class SmithWaterman(SequenceSimilarityMeasure):
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
 
-        dist_mat = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
+        dist_mat = np.zeros((len(string1) + 1, len(string2) + 1),
+                            dtype=np.float)
         max_value = 0
         # Smith Waterman DP calculations
         for i in _range(1, len(string1) + 1):
             for j in _range(1, len(string2) + 1):
-                match = dist_mat[i - 1, j - 1] + self.sim_score(string1[i - 1], string2[j - 1])
+                match = dist_mat[i - 1, j - 1] + self.sim_score(string1[i - 1],
+                                                                string2[j - 1])
                 delete = dist_mat[i - 1, j] - self.gap_cost
                 insert = dist_mat[i, j - 1] - self.gap_cost
                 dist_mat[i, j] = max(0, match, delete, insert)

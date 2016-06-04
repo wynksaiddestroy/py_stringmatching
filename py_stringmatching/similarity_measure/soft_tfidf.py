@@ -1,7 +1,7 @@
 """Soft-TfIdf similarity measure"""
 
 from __future__ import division
-from math import log, sqrt
+from math import sqrt
 import collections
 
 from py_stringmatching import utils
@@ -21,7 +21,8 @@ class SoftTfIdf(HybridSimilarityMeasure):
         threshold (float): Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
                            of a token pair exceeds the threshold, then the token pair is considered a match.
     """
-    def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score, threshold=0.5):
+    def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,
+                 threshold=0.5):
         self._corpus_list = corpus_list
         self._df = {}
         # compute document frequencies for the corpus
@@ -29,7 +30,8 @@ class SoftTfIdf(HybridSimilarityMeasure):
             for document in self._corpus_list:
                 for element in set(document):
                     self._df[element] = self._df.get(element, 0) + 1
-        self._corpus_size = 0 if self._corpus_list is None else len(self._corpus_list)
+        self._corpus_size = 0 if self._corpus_list is None else (
+                                                        len(self._corpus_list))
         self.sim_func = sim_func
         self.threshold = threshold
         super(SoftTfIdf, self).__init__()
@@ -81,41 +83,44 @@ class SoftTfIdf(HybridSimilarityMeasure):
          
         # find unique elements in the input lists and their document frequency 
         local_df = {}
-        for el in tf_x:
-            local_df[el] = local_df.get(el, 0) + 1
-        for el in tf_y:
-            local_df[el] = local_df.get(el, 0) + 1
+        for element in tf_x:
+            local_df[element] = local_df.get(element, 0) + 1
+        for element in tf_y:
+            local_df[element] = local_df.get(element, 0) + 1
 
         # if corpus is not provided treat input string as corpus
-        df, corpus_size = (local_df, 2) if self._corpus_list is None else (
-                                            (self._df, self._corpus_size))
+        curr_df, corpus_size = (local_df, 2) if self._corpus_list is None else (
+                                                (self._df, self._corpus_size))
 
-        # calculating the term sim score against the input string 2, construct similarity map
+        # calculating the term sim score against the input string 2,
+        # construct similarity map
         similarity_map = {}
-        for x in tf_x:
+        for term_x in tf_x:
             max_score = 0.0
-            for y in tf_y:
-                score = self.sim_func(x, y)
-                # adding sim only if it is above threshold and highest for this element
+            for term_y in tf_y:
+                score = self.sim_func(term_x, term_y)
+                # adding sim only if it is above threshold and
+                # highest for this element
                 if score > self.threshold and score > max_score:
-                    similarity_map[x] = utils.Similarity(x, y, score)
+                    similarity_map[term_x] = utils.Similarity(term_x, term_y,
+                                                              score)
                     max_score = score
 
         result, v_x_2, v_y_2 = 0.0, 0.0, 0.0
         # soft-tfidf calculation
         for element in local_df.keys():
-            if df.get(element) is None:
+            if curr_df.get(element) is None:
                 continue
             # numerator
             if element in similarity_map:
                 sim = similarity_map[element]
-                idf_first = corpus_size / df.get(sim.first_string, 1)
-                idf_second = corpus_size / df.get(sim.second_string, 1)
+                idf_first = corpus_size / curr_df.get(sim.first_string, 1)
+                idf_second = corpus_size / curr_df.get(sim.second_string, 1)
                 v_x = idf_first * tf_x.get(sim.first_string, 0)
                 v_y = idf_second * tf_y.get(sim.second_string, 0)
                 result += v_x * v_y * sim.similarity_score
             # denominator
-            idf = corpus_size / df[element]
+            idf = corpus_size / curr_df[element]
             v_x = idf * tf_x.get(element, 0)
             v_x_2 += v_x * v_x
             v_y = idf * tf_y.get(element, 0)

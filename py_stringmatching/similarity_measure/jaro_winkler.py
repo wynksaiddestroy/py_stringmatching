@@ -1,7 +1,6 @@
 """Jaro-Winkler similarity measure"""
 
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
 from py_stringmatching.similarity_measure.jaro import Jaro
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
@@ -14,7 +13,7 @@ class JaroWinkler(SequenceSimilarityMeasure):
         prefix_weight (float): Weight to give the prefix (defaults to 0.1)
     """
     def __init__(self, prefix_weight=0.1):
-        self.prefix_weight = 0.1
+        self.prefix_weight = prefix_weight
         super(JaroWinkler, self).__init__()
 
     def get_raw_score(self, string1, string2):

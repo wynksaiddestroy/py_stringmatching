@@ -61,7 +61,8 @@ class Cosine(TokenSimilarityMeasure):
         if not isinstance(set2, set):
             set2 = set(set2)
 
-        return float(len(set1 & set2)) / (math.sqrt(float(len(set1))) * math.sqrt(float(len(set2))))
+        return float(len(set1 & set2)) / (math.sqrt(float(len(set1))) *
+                                          math.sqrt(float(len(set2))))
 
     def get_sim_score(self, set1, set2):
         """

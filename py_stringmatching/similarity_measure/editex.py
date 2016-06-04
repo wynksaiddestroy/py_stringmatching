@@ -22,7 +22,8 @@ class Editex(SequenceSimilarityMeasure):
         mismatch_cost (int): Weight to give the incorrect char match, default=2
         local (boolean): Local variant on/off, default=False
     """
-    def __init__(self, match_cost=0, group_cost=1, mismatch_cost=2, local=False):
+    def __init__(self, match_cost=0, group_cost=1, mismatch_cost=2,
+                 local=False):
         self.match_cost = match_cost
         self.group_cost = group_cost
         self.mismatch_cost = mismatch_cost
@@ -100,16 +101,21 @@ class Editex(SequenceSimilarityMeasure):
 
         if not self.local:
             for i in _range(1, len1 + 1):
-                d_mat[i, 0] = d_mat[i - 1, 0] + editex_helper.d_cost(string1[i - 1], string1[i])
+                d_mat[i, 0] = d_mat[i - 1, 0] + editex_helper.d_cost(
+                                                    string1[i - 1], string1[i])
 
         for j in _range(1, len2 + 1):
-            d_mat[0, j] = d_mat[0, j - 1] + editex_helper.d_cost(string2[j - 1], string2[j])
+            d_mat[0, j] = d_mat[0, j - 1] + editex_helper.d_cost(string2[j - 1],
+                                                                 string2[j])
 
         for i in _range(1, len1 + 1):
             for j in _range(1, len2 + 1):
-                d_mat[i, j] = min(d_mat[i - 1, j] + editex_helper.d_cost(string1[i - 1], string1[i]),
-                                  d_mat[i, j - 1] + editex_helper.d_cost(string2[j - 1], string2[j]),
-                                  d_mat[i - 1, j - 1] + editex_helper.r_cost(string1[i], string2[j]))
+                d_mat[i, j] = min(d_mat[i - 1, j] + editex_helper.d_cost(
+                                                    string1[i - 1], string1[i]),
+                                  d_mat[i, j - 1] + editex_helper.d_cost(
+                                                    string2[j - 1], string2[j]),
+                                  d_mat[i - 1, j - 1] + editex_helper.r_cost(
+                                                        string1[i], string2[j]))
 
         return d_mat[len1, len2]
 

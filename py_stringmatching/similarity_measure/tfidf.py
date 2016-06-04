@@ -25,7 +25,8 @@ class TfIdf(TokenSimilarityMeasure):
             for document in self._corpus_list:
                 for element in set(document):
                     self._df[element] = self._df.get(element, 0) + 1
-        self._corpus_size = 0 if self._corpus_list is None else len(self._corpus_list)
+        self._corpus_size = 0 if self._corpus_list is None else (
+                                                         len(self._corpus_list))
         self.dampen = dampen        
         super(TfIdf, self).__init__()
 
@@ -83,27 +84,28 @@ class TfIdf(TokenSimilarityMeasure):
          
         # find unique elements in the input lists and their document frequency 
         local_df = {}
-        for el in tf_x:
-            local_df[el] = local_df.get(el, 0) + 1
-        for el in tf_y:
-            local_df[el] = local_df.get(el, 0) + 1
+        for element in tf_x:
+            local_df[element] = local_df.get(element, 0) + 1
+        for element in tf_y:
+            local_df[element] = local_df.get(element, 0) + 1
 
         # if corpus is not provided treat input string as corpus
-        df, corpus_size = (local_df, 2) if self._corpus_list is None else (
-                                            (self._df, self._corpus_size))
+        curr_df, corpus_size = (local_df, 2) if self._corpus_list is None else (
+                                                  (self._df, self._corpus_size))
 
-        idf_element, v_x, v_y, v_x_y, v_x_2, v_y_2 = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        idf_element, v_x, v_y, v_x_y, v_x_2, v_y_2 = (0.0, 0.0, 0.0, 
+                                                      0.0, 0.0, 0.0)
 
         # tfidf calculation
         for element in local_df.keys():
-            df_element = df.get(element)
+            df_element = curr_df.get(element)
             if df_element is None:
                 continue
             idf_element = corpus_size * 1.0 / df_element
             v_x = 0 if element not in tf_x else (log(idf_element) * log(tf_x[element] + 1)) if self.dampen else (
-                idf_element * tf_x[element])
+                  idf_element * tf_x[element])
             v_y = 0 if element not in tf_y else (log(idf_element) * log(tf_y[element] + 1)) if self.dampen else (
-                 idf_element * tf_y[element])
+                  idf_element * tf_y[element])
             v_x_y += v_x * v_y
             v_x_2 += v_x * v_x
             v_y_2 += v_y * v_y

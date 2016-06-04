@@ -72,8 +72,8 @@ class TverskyIndex(TokenSimilarityMeasure):
             set2 = set(set2)
         intersection = float(len(set1 & set2))
 
-        return 1.0 * intersection / (intersection + (self.alpha * len(set1 - set2))
-                                     + (self.beta * len(set2 - set1)))
+        return 1.0 * intersection / (intersection +
+            (self.alpha * len(set1 - set2)) + (self.beta * len(set2 - set1)))
 
     def get_sim_score(self, set1, set2):
         """

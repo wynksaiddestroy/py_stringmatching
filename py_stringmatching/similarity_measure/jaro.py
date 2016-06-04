@@ -60,8 +60,8 @@ class Jaro(SequenceSimilarityMeasure):
         common_chars = 0
         for i, ch_s1 in enumerate(string1):
             low = i - search_range if i > search_range else 0
-            hi = i + search_range if i + search_range < len_s2 else len_s2 - 1
-            for j in _range(low, hi + 1):
+            high = i + search_range if i + search_range < len_s2 else len_s2 - 1
+            for j in _range(low, high + 1):
                 if not flags_s2[j] and string2[j] == ch_s1:
                     flags_s1[i] = flags_s2[j] = True
                     common_chars += 1

@@ -18,8 +18,14 @@ class DelimiterTokenizer(Tokenizer):
         if not isinstance(delim_set, set):
             delim_set = set(delim_set)
         self.__delim_set = delim_set
-        self.__delim_regex = re.compile('|'.join(
-            map(lambda delim : re.escape(delim), self.__delim_set)))
+        # if there is only one delimiter string, use split instead of regex
+        self.__use_split = False
+        if len(self.__delim_set) == 1:
+            self.__delim_str = list(self.__delim_set)[0]
+            self.__use_split = True
+        else:
+            self.__delim_regex = re.compile('|'.join(
+                                     map(re.escape, self.__delim_set)))
         super(DelimiterTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
@@ -53,7 +59,12 @@ class DelimiterTokenizer(Tokenizer):
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
     
-        token_list = list(filter(None, self.__delim_regex.split(input_string)))
+        if self.__use_split:
+            token_list = list(filter(None,
+                                     input_string.split(self.__delim_str)))
+        else:
+            token_list = list(filter(None,
+                                     self.__delim_regex.split(input_string)))
 
         if self.return_set:
             return utils.convert_bag_to_set(token_list)

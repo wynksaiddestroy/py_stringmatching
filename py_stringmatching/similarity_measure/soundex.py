@@ -55,14 +55,15 @@ class Soundex(PhoneticSimilarityMeasure):
         utils.sim_check_for_zero_len(string1, string2)
 
         string1, string2 = string1.upper(), string2.upper()
-        firstLetter1, firstLetter2 = string1[0], string2[0]
+        first_letter1, first_letter2 = string1[0], string2[0]
         string1, string2 = string1[1:], string2[1:]
 
         # remove occurrences of vowels, 'y', 'w' and 'h'
         string1 = re.sub('[AEIOUYWH]', '', string1)
         string2 = re.sub('[AEIOUYWH]', '', string2)
 
-        # replace (B,F,P,V)->1 (C,G,J,K,Q,S,X,Z)->2 (D,T)->3 (L)->4 (M,N)->5 (R)->6
+        # replace (B,F,P,V)->1 (C,G,J,K,Q,S,X,Z)->2 (D,T)->3 (L)->4
+        # (M,N)->5 (R)->6
         string1 = re.sub('[BFPV]', '1', string1)
         string1 = re.sub('[CGJKQSXZ]', '2', string1)
         string1 = re.sub('[DT]', '3', string1)
@@ -81,8 +82,8 @@ class Soundex(PhoneticSimilarityMeasure):
         string1 = re.sub("\D", "", string1)
         string2 = re.sub("\D", "", string2)
 
-        string1 = firstLetter1 + string1[:3]
-        string2 = firstLetter2 + string2[:3]
+        string1 = first_letter1 + string1[:3]
+        string2 = first_letter2 + string2[:3]
 
         return 1 if string1 == string2 else 0
 

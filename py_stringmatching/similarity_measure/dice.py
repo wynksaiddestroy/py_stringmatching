@@ -1,7 +1,5 @@
 """Dice similarity measure"""
 
-import math
-
 from py_stringmatching import utils
 from py_stringmatching.similarity_measure.token_similarity_measure import \
                                                     TokenSimilarityMeasure
