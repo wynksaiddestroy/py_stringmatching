@@ -1,0 +1,10 @@
+[run]
+branch = True
+source = py_stringmatching
+include = */py_stringmatching/*
+omit =  
+    */tests/*
+    */benchmarks/*
+    *__init__*
+    */python?.?/*
+    */site-packages/nose/*

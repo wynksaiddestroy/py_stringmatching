@@ -42,7 +42,11 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION numpy six nose Cython
+  - pip install coveralls
   - python setup.py build_ext --inplace
 
 script:
-  - nosetests
+  - coverage run -m nose
+
+after_success:
+  - coveralls
