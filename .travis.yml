@@ -22,7 +22,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 install:
-  - conda install --yes python=$PYTHON_VERSION numpy six Cython
+  - conda install --yes python=$PYTHON_VERSION numpy six nose Cython
   - python setup.py install
 
 script:
