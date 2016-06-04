@@ -23,8 +23,7 @@ before_install:
 
 install:
   - conda install --yes python=$PYTHON_VERSION numpy six nose Cython
-  - python setup.py install
+  - python setup.py build_ext --inplace
 
 script:
-  - cd $HOME
   - nosetests
