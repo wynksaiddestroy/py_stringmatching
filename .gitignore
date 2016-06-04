@@ -66,5 +66,10 @@ scratch/
 .idea/
 # Created by .ignore support plugin (hsz.mobi)
 
+# Performance Testing #
+# #######################
+html/
+results/
+
 # Project specific
 cythonize.dat
