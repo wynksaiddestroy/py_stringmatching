@@ -15,6 +15,11 @@ matrix:
   - os: osx
     language: generic
     env:
+    - TOXENV=py27
+    - PYTHON_VERSION=2.7
+  - os: osx
+    language: generic
+    env:
     - TOXENV=py33
     - PYTHON_VERSION=3.3
   - os: osx
@@ -22,6 +27,11 @@ matrix:
     env:
     - TOXENV=py34
     - PYTHON_VERSION=3.4 
+  - os: osx
+    language: generic
+    env:
+    - TOXENV=py35
+    - PYTHON_VERSION=3.5
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh; fi
