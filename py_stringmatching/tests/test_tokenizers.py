@@ -50,6 +50,7 @@ class DelimiterTokenizerTestCases(unittest.TestCase):
         self.delim_tok2 = DelimiterTokenizer(set([',']))
         self.delim_tok3 = DelimiterTokenizer(set(['*', '.']))
         self.delim_tok4 = DelimiterTokenizer(set(['..', 'ab']))    
+        self.delim_tok4_list = DelimiterTokenizer(['..', 'ab', '..'])
         self.delim_tok4_return_set = DelimiterTokenizer(set(['..', 'ab']),
                                                         return_set=True)
 
@@ -64,6 +65,9 @@ class DelimiterTokenizerTestCases(unittest.TestCase):
                          ['ab cd', 'ef', 'bb', ' gg'])
         self.assertEqual(
             self.delim_tok4.tokenize('ab cd..efabbb....ggab cd..efabgh'),
+            [' cd', 'ef', 'bb', 'gg', ' cd', 'ef', 'gh'])
+        self.assertEqual(
+            self.delim_tok4_list.tokenize('ab cd..efabbb....ggab cd..efabgh'),
             [' cd', 'ef', 'bb', 'gg', ' cd', 'ef', 'gh'])
         self.assertEqual(
             self.delim_tok4_return_set.tokenize(

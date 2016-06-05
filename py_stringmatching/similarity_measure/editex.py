@@ -84,8 +84,6 @@ class Editex(SequenceSimilarityMeasure):
         string1 = string1.replace('ß', 'SS')
         string2 = string2.replace('ß', 'SS')
 
-        if string1 == string2:
-            return 0
         if len(string1) == 0:
             return len(string2) * self.mismatch_cost
         if len(string2) == 0:
