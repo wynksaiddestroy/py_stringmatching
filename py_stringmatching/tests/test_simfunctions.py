@@ -206,6 +206,8 @@ class EditexTestCases(unittest.TestCase):
         self.assertEqual(self.ed_with_params6.get_raw_score('neal', 'nihl'), 3)
         self.assertEqual(self.ed_with_params6.get_raw_score('nihl', 'neal'), 3)
         self.assertEqual(self.ed.get_raw_score('', ''), 0)
+        self.assertEqual(self.ed.get_raw_score('', 'MARTHA'), 12)
+        self.assertEqual(self.ed.get_raw_score('MARTHA', ''), 12)
 
     def test_valid_input_sim_score(self):
         self.assertEqual(self.ed.get_sim_score('MARTHA', 'MARTHA'), 1.0)
@@ -725,6 +727,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(self.sdx.get_raw_score('gough', 'Goff'), 0)
         self.assertEqual(self.sdx.get_raw_score('ali', 'a,,,li'), 1)
         self.assertEqual(self.sdx.get_raw_score('Jawornicki', 'Yavornitzky'), 0)
+        self.assertEqual(self.sdx.get_raw_score('Robert', 'Robert'), 1)
 
     def test_valid_input_sim_score(self):
         self.assertEqual(self.sdx.get_sim_score('Robert', 'Rupert'), 1)
@@ -734,6 +737,7 @@ class SoundexTestCases(unittest.TestCase):
         self.assertEqual(self.sdx.get_sim_score('gough', 'Goff'), 0)
         self.assertEqual(self.sdx.get_sim_score('ali', 'a,,,li'), 1)
         self.assertEqual(self.sdx.get_sim_score('Jawornicki', 'Yavornitzky'), 0)
+        self.assertEqual(self.sdx.get_sim_score('Robert', 'Robert'), 1)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
