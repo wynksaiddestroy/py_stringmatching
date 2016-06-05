@@ -49,11 +49,9 @@ install:
 
   # Don't install from requirements-pip.txt, python-coveralls has broken dependencies on windows it seems.
 #  - conda install --yes pip setuptools numpy six nose coverage Cython
-  - pip install setuptools
-  - pip install numpy
-  - pip install six
-  - pip install nose
-  - pip install cython
+  - python --version
+  - python -m pip install --upgrade pip
+  - pip install setuptools numpy six nose cython
   - python setup.py build_ext --inplace
 
 build: false
