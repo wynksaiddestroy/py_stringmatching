@@ -45,12 +45,13 @@ environment:
 install:
   # this installs the appropriate Miniconda (Py2/Py3, 32/64 bit)
 #  - powershell .\\build_tools\\appveyor\\install.ps1
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "SET PATH=%PYTHON%;%PATH%"
 
   # Don't install from requirements-pip.txt, python-coveralls has broken dependencies on windows it seems.
 #  - conda install --yes pip setuptools numpy six nose coverage Cython
   - python --version
   - python -m pip install --upgrade pip
+  - "SET PATH=%PYTHON%\\Scripts;%PATH%"
   - pip install setuptools numpy six nose cython
   - python setup.py build_ext --inplace
 
