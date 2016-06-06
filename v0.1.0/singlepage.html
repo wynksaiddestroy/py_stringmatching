@@ -1,0 +1,1567 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>py_stringmatching 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="None" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> py_stringmatching</a>
+        
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Installation">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Installation#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Installation#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Installation#step-by-step-installation-instruction">Step by Step Installation Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Installation#supported-platforms">Supported Platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Tutorial">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Tokenizer">Tokenizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-AlphabeticTokenizer">Alphabetic Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-AlphanumericTokenizer">Alphanumeric Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-DelimiterTokenizer">Delimiter Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-QgramTokenizer">Qgram Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-WhitespaceTokenizer">Whitespace Tokenizer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-SimilarityMeasure">Similarity Measures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Affine">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Cosine">Cosine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Dice">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-HammingDistance">Hamming Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Jaccard">Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Jaro">Jaro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-JaroWinkler">Jaro Winkler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Levenshtein">Levenshtein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-MongeElkan">Monge Elkan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-NeedlemanWunsch">Needleman Wunsch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-OverlapCoefficient">Overlap Coefficient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-SmithWaterman">Smith Waterman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-SoftTfIdf">Soft TF-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-TfIdf">TF-IDF</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="singlepage.html#document-index">py_stringmatching</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="singlepage.html#document-index">Docs</a> &raquo;</li>
+      
+    <li>py_stringmatching 0.1 documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="welcome-to-py-stringmatching-s-documentation">
+<h1>Welcome to py_stringmatching&#8217;s documentation!<a class="headerlink" href="#welcome-to-py-stringmatching-s-documentation" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<span id="document-Installation"></span><div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>This pages describes the requirements, dependencies and provides a step by step instruction
+to install the py_stringmatching package.</p>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Python 2.7 or Python 3.3+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>numpy&gt;=1.7.0</li>
+<li>six</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The user need not install these dependency packages before installing the py_stringmatching package.
+The py_stringmatching installer will automatically install the required packages.</p>
+</div>
+</div>
+<div class="section" id="step-by-step-installation-instruction">
+<h3>Step by Step Installation Instruction<a class="headerlink" href="#step-by-step-installation-instruction" title="Permalink to this headline">¶</a></h3>
+<p>Step 1: Download the py_stringmatching package from <a class="reference external" href="http://pradap-www.cs.wisc.edu/py_stringmatching/anhaidgroup/py_stringmatching-0.1.0tar.gz">here</a>
+into your home directory.</p>
+<p>You can download into any directory within your home directory. For now we assume that you use a
+linux operating system and will download into &#8220;HOME/&#8221;, the top level.</p>
+<p>Also, we assume that you have sufficient privileges to install a python package.</p>
+<p>Step 2: Unzip the package by executing the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>tar -xzvf py_stringmatching.tar.gz
+</pre></div>
+</div>
+<p>py_stringmatching will be unpackaged into directory &#8220;HOME/py_stringmatching-0.1.0</p>
+<p>Step 3: At the command prompt execute the following commands:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd HOME/py_stringmatching-0.1.0
+python setup.py install
+</pre></div>
+</div>
+<p>This will install py_stringmatching package.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If the python package installation requires root permission then, you can install the package in
+your home directory like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install --user
+</pre></div>
+</div>
+<p class="last">for more information look at the stackoverflow <a class="reference external" href="http://stackoverflow.com/questions/14179941/how-to-install-python-packages-without-root-privileges">link</a>.</p>
+</div>
+</div>
+<div class="section" id="supported-platforms">
+<h3>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this headline">¶</a></h3>
+<p>It is tested primarily on OSX and Linux, but due to minimal dependencies it should work perfectly on Windows.</p>
+</div>
+</div>
+<span id="document-Tutorial"></span><div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Once the package is installed, the user can import the similarity functions and tokenizers
+like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">simfunctions</span><span class="p">,</span> <span class="n">tokenizers</span>
+</pre></div>
+</div>
+<p>Further, the user can use the tokenizers and similarity functions like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="s">&#39;this is a string matching package for data science class&#39;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s">&#39;this string matching package can be used to generate features&#39;</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">simfunctions</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">tokenizers</span><span class="o">.</span><span class="n">whitespace</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">tokenizers</span><span class="o">.</span><span class="n">whitespace</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<span id="document-Tokenizer"></span><div class="section" id="tokenizers">
+<h2>Tokenizers<a class="headerlink" href="#tokenizers" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<span id="document-AlphabeticTokenizer"></span><div class="section" id="module-py_stringmatching.tokenizer.alphabetic_tokenizer">
+<span id="alphabetic-tokenizer"></span><h3>Alphabetic Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.alphabetic_tokenizer" title="Permalink to this headline">¶</a></h3>
+<p>Alphabetic tokenizer</p>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.alphabetic_tokenizer.AlphabeticTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.alphabetic_tokenizer.</code><code class="descname">AlphabeticTokenizer</code><span class="sig-paren">(</span><em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/alphabetic_tokenizer.html#AlphabeticTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.alphabetic_tokenizer.AlphabeticTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alphabetic tokenizer class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) &#8211; flag to indicate whether to return a set of
+tokens. (defaults to False)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.alphabetic_tokenizer.AlphabeticTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/alphabetic_tokenizer.html#AlphabeticTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.alphabetic_tokenizer.AlphabeticTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string into alphabetic tokens.</p>
+<p>An alphabetic token is defined as consecutive sequence of alphabetic characters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; Input string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Token list (list)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">al_tok</span> <span class="o">=</span> <span class="n">AlphabeticTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">al_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data99science, data#integration.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;data&#39;, &#39;integration&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">al_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;99&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">al_tok</span> <span class="o">=</span> <span class="n">AlphabeticTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">al_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data99science, data#integration.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;integration&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-AlphanumericTokenizer"></span><div class="section" id="module-py_stringmatching.tokenizer.alphanumeric_tokenizer">
+<span id="alphanumeric-tokenizer"></span><h3>Alphanumeric Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.alphanumeric_tokenizer" title="Permalink to this headline">¶</a></h3>
+<p>Alphanumeric tokenizer</p>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.alphanumeric_tokenizer.AlphanumericTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.alphanumeric_tokenizer.</code><code class="descname">AlphanumericTokenizer</code><span class="sig-paren">(</span><em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/alphanumeric_tokenizer.html#AlphanumericTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.alphanumeric_tokenizer.AlphanumericTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alphanumeric tokenizer class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) &#8211; flag to indicate whether to return a set of
+tokens. (defaults to False)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.alphanumeric_tokenizer.AlphanumericTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/alphanumeric_tokenizer.html#AlphanumericTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.alphanumeric_tokenizer.AlphanumericTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string into alphanumeric tokens.</p>
+<p>An alphanumeric token is defined as consecutive sequence of alphanumeric characters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; Input string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Token list (list)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">alnum_tok</span> <span class="o">=</span> <span class="n">AlphanumericTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnum_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data9,(science), data9#.(integration).88&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data9&#39;, &#39;science&#39;, &#39;data9&#39;, &#39;integration&#39;, &#39;88&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnum_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;#.&amp;&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnum_tok</span> <span class="o">=</span> <span class="n">AlphanumericTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alnum_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data9,(science), data9#.(integration).88&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data9&#39;, &#39;science&#39;, &#39;integration&#39;, &#39;88&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-DelimiterTokenizer"></span><div class="section" id="module-py_stringmatching.tokenizer.delimiter_tokenizer">
+<span id="delimiter-tokenizer"></span><h3>Delimiter Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.delimiter_tokenizer" title="Permalink to this headline">¶</a></h3>
+<p>Delimiter based tokenizer</p>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.delimiter_tokenizer.</code><code class="descname">DelimiterTokenizer</code><span class="sig-paren">(</span><em>delim_set=set([' '])</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delimiter tokenizer class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delim_set</strong> (<em>set</em>) &#8211; set of delimiter strings (defaults to space delimiter)</li>
+<li><strong>return_set</strong> (<em>boolean</em>) &#8211; flag to indicate whether to return a set of
+tokens. (defaults to False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string based on the set of delimiters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; Input string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Token list (list)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;$#$&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data$#$science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;data&#39;, &#39;integration&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">],</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;integration&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-QgramTokenizer"></span><div class="section" id="module-py_stringmatching.tokenizer.qgram_tokenizer">
+<span id="qgram-tokenizer"></span><h3>Qgram Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.qgram_tokenizer" title="Permalink to this headline">¶</a></h3>
+<p>Qgram based tokenizer</p>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.qgram_tokenizer.</code><code class="descname">QgramTokenizer</code><span class="sig-paren">(</span><em>qval=2</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/qgram_tokenizer.html#QgramTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qgram tokenizer class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>qval</strong> (<em>int</em>) &#8211; Q-gram length (defaults to 2)</li>
+<li><strong>return_set</strong> (<em>boolean</em>) &#8211; flag to indicate whether to return a set of
+tokens. (defaults to False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/qgram_tokenizer.html#QgramTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string into q-grams.</p>
+<p>A q-gram is defined as all sequences of q characters. Q-grams are also known as n-grams and
+k-grams.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; Input string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Token list (list)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
+<span class="go">[&#39;da&#39;,&#39;at&#39;,&#39;ta&#39;,&#39;ab&#39;,&#39;ba&#39;,&#39;as&#39;,&#39;se&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_tok</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
+<span class="go">[&#39;dat&#39;, &#39;ata&#39;, &#39;tab&#39;, &#39;aba&#39;, &#39;bas&#39;, &#39;ase&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-WhitespaceTokenizer"></span><div class="section" id="module-py_stringmatching.tokenizer.whitespace_tokenizer">
+<span id="whitespace-tokenizer"></span><h3>Whitespace Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.whitespace_tokenizer" title="Permalink to this headline">¶</a></h3>
+<p>Whitespace based tokenizer</p>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.whitespace_tokenizer.</code><code class="descname">WhitespaceTokenizer</code><span class="sig-paren">(</span><em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/whitespace_tokenizer.html#WhitespaceTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whitespace tokenizer class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) &#8211; flag to indicate whether to return a set of
+tokens. (defaults to False)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/whitespace_tokenizer.html#WhitespaceTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string based on white space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; Input string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Token list (list)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span> <span class="o">=</span> <span class="n">WhitespaceTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data        science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data   science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span> <span class="o">=</span> <span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data   science data integration&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;integration&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+<span id="document-SimilarityMeasure"></span><div class="section" id="similarity-measures">
+<h2>Similarity Measures<a class="headerlink" href="#similarity-measures" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<span id="document-Affine"></span><div class="section" id="affine-gap">
+<h3>Affine Gap<a class="headerlink" href="#affine-gap" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.affine.Affine">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.affine.</code><code class="descname">Affine</code><span class="sig-paren">(</span><em>gap_start=1</em>, <em>gap_continuation=0.5</em>, <em>sim_score=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/affine.html#Affine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.affine.Affine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Affine similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gap_start</strong> (<em>float</em>) &#8211; Cost for the gap at the start (defaults to 1)</li>
+<li><strong>gap_continuation</strong> (<em>float</em>) &#8211; Cost for the gap continuation (defaults to 0.5)</li>
+<li><strong>sim_score</strong> (<em>function</em>) &#8211; Function computing similarity score between two chars, represented as strings
+(defaults to identity).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.affine.Affine.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/affine.html#Affine.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.affine.Affine.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Affine gap score between two strings.</p>
+<p>The Affine gap measure is an extension of the Needleman-Wunsch measure that handles the longer gaps more
+gracefully.</p>
+<p>For more information refer to string matching chapter in the DI book.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Affine gap score (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeva&#39;</span><span class="p">)</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span><span class="n">gap_start</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">-0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span><span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;AAAGAATTCA&#39;</span><span class="p">,</span> <span class="s">&#39;AAATCA&#39;</span><span class="p">)</span>
+<span class="go">4.4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-Cosine"></span><div class="section" id="module-py_stringmatching.similarity_measure.cosine">
+<span id="cosine"></span><h3>Cosine<a class="headerlink" href="#module-py_stringmatching.similarity_measure.cosine" title="Permalink to this headline">¶</a></h3>
+<p>Cosine similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.cosine.</code><code class="descname">Cosine</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cosine similarity measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the cosine similarity between two sets.</p>
+<p>For two sets X and Y, the cosine similarity is:</p>
+<p><span class="math">\(cosine(X, Y) = \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}\)</span></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Cosine similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span> <span class="o">=</span> <span class="n">Cosine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">])</span>
+<span class="go">0.4999999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>String similarity joins: An Experimental Evaluation (VLDB 2014)</li>
+<li>Project flamingo : Mike carey, Vernica</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized cosine similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized cosine similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span> <span class="o">=</span> <span class="n">Cosine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">])</span>
+<span class="go">0.4999999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-Dice"></span><div class="section" id="module-py_stringmatching.similarity_measure.dice">
+<span id="dice"></span><h3>Dice<a class="headerlink" href="#module-py_stringmatching.similarity_measure.dice" title="Permalink to this headline">¶</a></h3>
+<p>Dice similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.dice.Dice">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.dice.</code><code class="descname">Dice</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dice similarity measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.dice.Dice.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the dice similarity coefficient between two sets.</p>
+<p>The similarity is defined as twice the shared information (intersection) divided by sum of cardinalities.
+For two sets X and Y, the Dice similarity coefficient is:</p>
+<p><span class="math">\(dice(X, Y) = \frac{2 * |X \cap Y|}{|X| + |Y|}\)</span></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dice similarity coefficient (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.6666666666666666</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.5454545454545454</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Wikipedia article : <a class="reference external" href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient">https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient</a></li>
+<li>Simmetrics library</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.dice.Dice.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized dice similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized dice similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.6666666666666666</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.5454545454545454</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-HammingDistance"></span><div class="section" id="module-py_stringmatching.similarity_measure.hamming_distance">
+<span id="hamming-distance"></span><h3>Hamming Distance<a class="headerlink" href="#module-py_stringmatching.similarity_measure.hamming_distance" title="Permalink to this headline">¶</a></h3>
+<p>Hamming distance measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.hamming_distance.HammingDistance">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.hamming_distance.</code><code class="descname">HammingDistance</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/hamming_distance.html#HammingDistance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.hamming_distance.HammingDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hamming distance measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.hamming_distance.HammingDistance.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/hamming_distance.html#HammingDistance.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.hamming_distance.HammingDistance.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Hamming distance between two strings.</p>
+<p>The Hamming distance between two strings of equal length is the number of positions at which the corresponding
+symbols are different. In another way, it measures the minimum number of substitutions required to change
+one string into the other, or the minimum number of errors that could have transformed one string into the other.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Hamming distance (int)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+If the input strings are not of same length</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span> <span class="o">=</span> <span class="n">HammingDistance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;alex&#39;</span><span class="p">,</span> <span class="s">&#39;john&#39;</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;JOHN&#39;</span><span class="p">,</span> <span class="s">&#39;john&#39;</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.hamming_distance.HammingDistance.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/hamming_distance.html#HammingDistance.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.hamming_distance.HammingDistance.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized hamming similarity between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Normalized hamming similarity (float)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+If the input strings are not of same length</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span> <span class="o">=</span> <span class="n">HammingDistance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;alex&#39;</span><span class="p">,</span> <span class="s">&#39;john&#39;</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hd</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;JOHN&#39;</span><span class="p">,</span> <span class="s">&#39;john&#39;</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-Jaccard"></span><div class="section" id="module-py_stringmatching.similarity_measure.jaccard">
+<span id="jaccard"></span><h3>Jaccard<a class="headerlink" href="#module-py_stringmatching.similarity_measure.jaccard" title="Permalink to this headline">¶</a></h3>
+<p>Jaccard similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.jaccard.</code><code class="descname">Jaccard</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jaccard similarity measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the jaccard measure between two sets.</p>
+<p>The Jaccard measure, also known as the Jaccard similarity coefficient, is a statistic used for comparing
+the similarity and diversity of sample sets. The Jaccard coefficient measures similarity between finite sample
+sets, and is defined as the size of the intersection divided by the size of the union of the sample sets.</p>
+<p>For two sets X and Y, the Jaccard measure is:</p>
+<p><span class="math">\(jaccard(X, Y) = \frac{|X \cap Y|}{|X| \cup |Y|}\)</span></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Jaccard similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span> <span class="o">=</span> <span class="n">Jaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.375</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized jaccard similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized jaccard similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span> <span class="o">=</span> <span class="n">Jaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.375</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-Jaro"></span><div class="section" id="module-py_stringmatching.similarity_measure.jaro">
+<span id="jaro"></span><h3>Jaro<a class="headerlink" href="#module-py_stringmatching.similarity_measure.jaro" title="Permalink to this headline">¶</a></h3>
+<p>Jaro similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.jaro.Jaro">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.jaro.</code><code class="descname">Jaro</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro.html#Jaro"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro.Jaro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jaro similarity measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro.Jaro.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro.html#Jaro.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro.Jaro.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the jaro measure between two strings.</p>
+<p>The Jaro measure is a type of edit distance, This was developed mainly to compare short strings,
+such as first and last names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Jaro measure (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span> <span class="o">=</span> <span class="n">Jaro</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9444444444444445</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.8222222222222223</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.7666666666666666</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro.Jaro.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro.html#Jaro.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro.Jaro.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized jaro similarity between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized jaro similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span> <span class="o">=</span> <span class="n">Jaro</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9444444444444445</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.8222222222222223</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaro</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.7666666666666666</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-JaroWinkler"></span><div class="section" id="module-py_stringmatching.similarity_measure.jaro_winkler">
+<span id="jaro-winkler"></span><h3>Jaro Winkler<a class="headerlink" href="#module-py_stringmatching.similarity_measure.jaro_winkler" title="Permalink to this headline">¶</a></h3>
+<p>Jaro-Winkler similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.jaro_winkler.</code><code class="descname">JaroWinkler</code><span class="sig-paren">(</span><em>prefix_weight=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jaro-Winkler similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix_weight</strong> (<em>float</em>) &#8211; Weight to give the prefix (defaults to 0.1)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Jaro-Winkler measure between two strings.</p>
+<p>The Jaro-Winkler measure is designed to capture cases where two strings have a low Jaro score, but share a prefix
+and thus are likely to match.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Jaro-Winkler measure (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span> <span class="o">=</span> <span class="n">JaroWinkler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9611111111111111</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.84</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.8133333333333332</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized jaro-winkler similarity between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized jaro-winkler similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span> <span class="o">=</span> <span class="n">JaroWinkler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9611111111111111</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.84</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.8133333333333332</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-Levenshtein"></span><div class="section" id="module-py_stringmatching.similarity_measure.levenshtein">
+<span id="levenshtein"></span><h3>Levenshtein<a class="headerlink" href="#module-py_stringmatching.similarity_measure.levenshtein" title="Permalink to this headline">¶</a></h3>
+<p>Levenshtein distance measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.levenshtein.Levenshtein">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.levenshtein.</code><code class="descname">Levenshtein</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/levenshtein.html#Levenshtein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.levenshtein.Levenshtein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Levenshtein distance measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.levenshtein.Levenshtein.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/levenshtein.html#Levenshtein.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.levenshtein.Levenshtein.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Levenshtein distance between two strings.</p>
+<p>Levenshtein distance computes the minimum cost of transforming one string into the other. Transforming a string
+is carried out using a sequence of the following operators: delete a character, insert a character, and
+substitute one character for another.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Levenshtein distance (int)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span> <span class="o">=</span> <span class="n">Levenshtein</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;samples&#39;</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;levenshtein&#39;</span><span class="p">,</span> <span class="s">&#39;frankenstein&#39;</span><span class="p">)</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.levenshtein.Levenshtein.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/levenshtein.html#Levenshtein.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.levenshtein.Levenshtein.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized levenshtein similarity between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized levenshtein similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span> <span class="o">=</span> <span class="n">Levenshtein</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;samples&#39;</span><span class="p">)</span>
+<span class="go">0.5714285714285714</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lev</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;levenshtein&#39;</span><span class="p">,</span> <span class="s">&#39;frankenstein&#39;</span><span class="p">)</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-MongeElkan"></span><div class="section" id="monge-elkan">
+<h3>Monge Elkan<a class="headerlink" href="#monge-elkan" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.monge_elkan.</code><code class="descname">MongeElkan</code><span class="sig-paren">(</span><em>sim_func=jaro_winkler_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monge-Elkan similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) &#8211; Secondary similarity function. This is expected to be a sequence-based
+similarity measure (defaults to jaro-winkler similarity measure)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Monge-Elkan similarity measure between two bags (lists).</p>
+<p>The Monge-Elkan similarity measure is a type of Hybrid similarity measure that combine the benefits of
+sequence-based and set-based methods. This can be effective for domains in which more control is needed
+over the similarity measure. It implicitly uses a secondary similarity measure, such as levenshtein to compute
+over all similarity score.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1,bag2</strong> (<em>list</em>) &#8211; Input lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Monge-Elkan similarity score (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not lists or if one of the inputs is None</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">me</span> <span class="o">=</span> <span class="n">MongeElkan</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;Neal&#39;</span><span class="p">])</span>
+<span class="go">0.8049999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;Nigel&#39;</span><span class="p">])</span>
+<span class="go">0.7866666666666667</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;Comput.&#39;</span><span class="p">,</span> <span class="s">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;Eng.&#39;</span><span class="p">,</span> <span class="s">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s">&#39;University&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;California,&#39;</span><span class="p">,</span> <span class="s">&#39;San&#39;</span><span class="p">,</span> <span class="s">&#39;Diego&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;Department&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;Computer&#39;</span><span class="p">,</span> <span class="s">&#39;Science,&#39;</span><span class="p">,</span> <span class="s">&#39;Univ.&#39;</span><span class="p">,</span> <span class="s">&#39;Calif.,&#39;</span><span class="p">,</span> <span class="s">&#39;San&#39;</span><span class="p">,</span> <span class="s">&#39;Diego&#39;</span><span class="p">])</span>
+<span class="go">0.8677218614718616</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">  0.0</span>
+<span class="go">  &gt;&gt;&gt; me = MongeElkan(sim_func=NeedlemanWunsch().get_raw_score)</span>
+<span class="go">  &gt;&gt;&gt; me.get_raw_score([&#39;Comput.&#39;, &#39;Sci.&#39;, &#39;and&#39;, &#39;Eng.&#39;, &#39;Dept.,&#39;, &#39;University&#39;, &#39;of&#39;, &#39;California,&#39;, &#39;San&#39;, &#39;Diego&#39;], [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">  2.0</span>
+<span class="go">  &gt;&gt;&gt; me = MongeElkan(sim_func=Affine().get_raw_score)</span>
+<span class="go">  &gt;&gt;&gt; me.get_raw_score([&#39;Comput.&#39;, &#39;Sci.&#39;, &#39;and&#39;, &#39;Eng.&#39;, &#39;Dept.,&#39;, &#39;University&#39;, &#39;of&#39;, &#39;California,&#39;, &#39;San&#39;, &#39;Diego&#39;], [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">  2.25</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Principles of Data Integration book</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-NeedlemanWunsch"></span><div class="section" id="needleman-wunsch">
+<h3>Needleman Wunsch<a class="headerlink" href="#needleman-wunsch" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.needleman_wunsch.</code><code class="descname">NeedlemanWunsch</code><span class="sig-paren">(</span><em>gap_cost=1.0</em>, <em>sim_score=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Needleman-Wunsch similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gap_cost</strong> (<em>float</em>) &#8211; Cost of gap (defaults to 1.0)</li>
+<li><strong>sim_score</strong> (<em>function</em>) &#8211; Similarity function to give a score for the correspondence between characters. Defaults
+to an identity function, where if two characters are same it returns 1.0 else returns 0.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Needleman-Wunsch measure between two strings.</p>
+<p>The Needleman-Wunsch generalizes the Levenshtein distance and considers global alignment between two strings.
+Specifically, it is computed by assigning a score to each alignment between two input strings and choosing the
+score of the best alignment, that is, the maximal score.</p>
+<p>An alignment between two strings is a set of correspondences between the characters of between them, allowing for
+gaps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Needleman-Wunsch measure (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeva&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">2.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;GCATGCUA&#39;</span><span class="p">,</span> <span class="s">&#39;GATTACA&#39;</span><span class="p">)</span>
+<span class="go">2.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-OverlapCoefficient"></span><div class="section" id="module-py_stringmatching.similarity_measure.overlap_coefficient">
+<span id="overlap-coefficient"></span><h3>Overlap Coefficient<a class="headerlink" href="#module-py_stringmatching.similarity_measure.overlap_coefficient" title="Permalink to this headline">¶</a></h3>
+<p>Overlap coefficient similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.overlap_coefficient.</code><code class="descname">OverlapCoefficient</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overlap coefficient similarity measure class.</p>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the overlap coefficient between two sets.</p>
+<p>The overlap coefficient is a similarity measure related to the Jaccard
+measure  that measures the overlap between two sets, and is defined as the size of the intersection divided by
+the smaller of the size of the two sets.</p>
+<p>For two sets X and Y, the overlap coefficient is:</p>
+<p><span class="math">\(overlap\_coefficient(X, Y) = \frac{|X \cap Y|}{\min(|X|, |Y|)}\)</span></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Overlap coefficient (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span> <span class="o">=</span> <span class="n">OverlapCoefficient</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Wikipedia article : <a class="reference external" href="https://en.wikipedia.org/wiki/Overlap_coefficient">https://en.wikipedia.org/wiki/Overlap_coefficient</a></li>
+<li>Simmetrics library</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized overlap coefficient between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized overlap coefficient (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span> <span class="o">=</span> <span class="n">OverlapCoefficient</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-SmithWaterman"></span><div class="section" id="smith-waterman">
+<h3>Smith Waterman<a class="headerlink" href="#smith-waterman" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.smith_waterman.SmithWaterman">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.smith_waterman.</code><code class="descname">SmithWaterman</code><span class="sig-paren">(</span><em>gap_cost=1.0</em>, <em>sim_score=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/smith_waterman.html#SmithWaterman"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.smith_waterman.SmithWaterman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smith-Waterman similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gap_cost</strong> (<em>float</em>) &#8211; Cost of gap (defaults to 1.0)</li>
+<li><strong>sim_score</strong> (<em>function</em>) &#8211; Similarity function to give a score for the correspondence between characters. Defaults
+to an identity function, where if two characters are same it returns 1 else returns 0.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.smith_waterman.SmithWaterman.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/smith_waterman.html#SmithWaterman.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.smith_waterman.SmithWaterman.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Smith-Waterman measure between two strings.</p>
+<p>The Smith-Waterman algorithm performs local sequence alignment; that is, for determining similar regions
+between two strings. Instead of looking at the total sequence, the Smith–Waterman algorithm compares segments of
+all possible lengths and optimizes the similarity measure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Smith-Waterman measure (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span> <span class="o">=</span> <span class="n">SmithWaterman</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;cat&#39;</span><span class="p">,</span> <span class="s">&#39;hat&#39;</span><span class="p">)</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span> <span class="o">=</span> <span class="n">SmithWaterman</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span> <span class="o">=</span> <span class="n">SmithWaterman</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mi">2</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span> <span class="o">=</span> <span class="n">SmithWaterman</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">sim_score</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">1.5</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;GCATAGCU&#39;</span><span class="p">,</span> <span class="s">&#39;GATTACA&#39;</span><span class="p">)</span>
+<span class="go">6.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-SoftTfIdf"></span><div class="section" id="soft-tf-idf">
+<h3>Soft TF-IDF<a class="headerlink" href="#soft-tf-idf" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.soft_tfidf.</code><code class="descname">SoftTfIdf</code><span class="sig-paren">(</span><em>corpus_list=None</em>, <em>sim_func=jaro_function</em>, <em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Soft-TfIdf similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>corpus_list</strong> (<em>list of lists</em>) &#8211; Corpus list (default is set to None) of strings. If set to None,
+the input list are considered the only corpus</li>
+<li><strong>sim_func</strong> (<em>function</em>) &#8211; Secondary similarity function. This should return a similarity score between two strings (optional),
+default is jaro similarity measure</li>
+<li><strong>threshold</strong> (<em>float</em>) &#8211; Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
+of a token pair exceeds the threshold, then the token pair is considered a match.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Soft TF-IDF measure between two lists given the corpus information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1,bag2</strong> (<em>list</em>) &#8211; Input lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Soft TF-IDF measure between the input lists (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not lists or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]],</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.17541160386140586</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.5547001962252291</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">Affine</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;aa&#39;</span><span class="p">,</span> <span class="s">&#39;bb&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="s">&#39;ba&#39;</span><span class="p">])</span>
+<span class="go">0.81649658092772592</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Principles of Data Integration book</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span id="document-TfIdf"></span><div class="section" id="module-py_stringmatching.similarity_measure.tfidf">
+<span id="tf-idf"></span><h3>TF-IDF<a class="headerlink" href="#module-py_stringmatching.similarity_measure.tfidf" title="Permalink to this headline">¶</a></h3>
+<p>Tf-Idf similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.tfidf.TfIdf">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.tfidf.</code><code class="descname">TfIdf</code><span class="sig-paren">(</span><em>corpus_list=None</em>, <em>dampen=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/tfidf.html#TfIdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.tfidf.TfIdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tf-Idf similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>corpus_list</strong> (<em>list of lists</em>) &#8211; Corpus list (default is set to None) of strings. If set to None,
+the input list are considered the only corpus.</li>
+<li><strong>dampen</strong> (<em>boolean</em>) &#8211; Flag to indicate whether &#8216;log&#8217; should be applied to tf and idf measure.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.tfidf.TfIdf.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/tfidf.html#TfIdf.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.tfidf.TfIdf.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute TF-IDF measure between two lists given the corpus information.</p>
+<p>This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
+find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
+is that two strings are similar if they share distinguishing terms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1,bag2</strong> (<em>list</em>) &#8211; Input lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TF-IDF measure between the input lists (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not lists or if one of the inputs is None</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.17541160386140586</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.5547001962252291</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">]],</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.11166746710505392</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]],</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.tfidf.TfIdf.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/tfidf.html#TfIdf.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.tfidf.TfIdf.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute normalized TF-IDF similarity between two lists given the corpus information.</p>
+<p>This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
+find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
+is that two strings are similar if they share distinguishing terms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1,bag2</strong> (<em>list</em>) &#8211; Input lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized TF-IDF similarity between the input lists (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not lists or if one of the inputs is None</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.17541160386140586</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.5547001962252291</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">]],</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.11166746710505392</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]],</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">TfIdf</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="gensinglepage.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="py-modsinglepage.html"><span>Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, py_stringmatching Team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Generalized Jaccard &mdash; py_stringmatching 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="py_stringmatching 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> py_stringmatching</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#step-by-step-installation-instruction">Step by Step Installation Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html#supported-platforms">Supported Platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="AlphabeticTokenizer.html">Alphabetic Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AlphanumericTokenizer.html">Alphanumeric Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DelimiterTokenizer.html">Delimiter Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QgramTokenizer.html">Qgram Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WhitespaceTokenizer.html">Whitespace Tokenizer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Affine.html">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jaccard.html">Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jaro.html">Jaro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JaroWinkler.html">Jaro Winkler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Levenshtein.html">Levenshtein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MongeElkan.html">Monge Elkan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NeedlemanWunsch.html">Needleman Wunsch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OverlapCoefficient.html">Overlap Coefficient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SmithWaterman.html">Smith Waterman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SoftTfIdf.html">Soft TF-IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TfIdf.html">TF-IDF</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Generalized Jaccard</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/GeneralizedJaccard.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="generalized-jaccard">
+<h1>Generalized Jaccard<a class="headerlink" href="#generalized-jaccard" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.generalized_jaccard.</code><code class="descname">GeneralizedJaccard</code><span class="sig-paren">(</span><em>sim_func=jaro_function</em>, <em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generalized jaccard similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sim_func</strong> (<em>function</em>) &#8211; similarity function. This should return a similarity score between two strings in set (optional),
+default is jaro similarity measure</li>
+<li><strong>threshold</strong> (<em>float</em>) &#8211; Threshold value (defaults to 0.5). If the similarity of a token pair exceeds the threshold,
+then the token pair is considered a match.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Generalized Jaccard measure between two sets.</p>
+<p>This similarity measure is softened version of the Jaccard measure. The Jaccard measure is
+promising candidate for tokens which exactly match across the sets. However, in practice tokens
+are often misspelled, such as energy vs. eneryg. THe generalized Jaccard measure will enable
+matching in such cases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists) of strings. Input lists are converted to sets.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generalized Jaccard similarity (float)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+If the similarity measure doesn&#8217;t return values in the range [0,1]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;Neal&#39;</span><span class="p">,</span> <span class="s">&#39;Njall&#39;</span><span class="p">])</span>
+<span class="go">0.43333333333333335</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">JaroWinkler</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;Comp&#39;</span><span class="p">,</span> <span class="s">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;Engr&#39;</span><span class="p">,</span> <span class="s">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s">&#39;Universty&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;Cal,&#39;</span><span class="p">,</span> <span class="s">&#39;San&#39;</span><span class="p">,</span> <span class="s">&#39;Deigo&#39;</span><span class="p">],</span>
+<span class="go">                     [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">0.45810185185185187</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized Generalized Jaccard similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists) of strings. Input lists are converted to sets.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Normalized Generalized Jaccard similarity (float)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211;
+If the similarity measure doesn&#8217;t return values in the range [0,1]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;Neal&#39;</span><span class="p">,</span> <span class="s">&#39;Njall&#39;</span><span class="p">])</span>
+<span class="go">0.43333333333333335</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">JaroWinkler</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;Comp&#39;</span><span class="p">,</span> <span class="s">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;Engr&#39;</span><span class="p">,</span> <span class="s">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s">&#39;Universty&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;Cal,&#39;</span><span class="p">,</span> <span class="s">&#39;San&#39;</span><span class="p">,</span> <span class="s">&#39;Deigo&#39;</span><span class="p">],</span>
+<span class="go">                     [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">0.45810185185185187</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, py_stringmatching Team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
