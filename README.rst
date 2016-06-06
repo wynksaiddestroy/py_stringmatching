@@ -1,21 +1,24 @@
 .. -*- mode: rst -*-
 
-|Travis|_ |AppVeyor|_ |Coveralls|_ 
+|Travis| |AppVeyor| |Coveralls| 
 
 .. |Travis| image:: https://api.travis-ci.org/anhaidgroup/py_stringmatching.svg?branch=master
-   .. _Travis: https://travis-ci.org/anhaidgroup/py_stringmatching
+   :target: https://travis-ci.org/anhaidgroup/py_stringmatching
+   :alt: Travis build status
 
 .. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/537lktaj7gdoh577/branch/master?svg=true
-   .. _AppVeyor: https://ci.appveyor.com/project/anhaidgroup/py-stringmatching/history
+   :target: https://ci.appveyor.com/project/anhaidgroup/py-stringmatching/history
+   :alt: AppVeyor build status
 
 .. |Coveralls| image:: https://coveralls.io/repos/github/anhaidgroup/py_stringmatching/badge.svg?branch=master
-   .. _Coveralls: https://coveralls.io/r/anhaidgroup/py_stringmatching
+   :target: https://coveralls.io/r/anhaidgroup/py_stringmatching
+   :alt: Coveralls coverage
 
 py_stringmatching
 =================
 
 py_stringmatching is a software package in Python that consists of a comprehensive set of tokenizers and string similarity measures (
-such as edit distance, Jaccard, and TF/IDF). It is free, open-source, and BSD-licensed. 
+such as edit distance, Jaccard, and TF/IDF). It is free, open-source, and BSD-licensed.
 
 Important links
 ===============
