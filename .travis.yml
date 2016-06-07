@@ -44,6 +44,7 @@ install:
 
 script:
   - coverage run -m nose
+  - uname -a
 
 after_success:
   - coveralls
