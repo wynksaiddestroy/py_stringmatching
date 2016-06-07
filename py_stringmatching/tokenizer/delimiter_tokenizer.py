@@ -15,17 +15,11 @@ class DelimiterTokenizer(Tokenizer):
                               tokens. (defaults to False) 
     """
     def __init__(self, delim_set=set([' ']), return_set=False):
-        if not isinstance(delim_set, set):
-            delim_set = set(delim_set)
-        self.__delim_set = delim_set
-        # if there is only one delimiter string, use split instead of regex
-        self.__use_split = False
-        if len(self.__delim_set) == 1:
-            self.__delim_str = list(self.__delim_set)[0]
-            self.__use_split = True
-        else:
-            self.__delim_regex = re.compile('|'.join(
-                                     map(re.escape, self.__delim_set)))
+        self.__delim_set = None
+        self.__use_split = None
+        self.__delim_str = None
+        self.__delim_regex = None
+        self.set_delim_set(delim_set)
         super(DelimiterTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
@@ -70,3 +64,32 @@ class DelimiterTokenizer(Tokenizer):
             return utils.convert_bag_to_set(token_list)
 
         return token_list
+
+    def get_delim_set(self):
+        """
+        Get the current set of delimiters
+        
+        Returns:
+            Delimiter set (set)
+        """
+        return self.__delim_set
+
+    def set_delim_set(self, delim_set):
+        """
+        Set delimiters
+        
+        Args:
+            delim_set (set): set of delimiter strings 
+        """
+        if not isinstance(delim_set, set):
+            delim_set = set(delim_set)
+        self.__delim_set = delim_set
+        # if there is only one delimiter string, use split instead of regex
+        self.__use_split = False
+        if len(self.__delim_set) == 1:
+            self.__delim_str = list(self.__delim_set)[0]
+            self.__use_split = True
+        else:
+            self.__delim_regex = re.compile('|'.join(
+                                     map(re.escape, self.__delim_set)))
+        return True    

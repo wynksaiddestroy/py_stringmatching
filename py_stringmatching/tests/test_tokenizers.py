@@ -31,6 +31,38 @@ class QgramTokenizerTestCases(unittest.TestCase):
         self.assertEqual(self.qg3_tok.tokenize('database'),
                          ['dat', 'ata', 'tab', 'aba', 'bas', 'ase'])
 
+    def test_get_return_set(self):
+        self.assertEqual(self.qg2_tok.get_return_set(), False)
+        self.assertEqual(self.qg2_tok_return_set.get_return_set(), True)
+
+    def test_get_qval(self):
+        self.assertEqual(self.qg2_tok.get_qval(), 2)
+        self.assertEqual(self.qg3_tok.get_qval(), 3)
+
+    def test_set_return_set(self):
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['aa', 'ab', 'ba', 'bc', 'cd', 'db'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba'])
+
+    def test_set_qval(self):
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_qval(), 2)
+        self.assertEqual(tok.tokenize('database'),
+                         ['da', 'at', 'ta', 'ab', 'ba', 'as', 'se'])
+        self.assertEqual(tok.set_qval(3), True)
+        self.assertEqual(tok.get_qval(), 3)
+        self.assertEqual(tok.tokenize('database'),
+                         ['dat', 'ata', 'tab', 'aba', 'bas', 'ase'])
+
     @raises(TypeError)
     def test_qgrams_none(self):
         self.qg2_tok.tokenize(None)
@@ -42,6 +74,11 @@ class QgramTokenizerTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_qgrams_invalid2(self):
         self.qg2_tok.tokenize(99)
+
+    @raises(AssertionError)
+    def test_set_qval_invalid(self):
+        qg_tok = QgramTokenizer()
+        qg_tok.set_qval(0)
 
 
 class DelimiterTokenizerTestCases(unittest.TestCase):
@@ -73,6 +110,43 @@ class DelimiterTokenizerTestCases(unittest.TestCase):
             self.delim_tok4_return_set.tokenize(
                 'ab cd..efabbb....ggab cd..efabgh'),
             [' cd', 'ef', 'bb', 'gg', 'gh'])
+
+    def test_get_return_set(self):
+        self.assertEqual(self.delim_tok4.get_return_set(), False)
+        self.assertEqual(self.delim_tok4_return_set.get_return_set(), True)
+
+    def test_get_delim_set(self):
+        self.assertSetEqual(self.delim_tok1.get_delim_set(), {' '})
+        self.assertSetEqual(self.delim_tok3.get_delim_set(), {'*', '.'})
+        self.assertSetEqual(self.delim_tok4_list.get_delim_set(), {'..', 'ab'})
+
+    def test_set_return_set(self):
+        tok = DelimiterTokenizer(set(['..', 'ab']))
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(
+            tok.tokenize('ab cd..efabbb....ggab cd..efabgh'),
+            [' cd', 'ef', 'bb', 'gg', ' cd', 'ef', 'gh'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(
+            tok.tokenize('ab cd..efabbb....ggab cd..efabgh'),
+            [' cd', 'ef', 'bb', 'gg', 'gh'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(
+            tok.tokenize('ab cd..efabbb....ggab cd..efabgh'),
+            [' cd', 'ef', 'bb', 'gg', ' cd', 'ef', 'gh'])
+
+    def test_set_delim_set(self):
+        tok = DelimiterTokenizer(['*', '.'])
+        self.assertSetEqual(tok.get_delim_set(), {'*', '.'})
+        self.assertEqual(tok.tokenize('ab cd*ef.*bb. gg.'),
+                         ['ab cd', 'ef', 'bb', ' gg'])      
+        self.assertEqual(tok.set_delim_set({'..', 'ab'}), True)
+        self.assertSetEqual(tok.get_delim_set(), {'..', 'ab'})
+        self.assertEqual(
+            tok.tokenize('ab cd..efabbb....ggab cd..efabgh'),
+            [' cd', 'ef', 'bb', 'gg', ' cd', 'ef', 'gh'])
 
     @raises(TypeError)
     def test_delimiter_invalid1(self):
@@ -108,6 +182,24 @@ class WhitespaceTokenizerTestCases(unittest.TestCase):
         self.assertEqual(self.ws_tok_return_set.tokenize('ab cd ab bb cd db'),
                          ['ab', 'cd', 'bb', 'db'])
 
+    def test_get_return_set(self):
+        self.assertEqual(self.ws_tok.get_return_set(), False)
+        self.assertEqual(self.ws_tok_return_set.get_return_set(), True)
+
+    def test_set_return_set(self):
+        tok = WhitespaceTokenizer()
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('ab cd ab bb cd db'),
+                         ['ab', 'cd', 'ab', 'bb', 'cd', 'db'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(tok.tokenize('ab cd ab bb cd db'),
+                         ['ab', 'cd', 'bb', 'db'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('ab cd ab bb cd db'),
+                         ['ab', 'cd', 'ab', 'bb', 'cd', 'db'])
+
     @raises(TypeError)
     def test_whitespace_tok_invalid1(self):
         self.ws_tok.tokenize(None)
@@ -131,6 +223,25 @@ class AlphabeticTokenizerTestCases(unittest.TestCase):
         self.assertEqual(
             self.al_tok_return_set.tokenize('ab bc. cd##de ef09 bc fg ab.'),
             ['ab', 'bc', 'cd', 'de', 'ef', 'fg'])
+
+    def test_get_return_set(self):
+        self.assertEqual(self.al_tok.get_return_set(), False)
+        self.assertEqual(self.al_tok_return_set.get_return_set(), True)
+
+    def test_set_return_set(self):
+        tok = AlphabeticTokenizer()
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('ab bc. cd##de ef09 bc fg ab.'),
+                         ['ab', 'bc', 'cd', 'de', 'ef', 'bc', 'fg', 'ab'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(
+            tok.tokenize('ab bc. cd##de ef09 bc fg ab.'),
+            ['ab', 'bc', 'cd', 'de', 'ef', 'fg'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('ab bc. cd##de ef09 bc fg ab.'),
+                         ['ab', 'bc', 'cd', 'de', 'ef', 'bc', 'fg', 'ab'])
 
     @raises(TypeError)
     def test_alphabetic_tok_invalid1(self):
@@ -156,6 +267,27 @@ class AlphanumericTokenizerTestCases(unittest.TestCase):
         self.assertEqual(self.alnum_tok_return_set.tokenize(
                              ',data9,(science), data9#.(integration).88!'),
                          ['data9', 'science', 'integration', '88'])
+
+    def test_get_return_set(self):
+        self.assertEqual(self.alnum_tok.get_return_set(), False)
+        self.assertEqual(self.alnum_tok_return_set.get_return_set(), True)
+
+    def test_set_return_set(self):
+        tok = AlphanumericTokenizer()
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(
+            tok.tokenize(',data9,(science), data9#.(integration).88!'),
+            ['data9', 'science', 'data9', 'integration', '88'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(
+            tok.tokenize(',data9,(science), data9#.(integration).88!'),
+            ['data9', 'science', 'integration', '88'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(
+            tok.tokenize(',data9,(science), data9#.(integration).88!'),
+            ['data9', 'science', 'data9', 'integration', '88'])
 
     @raises(TypeError)
     def test_alphanumeric_tok_invalid1(self):

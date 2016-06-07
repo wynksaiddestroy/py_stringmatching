@@ -62,3 +62,27 @@ class QgramTokenizer(DefinitionTokenizer):
             return utils.convert_bag_to_set(qgram_list)            
 
         return qgram_list
+
+    def get_qval(self):
+        """
+        Get Q-gram length
+
+        Returns:
+            Q-gram length (int)
+        """
+        return self.qval
+
+    def set_qval(self, qval):
+        """
+        Set Q-gram length
+
+        Args:
+            qval (int): Q-gram length
+
+        Raises:
+            AssertionError : If qval is less than 1
+        """
+        if qval < 1:
+            raise AssertionError("qval cannot be less than 1")
+        self.qval = qval
+        return True
