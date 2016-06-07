@@ -39,7 +39,7 @@ class AffineTestCases(unittest.TestCase):
         self.affine = Affine()
         self.affine_with_params1 = Affine(gap_start=2, gap_continuation=0.5)
         self.affine_with_params2 = Affine(gap_continuation=0.2,
-                sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0)))
+                sim_func=lambda s1, s2: (int(1 if s1 == s2 else 0)))
 
     def test_valid_input(self):
         self.assertAlmostEqual(self.affine.get_raw_score('dva', 'deeva'), 1.5)
@@ -634,9 +634,9 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         self.nw = NeedlemanWunsch()
         self.nw_with_params1 = NeedlemanWunsch(0.0)
         self.nw_with_params2 = NeedlemanWunsch(1.0,
-            sim_score=lambda s1, s2: (2 if s1 == s2 else -1))
+            sim_func=lambda s1, s2: (2 if s1 == s2 else -1))
         self.nw_with_params3 = NeedlemanWunsch(gap_cost=0.5,
-            sim_score=lambda s1, s2: (1 if s1 == s2 else -1))
+            sim_func=lambda s1, s2: (1 if s1 == s2 else -1))
 
     def test_valid_input(self):
         self.assertEqual(self.nw.get_raw_score('dva', 'deeva'), 1.0)
@@ -675,11 +675,11 @@ class SmithWatermanTestCases(unittest.TestCase):
         self.sw = SmithWaterman()
         self.sw_with_params1 = SmithWaterman(2.2)
         self.sw_with_params2 = SmithWaterman(1,
-            sim_score=lambda s1, s2: (2 if s1 == s2 else -1))
+            sim_func=lambda s1, s2: (2 if s1 == s2 else -1))
         self.sw_with_params3 = SmithWaterman(gap_cost=1,
-            sim_score=lambda s1, s2: (int(1 if s1 == s2 else -1)))
+            sim_func=lambda s1, s2: (int(1 if s1 == s2 else -1)))
         self.sw_with_params4 = SmithWaterman(gap_cost=1.4,
-            sim_score=lambda s1, s2: (1.5 if s1 == s2 else 0.5))
+            sim_func=lambda s1, s2: (1.5 if s1 == s2 else 0.5))
 
     def test_valid_input(self):
         self.assertEqual(self.sw.get_raw_score('cat', 'hat'), 2.0)

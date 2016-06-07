@@ -18,12 +18,12 @@ class SmithWaterman(SequenceSimilarityMeasure):
 
     Parameters:
         gap_cost (float): Cost of gap (defaults to 1.0)
-        sim_score (function): Similarity function to give a score for the correspondence between characters. Defaults
+        sim_func (function): Similarity function to give a score for the correspondence between characters. Defaults
                               to an identity function, where if two characters are same it returns 1 else returns 0.
     """
-    def __init__(self, gap_cost=1.0, sim_score=sim_ident):
+    def __init__(self, gap_cost=1.0, sim_func=sim_ident):
         self.gap_cost = gap_cost
-        self.sim_score = sim_score
+        self.sim_func = sim_func
         super(SmithWaterman, self).__init__()
 
     def get_raw_score(self, string1, string2):
@@ -51,10 +51,10 @@ class SmithWaterman(SequenceSimilarityMeasure):
             >>> sw = SmithWaterman(gap_cost=2.2)
             >>> sw.get_raw_score('dva', 'deeve')
             1.0
-            >>> sw = SmithWaterman(gap_cost=1, sim_score=lambda s1, s2 : (2 if s1 == s2 else -1))
+            >>> sw = SmithWaterman(gap_cost=1, sim_func=lambda s1, s2 : (2 if s1 == s2 else -1))
             >>> sw.get_raw_score('dva', 'deeve')
             2.0
-            >>> sw = SmithWaterman(gap_cost=1.4, sim_score=lambda s1, s2 : (1.5 if s1 == s2 else 0.5))
+            >>> sw = SmithWaterman(gap_cost=1.4, sim_func=lambda s1, s2 : (1.5 if s1 == s2 else 0.5))
             >>> sw.get_raw_score('GCATAGCU', 'GATTACA')
             6.5
         """
@@ -68,8 +68,8 @@ class SmithWaterman(SequenceSimilarityMeasure):
         # Smith Waterman DP calculations
         for i in _range(1, len(string1) + 1):
             for j in _range(1, len(string2) + 1):
-                match = dist_mat[i - 1, j - 1] + self.sim_score(string1[i - 1],
-                                                                string2[j - 1])
+                match = dist_mat[i - 1, j - 1] + self.sim_func(string1[i - 1],
+                                                               string2[j - 1])
                 delete = dist_mat[i - 1, j] - self.gap_cost
                 insert = dist_mat[i, j - 1] - self.gap_cost
                 dist_mat[i, j] = max(0, match, delete, insert)

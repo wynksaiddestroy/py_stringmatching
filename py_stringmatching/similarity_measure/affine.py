@@ -18,13 +18,13 @@ class Affine(SequenceSimilarityMeasure):
     Parameters:
         gap_start (float): Cost for the gap at the start (defaults to 1)
         gap_continuation (float): Cost for the gap continuation (defaults to 0.5)
-        sim_score (function): Function computing similarity score between two chars, represented as strings
+        sim_func (function): Function computing similarity score between two chars, represented as strings
                               (defaults to identity).
     """
-    def __init__(self, gap_start=1, gap_continuation=0.5, sim_score=sim_ident):
+    def __init__(self, gap_start=1, gap_continuation=0.5, sim_func=sim_ident):
         self.gap_start = gap_start
         self.gap_continuation = gap_continuation
-        self.sim_score = sim_score
+        self.sim_func = sim_func
         super(Affine, self).__init__()
 
     def get_raw_score(self, string1, string2):
@@ -52,7 +52,7 @@ class Affine(SequenceSimilarityMeasure):
             >>> aff = Affine(gap_start=2, gap_continuation=0.5)
             >>> aff.get_raw_score('dva', 'deeve')
             -0.5
-            >>> aff = Affine(gap_continuation=0.2, sim_score=lambda s1, s2: (int(1 if s1 == s2 else 0)))
+            >>> aff = Affine(gap_continuation=0.2, sim_func=lambda s1, s2: (int(1 if s1 == s2 else 0)))
             >>> aff.get_raw_score('AAAGAATTCA', 'AAATCA')
             4.4
         """
@@ -87,7 +87,7 @@ class Affine(SequenceSimilarityMeasure):
             for j in _range(1, len(string2) + 1):
                 # best score between x_1....x_i and y_1....y_j
                 # given that x_i is aligned to y_j
-                m[i][j] = (self.sim_score(string1[i - 1], string2[j - 1]) +
+                m[i][j] = (self.sim_func(string1[i - 1], string2[j - 1]) +
                            max(m[i - 1][j - 1], x[i - 1][j - 1],
                                y[i - 1][j - 1]))
 
