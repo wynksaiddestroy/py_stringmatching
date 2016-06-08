@@ -9,11 +9,8 @@ from py_stringmatching.tokenizer.whitespace_tokenizer import WhitespaceTokenizer
 
 # Import similarity measures
 from py_stringmatching.similarity_measure.affine import Affine
-from py_stringmatching.similarity_measure.bag_distance import BagDistance
 from py_stringmatching.similarity_measure.cosine import Cosine
 from py_stringmatching.similarity_measure.dice import Dice
-from py_stringmatching.similarity_measure.editex import Editex
-from py_stringmatching.similarity_measure.generalized_jaccard import GeneralizedJaccard
 from py_stringmatching.similarity_measure.hamming_distance import HammingDistance
 from py_stringmatching.similarity_measure.jaccard import Jaccard
 from py_stringmatching.similarity_measure.jaro import Jaro
@@ -24,7 +21,5 @@ from py_stringmatching.similarity_measure.needleman_wunsch import NeedlemanWunsc
 from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
 from py_stringmatching.similarity_measure.smith_waterman import SmithWaterman
 from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
-from py_stringmatching.similarity_measure.soundex import Soundex
 from py_stringmatching.similarity_measure.tfidf import TfIdf
-from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
 

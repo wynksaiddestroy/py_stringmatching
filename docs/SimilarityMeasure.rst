@@ -6,11 +6,8 @@ Similarity Measures
     :maxdepth: 2
 
     Affine
-    BagDistance
     Cosine
     Dice
-    Editex
-    GeneralizedJaccard
     HammingDistance
     Jaccard
     Jaro
@@ -21,6 +18,4 @@ Similarity Measures
     OverlapCoefficient
     SmithWaterman
     SoftTfIdf
-    Soundex
     TfIdf
-    TverskyIndex

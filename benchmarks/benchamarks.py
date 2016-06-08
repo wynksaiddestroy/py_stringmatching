@@ -3,8 +3,6 @@
 
 # sequence based similarity measures
 from py_stringmatching.similarity_measure.affine import Affine
-from py_stringmatching.similarity_measure.bag_distance import BagDistance
-from py_stringmatching.similarity_measure.editex import Editex
 from py_stringmatching.similarity_measure.hamming_distance import HammingDistance
 from py_stringmatching.similarity_measure.jaro import Jaro
 from py_stringmatching.similarity_measure.jaro_winkler import JaroWinkler
@@ -18,12 +16,8 @@ from py_stringmatching.similarity_measure.jaccard import Jaccard
 from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
 from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
 from py_stringmatching.similarity_measure.tfidf import TfIdf
-from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
 # hybrid similarity measures
-from py_stringmatching.similarity_measure.generalized_jaccard import GeneralizedJaccard
 from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
-#phonetic similarity measures
-from py_stringmatching.similarity_measure.soundex import Soundex
 
 from . import _short_string_1, _long_string_1, _medium_string_1, _short_string_2, _long_string_2, _medium_string_2
 from . import _small_num_tokens_wi_rep, _small_num_tokens_wo_rep, _med_num_tokens_wi_rep, _med_num_tokens_wo_rep, \
@@ -122,29 +116,6 @@ class TimeHammingDistance:
         #     self.hamming_distance.get_raw_score(_medium_string_1, _long_string_1)
 
 
-class TimeEditex:
-    def setup(self):
-        self.editex = Editex()
-
-    def time_short_short(self):
-        self.editex.get_raw_score(_short_string_1, _short_string_2)
-
-    def time_medium_medium(self):
-        self.editex.get_raw_score(_medium_string_1, _medium_string_2)
-
-    def time_long_long(self):
-        self.editex.get_raw_score(_long_string_1, _long_string_2)
-
-    def time_short_medium(self):
-        self.editex.get_raw_score(_short_string_1, _medium_string_1)
-
-    def time_short_long(self):
-        self.editex.get_raw_score(_short_string_1, _long_string_1)
-
-    def time_medium_long(self):
-        self.editex.get_raw_score(_medium_string_1, _long_string_1)
-
-
 class TimeLevenshtein:
     def setup(self):
         self.levenshtein = Levenshtein()
@@ -166,29 +137,6 @@ class TimeLevenshtein:
 
     def time_medium_long(self):
         self.levenshtein.get_raw_score(_medium_string_1, _long_string_1)
-
-
-class TimeBagDistance:
-    def setup(self):
-        self.bag_distance = BagDistance()
-
-    def time_short_short(self):
-        self.bag_distance.get_raw_score(_short_string_1, _short_string_2)
-
-    def time_medium_medium(self):
-        self.bag_distance.get_raw_score(_medium_string_1, _medium_string_2)
-
-    def time_long_long(self):
-        self.bag_distance.get_raw_score(_long_string_1, _long_string_2)
-
-    def time_short_medium(self):
-        self.bag_distance.get_raw_score(_short_string_1, _medium_string_1)
-
-    def time_short_long(self):
-        self.bag_distance.get_raw_score(_short_string_1, _long_string_1)
-
-    def time_medium_long(self):
-        self.bag_distance.get_raw_score(_medium_string_1, _long_string_1)
 
 
 class TimeNeedlemanWunsch:
@@ -235,28 +183,6 @@ class TimeSmithWaterman:
 
     def time_medium_long(self):
         self.smith_waterman.get_raw_score(_medium_string_1, _long_string_1)
-
-class TimeSoundex:
-    def setup(self):
-        self.soundex = Soundex()
-
-    def time_short_short(self):
-        self.soundex.get_raw_score(_short_string_1, _short_string_2)
-
-    def time_medium_medium(self):
-        self.soundex.get_raw_score(_medium_string_1, _medium_string_2)
-
-    def time_long_long(self):
-        self.soundex.get_raw_score(_long_string_1, _long_string_2)
-
-    def time_short_medium(self):
-        self.soundex.get_raw_score(_short_string_1, _medium_string_1)
-
-    def time_short_long(self):
-        self.soundex.get_raw_score(_short_string_1, _long_string_1)
-
-    def time_medium_long(self):
-        self.soundex.get_raw_score(_medium_string_1, _long_string_1)
 
 
 class TimeCosine:
@@ -380,47 +306,6 @@ class TimeJaccard:
 
     def time_medium_large_wi_rep(self):
         self.jaccard.get_raw_score(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-
-class TimeGeneralizedJaccard:
-    def setup(self):
-        self.generalized_jaccard = GeneralizedJaccard()
-
-    def time_small_small_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wo_rep, _small_num_tokens_wo_rep)
-
-    def time_small_small_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wi_rep, _small_num_tokens_wi_rep)
-
-    def time_medium_medium_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_med_num_tokens_wo_rep, _med_num_tokens_wo_rep)
-
-    def time_medium_medium_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_med_num_tokens_wi_rep, _med_num_tokens_wi_rep)
-
-    def time_large_large_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_large_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-    def time_large_large_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_large_num_tokens_wi_rep, _large_num_tokens_wi_rep)
-
-    def time_small_medium_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wo_rep, _med_num_tokens_wo_rep)
-
-    def time_small_medium_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wi_rep, _med_num_tokens_wi_rep)
-
-    def time_small_large_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-    def time_small_large_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_small_num_tokens_wi_rep, _large_num_tokens_wi_rep)
-
-    def time_medium_large_wo_rep(self):
-        self.generalized_jaccard.get_raw_score(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
-
-    def time_medium_large_wi_rep(self):
-        self.generalized_jaccard.get_raw_score(_med_num_tokens_wo_rep, _large_num_tokens_wo_rep)
 
 
 class TimeOverlap:
