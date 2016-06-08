@@ -1,7 +1,7 @@
 """Qgram based tokenizer"""
 
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
+from six.moves import xrange
 from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 
 
@@ -55,7 +55,7 @@ class QgramTokenizer(DefinitionTokenizer):
             return qgram_list
 
         qgram_list = [input_string[i:i + self.qval] for i in 
-                          _range(len(input_string) - (self.qval - 1))]
+                          xrange(len(input_string) - (self.qval - 1))]
         qgram_list = list(filter(None, qgram_list))
 
         if self.return_set:
