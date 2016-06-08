@@ -24,8 +24,7 @@ class Tokenizer(object):
         Set the return_set flag
 
         Args:
-            return_set (boolean): flag to indicate whether to return a set of
-                                  tokens. (defaults to False) 
+            return_set (boolean): flag to indicate whether to return a set of tokens. 
         """
         self.return_set = return_set
         return True
