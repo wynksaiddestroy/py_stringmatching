@@ -1,18 +1,3 @@
-.. -*- mode: rst -*-
-
-|Travis| |AppVeyor| |Coveralls| 
-
-.. |Travis| image:: https://api.travis-ci.org/anhaidgroup/py_stringmatching.svg?branch=master
-   :target: https://travis-ci.org/anhaidgroup/py_stringmatching
-   :alt: Travis build status
-
-.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/537lktaj7gdoh577/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/anhaidgroup/py-stringmatching/history
-   :alt: AppVeyor build status
-
-.. |Coveralls| image:: https://coveralls.io/repos/github/anhaidgroup/py_stringmatching/badge.svg?branch=master
-   :target: https://coveralls.io/r/anhaidgroup/py_stringmatching
-   :alt: Coveralls coverage
 
 py_stringmatching
 =================
