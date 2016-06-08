@@ -73,3 +73,5 @@ results/
 
 # Project specific
 cythonize.dat
+
+cover/

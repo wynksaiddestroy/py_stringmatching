@@ -621,6 +621,10 @@ class OverlapCoefficientTestCases(unittest.TestCase):
         self.assertEqual(self.oc.get_raw_score([], ['data']), 0)
         self.assertEqual(self.oc.get_raw_score(['data', 'data', 'science'],
                                                ['data', 'management']), 1.0 / min(3.0, 2.0))
+    def test_valid_input_raw_score_set_inp(self):
+        self.assertEqual(self.oc.get_raw_score(set(['data', 'science']), set(['data'])),
+                         1.0 / min(2.0, 1.0))
+
 
     def test_valid_input_sim_score(self):
         self.assertEqual(self.oc.get_sim_score([], []), 1.0)
