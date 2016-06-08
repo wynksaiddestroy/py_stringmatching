@@ -2,8 +2,9 @@
 
 import numpy as np
 
+
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
+from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
@@ -71,20 +72,20 @@ class Affine(SequenceSimilarityMeasure):
         y = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
 
         # DP initialization
-        for i in _range(1, len(string1) + 1):
+        for i in xrange(1, len(string1) + 1):
             m[i][0] = -float("inf")
             x[i][0] = gap_start + (i - 1) * gap_continuation
             y[i][0] = -float("inf")
 
         # DP initialization
-        for j in _range(1, len(string2) + 1):
+        for j in xrange(1, len(string2) + 1):
             m[0][j] = -float("inf")
             x[0][j] = -float("inf")
             y[0][j] = gap_start + (j - 1) * gap_continuation
 
         # affine gap calculation using DP
-        for i in _range(1, len(string1) + 1):
-            for j in _range(1, len(string2) + 1):
+        for i in xrange(1, len(string1) + 1):
+            for j in xrange(1, len(string2) + 1):
                 # best score between x_1....x_i and y_1....y_j
                 # given that x_i is aligned to y_j
                 m[i][j] = (self.sim_func(string1[i - 1], string2[j - 1]) +

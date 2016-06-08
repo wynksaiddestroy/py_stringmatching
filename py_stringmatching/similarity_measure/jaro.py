@@ -1,7 +1,7 @@
 """Jaro similarity measure"""
 
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
+from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
@@ -61,7 +61,7 @@ class Jaro(SequenceSimilarityMeasure):
         for i, ch_s1 in enumerate(string1):
             low = i - search_range if i > search_range else 0
             high = i + search_range if i + search_range < len_s2 else len_s2 - 1
-            for j in _range(low, high + 1):
+            for j in xrange(low, high + 1):
                 if not flags_s2[j] and string2[j] == ch_s1:
                     flags_s1[i] = flags_s2[j] = True
                     common_chars += 1
@@ -73,7 +73,7 @@ class Jaro(SequenceSimilarityMeasure):
         k = trans_count = 0
         for i, f_s1 in enumerate(flags_s1):
             if f_s1:
-                for j in _range(k, len_s2):
+                for j in xrange(k, len_s2):
                     if flags_s2[j]:
                         k = j + 1
                         break

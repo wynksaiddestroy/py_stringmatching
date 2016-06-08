@@ -4,7 +4,7 @@
 import numpy as np
 
 from py_stringmatching import utils
-from py_stringmatching.compat import _range
+from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
 
@@ -66,8 +66,8 @@ class SmithWaterman(SequenceSimilarityMeasure):
                             dtype=np.float)
         max_value = 0
         # Smith Waterman DP calculations
-        for i in _range(1, len(string1) + 1):
-            for j in _range(1, len(string2) + 1):
+        for i in xrange(1, len(string1) + 1):
+            for j in xrange(1, len(string2) + 1):
                 match = dist_mat[i - 1, j - 1] + self.sim_func(string1[i - 1],
                                                                string2[j - 1])
                 delete = dist_mat[i - 1, j] - self.gap_cost
