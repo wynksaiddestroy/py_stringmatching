@@ -7,8 +7,8 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 
 
 class AlphabeticTokenizer(DefinitionTokenizer):
-    """Alphabetic tokenizer class.
-
+    """Return tokens that are maximal sequences of consecutive alphabetical characters.
+    
     Parameters:
         return_set (boolean): flag to indicate whether to return a set of
                               tokens. (defaults to False) 
