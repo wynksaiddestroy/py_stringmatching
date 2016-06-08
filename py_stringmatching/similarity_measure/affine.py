@@ -101,3 +101,60 @@ class Affine(SequenceSimilarityMeasure):
 
         return max(m[len(string1)][len(string2)], x[len(string1)][len(string2)],
                    y[len(string1)][len(string2)])
+
+    def get_gap_start(self):
+        """
+        Get gap start cost
+
+        Returns:
+            gap start cost (float)
+        """
+        return self.gap_start
+
+    def get_gap_continuation(self):
+        """
+        Get gap continuation cost
+
+        Returns:
+            gap continuation cost (float)
+        """
+        return self.gap_continuation
+
+    def get_sim_func(self):
+        """
+        Get similarity function
+
+        Returns:
+            similarity function (function)
+        """
+        return self.sim_func
+
+    def set_gap_start(self, gap_start):
+        """
+        Set gap start cost
+
+        Args:
+            gap_start (float): Cost for the gap at the start
+        """
+        self.gap_start = gap_start
+        return True
+
+    def set_gap_continuation(self, gap_continuation):
+        """
+        Set gap continuation cost
+
+        Args:
+            gap_continuation (float): Cost for the gap continuation
+        """
+        self.gap_continuation = gap_continuation
+        return True
+
+    def set_sim_func(self, sim_func):
+        """
+        Set similarity function
+
+        Args:
+            sim_func (function): Function computing similarity score between two chars, represented as strings.
+        """
+        self.sim_func = sim_func
+        return True

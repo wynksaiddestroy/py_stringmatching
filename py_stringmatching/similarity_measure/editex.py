@@ -151,3 +151,79 @@ class Editex(SequenceSimilarityMeasure):
             return 1.0
         return 1 - (raw_score / max(string1_len * self.mismatch_cost,
                                     string2_len * self.mismatch_cost))
+
+    def get_match_cost(self):
+        """
+        Get match cost
+
+        Returns:
+            match cost (int)
+        """
+        return self.match_cost
+
+    def get_group_cost(self):
+        """
+        Get group cost
+
+        Returns:
+            group cost (int)
+        """
+        return self.group_cost
+
+    def get_mismatch_cost(self):
+        """
+        Get mismatch cost
+
+        Returns:
+            mismatch cost (int)
+        """
+        return self.mismatch_cost
+
+    def get_local(self):
+        """
+        Get local flag
+
+        Returns:
+            local flag (boolean)
+        """
+        return self.local
+
+    def set_match_cost(self, match_cost):
+        """
+        Set match cost
+
+        Args:
+            match_cost (int): Weight to give the correct char match
+        """
+        self.match_cost = match_cost
+        return True
+
+    def set_group_cost(self, group_cost):
+        """
+        Set group cost
+
+        Args:
+            group_cost (int): Weight to give if the chars are in the same editex group
+        """
+        self.group_cost = group_cost
+        return True
+
+    def set_mismatch_cost(self, mismatch_cost):
+        """
+        Set mismatch cost
+
+        Args:
+            mismatch_cost (int): Weight to give the incorrect char match
+        """
+        self.mismatch_cost = mismatch_cost
+        return True
+
+    def set_local(self, local):
+        """
+        Set local flag
+
+        Args:
+            local (boolean): Local variant on/off
+        """
+        self.local = local
+        return True

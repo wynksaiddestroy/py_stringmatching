@@ -85,3 +85,41 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
                 dist_mat[i, j] = max(match, delete, insert)
 
         return dist_mat[dist_mat.shape[0] - 1, dist_mat.shape[1] - 1]
+
+    def get_gap_cost(self):
+        """
+        Get gap cost
+
+        Returns:
+            gap cost (float)
+        """
+        return self.gap_cost
+
+    def get_sim_func(self):
+        """
+        Get similarity function
+
+        Returns:
+            similarity function (function)
+        """
+        return self.sim_func
+
+    def set_gap_cost(self, gap_cost):
+        """
+        Set gap cost
+
+        Args:
+            gap_cost (float): Cost of gap
+        """
+        self.gap_cost = gap_cost
+        return True
+
+    def set_sim_func(self, sim_func):
+        """
+        Set similarity function
+
+        Args:
+            sim_func (function): Similarity function to give a score for the correspondence between characters.
+        """
+        self.sim_func = sim_func
+        return True

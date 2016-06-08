@@ -81,3 +81,21 @@ class MongeElkan(HybridSimilarityMeasure):
 
         return sim
 
+    def get_sim_func(self):
+        """
+        Get secondary similarity function
+
+        Returns:
+            secondary similarity function (function)
+        """
+        return self.sim_func
+
+    def set_sim_func(self, sim_func):
+        """
+        Set secondary similarity function
+
+        Args:
+            sim_func (function): Secondary similarity function.
+        """
+        self.sim_func = sim_func
+        return True

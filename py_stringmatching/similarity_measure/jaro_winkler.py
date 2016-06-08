@@ -88,3 +88,22 @@ class JaroWinkler(SequenceSimilarityMeasure):
 
         """
         return self.get_raw_score(string1, string2)
+
+    def get_prefix_weight(self):
+        """
+        Get prefix weight
+
+        Returns:
+            prefix weight (float)
+        """
+        return self.prefix_weight
+
+    def set_prefix_weight(self, prefix_weight):
+        """
+        Set prefix weight
+
+        Args:
+            prefix_weight (float): Weight to give the prefix
+        """
+        self.prefix_weight = prefix_weight
+        return True

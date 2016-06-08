@@ -127,3 +127,41 @@ class GeneralizedJaccard(HybridSimilarityMeasure):
 
         """
         return self.get_raw_score(set1, set2)
+
+    def get_sim_func(self):
+        """
+        Get similarity function
+
+        Returns:
+            similarity function (function)
+        """
+        return self.sim_func
+
+    def get_threshold(self):
+        """
+        Get threshold used for the similarity function
+
+        Returns:
+            threshold (float)
+        """
+        return self.threshold
+
+    def set_sim_func(self, sim_func):
+        """
+        Set similarity function
+
+        Args:
+            sim_func (function): similarity function
+        """
+        self.sim_func = sim_func
+        return True
+
+    def set_threshold(self, threshold):
+        """
+        Set threshold value for the similarity function
+
+        Args:
+            threshold (float): threshold value
+        """
+        self.threshold = threshold
+        return True

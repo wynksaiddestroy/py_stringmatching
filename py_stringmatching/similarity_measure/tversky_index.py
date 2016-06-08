@@ -105,3 +105,41 @@ class TverskyIndex(TokenSimilarityMeasure):
 
         """
         return self.get_raw_score(set1, set2)
+
+    def get_alpha(self):
+        """
+        Get alpha
+
+        Returns:
+            alpha (float)
+        """
+        return self.alpha
+
+    def get_beta(self):
+        """
+        Get beta
+
+        Returns:
+            beta (float)
+        """
+        return self.beta
+
+    def set_alpha(self, alpha):
+        """
+        Set alpha
+
+        Args:
+            alpha (float): Tversky index parameter
+        """
+        self.alpha = alpha
+        return True
+
+    def set_beta(self, beta):
+        """
+        Set beta
+
+        Args:
+            beta (float): Tversky index parameter
+        """
+        self.beta = beta
+        return True

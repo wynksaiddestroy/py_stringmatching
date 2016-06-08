@@ -38,8 +38,8 @@ class AffineTestCases(unittest.TestCase):
     def setUp(self):
         self.affine = Affine()
         self.affine_with_params1 = Affine(gap_start=2, gap_continuation=0.5)
-        self.affine_with_params2 = Affine(gap_continuation=0.2,
-                sim_func=lambda s1, s2: (int(1 if s1 == s2 else 0)))
+        self.sim_func = lambda s1, s2: (int(1 if s1 == s2 else 0))
+        self.affine_with_params2 = Affine(gap_continuation=0.2, sim_func=self.sim_func)
 
     def test_valid_input(self):
         self.assertAlmostEqual(self.affine.get_raw_score('dva', 'deeva'), 1.5)
@@ -48,6 +48,41 @@ class AffineTestCases(unittest.TestCase):
                                4.4)
         self.assertAlmostEqual(self.affine_with_params2.get_raw_score(' ', ' '), 1)
         self.assertEqual(self.affine.get_raw_score('', 'deeva'), 0)
+
+    def test_get_gap_start(self):
+        self.assertEqual(self.affine_with_params1.get_gap_start(), 2)
+
+    def test_get_gap_continuation(self):
+        self.assertEqual(self.affine_with_params2.get_gap_continuation(), 0.2)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.affine_with_params2.get_sim_func(), self.sim_func)
+
+    def test_set_gap_start(self):
+        af = Affine(gap_start=1)
+        self.assertEqual(af.get_gap_start(), 1)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 1.5)
+        self.assertEqual(af.set_gap_start(2), True)
+        self.assertEqual(af.get_gap_start(), 2)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 0.5)
+
+    def test_set_gap_continuation(self):
+        af = Affine(gap_continuation=0.3)
+        self.assertEqual(af.get_gap_continuation(), 0.3)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 1.7)
+        self.assertEqual(af.set_gap_continuation(0.7), True)
+        self.assertEqual(af.get_gap_continuation(), 0.7)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 1.3)
+
+    def test_set_sim_func(self):
+        fn1 = lambda s1, s2: (int(1 if s1 == s2 else 0))
+        fn2 = lambda s1, s2: (int(2 if s1 == s2 else -1))
+        af = Affine(sim_func=fn1)
+        self.assertEqual(af.get_sim_func(), fn1)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 1.5)
+        self.assertEqual(af.set_sim_func(fn2), True)
+        self.assertEqual(af.get_sim_func(), fn2)
+        self.assertAlmostEqual(af.get_raw_score('dva', 'deeva'), 4.5)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -190,6 +225,50 @@ class EditexTestCases(unittest.TestCase):
         self.ed_with_params4 = Editex(mismatch_cost=3, group_cost=2)
         self.ed_with_params5 = Editex(mismatch_cost=3, group_cost=2, local=True)
         self.ed_with_params6 = Editex(local=True)
+
+    def test_get_match_cost(self):
+        self.assertEqual(self.ed_with_params1.get_match_cost(), 2)
+
+    def test_get_group_cost(self):
+        self.assertEqual(self.ed_with_params4.get_group_cost(), 2)
+
+    def test_get_mismatch_cost(self):
+        self.assertEqual(self.ed_with_params4.get_mismatch_cost(), 3)
+
+    def test_get_local(self):
+        self.assertEqual(self.ed_with_params5.get_local(), True)
+
+    def test_set_match_cost(self):
+        ed = Editex(match_cost=2)
+        self.assertEqual(ed.get_match_cost(), 2)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 12)
+        self.assertEqual(ed.set_match_cost(4), True)
+        self.assertEqual(ed.get_match_cost(), 4)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 14)
+
+    def test_set_group_cost(self):
+        ed = Editex(group_cost=1)
+        self.assertEqual(ed.get_group_cost(), 1)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 3)
+        self.assertEqual(ed.set_group_cost(2), True)
+        self.assertEqual(ed.get_group_cost(), 2)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 4)
+
+    def test_set_mismatch_cost(self):
+        ed = Editex(mismatch_cost=2)
+        self.assertEqual(ed.get_mismatch_cost(), 2)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 3)
+        self.assertEqual(ed.set_mismatch_cost(4), True)
+        self.assertEqual(ed.get_mismatch_cost(), 4)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 5)
+
+    def test_set_local(self):
+        ed = Editex(local=False)
+        self.assertEqual(ed.get_local(), False)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 3)
+        self.assertEqual(ed.set_local(True), True)
+        self.assertEqual(ed.get_local(), True)
+        self.assertAlmostEqual(ed.get_raw_score('MARTHA', 'MARHTA'), 3)
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.ed.get_raw_score('MARTHA', 'MARTHA'), 0)
@@ -349,6 +428,17 @@ class JaroTestCases(unittest.TestCase):
 class JaroWinklerTestCases(unittest.TestCase):
     def setUp(self):
         self.jw = JaroWinkler()
+
+    def test_get_prefix_weight(self):
+        self.assertEqual(self.jw.get_prefix_weight(), 0.1)
+
+    def test_set_prefix_weight(self):
+        jw = JaroWinkler(prefix_weight=0.15)
+        self.assertEqual(jw.get_prefix_weight(), 0.15)
+        self.assertAlmostEqual(jw.get_raw_score('MARTHA', 'MARHTA'), 0.9694444444444444)
+        self.assertEqual(jw.set_prefix_weight(0.25), True)
+        self.assertEqual(jw.get_prefix_weight(), 0.25)
+        self.assertAlmostEqual(jw.get_raw_score('MARTHA', 'MARHTA'), 0.9861111111111112)
 
     def test_valid_input_raw_score(self):
         # https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
@@ -635,8 +725,33 @@ class NeedlemanWunschTestCases(unittest.TestCase):
         self.nw_with_params1 = NeedlemanWunsch(0.0)
         self.nw_with_params2 = NeedlemanWunsch(1.0,
             sim_func=lambda s1, s2: (2 if s1 == s2 else -1))
+        self.sim_func=lambda s1, s2: (1 if s1 == s2 else -1)
         self.nw_with_params3 = NeedlemanWunsch(gap_cost=0.5,
-            sim_func=lambda s1, s2: (1 if s1 == s2 else -1))
+                                   sim_func=self.sim_func)
+
+    def test_get_gap_cost(self):
+        self.assertEqual(self.nw_with_params3.get_gap_cost(), 0.5)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.nw_with_params3.get_sim_func(), self.sim_func)
+
+    def test_set_gap_cost(self):
+        nw = NeedlemanWunsch(gap_cost=0.5)
+        self.assertEqual(nw.get_gap_cost(), 0.5)
+        self.assertAlmostEqual(nw.get_raw_score('dva', 'deeva'), 2.0)
+        self.assertEqual(nw.set_gap_cost(0.7), True)
+        self.assertEqual(nw.get_gap_cost(), 0.7)
+        self.assertAlmostEqual(nw.get_raw_score('dva', 'deeva'), 1.6000000000000001)
+
+    def test_set_sim_func(self):
+        fn1 = lambda s1, s2: (int(1 if s1 == s2 else 0))
+        fn2 = lambda s1, s2: (int(2 if s1 == s2 else -1))
+        nw = NeedlemanWunsch(sim_func=fn1)
+        self.assertEqual(nw.get_sim_func(), fn1)
+        self.assertAlmostEqual(nw.get_raw_score('dva', 'deeva'), 1.0)
+        self.assertEqual(nw.set_sim_func(fn2), True)
+        self.assertEqual(nw.get_sim_func(), fn2)
+        self.assertAlmostEqual(nw.get_raw_score('dva', 'deeva'), 4.0)
 
     def test_valid_input(self):
         self.assertEqual(self.nw.get_raw_score('dva', 'deeva'), 1.0)
@@ -678,8 +793,33 @@ class SmithWatermanTestCases(unittest.TestCase):
             sim_func=lambda s1, s2: (2 if s1 == s2 else -1))
         self.sw_with_params3 = SmithWaterman(gap_cost=1,
             sim_func=lambda s1, s2: (int(1 if s1 == s2 else -1)))
+        self.sim_func=lambda s1, s2: (1.5 if s1 == s2 else 0.5)
         self.sw_with_params4 = SmithWaterman(gap_cost=1.4,
-            sim_func=lambda s1, s2: (1.5 if s1 == s2 else 0.5))
+                                   sim_func=self.sim_func)
+
+    def test_get_gap_cost(self):
+        self.assertEqual(self.sw_with_params4.get_gap_cost(), 1.4)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.sw_with_params4.get_sim_func(), self.sim_func)
+
+    def test_set_gap_cost(self):
+        sw = SmithWaterman(gap_cost=0.3)
+        self.assertEqual(sw.get_gap_cost(), 0.3)
+        self.assertAlmostEqual(sw.get_raw_score('dva', 'deeva'), 2.3999999999999999)
+        self.assertEqual(sw.set_gap_cost(0.7), True)
+        self.assertEqual(sw.get_gap_cost(), 0.7)
+        self.assertAlmostEqual(sw.get_raw_score('dva', 'deeva'), 2.0)
+
+    def test_set_sim_func(self):
+        fn1 = lambda s1, s2: (int(1 if s1 == s2 else 0))
+        fn2 = lambda s1, s2: (int(2 if s1 == s2 else -1))
+        sw = SmithWaterman(sim_func=fn1)
+        self.assertEqual(sw.get_sim_func(), fn1)
+        self.assertAlmostEqual(sw.get_raw_score('dva', 'deeva'), 2.0)
+        self.assertEqual(sw.set_sim_func(fn2), True)
+        self.assertEqual(sw.get_sim_func(), fn2)
+        self.assertAlmostEqual(sw.get_raw_score('dva', 'deeva'), 4.0)
 
     def test_valid_input(self):
         self.assertEqual(self.sw.get_raw_score('cat', 'hat'), 2.0)
@@ -1051,11 +1191,36 @@ class JaccardTestCases(unittest.TestCase):
 class GeneralizedJaccardTestCases(unittest.TestCase):
     def setUp(self):
         self.gen_jac = GeneralizedJaccard()
-        self.gen_jac_with_jw = GeneralizedJaccard(sim_func=JaroWinkler().get_raw_score)
-        self.gen_jac_with_jw_08 = GeneralizedJaccard(sim_func=JaroWinkler().get_raw_score,
+        self.jw_fn = JaroWinkler().get_raw_score
+        self.gen_jac_with_jw = GeneralizedJaccard(sim_func=self.jw_fn)
+        self.gen_jac_with_jw_08 = GeneralizedJaccard(sim_func=self.jw_fn,
                                                      threshold=0.8)
         self.gen_jac_invalid = GeneralizedJaccard(sim_func=NeedlemanWunsch().get_raw_score,
                                                   threshold=0.8)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.gen_jac_with_jw_08.get_sim_func(), self.jw_fn)
+
+    def test_get_threshold(self):
+        self.assertEqual(self.gen_jac_with_jw_08.get_threshold(), 0.8)
+
+    def test_set_threshold(self):
+        gj = GeneralizedJaccard(threshold=0.8)
+        self.assertEqual(gj.get_threshold(), 0.8)
+        self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
+        self.assertEqual(gj.set_threshold(0.9), True)
+        self.assertEqual(gj.get_threshold(), 0.9)
+        self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.0)
+
+    def test_set_sim_func(self):
+        fn1 = JaroWinkler().get_raw_score
+        fn2 = Jaro().get_raw_score
+        gj = GeneralizedJaccard(sim_func=fn1)
+        self.assertEqual(gj.get_sim_func(), fn1)
+        self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.44)
+        self.assertEqual(gj.set_sim_func(fn2), True)
+        self.assertEqual(gj.get_sim_func(), fn2)
+        self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.43333333333333335)
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.gen_jac.get_raw_score([''], ['']), 1.0)  # need to check this
@@ -1276,9 +1441,34 @@ class CosineTestCases(unittest.TestCase):
 class TfidfTestCases(unittest.TestCase):
     def setUp(self):
         self.tfidf = TfIdf()
-        self.tfidf_with_params1 = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True)
+        self.corpus = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']]
+        self.tfidf_with_params1 = TfIdf(self.corpus, True)
         self.tfidf_with_params2 = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
         self.tfidf_with_params3 = TfIdf([['x', 'y'], ['w'], ['q']])
+
+    def test_get_corpus_list(self):
+        self.assertEqual(self.tfidf_with_params1.get_corpus_list(), self.corpus)
+
+    def test_get_dampen(self):
+        self.assertEqual(self.tfidf_with_params1.get_dampen(), True)
+
+    def test_set_corpus_list(self):
+        corpus1 = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']]
+        corpus2 = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b'], ['c', 'a', 'b']]
+        tfidf = TfIdf(corpus_list=corpus1)
+        self.assertEqual(tfidf.get_corpus_list(), corpus1)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7999999999999999)
+        self.assertEqual(tfidf.set_corpus_list(corpus2), True)
+        self.assertEqual(tfidf.get_corpus_list(), corpus2)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.8320502943378437)
+
+    def test_set_dampen(self):
+        tfidf = TfIdf(self.corpus, dampen=False)
+        self.assertEqual(tfidf.get_dampen(), False)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7999999999999999)
+        self.assertEqual(tfidf.set_dampen(True), True)
+        self.assertEqual(tfidf.get_dampen(), True)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.5495722661728765)
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.tfidf_with_params1.get_raw_score(['a', 'b', 'a'], ['a', 'c']),
@@ -1371,6 +1561,32 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.tvi_with_params3 = TverskyIndex(0.2, 0.4)
         self.tvi_with_params4 = TverskyIndex(0.9, 0.8)
         self.tvi_with_params5 = TverskyIndex(0.45, 0.85)
+
+    def test_get_alpha(self):
+        self.assertEqual(self.tvi_with_params5.get_alpha(), 0.45)
+
+    def test_get_beta(self):
+        self.assertEqual(self.tvi_with_params5.get_beta(), 0.85)
+
+    def test_set_alpha(self):
+        tvi = TverskyIndex(alpha=0.3)
+        self.assertEqual(tvi.get_alpha(), 0.3)
+        self.assertAlmostEqual(tvi.get_raw_score(['data', 'science'], ['data']),
+                               0.7692307692307692)
+        self.assertEqual(tvi.set_alpha(0.7), True)
+        self.assertEqual(tvi.get_alpha(), 0.7)
+        self.assertAlmostEqual(tvi.get_raw_score(['data', 'science'], ['data']),
+                               0.5882352941176471)
+
+    def test_set_beta(self):
+        tvi = TverskyIndex(beta=0.3)
+        self.assertEqual(tvi.get_beta(), 0.3)
+        self.assertAlmostEqual(tvi.get_raw_score(['data', 'science'], ['science', 'good']),
+                               0.5555555555555556)
+        self.assertEqual(tvi.set_beta(0.7), True)
+        self.assertEqual(tvi.get_beta(), 0.7)
+        self.assertAlmostEqual(tvi.get_raw_score(['data', 'science'], ['science', 'good']),
+                               0.45454545454545453)
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.tvi_with_params1.get_raw_score(['data', 'science'], ['data']),
@@ -1506,13 +1722,54 @@ class TverskyIndexTestCases(unittest.TestCase):
 class Soft_TfidfTestCases(unittest.TestCase):
     def setUp(self):
         self.soft_tfidf = SoftTfIdf()
-        self.soft_tfidf_with_params1 = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']],
+        self.corpus = [['a', 'b', 'a'], ['a', 'c'], ['a']]
+        self.soft_tfidf_with_params1 = SoftTfIdf(self.corpus,
                                                  sim_func=Jaro().get_raw_score,
                                                  threshold=0.8)
-        self.soft_tfidf_with_params2 = SoftTfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']],
+        self.soft_tfidf_with_params2 = SoftTfIdf(self.corpus,
                                                  threshold=0.9)
         self.soft_tfidf_with_params3 = SoftTfIdf([['x', 'y'], ['w'], ['q']])
-        self.soft_tfidf_with_params4 = SoftTfIdf(sim_func=Affine().get_raw_score, threshold=0.6)
+        self.affine_fn = Affine().get_raw_score
+        self.soft_tfidf_with_params4 = SoftTfIdf(sim_func=self.affine_fn, threshold=0.6)
+
+    def test_get_corpus_list(self):
+        self.assertEqual(self.soft_tfidf_with_params1.get_corpus_list(), self.corpus)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.soft_tfidf_with_params4.get_sim_func(), self.affine_fn)
+
+    def test_get_threshold(self):
+        self.assertEqual(self.soft_tfidf_with_params4.get_threshold(), 0.6)
+
+    def test_set_corpus_list(self):
+        corpus1 = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']]
+        corpus2 = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b'], ['c', 'a', 'b']]
+        soft_tfidf = SoftTfIdf(corpus_list=corpus1)
+        self.assertEqual(soft_tfidf.get_corpus_list(), corpus1)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['a', 'b', 'a'], ['a']),
+                               0.7999999999999999)
+        self.assertEqual(soft_tfidf.set_corpus_list(corpus2), True)
+        self.assertEqual(soft_tfidf.get_corpus_list(), corpus2)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['a', 'b', 'a'], ['a']),
+                               0.8320502943378437)
+
+    def test_set_threshold(self):
+        soft_tfidf = SoftTfIdf(threshold=0.5)
+        self.assertEqual(soft_tfidf.get_threshold(), 0.5)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['ar', 'bfff', 'ab'], ['abcd']), 0.8179128813519699)
+        self.assertEqual(soft_tfidf.set_threshold(0.7), True)
+        self.assertEqual(soft_tfidf.get_threshold(), 0.7)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['ar', 'bfff', 'ab'], ['abcd']), 0.4811252243246882)
+
+    def test_set_sim_func(self):
+        fn1 = JaroWinkler().get_raw_score
+        fn2 = Jaro().get_raw_score
+        soft_tfidf = SoftTfIdf(sim_func=fn1)
+        self.assertEqual(soft_tfidf.get_sim_func(), fn1)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['ar', 'bfff', 'ab'], ['abcd']), 0.8612141515411919)
+        self.assertEqual(soft_tfidf.set_sim_func(fn2), True)
+        self.assertEqual(soft_tfidf.get_sim_func(), fn2)
+        self.assertAlmostEqual(soft_tfidf.get_raw_score(['ar', 'bfff', 'ab'], ['abcd']), 0.8179128813519699)
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.soft_tfidf_with_params1.get_raw_score(
@@ -1561,7 +1818,27 @@ class MongeElkanTestCases(unittest.TestCase):
     def setUp(self):
         self.me = MongeElkan()
         self.me_with_nw = MongeElkan(NeedlemanWunsch().get_raw_score)
-        self.me_with_affine = MongeElkan(Affine().get_raw_score)
+        self.affine_fn = Affine().get_raw_score
+        self.me_with_affine = MongeElkan(self.affine_fn)
+
+    def test_get_sim_func(self):
+        self.assertEqual(self.me_with_affine.get_sim_func(), self.affine_fn)
+
+    def test_set_sim_func(self):
+        fn1 = JaroWinkler().get_raw_score 
+        fn2 = NeedlemanWunsch().get_raw_score
+        me = MongeElkan(sim_func=fn1)
+        self.assertEqual(me.get_sim_func(), fn1)
+        self.assertAlmostEqual(me.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            0.8364448051948052)
+        self.assertEqual(me.set_sim_func(fn2), True)
+        self.assertEqual(me.get_sim_func(), fn2)
+        self.assertAlmostEqual(me.get_raw_score(
+                ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            2.0)
 
     def test_valid_input(self):
         self.assertEqual(self.me.get_raw_score([''], ['']), 1.0)  # need to check this

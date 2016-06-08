@@ -18,15 +18,11 @@ class TfIdf(TokenSimilarityMeasure):
         dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.
     """
     def __init__(self, corpus_list=None, dampen=False):
-        self._corpus_list = corpus_list
-        self._df = {}
-        # compute document frequencies for the corpus
-        if self._corpus_list != None:
-            for document in self._corpus_list:
-                for element in set(document):
-                    self._df[element] = self._df.get(element, 0) + 1
-        self._corpus_size = 0 if self._corpus_list is None else (
-                                                         len(self._corpus_list))
+        self.__corpus_list = corpus_list
+        self.__df = {}
+        self.__compute_document_frequency()
+        self.__corpus_size = 0 if self.__corpus_list is None else (
+                                                         len(self.__corpus_list))
         self.dampen = dampen        
         super(TfIdf, self).__init__()
 
@@ -90,8 +86,8 @@ class TfIdf(TokenSimilarityMeasure):
             local_df[element] = local_df.get(element, 0) + 1
 
         # if corpus is not provided treat input string as corpus
-        curr_df, corpus_size = (local_df, 2) if self._corpus_list is None else (
-                                                  (self._df, self._corpus_size))
+        curr_df, corpus_size = (local_df, 2) if self.__corpus_list is None else (
+                                                  (self.__df, self.__corpus_size))
 
         idf_element, v_x, v_y, v_x_y, v_x_2, v_y_2 = (0.0, 0.0, 0.0, 
                                                       0.0, 0.0, 0.0)
@@ -150,3 +146,51 @@ class TfIdf(TokenSimilarityMeasure):
             0.7071067811865475
         """
         return self.get_raw_score(bag1, bag2)
+
+    def get_dampen(self):
+        """
+        Get dampen flag
+
+        Returns:
+            dampen flag (boolean)
+        """
+        return self.dampen
+
+    def get_corpus_list(self):
+        """
+        Get corpus list
+
+        Returns:
+            corpus list (list of lists)
+        """
+        return self.__corpus_list
+
+    def set_dampen(self, dampen):
+        """
+        Set dampen flag
+
+        Args:
+            dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.
+        """
+        self.dampen = dampen
+        return True
+
+    def set_corpus_list(self, corpus_list):
+        """
+        Set corpus list
+
+        Args:
+            corpus_list (list of lists): Corpus list
+        """
+        self.__corpus_list = corpus_list
+        self.__df = {}
+        self.__compute_document_frequency()
+        self.__corpus_size = 0 if self.__corpus_list is None else (
+                                                         len(self.__corpus_list))
+        return True
+
+    def __compute_document_frequency(self):
+        if self.__corpus_list != None:
+            for document in self.__corpus_list:
+                for element in set(document):
+                    self.__df[element] = self.__df.get(element, 0) + 1

@@ -23,15 +23,11 @@ class SoftTfIdf(HybridSimilarityMeasure):
     """
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,
                  threshold=0.5):
-        self._corpus_list = corpus_list
-        self._df = {}
-        # compute document frequencies for the corpus
-        if self._corpus_list != None:
-            for document in self._corpus_list:
-                for element in set(document):
-                    self._df[element] = self._df.get(element, 0) + 1
-        self._corpus_size = 0 if self._corpus_list is None else (
-                                                        len(self._corpus_list))
+        self.__corpus_list = corpus_list
+        self.__df = {}
+        self.__compute_document_frequency()
+        self.__corpus_size = 0 if self.__corpus_list is None else (
+                                                         len(self.__corpus_list))
         self.sim_func = sim_func
         self.threshold = threshold
         super(SoftTfIdf, self).__init__()
@@ -89,8 +85,8 @@ class SoftTfIdf(HybridSimilarityMeasure):
             local_df[element] = local_df.get(element, 0) + 1
 
         # if corpus is not provided treat input string as corpus
-        curr_df, corpus_size = (local_df, 2) if self._corpus_list is None else (
-                                                (self._df, self._corpus_size))
+        curr_df, corpus_size = (local_df, 2) if self.__corpus_list is None else (
+                                                (self.__df, self.__corpus_size))
 
         # calculating the term sim score against the input string 2,
         # construct similarity map
@@ -126,3 +122,70 @@ class SoftTfIdf(HybridSimilarityMeasure):
             v_y = idf * tf_y.get(element, 0)
             v_y_2 += v_y * v_y
         return result if v_x_2 == 0 else result / (sqrt(v_x_2) * sqrt(v_y_2))
+
+    def get_corpus_list(self):
+        """
+        Get corpus list
+
+        Returns:
+            corpus list (list of lists)
+        """
+        return self.__corpus_list
+
+    def get_sim_func(self):
+        """
+        Get secondary similarity function
+
+        Returns:
+            secondary similarity function (function)
+        """
+        return self.sim_func
+
+    def get_threshold(self):
+        """
+        Get threshold used for the secondary similarity function
+
+        Returns:
+            threshold (float)
+        """
+        return self.threshold
+
+    def set_threshold(self, threshold):
+        """
+        Set threshold value for the secondary similarity function
+
+        Args:
+            threshold (float): threshold value
+        """
+        self.threshold = threshold
+        return True
+
+    def set_sim_func(self, sim_func):
+        """
+        Set secondary similarity function
+
+        Args:
+            sim_func (function): Secondary similarity function.
+        """
+        self.sim_func = sim_func
+        return True
+
+    def set_corpus_list(self, corpus_list):
+        """
+        Set corpus list
+
+        Args:
+            corpus_list (list of lists): Corpus list
+        """
+        self.__corpus_list = corpus_list
+        self.__df = {}
+        self.__compute_document_frequency()
+        self.__corpus_size = 0 if self.__corpus_list is None else (
+                                                         len(self.__corpus_list))
+        return True
+
+    def __compute_document_frequency(self):
+        if self.__corpus_list != None:
+            for document in self.__corpus_list:
+                for element in set(document):
+                    self.__df[element] = self.__df.get(element, 0) + 1
