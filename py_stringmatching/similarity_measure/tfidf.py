@@ -19,7 +19,7 @@ class TfIdf(TokenSimilarityMeasure):
     """
     def __init__(self, corpus_list=None, dampen=False):
         self.__corpus_list = corpus_list
-        self.__df = {}
+        self.__document_frequency = {}
         self.__compute_document_frequency()
         self.__corpus_size = 0 if self.__corpus_list is None else (
                                                          len(self.__corpus_list))
@@ -87,7 +87,7 @@ class TfIdf(TokenSimilarityMeasure):
 
         # if corpus is not provided treat input string as corpus
         curr_df, corpus_size = (local_df, 2) if self.__corpus_list is None else (
-                                                  (self.__df, self.__corpus_size))
+                                   (self.__document_frequency, self.__corpus_size))
 
         idf_element, v_x, v_y, v_x_y, v_x_2, v_y_2 = (0.0, 0.0, 0.0, 
                                                       0.0, 0.0, 0.0)
@@ -183,7 +183,7 @@ class TfIdf(TokenSimilarityMeasure):
             corpus_list (list of lists): Corpus list
         """
         self.__corpus_list = corpus_list
-        self.__df = {}
+        self.__document_frequency = {}
         self.__compute_document_frequency()
         self.__corpus_size = 0 if self.__corpus_list is None else (
                                                          len(self.__corpus_list))
@@ -193,4 +193,5 @@ class TfIdf(TokenSimilarityMeasure):
         if self.__corpus_list != None:
             for document in self.__corpus_list:
                 for element in set(document):
-                    self.__df[element] = self.__df.get(element, 0) + 1
+                    self.__document_frequency[element] = ( 
+                        self.__document_frequency.get(element, 0) + 1)

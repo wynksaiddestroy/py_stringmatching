@@ -24,7 +24,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,
                  threshold=0.5):
         self.__corpus_list = corpus_list
-        self.__df = {}
+        self.__document_frequency = {}
         self.__compute_document_frequency()
         self.__corpus_size = 0 if self.__corpus_list is None else (
                                                          len(self.__corpus_list))
@@ -86,7 +86,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
 
         # if corpus is not provided treat input string as corpus
         curr_df, corpus_size = (local_df, 2) if self.__corpus_list is None else (
-                                                (self.__df, self.__corpus_size))
+                                   (self.__document_frequency, self.__corpus_size))
 
         # calculating the term sim score against the input string 2,
         # construct similarity map
@@ -98,9 +98,14 @@ class SoftTfIdf(HybridSimilarityMeasure):
                 # adding sim only if it is above threshold and
                 # highest for this element
                 if score > self.threshold and score > max_score:
-                    similarity_map[term_x] = utils.Similarity(term_x, term_y,
-                                                              score)
+                    similarity_map[term_x] = (term_x, term_y, score)
                     max_score = score
+
+        # position of first string, second string and sim score
+        # in the tuple
+        first_string_pos = 0
+        second_string_pos = 1
+        sim_score_pos = 2
 
         result, v_x_2, v_y_2 = 0.0, 0.0, 0.0
         # soft-tfidf calculation
@@ -110,11 +115,11 @@ class SoftTfIdf(HybridSimilarityMeasure):
             # numerator
             if element in similarity_map:
                 sim = similarity_map[element]
-                idf_first = corpus_size / curr_df.get(sim.first_string, 1)
-                idf_second = corpus_size / curr_df.get(sim.second_string, 1)
-                v_x = idf_first * tf_x.get(sim.first_string, 0)
-                v_y = idf_second * tf_y.get(sim.second_string, 0)
-                result += v_x * v_y * sim.similarity_score
+                idf_first = corpus_size / curr_df.get(sim[first_string_pos], 1)
+                idf_second = corpus_size / curr_df.get(sim[second_string_pos], 1)
+                v_x = idf_first * tf_x.get(sim[first_string_pos], 0)
+                v_y = idf_second * tf_y.get(sim[second_string_pos], 0)
+                result += v_x * v_y * sim[sim_score_pos]
             # denominator
             idf = corpus_size / curr_df[element]
             v_x = idf * tf_x.get(element, 0)
@@ -178,7 +183,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
             corpus_list (list of lists): Corpus list
         """
         self.__corpus_list = corpus_list
-        self.__df = {}
+        self.__document_frequency = {}
         self.__compute_document_frequency()
         self.__corpus_size = 0 if self.__corpus_list is None else (
                                                          len(self.__corpus_list))
@@ -188,4 +193,5 @@ class SoftTfIdf(HybridSimilarityMeasure):
         if self.__corpus_list != None:
             for document in self.__corpus_list:
                 for element in set(document):
-                    self.__df[element] = self.__df.get(element, 0) + 1
+                    self.__document_frequency[element] = (
+                        self.__document_frequency.get(element, 0) + 1)

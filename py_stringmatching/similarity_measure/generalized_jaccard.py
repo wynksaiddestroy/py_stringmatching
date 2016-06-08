@@ -81,19 +81,24 @@ class GeneralizedJaccard(HybridSimilarityMeasure):
                     raise ValueError('Similarity measure should' + \
                                      ' return value in the range [0,1]')
                 if score > self.threshold:
-                    list_matches.append(utils.Similarity(element, item, score))
+                    list_matches.append((element, item, score))
+
+        # position of first string, second string and sim score in tuple
+        first_string_pos = 0
+        second_string_pos = 1
+        sim_score_pos = 2
 
         # sort the score of all the pairs
-        list_matches.sort(key=lambda x: x.similarity_score, reverse=True)
+        list_matches.sort(key=lambda x: x[sim_score_pos], reverse=True)
 
         # select score in increasing order of their weightage, 
         # do not reselect the same element from either set.
         for element in list_matches:
-            if (element.first_string not in set1_x and
-                element.second_string not in set2_y):
-                set1_x.add(element.first_string)
-                set2_y.add(element.second_string)
-                match_score += element.similarity_score
+            if (element[first_string_pos] not in set1_x and
+                element[second_string_pos] not in set2_y):
+                set1_x.add(element[first_string_pos])
+                set2_y.add(element[second_string_pos])
+                match_score += element[sim_score_pos]
                 match_count += 1
 
         return float(match_score) / float(len(set1) + len(set2) - match_count)

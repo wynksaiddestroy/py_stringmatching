@@ -94,7 +94,7 @@ class Editex(SequenceSimilarityMeasure):
         len2 = len(string2)
         string1 = ' ' + string1
         string2 = ' ' + string2
-        editex_helper = utils.Editex(self.match_cost, self.mismatch_cost,
+        editex_helper = EditexHelper(self.match_cost, self.mismatch_cost,
                                      self.group_cost)
 
         if not self.local:
@@ -227,3 +227,42 @@ class Editex(SequenceSimilarityMeasure):
         """
         self.local = local
         return True
+
+
+class EditexHelper:
+    letter_groups = dict()
+    letter_groups['A'] = letter_groups['E'] = letter_groups['I'] = letter_groups['O'] \
+        = letter_groups['U'] = letter_groups['Y'] = 0
+    letter_groups['B'] = letter_groups['P'] = 1
+    letter_groups['C'] = letter_groups['K'] = letter_groups['Q'] = 2
+    letter_groups['D'] = letter_groups['T'] = 3
+    letter_groups['L'] = letter_groups['R'] = 4
+    letter_groups['M'] = letter_groups['N'] = 5
+    letter_groups['G'] = letter_groups['J'] = 6
+    letter_groups['F'] = letter_groups['P'] = letter_groups['V'] = 7
+    letter_groups['S'] = letter_groups['X'] = letter_groups['Z'] = 8
+    letter_groups['C'] = letter_groups['S'] = letter_groups['J'] = 9
+    all_letters = frozenset('AEIOUYBPCKQDTLRMNGJFVSXZ')
+
+    def __init__(self, match_cost, mismatch_cost, group_cost):
+        self.match_cost = match_cost
+        self.mismatch_cost = mismatch_cost
+        self.group_cost = group_cost
+
+    def r_cost(self, ch1, ch2):
+        """Return r(a,b) according to Zobel & Dart's definition
+        """
+        if ch1 == ch2:
+            return self.match_cost
+        if ch1 in EditexHelper.all_letters and ch2 in EditexHelper.all_letters:
+            if (EditexHelper.letter_groups[ch1] ==
+                EditexHelper.letter_groups[ch2]):
+                return self.group_cost
+        return self.mismatch_cost
+
+    def d_cost(self, ch1, ch2):
+        """Return d(a,b) according to Zobel & Dart's definition
+        """
+        if ch1 != ch2 and (ch1 == 'H' or ch1 == 'W'):
+            return self.group_cost
+        return self.r_cost(ch1, ch2)
