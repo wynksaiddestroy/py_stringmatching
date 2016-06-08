@@ -14,7 +14,7 @@ class AlphanumericTokenizer(DefinitionTokenizer):
                               tokens. (defaults to False) 
     """
     def __init__(self, return_set=False):
-        self.alnum_regex = re.compile('[a-zA-Z0-9]+')
+        self.__alnum_regex = re.compile('[a-zA-Z0-9]+')
         super(AlphanumericTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
@@ -46,7 +46,8 @@ class AlphanumericTokenizer(DefinitionTokenizer):
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
 
-        token_list = list(filter(None, self.alnum_regex.findall(input_string)))
+        token_list = list(filter(None,
+                                 self.__alnum_regex.findall(input_string)))
 
         if self.return_set:
             return utils.convert_bag_to_set(token_list)

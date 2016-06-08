@@ -14,7 +14,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
                               tokens. (defaults to False) 
     """
     def __init__(self, return_set=False):
-        self.al_regex = re.compile('[a-zA-Z]+')
+        self.__al_regex = re.compile('[a-zA-Z]+')
         super(AlphabeticTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
@@ -46,7 +46,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
 
-        token_list = list(filter(None, self.al_regex.findall(input_string)))
+        token_list = list(filter(None, self.__al_regex.findall(input_string)))
 
         if self.return_set:
             return utils.convert_bag_to_set(token_list)
