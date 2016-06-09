@@ -20,16 +20,14 @@ class AlphanumericTokenizer(DefinitionTokenizer):
     def tokenize(self, input_string):
         """Tokenizes input string into alphanumeric tokens.
 
-        An alphanumeric token is defined as consecutive sequence of alphanumeric characters.
-
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized.
 
         Returns:
-            Token list (list)
+            A Python list, which represents a set of tokens if the flag return_set is true, and a bag of tokens otherwise. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> alnum_tok = AlphanumericTokenizer()
