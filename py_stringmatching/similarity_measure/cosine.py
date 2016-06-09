@@ -1,5 +1,3 @@
-"""Cosine similarity measure"""
-
 import math
 
 from py_stringmatching import utils
@@ -8,19 +6,18 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Cosine(TokenSimilarityMeasure):
-    """Cosine similarity measure class.
+    """Computes cosine measure.
+
+    For two sets X and Y, the cosine similarity is:
+
+        :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
     """
+
     def __init__(self):
         super(Cosine, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """
-        Computes the cosine similarity between two sets.
-
-        For two sets X and Y, the cosine similarity is:
-
-        :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
-
+        """Computes the raw cosine score between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
@@ -65,8 +62,7 @@ class Cosine(TokenSimilarityMeasure):
                                           math.sqrt(float(len(set2))))
 
     def get_sim_score(self, set1, set2):
-        """
-        Computes the normalized cosine similarity between two sets.
+        """Computes the normalized cosine similarity between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.

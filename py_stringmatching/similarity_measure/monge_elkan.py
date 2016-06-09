@@ -1,5 +1,3 @@
-"""Monge-Elkan similarity measure"""
-
 from py_stringmatching import utils
 from py_stringmatching.similarity_measure.jaro_winkler import JaroWinkler
 from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
@@ -7,24 +5,27 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class MongeElkan(HybridSimilarityMeasure):
-    """Monge-Elkan similarity measure class.
+    """Computes monge-elkan measure.
 
-    Parameters:
+    The Monge-Elkan similarity measure is a type of Hybrid similarity measure that combine the benefits of
+    sequence-based and set-based methods. This can be effective for domains in which more control is needed
+    over the similarity measure. It implicitly uses a secondary similarity measure, such as levenshtein to compute
+    over all similarity score.
+
+    Args:
         sim_func (function): Secondary similarity function. This is expected to be a sequence-based
-                             similarity measure (defaults to jaro-winkler similarity measure)
+                             similarity measure (defaults to jaro-winkler similarity measure).
+
+    Attributes:
+        sim_func (function): An attribute to store the secondary similarity function.
     """
+
     def __init__(self, sim_func=JaroWinkler().get_raw_score):
         self.sim_func = sim_func
         super(MongeElkan, self).__init__()
 
     def get_raw_score(self, bag1, bag2):
-        """
-        Compute Monge-Elkan similarity measure between two bags (lists).
-
-        The Monge-Elkan similarity measure is a type of Hybrid similarity measure that combine the benefits of
-        sequence-based and set-based methods. This can be effective for domains in which more control is needed
-        over the similarity measure. It implicitly uses a secondary similarity measure, such as levenshtein to compute
-        over all similarity score.
+        """Computes the raw monge-elkan score between two bags (lists).
 
         Args:
             bag1,bag2 (list): Input lists
@@ -82,8 +83,7 @@ class MongeElkan(HybridSimilarityMeasure):
         return sim
 
     def get_sim_func(self):
-        """
-        Get secondary similarity function
+        """Get secondary similarity function
 
         Returns:
             secondary similarity function (function)
@@ -91,8 +91,7 @@ class MongeElkan(HybridSimilarityMeasure):
         return self.sim_func
 
     def set_sim_func(self, sim_func):
-        """
-        Set secondary similarity function
+        """Set secondary similarity function
 
         Args:
             sim_func (function): Secondary similarity function.

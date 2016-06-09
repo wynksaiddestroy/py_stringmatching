@@ -1,5 +1,3 @@
-"""Levenshtein distance measure"""
-
 from __future__ import division
 
 from py_stringmatching import utils
@@ -9,18 +7,18 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Levenshtein(SequenceSimilarityMeasure):
-    """Levenshtein distance measure class.
+    """Computes levenshtein measure.
+
+    Levenshtein distance computes the minimum cost of transforming one string into the other. Transforming a string
+    is carried out using a sequence of the following operators: delete a character, insert a character, and
+    substitute one character for another.
     """
+
     def __init__(self):
         super(Levenshtein, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the Levenshtein distance between two strings.
-
-        Levenshtein distance computes the minimum cost of transforming one string into the other. Transforming a string
-        is carried out using a sequence of the following operators: delete a character, insert a character, and
-        substitute one character for another.
+        """Computes the raw levenshtein distance between two strings.
 
         Args:
             string1,string2 (str): Input strings
@@ -49,8 +47,7 @@ class Levenshtein(SequenceSimilarityMeasure):
         return levenshtein(string1, string2)
 
     def get_sim_score(self, string1, string2):
-        """
-        Computes the normalized levenshtein similarity between two strings.
+        """Computes the normalized levenshtein similarity between two strings.
 
         Args:
             string1,string2 (str): Input strings

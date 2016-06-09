@@ -17,6 +17,7 @@ class DelimiterTokenizer(Tokenizer):
     Attributes: 
         return_set (boolean): An attribute to store the value of the flag return_set.
     """
+
     def __init__(self, delim_set=set([' ']), return_set=False):
         self.__delim_set = None
         self.__use_split = None
