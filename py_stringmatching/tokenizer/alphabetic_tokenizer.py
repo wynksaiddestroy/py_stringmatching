@@ -10,7 +10,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
     """Returns tokens that are maximal sequences of consecutive alphabetical characters.
     
     Parameters:
-        return_set (boolean): an attribute which is a flag to indicate whether to return a set of
+        return_set (boolean): An attribute which is a flag to indicate whether to return a set of
                               tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, return_set=False):
