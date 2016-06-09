@@ -10,10 +10,14 @@ class WhitespaceTokenizer(DelimiterTokenizer):
     Currently using the split function in Python, so whitespace character refers to 
     the actual whitespace character as well as the tab and newline characters. 
 
-    Parameters:
-        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+    Args:
+        return_set (boolean): A flag to indicate whether to return a set of
                               tokens instead of a bag of tokens (defaults to False).
+                              
+    Attributes:
+        return_set (boolean): An attribute to store the flag return_set. 
     """
+    
     def __init__(self, return_set=False):
         super(WhitespaceTokenizer, self).__init__(set(), return_set)
 
