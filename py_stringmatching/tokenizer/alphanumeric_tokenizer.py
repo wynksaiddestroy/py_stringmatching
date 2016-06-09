@@ -1,5 +1,3 @@
-"""Alphanumeric tokenizer"""
-
 import re
 
 from py_stringmatching import utils
