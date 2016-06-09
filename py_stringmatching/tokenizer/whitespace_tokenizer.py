@@ -5,27 +5,29 @@ from py_stringmatching.tokenizer.delimiter_tokenizer import DelimiterTokenizer
 
 
 class WhitespaceTokenizer(DelimiterTokenizer):
-    """Whitespace tokenizer class.
+    """Segments the input string using whitespaces then returns the segments as tokens. 
+    
+    Currently using the split function in Python, so whitespace character refers to 
+    the actual whitespace character as well as the tab and newline characters. 
 
     Parameters:
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+                              tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, return_set=False):
         super(WhitespaceTokenizer, self).__init__(set(), return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string based on white space.
+        """Tokenizes input string based on white space.
 
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized. 
 
         Returns:
-            Token list (list)
+            A Python list, which is a set or a bag of tokens, depending on whether return_set is True or False. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> ws_tok = WhitespaceTokenizer() 
@@ -38,7 +40,6 @@ class WhitespaceTokenizer(DelimiterTokenizer):
             >>> ws_tok = WhitespaceTokenizer(return_set=True) 
             >>> ws_tok.tokenize('data   science data integration')
             ['data', 'science', 'integration']
-
         """
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
