@@ -11,7 +11,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
     
     Parameters:
         return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+                              tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, return_set=False):
         self.__al_regex = re.compile('[a-zA-Z]+')
@@ -19,18 +19,16 @@ class AlphabeticTokenizer(DefinitionTokenizer):
 
     def tokenize(self, input_string):
         """
-        Tokenizes input string into alphabetic tokens.
-
-        An alphabetic token is defined as consecutive sequence of alphabetic characters.
-
+        Tokenizes input string into alphabetical tokens.
+        
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized.
 
         Returns:
-            Token list (list)
+            A Python list, which represents a set of tokens if the flag return_set is True, and a bag of tokens otherwise. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> al_tok = AlphabeticTokenizer()
@@ -41,7 +39,6 @@ class AlphabeticTokenizer(DefinitionTokenizer):
             >>> al_tok = AlphabeticTokenizer(return_set=True) 
             >>> al_tok.tokenize('data99science, data#integration.')
             ['data', 'science', 'integration']
-                      
         """
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
