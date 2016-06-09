@@ -11,7 +11,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
         return_set (boolean): A flag to indicate whether to return 
         a set of tokens instead of a bag of tokens (defaults to False).
         
-    Attributes: 
+    Public Attributes: 
         return_set (boolean): An attribute that stores the value for the flag return_set. 
     """
     
