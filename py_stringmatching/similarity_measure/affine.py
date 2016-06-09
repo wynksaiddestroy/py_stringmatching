@@ -14,7 +14,7 @@ class Affine(SequenceSimilarityMeasure):
     """Computes affine gap measure.
 
     The affine gap measure is an extension of the Needleman-Wunsch measure that handles the longer gaps more
-    gracefully. For more information refer to the string matching chapter in the DI book.
+    gracefully. For more information refer to the string matching chapter in the DI book ("Principles of Data Integration").
 
     Args:
         gap_start (float): Cost for the gap at the start (defaults to 1).
