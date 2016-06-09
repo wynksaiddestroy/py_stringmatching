@@ -1,5 +1,5 @@
 class Tokenizer(object):
-    """Tokenizer class.
+    """The root class for tokenizers.
 
     Args:
         return_set (boolean): A flag to indicate whether to return a set of
