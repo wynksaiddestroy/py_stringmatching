@@ -15,7 +15,7 @@ class WhitespaceTokenizer(DelimiterTokenizer):
                               tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, return_set=False):
-        super(WhitespaceTokenizer, self).__init__(set(), return_set)
+        super(WhitespaceTokenizer, self).__init__([' ', '\t', '\n'], return_set)
 
     def tokenize(self, input_string):
         """Tokenizes input string based on white space.
@@ -50,3 +50,6 @@ class WhitespaceTokenizer(DelimiterTokenizer):
             return utils.convert_bag_to_set(token_list)
 
         return token_list
+
+    def set_delim_set(self, delim_set):
+        raise AttributeError('Delimiters cannot be set for WhitespaceTokenizer')

@@ -200,6 +200,9 @@ class WhitespaceTokenizerTestCases(unittest.TestCase):
         self.assertEqual(tok.tokenize('ab cd ab bb cd db'),
                          ['ab', 'cd', 'ab', 'bb', 'cd', 'db'])
 
+    def test_get_delim_set(self):
+        self.assertSetEqual(self.ws_tok.get_delim_set(), {' ', '\t', '\n'})
+
     @raises(TypeError)
     def test_whitespace_tok_invalid1(self):
         self.ws_tok.tokenize(None)
@@ -207,6 +210,10 @@ class WhitespaceTokenizerTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_whitespace_tok_invalid2(self):
         self.ws_tok.tokenize(99)
+
+    @raises(AttributeError)
+    def test_set_delim_set(self):
+        self.ws_tok.set_delim_set({'*', '.'})
 
 
 class AlphabeticTokenizerTestCases(unittest.TestCase):

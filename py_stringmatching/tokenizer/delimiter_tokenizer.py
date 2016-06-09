@@ -21,7 +21,7 @@ class DelimiterTokenizer(Tokenizer):
         self.__use_split = None
         self.__delim_str = None
         self.__delim_regex = None
-        self.set_delim_set(delim_set)
+        self._update_delim_set(delim_set)
         super(DelimiterTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
@@ -80,6 +80,9 @@ class DelimiterTokenizer(Tokenizer):
         Args:
             delim_set (set): A set of delimiter strings.
         """
+        return self._update_delim_set(delim_set)
+
+    def _update_delim_set(self, delim_set):
         if not isinstance(delim_set, set):
             delim_set = set(delim_set)
         self.__delim_set = delim_set
