@@ -8,8 +8,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
     """Returns tokens that are maximal sequences of consecutive alphabetical characters.
     
     Args:
-        return_set (boolean): A flag to indicate whether to return 
-        a set of tokens instead of a bag of tokens (defaults to False).
+        return_set (boolean): A flag to indicate whether to return a set of tokens instead of a bag of tokens (defaults to False).
         
     Attributes: 
         return_set (boolean): An attribute that stores the value for the flag return_set. 
