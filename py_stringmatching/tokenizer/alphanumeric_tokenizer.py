@@ -7,19 +7,18 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 
 
 class AlphanumericTokenizer(DefinitionTokenizer):
-    """Alphanumeric tokenizer class.
+    """Returns tokens that are maximal sequences of consecutive alphanumeric characters. 
 
     Parameters:
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+        return_set (boolean): An attribute which is a flag to indicate whether to return a set of
+                              tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, return_set=False):
         self.__alnum_regex = re.compile('[a-zA-Z0-9]+')
         super(AlphanumericTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string into alphanumeric tokens.
+        """Tokenizes input string into alphanumeric tokens.
 
         An alphanumeric token is defined as consecutive sequence of alphanumeric characters.
 
