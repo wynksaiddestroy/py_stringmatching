@@ -1,5 +1,3 @@
-"""Whitespace based tokenizer"""
-
 from py_stringmatching import utils
 from py_stringmatching.tokenizer.delimiter_tokenizer import DelimiterTokenizer
 
