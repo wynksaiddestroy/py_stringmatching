@@ -18,8 +18,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
         super(AlphabeticTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string into alphabetical tokens.
+        """Tokenizes input string into alphabetical tokens.
         
         Args:
             input_string (str): The string to be tokenized.
