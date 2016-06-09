@@ -6,12 +6,15 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 
 
 class QgramTokenizer(DefinitionTokenizer):
-    """Qgram tokenizer class.
+    """Returns tokens that are sequences of q consecutive characters.
+    
+    A qgram of an input string s is a substring t (of s) which is a sequence of q consecutive characters. Qgrams are also known as
+    ngrams or kgrams. 
 
     Parameters:
-        qval (int): Q-gram length (defaults to 2)
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+        qval (int): An attribute that is the value of q, that is, the qgram's length (defaults to 2).
+        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+                              tokens or a bag of tokens (defaults to False).
     """
     def __init__(self, qval=2, return_set=False):
         if qval < 1:
@@ -20,17 +23,13 @@ class QgramTokenizer(DefinitionTokenizer):
         super(QgramTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string into q-grams.
-
-        A q-gram is defined as all sequences of q characters. Q-grams are also known as n-grams and
-        k-grams.
+        """Tokenizes input string into qgrams.
 
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized. 
 
         Returns:
-            Token list (list)
+            A Python list, which is a set or a bag of qgrams, depending on whether return_set flag is True or False. 
 
         Raises:
             TypeError : If the input is not a string
@@ -45,6 +44,8 @@ class QgramTokenizer(DefinitionTokenizer):
             >>> qg3_tok.tokenize('database')
             ['dat', 'ata', 'tab', 'aba', 'bas', 'ase']
                       
+            As these examples show, the current qgram tokenizer does not consider the case of appending #s at the 
+            start and the end of the input string. This is left for future work. 
         """
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
@@ -64,23 +65,21 @@ class QgramTokenizer(DefinitionTokenizer):
         return qgram_list
 
     def get_qval(self):
-        """
-        Get Q-gram length
+        """Get the value of the qval attribute, which is the length of qgrams. 
 
         Returns:
-            Q-gram length (int)
+            The value of the qval attribute. 
         """
         return self.qval
 
     def set_qval(self, qval):
-        """
-        Set Q-gram length
+        """Set the value of the qval attribute. 
 
         Args:
-            qval (int): Q-gram length
+            qval (int): A value for q (the length of qgrams). 
 
         Raises:
-            AssertionError : If qval is less than 1
+            AssertionError : If qval is less than 1.
         """
         if qval < 1:
             raise AssertionError("qval cannot be less than 1")
