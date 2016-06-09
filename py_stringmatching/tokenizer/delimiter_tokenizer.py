@@ -1,5 +1,3 @@
-"""Delimiter based tokenizer"""
-
 import re
 
 from py_stringmatching import utils
