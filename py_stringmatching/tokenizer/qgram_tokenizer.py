@@ -1,5 +1,3 @@
-"""Qgram based tokenizer"""
-
 from py_stringmatching import utils
 from six.moves import xrange
 from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
@@ -11,11 +9,16 @@ class QgramTokenizer(DefinitionTokenizer):
     A qgram of an input string s is a substring t (of s) which is a sequence of q consecutive characters. Qgrams are also known as
     ngrams or kgrams. 
 
-    Parameters:
-        qval (int): An attribute that is the value of q, that is, the qgram's length (defaults to 2).
-        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+    Args:
+        qval (int): A value for q, that is, the qgram's length (defaults to 2).
+        return_set (boolean): A flag to indicate whether to return a set of
                               tokens or a bag of tokens (defaults to False).
+                              
+    Attributes:
+        qval (int): An attribute to store the q value.
+        return_set (boolean): An attribute to store the flag return_set.
     """
+    
     def __init__(self, qval=2, return_set=False):
         if qval < 1:
             raise AssertionError("qval cannot be less than 1") 
