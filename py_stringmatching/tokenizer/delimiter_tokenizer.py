@@ -9,7 +9,7 @@ class DelimiterTokenizer(Tokenizer):
     
     Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens. 
 
-    Parameters:
+    Args:
         delim_set (set): A set of delimiter strings (defaults to space delimiter).
         return_set (boolean): A flag to indicate whether to return a set of
                               tokens instead of a bag of tokens (defaults to False).
