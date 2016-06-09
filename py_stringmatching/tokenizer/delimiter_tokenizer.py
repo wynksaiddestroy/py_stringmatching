@@ -7,12 +7,14 @@ from py_stringmatching.tokenizer.tokenizer import Tokenizer
 
 
 class DelimiterTokenizer(Tokenizer):
-    """Delimiter tokenizer class.
+    """A class of tokenizers that use delimiters to find tokens, as apposed to using definitions. 
+    
+    Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens. 
 
     Parameters:
-        delim_set (set): set of delimiter strings (defaults to space delimiter)
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+        delim_set (set): An attribute that stores a set of delimiter strings (defaults to space delimiter).
+        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+                              tokens instead of a bag of tokens (defaults to False).
     """
     def __init__(self, delim_set=set([' ']), return_set=False):
         self.__delim_set = None
@@ -23,17 +25,16 @@ class DelimiterTokenizer(Tokenizer):
         super(DelimiterTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string based on the set of delimiters.
+        """Tokenizes input string based on the set of delimiters.
 
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized. 
 
         Returns:
-            Token list (list)
+            A Python list which is a set or a bag of tokens, depending on whether return_set flag is set to True or False. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> delim_tok = DelimiterTokenizer() 
@@ -66,20 +67,18 @@ class DelimiterTokenizer(Tokenizer):
         return token_list
 
     def get_delim_set(self):
-        """
-        Get the current set of delimiters
+        """Get the current set of delimiters.
         
         Returns:
-            Delimiter set (set)
+            A Python set which is the current set of delimiters. 
         """
         return self.__delim_set
 
     def set_delim_set(self, delim_set):
-        """
-        Set delimiters
+        """Set the current set of delimiters.
         
         Args:
-            delim_set (set): set of delimiter strings 
+            delim_set (set): A set of delimiter strings.
         """
         if not isinstance(delim_set, set):
             delim_set = set(delim_set)
