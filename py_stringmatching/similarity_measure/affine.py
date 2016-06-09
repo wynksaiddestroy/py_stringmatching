@@ -14,13 +14,16 @@ def sim_ident(char1, char2):
 
 
 class Affine(SequenceSimilarityMeasure):
-    """Affine similarity measure class.
+    """Computes the affine gap score between two strings.
+
+    The affine gap measure is an extension of the Needleman-Wunsch measure that handles the         longer gaps more gracefully. For more information refer to the string matching chapter 
+    in the DI book ("Principles of Data Integration"). 
 
     Parameters:
         gap_start (float): Cost for the gap at the start (defaults to 1)
         gap_continuation (float): Cost for the gap continuation (defaults to 0.5)
-        sim_func (function): Function computing similarity score between two chars, represented as strings
-                              (defaults to identity).
+        sim_func (function): Function computing similarity score between two chars, 
+        represented as strings (defaults to identity).
     """
     def __init__(self, gap_start=1, gap_continuation=0.5, sim_func=sim_ident):
         self.gap_start = gap_start
@@ -30,12 +33,7 @@ class Affine(SequenceSimilarityMeasure):
 
     def get_raw_score(self, string1, string2):
         """
-        Computes the Affine gap score between two strings.
-
-        The Affine gap measure is an extension of the Needleman-Wunsch measure that handles the longer gaps more
-        gracefully.
-
-        For more information refer to string matching chapter in the DI book.
+        
 
         Args:
             string1,string2 (str) : Input strings
