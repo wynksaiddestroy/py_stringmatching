@@ -1,5 +1,3 @@
-"""Alphabetic tokenizer"""
-
 import re
 
 from py_stringmatching import utils
@@ -9,9 +7,12 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 class AlphabeticTokenizer(DefinitionTokenizer):
     """Returns tokens that are maximal sequences of consecutive alphabetical characters.
     
-    Parameters:
-        return_set (boolean): An attribute which is a flag to indicate whether to return a set of
-                              tokens instead of a bag of tokens (defaults to False).
+    Args:
+        return_set (boolean): A flag to indicate whether to return 
+        a set of tokens instead of a bag of tokens (defaults to False).
+        
+    Attributes: 
+        return_set (boolean): An attribute that stores the value for the flag return_set. 
     """
     def __init__(self, return_set=False):
         self.__al_regex = re.compile('[a-zA-Z]+')
