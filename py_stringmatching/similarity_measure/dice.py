@@ -1,24 +1,22 @@
-"""Dice similarity measure"""
-
 from py_stringmatching import utils
 from py_stringmatching.similarity_measure.token_similarity_measure import \
                                                     TokenSimilarityMeasure
 
 
 class Dice(TokenSimilarityMeasure):
-    """Dice similarity measure class.
+    """Computes dice measure.
+
+    The similarity is defined as twice the shared information (intersection) divided by sum of cardinalities.
+    For two sets X and Y, the Dice similarity coefficient is:
+
+        :math:`dice(X, Y) = \\frac{2 * |X \\cap Y|}{|X| + |Y|}`
     """
+
     def __init__(self):
         super(Dice, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """
-        Computes the dice similarity coefficient between two sets.
-
-        The similarity is defined as twice the shared information (intersection) divided by sum of cardinalities.
-        For two sets X and Y, the Dice similarity coefficient is:
-
-        :math:`dice(X, Y) = \\frac{2 * |X \\cap Y|}{|X| + |Y|}`
+        """Computes the raw dice score between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
@@ -62,8 +60,7 @@ class Dice(TokenSimilarityMeasure):
         return 2.0 * float(len(set1 & set2)) / float(len(set1) + len(set2))
 
     def get_sim_score(self, set1, set2):
-        """
-        Computes the normalized dice similarity between two sets.
+        """Computes the normalized dice similarity between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.

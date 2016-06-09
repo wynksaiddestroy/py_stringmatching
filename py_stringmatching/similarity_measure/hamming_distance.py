@@ -1,5 +1,3 @@
-"""Hamming distance measure"""
-
 from __future__ import division
 
 from py_stringmatching import utils
@@ -8,18 +6,18 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class HammingDistance(SequenceSimilarityMeasure):
-    """Hamming distance measure class.
+    """Computes hamming distance.
+
+    The Hamming distance between two strings of equal length is the number of positions at which the corresponding
+    symbols are different. In another way, it measures the minimum number of substitutions required to change
+    one string into the other, or the minimum number of errors that could have transformed one string into the other.
     """
+
     def __init__(self):
         super(HammingDistance, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the Hamming distance between two strings.
-
-        The Hamming distance between two strings of equal length is the number of positions at which the corresponding
-        symbols are different. In another way, it measures the minimum number of substitutions required to change
-        one string into the other, or the minimum number of errors that could have transformed one string into the other.
+        """Computes the raw hamming distance between two strings.
 
         Args:
             string1,string2 (str): Input strings
@@ -54,8 +52,7 @@ class HammingDistance(SequenceSimilarityMeasure):
         return sum(bool(ord(c1) - ord(c2)) for c1, c2 in zip(string1, string2))
 
     def get_sim_score(self, string1, string2):
-        """
-        Computes the normalized hamming similarity between two strings.
+        """Computes the normalized hamming similarity between two strings.
 
         Args:
             string1,string2 (str): Input strings

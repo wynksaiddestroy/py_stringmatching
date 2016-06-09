@@ -1,5 +1,4 @@
 # coding=utf-8
-"""Smith-Waterman measure"""
 
 import numpy as np
 
@@ -14,26 +13,29 @@ def sim_ident(char1, char2):
 
 
 class SmithWaterman(SequenceSimilarityMeasure):
-    """Smith-Waterman similarity measure class.
+    """Computes smith-waterman measure.
 
-    Parameters:
-        gap_cost (float): Cost of gap (defaults to 1.0)
-        sim_func (function): Similarity function to give a score for the correspondence between characters. Defaults
-                              to an identity function, where if two characters are same it returns 1 else returns 0.
+    The Smith-Waterman algorithm performs local sequence alignment; that is, for determining similar regions
+    between two strings. Instead of looking at the total sequence, the Smith–Waterman algorithm compares segments of
+    all possible lengths and optimizes the similarity measure.
+
+    Args:
+        gap_cost (float): Cost of gap (defaults to 1.0).
+        sim_func (function): Similarity function to give a score for the correspondence between characters (defaults
+                             to an identity function, where if two characters are same it returns 1 else returns 0).
+
+    Attributes:
+        gap_cost (float): An attribute to store the gap cost.
+        sim_func (function): An attribute to store the similarity function.
     """
+
     def __init__(self, gap_cost=1.0, sim_func=sim_ident):
         self.gap_cost = gap_cost
         self.sim_func = sim_func
         super(SmithWaterman, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the Smith-Waterman measure between two strings.
-
-        The Smith-Waterman algorithm performs local sequence alignment; that is, for determining similar regions
-        between two strings. Instead of looking at the total sequence, the Smith–Waterman algorithm compares segments of
-        all possible lengths and optimizes the similarity measure.
-
+        """Computes the raw smith-waterman score between two strings.
 
         Args:
             string1,string2 (str) : Input strings
@@ -78,8 +80,7 @@ class SmithWaterman(SequenceSimilarityMeasure):
         return max_value
 
     def get_gap_cost(self):
-        """
-        Get gap cost
+        """Get gap cost
 
         Returns:
             gap cost (float)
@@ -87,8 +88,7 @@ class SmithWaterman(SequenceSimilarityMeasure):
         return self.gap_cost
 
     def get_sim_func(self):
-        """
-        Get similarity function
+        """Get similarity function
 
         Returns:
             similarity function (function)
@@ -96,8 +96,7 @@ class SmithWaterman(SequenceSimilarityMeasure):
         return self.sim_func
 
     def set_gap_cost(self, gap_cost):
-        """
-        Set gap cost
+        """Set gap cost
 
         Args:
             gap_cost (float): Cost of gap
@@ -106,8 +105,7 @@ class SmithWaterman(SequenceSimilarityMeasure):
         return True
 
     def set_sim_func(self, sim_func):
-        """
-        Set similarity function
+        """Set similarity function
 
         Args:
             sim_func (function): Similarity function to give a score for the correspondence between characters.

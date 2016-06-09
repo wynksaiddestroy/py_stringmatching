@@ -1,5 +1,3 @@
-"""Needleman-Wunsch measure"""
-
 import numpy as np
 
 from py_stringmatching import utils
@@ -13,28 +11,30 @@ def sim_ident(char1, char2):
 
 
 class NeedlemanWunsch(SequenceSimilarityMeasure):
-    """Needleman-Wunsch similarity measure class.
+    """Computes needleman-wunsch measure.
 
-    Parameters:
-        gap_cost (float): Cost of gap (defaults to 1.0)
-        sim_func (function): Similarity function to give a score for the correspondence between characters. Defaults
-                              to an identity function, where if two characters are same it returns 1.0 else returns 0.
+    The Needleman-Wunsch generalizes the Levenshtein distance and considers global alignment between two strings.
+    Specifically, it is computed by assigning a score to each alignment between two input strings and choosing the
+    score of the best alignment, that is, the maximal score. An alignment between two strings is a set of correspondences
+    between the characters of between them, allowing for gaps.
+
+    Args:
+        gap_cost (float): Cost of gap (defaults to 1.0).
+        sim_func (function): Similarity function to give a score for the correspondence between characters (defaults
+                             to an identity function, where if two characters are same it returns 1.0 else returns 0).
+
+    Attributes:
+        gap_cost (float): An attribute to store the gap cost.
+        sim_func (function): An attribute to store the similarity function.
     """
+
     def __init__(self, gap_cost=1.0, sim_func=sim_ident):
         self.gap_cost = gap_cost
         self.sim_func = sim_func
         super(NeedlemanWunsch, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the Needleman-Wunsch measure between two strings.
-
-        The Needleman-Wunsch generalizes the Levenshtein distance and considers global alignment between two strings.
-        Specifically, it is computed by assigning a score to each alignment between two input strings and choosing the
-        score of the best alignment, that is, the maximal score.
-
-        An alignment between two strings is a set of correspondences between the characters of between them, allowing for
-        gaps.
+        """Computes the raw needleman-wunsch score between two strings.
 
         Args:
             string1,string2 (str) : Input strings
@@ -87,8 +87,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         return dist_mat[dist_mat.shape[0] - 1, dist_mat.shape[1] - 1]
 
     def get_gap_cost(self):
-        """
-        Get gap cost
+        """Get gap cost
 
         Returns:
             gap cost (float)
@@ -96,8 +95,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         return self.gap_cost
 
     def get_sim_func(self):
-        """
-        Get similarity function
+        """Get similarity function
 
         Returns:
             similarity function (function)
@@ -105,8 +103,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         return self.sim_func
 
     def set_gap_cost(self, gap_cost):
-        """
-        Set gap cost
+        """Set gap cost
 
         Args:
             gap_cost (float): Cost of gap
@@ -115,8 +112,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         return True
 
     def set_sim_func(self, sim_func):
-        """
-        Set similarity function
+        """Set similarity function
 
         Args:
             sim_func (function): Similarity function to give a score for the correspondence between characters.

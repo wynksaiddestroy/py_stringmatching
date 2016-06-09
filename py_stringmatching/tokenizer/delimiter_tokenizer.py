@@ -1,5 +1,3 @@
-"""Delimiter based tokenizer"""
-
 import re
 
 from py_stringmatching import utils
@@ -11,11 +9,15 @@ class DelimiterTokenizer(Tokenizer):
     
     Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens. 
 
-    Parameters:
-        delim_set (set): An attribute that stores a set of delimiter strings (defaults to space delimiter).
-        return_set (boolean): An attribute that is a flag to indicate whether to return a set of
+    Args:
+        delim_set (set): A set of delimiter strings (defaults to space delimiter).
+        return_set (boolean): A flag to indicate whether to return a set of
                               tokens instead of a bag of tokens (defaults to False).
+                              
+    Attributes: 
+        return_set (boolean): An attribute to store the value of the flag return_set.
     """
+
     def __init__(self, delim_set=set([' ']), return_set=False):
         self.__delim_set = None
         self.__use_split = None
@@ -94,4 +96,4 @@ class DelimiterTokenizer(Tokenizer):
         else:
             self.__delim_regex = re.compile('|'.join(
                                      map(re.escape, self.__delim_set)))
-        return True    
+        return True

@@ -1,27 +1,25 @@
-"""Overlap coefficient similarity measure"""
-
 from py_stringmatching import utils
 from py_stringmatching.similarity_measure.token_similarity_measure import \
                                                     TokenSimilarityMeasure
 
 
 class OverlapCoefficient(TokenSimilarityMeasure):
-    """Overlap coefficient similarity measure class.
+    """Computes overlap coefficient measure.
+
+    The overlap coefficient is a similarity measure related to the Jaccard
+    measure  that measures the overlap between two sets, and is defined as the size of the intersection divided by
+    the smaller of the size of the two sets.
+
+    For two sets X and Y, the overlap coefficient is:
+
+        :math:`overlap\\_coefficient(X, Y) = \\frac{|X \\cap Y|}{\\min(|X|, |Y|)}`
     """
+
     def __init__(self):
         super(OverlapCoefficient, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """
-        Computes the overlap coefficient between two sets.
-
-        The overlap coefficient is a similarity measure related to the Jaccard
-        measure  that measures the overlap between two sets, and is defined as the size of the intersection divided by
-        the smaller of the size of the two sets.
-
-        For two sets X and Y, the overlap coefficient is:
-
-        :math:`overlap\\_coefficient(X, Y) = \\frac{|X \\cap Y|}{\\min(|X|, |Y|)}`
+        """Computes the raw overlap coefficient between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
@@ -66,8 +64,7 @@ class OverlapCoefficient(TokenSimilarityMeasure):
         return float(len(set1 & set2)) / min(len(set1), len(set2))
 
     def get_sim_score(self, set1, set2):
-        """
-        Computes the normalized overlap coefficient between two sets.
+        """Computes the normalized overlap coefficient between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.

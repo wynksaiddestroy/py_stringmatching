@@ -1,5 +1,3 @@
-"""Jaro similarity measure"""
-
 from py_stringmatching import utils
 from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
@@ -7,17 +5,17 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Jaro(SequenceSimilarityMeasure):
-    """Jaro similarity measure class.
+    """Computes jaro measure.
+
+    The Jaro measure is a type of edit distance, This was developed mainly to compare short strings,
+    such as first and last names.
     """
+
     def __init__(self):
         super(Jaro, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the jaro measure between two strings.
-
-        The Jaro measure is a type of edit distance, This was developed mainly to compare short strings,
-        such as first and last names.
+        """Computes the raw jaro score between two strings.
 
         Args:
             string1,string2 (str): Input strings
@@ -87,8 +85,7 @@ class Jaro(SequenceSimilarityMeasure):
         return weight
 
     def get_sim_score(self, string1, string2):
-        """
-        Computes the normalized jaro similarity between two strings.
+        """Computes the normalized jaro similarity between two strings.
 
         Args:
             string1,string2 (str): Input strings
