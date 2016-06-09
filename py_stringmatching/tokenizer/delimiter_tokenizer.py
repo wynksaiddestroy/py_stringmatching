@@ -7,7 +7,7 @@ from py_stringmatching.tokenizer.tokenizer import Tokenizer
 
 
 class DelimiterTokenizer(Tokenizer):
-    """A class of tokenizers that use delimiters to find tokens, as apposed to using definitions. 
+    """Uses delimiters to find tokens, as apposed to using definitions. 
     
     Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens. 
 
