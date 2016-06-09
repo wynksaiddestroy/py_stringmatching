@@ -1,12 +1,14 @@
-"""Tokenizer"""
-
 class Tokenizer(object):
     """Tokenizer class.
 
-    Parameters:
-        return_set (boolean): an attribute which is a flag to indicate whether to return a set of
+    Args:
+        return_set (boolean): A flag to indicate whether to return a set of
                               tokens instead of a bag of tokens (defaults to False). 
+                              
+    Attributes: 
+        return_set (boolean): An attribute to store the flag return_set. 
     """
+    
     def __init__(self, return_set=False):
         self.return_set = return_set
 
