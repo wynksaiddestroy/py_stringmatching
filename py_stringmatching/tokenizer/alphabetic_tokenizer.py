@@ -14,6 +14,7 @@ class AlphabeticTokenizer(DefinitionTokenizer):
     Attributes: 
         return_set (boolean): An attribute that stores the value for the flag return_set. 
     """
+    
     def __init__(self, return_set=False):
         self.__al_regex = re.compile('[a-zA-Z]+')
         super(AlphabeticTokenizer, self).__init__(return_set)
