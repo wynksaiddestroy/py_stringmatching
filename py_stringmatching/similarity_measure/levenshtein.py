@@ -7,7 +7,7 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Levenshtein(SequenceSimilarityMeasure):
-    """Computes levenshtein measure.
+    """Computes Levenshtein measure (also known as edit distance).
 
     Levenshtein distance computes the minimum cost of transforming one string into the other. Transforming a string
     is carried out using a sequence of the following operators: delete a character, insert a character, and
@@ -18,16 +18,16 @@ class Levenshtein(SequenceSimilarityMeasure):
         super(Levenshtein, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """Computes the raw levenshtein distance between two strings.
+        """Computes the raw Levenshtein distance between two strings.
 
         Args:
-            string1,string2 (str): Input strings
+            string1, string2 (str): Input strings.
 
         Returns:
-            Levenshtein distance (int)
+            Levenshtein distance (int).
 
         Raises:
-            TypeError : If the inputs are not strings
+            TypeError : If the inputs are not strings.
 
         Examples:
             >>> lev = Levenshtein()
@@ -37,8 +37,8 @@ class Levenshtein(SequenceSimilarityMeasure):
             3
             >>> lev.get_raw_score('levenshtein', 'frankenstein')
             6
-
         """
+        
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
@@ -47,16 +47,16 @@ class Levenshtein(SequenceSimilarityMeasure):
         return levenshtein(string1, string2)
 
     def get_sim_score(self, string1, string2):
-        """Computes the normalized levenshtein similarity between two strings.
+        """Computes the normalized Levenshtein similarity score between two strings.
 
         Args:
-            string1,string2 (str): Input strings
+            string1, string2 (str): Input strings.
 
         Returns:
-            Normalized levenshtein similarity (float)
+            Normalized Levenshtein similarity (float).
 
         Raises:
-            TypeError : If the inputs are not strings
+            TypeError : If the inputs are not strings.
 
         Examples:
             >>> lev = Levenshtein()
