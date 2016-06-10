@@ -13,16 +13,16 @@ def sim_ident(char1, char2):
 
 
 class SmithWaterman(SequenceSimilarityMeasure):
-    """Computes smith-waterman measure.
+    """Computes Smith-Waterman measure.
 
     The Smith-Waterman algorithm performs local sequence alignment; that is, for determining similar regions
     between two strings. Instead of looking at the total sequence, the Smith–Waterman algorithm compares segments of
-    all possible lengths and optimizes the similarity measure.
+    all possible lengths and optimizes the similarity measure. See the string matching chapter in the DI book (Principles of Data Integration). 
 
     Args:
         gap_cost (float): Cost of gap (defaults to 1.0).
-        sim_func (function): Similarity function to give a score for the correspondence between characters (defaults
-                             to an identity function, where if two characters are same it returns 1 else returns 0).
+        sim_func (function): Similarity function to give a score for the correspondence between the characters (defaults
+                             to an identity function, which returns 1 if the two characters are the same and 0 otherwise).
 
     Attributes:
         gap_cost (float): An attribute to store the gap cost.
@@ -35,13 +35,13 @@ class SmithWaterman(SequenceSimilarityMeasure):
         super(SmithWaterman, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """Computes the raw smith-waterman score between two strings.
+        """Computes the raw Smith-Waterman score between two strings.
 
         Args:
-            string1,string2 (str) : Input strings
+            string1,string2 (str) : Input strings.
 
         Returns:
-            Smith-Waterman measure (float)
+            Smith-Waterman similarity score (float).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.
@@ -60,6 +60,7 @@ class SmithWaterman(SequenceSimilarityMeasure):
             >>> sw.get_raw_score('GCATAGCU', 'GATTACA')
             6.5
         """
+        
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
@@ -80,35 +81,35 @@ class SmithWaterman(SequenceSimilarityMeasure):
         return max_value
 
     def get_gap_cost(self):
-        """Get gap cost
+        """Get gap cost.
 
         Returns:
-            gap cost (float)
+            Gap cost (float).
         """
         return self.gap_cost
 
     def get_sim_func(self):
-        """Get similarity function
+        """Get similarity function.
 
         Returns:
-            similarity function (function)
+            Similarity function (function).
         """
         return self.sim_func
 
     def set_gap_cost(self, gap_cost):
-        """Set gap cost
+        """Set gap cost.
 
         Args:
-            gap_cost (float): Cost of gap
+            gap_cost (float): Cost of gap.
         """
         self.gap_cost = gap_cost
         return True
 
     def set_sim_func(self, sim_func):
-        """Set similarity function
+        """Set similarity function.
 
         Args:
-            sim_func (function): Similarity function to give a score for the correspondence between characters.
+            sim_func (function): Similarity function to give a score for the correspondence between the characters.
         """
         self.sim_func = sim_func
         return True
