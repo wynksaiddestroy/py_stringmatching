@@ -11,18 +11,18 @@ def sim_ident(char1, char2):
 
 
 class NeedlemanWunsch(SequenceSimilarityMeasure):
-    """Computes needleman-wunsch measure.
+    """Computes Needleman-Wunsch measure.
 
-    The Needleman-Wunsch generalizes the Levenshtein distance and considers global alignment between two strings.
-    Specifically, it is computed by assigning a score to each alignment between two input strings and choosing the
+    The Needleman-Wunsch distance generalizes the Levenshtein distance and considers global alignment between two strings.
+    Specifically, it is computed by assigning a score to each alignment between the two input strings and choosing the
     score of the best alignment, that is, the maximal score. An alignment between two strings is a set of correspondences
-    between the characters of between them, allowing for gaps.
+    between their characters, allowing for gaps.
 
     Args:
         gap_cost (float): Cost of gap (defaults to 1.0).
-        sim_func (function): Similarity function to give a score for the correspondence between characters (defaults
-                             to an identity function, where if two characters are same it returns 1.0 else returns 0).
-
+        sim_func (function): Similarity function to give a score for each correspondence between the characters (defaults
+                             to an identity function, which returns 1 if the two characters are the same and 0 otherwise.  
+                             
     Attributes:
         gap_cost (float): An attribute to store the gap cost.
         sim_func (function): An attribute to store the similarity function.
@@ -34,13 +34,13 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         super(NeedlemanWunsch, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """Computes the raw needleman-wunsch score between two strings.
+        """Computes the raw Needleman-Wunsch score between two strings.
 
         Args:
-            string1,string2 (str) : Input strings
+            string1, string2 (str) : Input strings.
 
         Returns:
-            Needleman-Wunsch measure (float)
+            Needleman-Wunsch similarity score (float).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.
@@ -58,8 +58,8 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
             >>> nw = NeedlemanWunsch(gap_cost=0.5, sim_func=lambda s1, s2 : (1.0 if s1 == s2 else -1.0))
             >>> nw.get_raw_score('GCATGCUA', 'GATTACA')
             2.5
-
         """
+        
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
@@ -87,32 +87,32 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         return dist_mat[dist_mat.shape[0] - 1, dist_mat.shape[1] - 1]
 
     def get_gap_cost(self):
-        """Get gap cost
+        """Get gap cost.
 
         Returns:
-            gap cost (float)
+            Gap cost (float).
         """
         return self.gap_cost
 
     def get_sim_func(self):
-        """Get similarity function
+        """Get the similarity function.
 
         Returns:
-            similarity function (function)
+            similarity function (function).
         """
         return self.sim_func
 
     def set_gap_cost(self, gap_cost):
-        """Set gap cost
+        """Set gap cost.
 
         Args:
-            gap_cost (float): Cost of gap
+            gap_cost (float): Cost of gap.
         """
         self.gap_cost = gap_cost
         return True
 
     def set_sim_func(self, sim_func):
-        """Set similarity function
+        """Set similarity function.
 
         Args:
             sim_func (function): Similarity function to give a score for the correspondence between characters.
