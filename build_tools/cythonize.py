@@ -30,9 +30,6 @@ Note: this script does not check any of the dependent C libraries; it only
 operates on the Cython .pyx files or their corresponding Cython header (.pxd)
 files.
 """
-# Author: Paul Suganthan G. C. <paulgc@cs.wisc.edu>
-#
-# License: BSD 3 clause
 
 from __future__ import division, print_function, absolute_import
 
