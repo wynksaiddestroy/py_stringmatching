@@ -8,9 +8,7 @@ class OverlapCoefficient(TokenSimilarityMeasure):
 
     The overlap coefficient is a similarity measure related to the Jaccard
     measure  that measures the overlap between two sets, and is defined as the size of the intersection divided by
-    the smaller of the size of the two sets.
-
-    For two sets X and Y, the overlap coefficient is:
+    the smaller of the size of the two sets. For two sets X and Y, the overlap coefficient is:
 
         :math:`overlap\\_coefficient(X, Y) = \\frac{|X \\cap Y|}{\\min(|X|, |Y|)}`
     """
@@ -19,13 +17,13 @@ class OverlapCoefficient(TokenSimilarityMeasure):
         super(OverlapCoefficient, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """Computes the raw overlap coefficient between two sets.
+        """Computes the raw overlap coefficient score between two sets.
 
         Args:
-            set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+            set1, set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
-            Overlap coefficient (float)
+            Overlap coefficient (float).
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
@@ -41,9 +39,9 @@ class OverlapCoefficient(TokenSimilarityMeasure):
 
         References:
             * Wikipedia article : https://en.wikipedia.org/wiki/Overlap_coefficient
-            * Simmetrics library
-
+            * SimMetrics library
         """
+        
         # input validations
         utils.sim_check_for_none(set1, set2)
         utils.sim_check_for_list_or_set_inputs(set1, set2)
@@ -64,13 +62,13 @@ class OverlapCoefficient(TokenSimilarityMeasure):
         return float(len(set1 & set2)) / min(len(set1), len(set2))
 
     def get_sim_score(self, set1, set2):
-        """Computes the normalized overlap coefficient between two sets.
+        """Computes the normalized overlap coefficient between two sets. Simply call get_raw_score. 
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
-            Normalized overlap coefficient (float)
+            Normalized overlap coefficient (float).
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
