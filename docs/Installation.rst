@@ -7,6 +7,11 @@ to install the py_stringmatching package.
 Requirements
 ------------
     * Python 2.7 or Python 3.3+
+    * C/C++ compiler
+
+Platforms
+------------
+py_stringmatching has been tested on Linux, OSX and Windows.
 
 Dependencies
 ------------
@@ -18,28 +23,16 @@ Dependencies
     The user need not install these dependency packages before installing the py_stringmatching package.
     The py_stringmatching installer will automatically install the required packages.
 
+There are 2 ways to install py_stringmatching package - 1) installing from source distribution, or
+(2) installing using pip.
 
-Step by Step Installation Instruction
+Installing from source distribution
 -------------------------------------
 Step 1: Download the py_stringmatching package from `here
-<http://pradap-www.cs.wisc.edu/py_stringmatching/anhaidgroup/py_stringmatching-0.1.0tar.gz>`_
-into your home directory.
+<https://testpypi.python.org/pypi/py_stringmatching/0.1.0>`_.
 
-You can download into any directory within your home directory. For now we assume that you use a
-linux operating system and will download into "HOME/", the top level.
+Step 2: Unzip the package and execute the following command from the package root::
 
-Also, we assume that you have sufficient privileges to install a python package.
-
-Step 2: Unzip the package by executing the following command::
-
-    tar -xzvf py_stringmatching.tar.gz
-
-py_stringmatching will be unpackaged into directory "HOME/py_stringmatching-0.1.0
-
-
-Step 3: At the command prompt execute the following commands::
-
-    cd HOME/py_stringmatching-0.1.0
     python setup.py install
 
 This will install py_stringmatching package.
@@ -54,6 +47,9 @@ This will install py_stringmatching package.
     for more information look at the stackoverflow `link
     <http://stackoverflow.com/questions/14179941/how-to-install-python-packages-without-root-privileges>`_.
 
-Supported Platforms
--------------------
-It is tested primarily on OSX and Linux, but due to minimal dependencies it should work perfectly on Windows.
+Installing using pip
+--------------------
+You can also install the package using pip::
+
+    pip install py_stringmatching
+ 
