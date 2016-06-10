@@ -1,5 +1,5 @@
-Welcome to py_stringmatching's documentation!
-=============================================
+User Manual for py_stringmatching
+=================================
 
 Contents
 ========
@@ -19,4 +19,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
