@@ -6,18 +6,29 @@ Once the package has been installed, you can import the package as follows:
    
    import py_stringmatching as sm
    
-Computing a similarity score between two given strings **x** and **y** then typically consists of the following steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object and using it to tokenize the two given strings **x** and **y**, and (4) creating a similarity measure object and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps. 
+Computing a similarity score between two given strings **x** and **y** then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object and using it to tokenize the two given strings **x** and **y**, and (4) creating a similarity measure object and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps. 
 
 1. Selecting a Similarity Measure
 ----------------------------------
 First, you must select a similarity measure. py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
 
-A major type of similarity measures treats input strings as **sequences* characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., 
+A major type of similarity measures treats input strings as **sequences* of characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., Jaccard). Yet another type treats input strings as **bags* of tokens (e.g., TF/IDF, a bag of token is a collection of tokens such that a token can appear multiple times in the collection). 
 
+At this point, you should know if the selected similarity measure treats input strings as sequences, or bags, or sets, so that later you can call the tokenizing function properly (see Step 3 below). 
 
-Using Tokenizers
-----------------
-py_stringmatching currently provides five different tokenizers: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizers can easily be added). A tokenizer can be created as follows:
+2. Selecting a Tokenizer Type
+-----------------------------
+If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings **x** and **y**, and hence do not have to select a tokenizer type. 
+
+Otherwise, you need to select a tokenizer type, such as alphabetical tokenizer, qgram tokenizer, whitespace tokenizer, etc. py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
+
+A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3. 
+
+3. Creating a Tokenizer Object and Using It to Tokenize the Input Strings
+-------------------------------------------------------------------------
+If you have selected a tokenizer type in Step 2, then in Step 3 you create a tokenizer object of that type. If the intended similarity measure (selected in Step 1) treats the input strings as **sets** of tokens, then when creating the tokenizer object, you must set the flag return_set to True. Otherwise this flag defaults to False, and the created tokenizer object will tokenize a string into a **bag** of tokens. 
+
+The following examples create tokenizer objects where the flag return_set is not mentioned, thus defaulting to False. So these tokenizer objects will tokenize a string into a bag of tokens. 
 
 .. ipython:: python
 
@@ -36,21 +47,20 @@ py_stringmatching currently provides five different tokenizers: alphabetical tok
    # create a whitespace tokenizer
    ws_tok = sm.WhitespaceTokenizer()
 
-By default, all tokenizers return a bag of tokens. You can use the **return_set** parameter to specify if the tokenizer
-should return a set or bag of tokens. Few examples are shown below:
+The following examples create tokenizer objects where the flag return_set is set to True. Thus these tokenizers will tokenize a string into a set of tokens. 
 
 .. ipython:: python
 
-   # create an alphabetical tokenizer, which returns a set of tokens
+   # create an alphabetical tokenizer that returns a set of tokens
    alphabet_tok_set = sm.AlphabeticTokenizer(return_set=True)
 
-   # create a whitespace tokenizer, which returns a set of tokens
+   # create a whitespace tokenizer that returns a set of tokens
    ws_tok_set = sm.WhitespaceTokenizer(return_set=True)
 
-   # create a qgram tokenizer using q=3, which returns a set of tokens
+   # create a qgram tokenizer with q=3 that returns a set of tokens
    qg3_tok_set = sm.QgramTokenizer(qval=3, return_set=True)
     
-All tokenizers have a **tokenize** method which tokenizes a given input string into a set or bag of tokens (depending on whether the flag return_set is True or False):
+All tokenizers have a **tokenize** method which tokenizes a given input string into a set or bag of tokens (depending on whether the flag return_set is True or False), as these examples illustrate:
 
 .. ipython:: python
 
@@ -67,9 +77,11 @@ All tokenizers have a **tokenize** method which tokenizes a given input string i
 
    # tokenize using whitespace as the delimiter
    ws_tok.tokenize(test_string)
+   
+Thus, once you have created the tokenizer, you can use the **tokenize** method to tokenize the two input strings **x** and **y**.
 
-Using Similarity Measures
--------------------------
+4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score
+-----------------------------------------------------------------------------------
 py_stringmatching currently provides 14 different similarity measures (with plan to add more). To use a similarity measure, you first need to create a similarity measure object, as illustrated by the following examples:
 
 .. ipython:: python
