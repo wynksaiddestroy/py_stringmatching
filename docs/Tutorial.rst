@@ -27,7 +27,7 @@ py_stringmatching currently provides five different tokenizers: alphabetical tok
    # create a whitespace tokenizer
    ws_tok = sm.WhitespaceTokenizer()
 
-By default, all the tokenizers return a bag of tokens. You can use the **return_set** parameter to specify if the tokenizer
+By default, all tokenizers return a bag of tokens. You can use the **return_set** parameter to specify if the tokenizer
 should return a set or bag of tokens. Few examples are shown below:
 
 .. ipython:: python
@@ -107,4 +107,4 @@ Here are some example of using the **get_sim_score** method:
    # get normalized Jaccard similarity score (this is the same as the raw score)
    jac.get_sim_score(ws_tok.tokenize(x), ws_tok.tokenize(y))
    
-So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation).  
+So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation).
