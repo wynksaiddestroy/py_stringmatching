@@ -12,7 +12,7 @@ Computing a similarity score between two given strings **x** and **y** then typi
 ----------------------------------
 First, you must select a similarity measure. py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
 
-A major type of similarity measures treats input strings as **sequences* of characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., Jaccard). Yet another type treats input strings as **bags* of tokens (e.g., TF/IDF, a bag of token is a collection of tokens such that a token can appear multiple times in the collection). 
+A major type of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., Jaccard). Yet another type treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of token is a collection of tokens such that a token can appear multiple times in the collection. 
 
 For the currently implemented 14 similarity measures, we have: 
   * sequence-based measures are: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, Smith Waterman.
@@ -21,13 +21,13 @@ For the currently implemented 14 similarity measures, we have:
   
 (There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
 
-At this point, you should know if the selected similarity measure treats input strings as sequences, or bags, or sets, so that later you can call the tokenizing function properly (see Step 3 below). 
+At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Step 3 below). 
 
 2. Selecting a Tokenizer Type
 -----------------------------
 If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings **x** and **y**, and hence do not have to select a tokenizer type. 
 
-Otherwise, you need to select a tokenizer type, such as alphabetical tokenizer, qgram tokenizer, whitespace tokenizer, etc. py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
+Otherwise, you need to select a tokenizer type. py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
 
 A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3. 
 
@@ -54,6 +54,8 @@ The following examples create tokenizer objects where the flag return_set is not
    # create a whitespace tokenizer
    ws_tok = sm.WhitespaceTokenizer()
 
+Given the string "up up and away", the tokenizer alphabet_tok (defined above) will convert it into a bag of tokens ['up', 'up', 'and', 'away'], where the token 'up' appears twice. 
+
 The following examples create tokenizer objects where the flag return_set is set to True. Thus these tokenizers will tokenize a string into a set of tokens. 
 
 .. ipython:: python
@@ -66,6 +68,8 @@ The following examples create tokenizer objects where the flag return_set is set
 
    # create a qgram tokenizer with q=3 that returns a set of tokens
    qg3_tok_set = sm.QgramTokenizer(qval=3, return_set=True)
+   
+So given the same string "up up and away", the tokenizer alphabet_tok_set (defined above) will convert it into a set of tokens ['up', 'and', 'away']. 
     
 All tokenizers have a **tokenize** method which tokenizes a given input string into a set or bag of tokens (depending on whether the flag return_set is True or False), as these examples illustrate:
 
@@ -105,7 +109,7 @@ For example, Jaccard similarity measure will compute a true similarity score in 
 
 Given the above, each similarity measure object in py_stringmatching is supplied with two methods: **get_raw_score** and **get_sim_score**. The first method will compute the raw score as defined by that type of similarity measures, be it similarity score or distance score. For example, for Jaccard this method will return a true similarity score, whereas for Levenshtein it will return an edit distance score. 
 
-The method **get_sim_score** normalizes the raw score to obtain a true similarity score (a number in [0,1], such that the higher this number the more similar the two strings are). For Jaccard, **get_sim_score* will simply call **get_raw_score**. For Levenshtein, however, **get_sim_score** will normalize the edit distance to return a true similarity score. 
+The method **get_sim_score** normalizes the raw score to obtain a true similarity score (a number in [0,1], such that the higher this number the more similar the two strings are). For Jaccard, **get_sim_score** will simply call **get_raw_score**. For Levenshtein, however, **get_sim_score** will normalize the edit distance to return a true similarity score in [0,1].
 
 Here are some examples of using the **get_raw_score** method:
 
@@ -136,4 +140,4 @@ Here are some example of using the **get_sim_score** method:
    # get normalized Jaccard similarity score (this is the same as the raw score)
    jac.get_sim_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y))
    
-So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation).
+So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as affine gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because there is no straightforward way to normalize the raw scores of these measures into similarity scores in [0,1] (see the Developer Manual for further explanation).
