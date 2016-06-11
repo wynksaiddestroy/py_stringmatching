@@ -18,23 +18,22 @@ Dependencies
 
 .. note::
 
-    You do not have to install these dependency packages before installing the py_stringmatching package.
-    The py_stringmatching installer will automatically install the required packages.
+     The py_stringmatching installer will automatically install the above required packages.
 
 There are two ways to install py_stringmatching package: from source distribution or using pip.
 
-Installing From Source Distribution
+Installing from Source Distribution
 -------------------------------------
 Step 1: Download the py_stringmatching package from `here
 <https://testpypi.python.org/pypi/py_stringmatching/0.1.0>`_.
 
-Step 2: Unzip the package and execute the following command from the package root to install the package::
+Step 2: Unzip the package and execute the following command from the package root::
 
     python setup.py install
     
 .. note::
 
-    The above command will try to install py_stringmatching into the defaul Python directory on your machine. If you do not have installation permission for that directory then the command will report that permission is denied. In that case, you can install the package in your home directory as follows::
+    The above command will try to install py_stringmatching into the defaul Python directory on your machine. If you do not have installation permission for that directory then you can install the package in your home directory as follows::
 
         python setup.py install --user
 
