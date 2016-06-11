@@ -117,7 +117,7 @@ Here are some examples of using the **get_raw_score** method:
    # compute Levenshtein distance between x and y
    lev.get_raw_score(x, y)
     
-Note that in the above examples, the Levenshtein measure treats the input strings as sequences of characters. Hence when using it we do not have to tokenize the two strings **x** and **y**.
+Note that in the above examples, the Jaccard measure treats the input strings as sets of tokens. And indeed, the two tokenizers ws_tok_set and qg3_tok_set as defined earlier would tokenize a string into a set of tokens. The Levenshtein measure, on the other hand, treats the input strings as sequences of characters. Hence when using it we do not have to tokenize the two strings **x** and **y**.
 
 Here are some example of using the **get_sim_score** method:
 
