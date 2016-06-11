@@ -107,4 +107,4 @@ Here are some example of using the **get_sim_score** method:
    # get normalized Jaccard similarity score (this is the same as the raw score)
    jac.get_sim_score(ws_tok.tokenize(x), ws_tok.tokenize(y))
    
-So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation). More precisely, similarity measure objects of these types have **get_sim_score** methods, but calling these methods returns only a warning. 
+So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation).  
