@@ -39,9 +39,10 @@ Step 2: Unzip the package and execute the following command from the package roo
 
         python setup.py install --user
 
+    For more information see the StackOverflow `link
     <http://stackoverflow.com/questions/14179941/how-to-install-python-packages-without-root-privileges>`_.
 
-Installing using pip
+Installing Using pip
 --------------------
 You can also install the package using pip::
 
