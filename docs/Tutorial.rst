@@ -14,6 +14,13 @@ First, you must select a similarity measure. py_stringmatching currently provide
 
 A major type of similarity measures treats input strings as **sequences* of characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., Jaccard). Yet another type treats input strings as **bags* of tokens (e.g., TF/IDF, a bag of token is a collection of tokens such that a token can appear multiple times in the collection). 
 
+For the currently implemented 14 similarity measures, we have: 
+  * sequence-based measures are: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, Smith Waterman.
+  * set-based measures are: cosine, Dice, Jaccard, overlap coefficient.
+  * bag-based measures are: TF/IDF.
+  
+(There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
+
 At this point, you should know if the selected similarity measure treats input strings as sequences, or bags, or sets, so that later you can call the tokenizing function properly (see Step 3 below). 
 
 2. Selecting a Tokenizer Type
