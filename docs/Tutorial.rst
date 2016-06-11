@@ -5,6 +5,15 @@ Once the package has been installed, you can import the package as follows:
 .. ipython:: python
    
    import py_stringmatching as sm
+   
+Computing a similarity score between two given strings **x** and **y** then typically consists of the following steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object and using it to tokenize the two given strings **x** and **y**, and (4) creating a similarity measure object and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps. 
+
+1. Selecting a Similarity Measure
+----------------------------------
+First, you must select a similarity measure. py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
+
+A major type of similarity measures treats input strings as **sequences* characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., 
+
 
 Using Tokenizers
 ----------------
