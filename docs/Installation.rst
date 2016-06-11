@@ -18,7 +18,7 @@ Dependencies
 
 .. note::
 
-    The user does not have to install these dependency packages before installing the py_stringmatching package.
+    You do not have to install these dependency packages before installing the py_stringmatching package.
     The py_stringmatching installer will automatically install the required packages.
 
 There are two ways to install py_stringmatching package: from source distribution or using pip.
