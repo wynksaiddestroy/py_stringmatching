@@ -78,12 +78,12 @@ All tokenizers have a **tokenize** method which tokenizes a given input string i
    # tokenize using whitespace as the delimiter
    ws_tok.tokenize(test_string)
    
-Thus, once you have created the tokenizer, you can use the **tokenize** method to tokenize the two input strings **x** and **y**.
+Thus, once you have created the tokenizer, you can use the **tokenize** method to tokenize the two input strings **x** and **y** (see more in Step 4 below). 
 
 4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score
 -----------------------------------------------------------------------------------
-py_stringmatching currently provides 14 different similarity measures (with plan to add more). To use a similarity measure, you first need to create a similarity measure object, as illustrated by the following examples:
-
+Recall that in Step 1 you have selected a similarity measure (e.g., Jaccard, Levenshtein). In this step you start by creating a similarity measure object of the selected type, as illustrated by these examples:
+ 
 .. ipython:: python
 
    # create a Jaccard similarity measure object
@@ -92,11 +92,7 @@ py_stringmatching currently provides 14 different similarity measures (with plan
    # create a Levenshtein similarity measure object
    lev = sm.Levenshtein()
 
-There are two main types of similarity measures,
-
-(1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. 
-
-(2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are. Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
+There are two main types of similarity measures. (1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. (2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are. Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
 
 For example, Jaccard similarity measure will compute a true similarity score in [0,1] for two input strings. Levenshtein similarity measure, on the other hand, is really a distance measure, which computes the edit distance between the two input strings (see for example Wikipedia or the string matching chapter in the book "Principles of Data Integration"). It is easy to convert a distance score into a true similarity score (again, see examples in the above book chapter). 
 
@@ -121,6 +117,8 @@ Here are some examples of using the **get_raw_score** method:
    # compute Levenshtein distance between x and y
    lev.get_raw_score(x, y)
     
+Note that in the above examples, the Levenshtein measure treats the input strings as sequences of characters. Hence when using it we do not have to tokenize the two strings **x** and **y**.
+
 Here are some example of using the **get_sim_score** method:
 
 .. ipython:: python
