@@ -34,10 +34,13 @@ should return a set or bag of tokens. Few examples are shown below:
 
    # create an alphabetical tokenizer, which returns a set of tokens
    alphabet_tok_set = sm.AlphabeticTokenizer(return_set=True)
+
+   # create a whitespace tokenizer, which returns a set of tokens
+   ws_tok_set = sm.WhitespaceTokenizer(return_set=True)
+
+   # create a qgram tokenizer using q=3, which returns a set of tokens
+   qg3_tok_set = sm.QgramTokenizer(qval=3, return_set=True)
     
-   # create a delimiter tokenizer using comma as a delimiter, which returns a set of tokens
-   delim_tok_set = sm.DelimiterTokenizer(delim_set=[','], return_set=True)
- 
 All tokenizers have a **tokenize** method which tokenizes a given input string into a set or bag of tokens (depending on whether the flag return_set is True or False):
 
 .. ipython:: python
@@ -88,11 +91,11 @@ Here are some examples of using the **get_raw_score** method:
    x = 'string matching package'
    y = 'string matching library'
 
-   # compute Jaccard score over tokens of x and y, tokenized using whitespace
-   jac.get_raw_score(ws_tok.tokenize(x), ws_tok.tokenize(y))
+   # compute Jaccard score over sets of tokens of x and y, tokenized using whitespace
+   jac.get_raw_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y))
 
-   # compute Jaccard score over tokens of x and y, tokenized into qgrams (with q=3)
-   jac.get_raw_score(qg3_tok.tokenize(x), qg3_tok.tokenize(y))
+   # compute Jaccard score over sets of tokens of x and y, tokenized into qgrams (with q=3)
+   jac.get_raw_score(qg3_tok_set.tokenize(x), qg3_tok_set.tokenize(y))
     
    # compute Levenshtein distance between x and y
    lev.get_raw_score(x, y)
@@ -105,6 +108,6 @@ Here are some example of using the **get_sim_score** method:
    lev.get_sim_score(x, y)
     
    # get normalized Jaccard similarity score (this is the same as the raw score)
-   jac.get_sim_score(ws_tok.tokenize(x), ws_tok.tokenize(y))
+   jac.get_sim_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y))
    
 So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as Affine Gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because the raw scores of these measures cannot be normalized into similarity scores in [0,1] (see the Developer Manual for further explanation).
