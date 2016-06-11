@@ -27,14 +27,28 @@ py_stringmatching currently provides five different tokenizers: alphabetical tok
    # create a whitespace tokenizer
    ws_tok = sm.WhitespaceTokenizer()
 
+By default, all the tokenizers return a bag of tokens. You can use the **return_set** parameter to specify if the tokenizer
+should return a set or bag of tokens. Few examples are shown below:
+
+.. ipython:: python
+
+   # create an alphabetical tokenizer, which returns a set of tokens
+   alphabet_tok_set = sm.AlphabeticTokenizer(return_set=True)
+    
+   # create a delimiter tokenizer using comma as a delimiter, which returns a set of tokens
+   delim_tok_set = sm.DelimiterTokenizer(delim_set=[','], return_set=True)
+ 
 All tokenizers have a **tokenize** method which tokenizes a given input string into a set or bag of tokens (depending on whether the flag return_set is True or False):
 
 .. ipython:: python
 
-   test_string = ' .hello, world!! data, science, is    amazing!!.'
+   test_string = ' .hello, world!! data, science, is    amazing!!. hello.'
 
    # tokenize into alphabetical tokens
    alphabet_tok.tokenize(test_string)
+
+   # tokenize into alphabetical tokens (with return_set set to True)
+   alphabet_tok_set.tokenize(test_string)
 
    # tokenize using comma as the delimiter
    delim_tok.tokenize(test_string)
@@ -54,7 +68,11 @@ py_stringmatching currently provides 14 different similarity measures (with plan
    # create a Levenshtein similarity measure object
    lev = sm.Levenshtein()
 
-There are two main types of similarity measures. (1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. (2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are. Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
+There are two main types of similarity measures,
+
+(1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. 
+
+(2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are. Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
 
 For example, Jaccard similarity measure will compute a true similarity score in [0,1] for two input strings. Levenshtein similarity measure, on the other hand, is really a distance measure, which computes the edit distance between the two input strings (see for example Wikipedia or the string matching chapter in the book "Principles of Data Integration"). It is easy to convert a distance score into a true similarity score (again, see examples in the above book chapter). 
 
