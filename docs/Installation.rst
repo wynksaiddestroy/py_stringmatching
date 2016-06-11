@@ -34,8 +34,7 @@ Step 2: Unzip the package and execute the following command from the package roo
     
 .. note::
 
-    If the Python package installation requires root permission then you can install the package in
-    your home directory as follows::
+    The above command will try to install py_stringmatching into the defaul Python directory on your machine. If you do not have installation permission for that directory then the command will report that permission is denied. In that case, you can install the package in your home directory as follows::
 
         python setup.py install --user
 

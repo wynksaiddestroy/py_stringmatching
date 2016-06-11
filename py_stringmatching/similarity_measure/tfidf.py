@@ -116,7 +116,7 @@ class TfIdf(TokenSimilarityMeasure):
             bag1, bag2 (list): Input lists.
 
         Returns:
-            Normalized TF-IDF similarity between the input lists (float).
+            Normalized TF/IDF similarity score between the input lists (float).
 
         Raises:
             TypeError : If the inputs are not lists or if one of the inputs is None.
@@ -163,7 +163,7 @@ class TfIdf(TokenSimilarityMeasure):
         """Set dampen flag.
 
         Args:
-            dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.
+            dampen (boolean): Flag to indicate whether 'log' should be applied to TF and IDF formulas.
         """
         self.dampen = dampen
         return True
