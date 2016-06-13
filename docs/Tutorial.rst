@@ -146,12 +146,16 @@ Here are some example of using the **get_sim_score** method:
    
 So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as affine gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because there is no straightforward way to normalize the raw scores of these measures into similarity scores in [0,1] (see the Developer Manual for further explanation).
 
-Further Discussion
--------------------
+Handling a Large Number of String Pairs
+---------------------------------------
 Steps 1-4 above discuss the case where you want to compute the similarity score of only a single string pair. 
 
 There are however cases where you need to compute the similarity scores of many string pairs. For example, given a table A of 10K strings and a table B of 10K strings, you may need to compute the string similarity scores for all 100M string pairs in the Cartesian product of the two tables. 
 
 In such cases, you should avoid tokenizing the same string repeatedly, such as calling jac.get_sim_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y)) for all pairs (x,y) in the Cartesian product. If you do this, a string x in table A will be tokenized 10K times, since it will appear in 10K pairs. This is clearly unnecessary and very expensive. 
 
-Instead, you should tokenize all strings in tables A and B only once, store the output of tokenizing in some Python structure, then call the similarity measure on these structures to compute similarity scores. This will avoid repeated tokenizing of the same strings. 
+Instead, you should tokenize all strings in tables A and B only once, store the output of tokenizing in some Python structure, then call the similarity measure on these structures to compute similarity scores. This will avoid repeated tokenizing of the same strings.
+
+Handling Missing Values
+------------------------
+By "missing values" we means cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). Handling such cases are tricky and application dependent. For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments. 
