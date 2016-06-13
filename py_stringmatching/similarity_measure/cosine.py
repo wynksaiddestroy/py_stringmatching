@@ -6,9 +6,9 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Cosine(TokenSimilarityMeasure):
-    """Computes cosine measure.
+    """Computes a variant of cosine measure known as Ochiai coefficient.
 
-    For two sets X and Y, the cosine similarity is:
+    This is not the cosine measure that computes the cosine of the angle between two given vectors. Rather, it computes a variant of cosine measure known as Ochiai coefficient (see the Wikipedia page "Cosine Similarity"). Specifically, for two sets X and Y, this measure computes:
 
         :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
     """
