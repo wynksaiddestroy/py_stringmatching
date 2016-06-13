@@ -6,28 +6,28 @@ Once the package has been installed, you can import the package as follows:
    
    import py_stringmatching as sm
    
-Computing a similarity score between two given strings **x** and **y** then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object and using it to tokenize the two given strings **x** and **y**, and (4) creating a similarity measure object and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps. 
+Computing a similarity score between two given strings **x** and **y** then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object (of the selected type) and using it to tokenize the two given strings **x** and **y**, and (4) creating a similarity measure object (of the selected type) and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps. 
 
 1. Selecting a Similarity Measure
 ----------------------------------
-First, you must select a similarity measure. py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
+First, you must select a similarity measure. The package py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
 
-A major type of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another type treats input strings as **sets** of tokens (e.g., Jaccard). Yet another type treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of token is a collection of tokens such that a token can appear multiple times in the collection. 
+A major group of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as **sets** of tokens (e.g., Jaccard). Yet another group treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).
 
 For the currently implemented 14 similarity measures, we have: 
-  * sequence-based measures are: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, Smith Waterman.
-  * set-based measures are: cosine, Dice, Jaccard, overlap coefficient.
-  * bag-based measures are: TF/IDF.
+  * sequence-based measures: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, Smith Waterman.
+  * set-based measures: cosine, Dice, Jaccard, overlap coefficient.
+  * bag-based measures: TF/IDF.
   
 (There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
 
-At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Step 3 below). 
+At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Steps 2-3 below). 
 
 2. Selecting a Tokenizer Type
 -----------------------------
 If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings **x** and **y**, and hence do not have to select a tokenizer type. 
 
-Otherwise, you need to select a tokenizer type. py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
+Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
 
 A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3. 
 
