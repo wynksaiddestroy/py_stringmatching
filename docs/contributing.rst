@@ -7,6 +7,8 @@ Contributing to py_stringmatching
 .. contents:: Table of contents:
    :local:
 
+This document is adapted from `pandas how to contribute guidelines <http://pandas.pydata.org/pandas-docs/stable/contributing.html>`_ for *py_stringmatching* package. 
+
 Where to start?
 ===============
 
