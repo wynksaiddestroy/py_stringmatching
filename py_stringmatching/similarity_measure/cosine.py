@@ -38,8 +38,8 @@ class Cosine(TokenSimilarityMeasure):
             0.0
 
         References:
-            * String similarity joins: An Experimental Evaluation (VLDB 2014)
-            * Project flamingo : Mike carey, Vernica
+            * String similarity joins: An Experimental Evaluation (a paper appearing in the VLDB 2014 Conference).
+            * Project Flamingo at http://flamingo.ics.uci.edu.
         """
         # input validations
         utils.sim_check_for_none(set1, set2)
