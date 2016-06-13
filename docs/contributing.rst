@@ -30,8 +30,7 @@ Bug reports and enhancement requests
 ====================================
 
 Bug reports are an important part of making *py_stringmatching* more stable.  Having a complete bug report
-will allow others to reproduce the bug and provide insight into fixing. We use GitHub issue tracker to track bugs.
- It is important that you provide the exact version of *py_stringmatching* where the bug is found. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests to see if the issue has already been reported and/or fixed.
+will allow others to reproduce the bug and provide insight into fixing. We use GitHub issue tracker to track bugs. It is important that you provide the exact version of *py_stringmatching* where the bug is found. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests to see if the issue has already been reported and/or fixed.
 
 Bug reports must:
 
