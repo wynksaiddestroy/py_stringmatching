@@ -39,7 +39,7 @@ The following examples create tokenizer objects where the flag return_set is not
 
 .. ipython:: python
 
-   # create an alphabetical tokenizer
+   # create an alphabetical tokenizer that returns a bag of tokens
    alphabet_tok = sm.AlphabeticTokenizer()
     
    # create an alphanumeric tokenizer
@@ -77,7 +77,7 @@ All tokenizers have a **tokenize** method which tokenizes a given input string i
 
    test_string = ' .hello, world!! data, science, is    amazing!!. hello.'
 
-   # tokenize into alphabetical tokens
+   # tokenize into a bag of alphabetical tokens
    alphabet_tok.tokenize(test_string)
 
    # tokenize into alphabetical tokens (with return_set set to True)
@@ -103,7 +103,11 @@ Recall that in Step 1 you have selected a similarity measure (e.g., Jaccard, Lev
    # create a Levenshtein similarity measure object
    lev = sm.Levenshtein()
 
-There are two main types of similarity measures. (1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. (2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are. Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
+There are two main types of similarity measures. 
+
+(1) Those that when given two input strings will compute a true similarity score, which is a number in the range [0,1] such that the higher this number, the more similar the two input strings are. 
+
+(2) Those that when given two input strings will compute a distance score, which is a number such that the higher this number, the more **dissimilar** the two input strings are (this number is often not in the range [0,1]). Clearly, Type-2 measures (also known as distance measures), are the reverse of Type-1 measures. 
 
 For example, Jaccard similarity measure will compute a true similarity score in [0,1] for two input strings. Levenshtein similarity measure, on the other hand, is really a distance measure, which computes the edit distance between the two input strings (see for example Wikipedia or the string matching chapter in the book "Principles of Data Integration"). It is easy to convert a distance score into a true similarity score (again, see examples in the above book chapter). 
 
@@ -141,3 +145,13 @@ Here are some example of using the **get_sim_score** method:
    jac.get_sim_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y))
    
 So depending on what you want, you can call **get_raw_score** or **get_sim_score**. Note, however, that certain measures such as affine gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a **get_sim_score** method, because there is no straightforward way to normalize the raw scores of these measures into similarity scores in [0,1] (see the Developer Manual for further explanation).
+
+Further Discussion
+-------------------
+Steps 1-4 above discuss the case where you want to compute the similarity score of only a single string pair. 
+
+There are however cases where you need to compute the similarity scores of many string pairs. For example, given a table A of 10K strings and a table B of 10K strings, you may need to compute the string similarity scores for all 100M string pairs in the Cartesian product of the two tables. 
+
+In such cases, you should avoid tokenizing the same string repeatedly, such as calling jac.get_sim_score(ws_tok_set.tokenize(x), ws_tok_set.tokenize(y)) for all pairs (x,y) in the Cartesian product. If you do this, a string x in table A will be tokenized 10K times, since it will appear in 10K pairs. This is clearly unnecessary and very expensive. 
+
+Instead, you should tokenize all strings in tables A and B only once, store the output of tokenizing in some Python structure, then call the similarity measure on these structures to compute similarity scores. This will avoid repeated tokenizing of the same strings. 
