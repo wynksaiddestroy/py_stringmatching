@@ -12,7 +12,9 @@ class TfIdf(TokenSimilarityMeasure):
 
     This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
     find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
-    is that two strings are similar if they share distinguishing terms. See the string matching chapter in the book "Principles of Data Integration".
+    is that two strings are similar if they share distinguishing terms. See the string matching chapter in the book "Principles of Data Integration"
+    
+    IMPORTANT: Currently when you create a TF/IDF similarity measure object, the dampen flag is set to False by default. In most cases, you will want to set this flag to True, so that the TF and IDF formulas use logarithmic. So when creating this object, consider setting the flag to True. This will likely be fixed in the next release. 
 
     Args:
         corpus_list (list of lists): The corpus that will be used to compute TF and IDF values. This corpus is a list of strings, where each string has been tokenized into a list of tokens (that is, a bag of tokens). The default is set to None. In this case, when we call this TF/IDF measure on two input strings (using get_raw_score or get_sim_score), the corpus is taken to be the list of those two strings. 
