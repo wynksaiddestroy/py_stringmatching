@@ -19,7 +19,7 @@ class Dice(TokenSimilarityMeasure):
         """Computes the raw Dice score between two sets. This score is already in [0,1].
 
         Args:
-            set1, set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+            set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
             Dice similarity score (float).

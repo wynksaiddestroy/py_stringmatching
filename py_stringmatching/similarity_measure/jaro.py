@@ -18,7 +18,7 @@ class Jaro(SequenceSimilarityMeasure):
         """Computes the raw Jaro score between two strings.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Jaro similarity score (float).
@@ -89,7 +89,7 @@ class Jaro(SequenceSimilarityMeasure):
         """Computes the normalized Jaro similarity score between two strings. Simply call get_raw_score.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Normalized Jaro similarity score (float).

@@ -39,7 +39,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
         """Computes the raw soft TF/IDF score between two lists given the corpus information.
 
         Args:
-            bag1, bag2 (list): Input lists
+            bag1,bag2 (list): Input lists
 
         Returns:
             Soft TF/IDF score between the input lists (float).

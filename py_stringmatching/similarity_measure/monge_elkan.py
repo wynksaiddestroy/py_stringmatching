@@ -28,7 +28,7 @@ class MongeElkan(HybridSimilarityMeasure):
         """Computes the raw Monge-Elkan score between two bags (lists).
 
         Args:
-            bag1, bag2 (list): Input lists.
+            bag1,bag2 (list): Input lists.
 
         Returns:
             Monge-Elkan similarity score (float).

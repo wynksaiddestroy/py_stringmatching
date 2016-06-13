@@ -24,7 +24,7 @@ class JaroWinkler(SequenceSimilarityMeasure):
         """Computes the raw Jaro-Winkler score between two strings.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Jaro-Winkler similarity score (float).
@@ -69,7 +69,7 @@ class JaroWinkler(SequenceSimilarityMeasure):
         """Computes the normalized Jaro-Winkler similarity score between two strings. Simply call get_raw_score.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Normalized Jaro-Winkler similarity (float).

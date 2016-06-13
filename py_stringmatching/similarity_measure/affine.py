@@ -38,7 +38,7 @@ class Affine(SequenceSimilarityMeasure):
         """Computes the affine gap score between two strings. This score can be outside the range [0,1].
         
         Args:
-            string1, string2 (str) : Input strings.
+            string1,string2 (str) : Input strings.
 
         Returns:
             Affine gap score betwen the two input strings (float).

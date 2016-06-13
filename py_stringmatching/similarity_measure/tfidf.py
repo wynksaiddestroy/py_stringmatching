@@ -35,7 +35,7 @@ class TfIdf(TokenSimilarityMeasure):
         """Computes the raw TF/IDF score between two lists.
 
         Args:
-            bag1, bag2 (list): Input lists.
+            bag1,bag2 (list): Input lists.
 
         Returns:
             TF/IDF score between the input lists (float).
@@ -45,8 +45,8 @@ class TfIdf(TokenSimilarityMeasure):
 
         Examples:
             
-            # here the corpus is a list of three strings that have been tokenized
-            # into three lists of tokens
+            >>> # here the corpus is a list of three strings that 
+            >>> # have been tokenized into three lists of tokens
             >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
             >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'c'])
             0.17541160386140586
@@ -114,7 +114,7 @@ class TfIdf(TokenSimilarityMeasure):
         """Computes the normalized TF/IDF similarity score between two lists. Simply call get_raw_score.
 
         Args:
-            bag1, bag2 (list): Input lists.
+            bag1,bag2 (list): Input lists.
 
         Returns:
             Normalized TF/IDF similarity score between the input lists (float).

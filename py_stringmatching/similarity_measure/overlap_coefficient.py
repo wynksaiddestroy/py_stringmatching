@@ -20,7 +20,7 @@ class OverlapCoefficient(TokenSimilarityMeasure):
         """Computes the raw overlap coefficient score between two sets.
 
         Args:
-            set1, set2 (set or list): Input sets (or lists). Input lists are converted to sets.
+            set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
             Overlap coefficient (float).

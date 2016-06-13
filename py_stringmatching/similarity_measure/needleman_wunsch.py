@@ -37,7 +37,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         """Computes the raw Needleman-Wunsch score between two strings.
 
         Args:
-            string1, string2 (str) : Input strings.
+            string1,string2 (str) : Input strings.
 
         Returns:
             Needleman-Wunsch similarity score (float).

@@ -21,7 +21,7 @@ class Levenshtein(SequenceSimilarityMeasure):
         """Computes the raw Levenshtein distance between two strings.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Levenshtein distance (int).
@@ -50,7 +50,7 @@ class Levenshtein(SequenceSimilarityMeasure):
         """Computes the normalized Levenshtein similarity score between two strings.
 
         Args:
-            string1, string2 (str): Input strings.
+            string1,string2 (str): Input strings.
 
         Returns:
             Normalized Levenshtein similarity (float).
