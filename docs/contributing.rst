@@ -28,8 +28,8 @@ Bug reports and enhancement requests
 ====================================
 
 Bug reports are an important part of making *py_stringmatching* more stable.  Having a complete bug report
-will allow others to reproduce the bug and provide insight into fixing. It is important that you provide the
-exact version of *py_stringmatching* where the bug is found. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests to see if the issue has already been reported and/or fixed.
+will allow others to reproduce the bug and provide insight into fixing. We use GitHub issue tracker to track bugs.
+ It is important that you provide the exact version of *py_stringmatching* where the bug is found. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests to see if the issue has already been reported and/or fixed.
 
 Bug reports must:
 
@@ -56,17 +56,17 @@ Working with the code
 =====================
 
 Now that you have an issue you want to fix, enhancement to add, or documentation to improve,
-you need to learn how to work with GitHub and the *pandas* code base.
+you need to learn how to work with GitHub and the *py_stringmatching* code base.
 
 Version control, Git, and GitHub
 --------------------------------
 
-To the new user, working with Git is one of the more daunting aspects of contributing to *pandas*.
+To the new user, working with Git is one of the more daunting aspects of contributing to *py_stringmatching*.
 It can very quickly become overwhelming, but sticking to the guidelines below will help keep the process
 straightforward and mostly trouble free.  As always, if you are having difficulties please
 feel free to ask for help.
 
-The code is hosted on `GitHub <https://www.github.com/pydata/pandas>`_. To
+The code is hosted on `GitHub <https://www.github.com/anhaidgroup/py_stringmatching>`_. To
 contribute you will need to sign up for a `free GitHub account
 <https://github.com/signup/free>`_. We use `Git <http://git-scm.com/>`_ for
 version control to allow many people to work together on the project.
@@ -89,16 +89,16 @@ you can work seamlessly between your local repository and GitHub.
 Forking
 -------
 
-You will need your own fork to work on the code. Go to the `pandas project
-page <https://github.com/pydata/pandas>`_ and hit the ``Fork`` button. You will
+You will need your own fork to work on the code. Go to the `py_stringmatching project
+page <https://github.com/anhaidgroup/py_stringmatching>`_ and hit the ``Fork`` button. You will
 want to clone your fork to your machine::
 
-    git clone git@github.com:your-user-name/pandas.git pandas-yourname
-    cd pandas-yourname
-    git remote add upstream git://github.com/pydata/pandas.git
+    git clone git@github.com:<your-user-name>/py_stringmatching.git <local-repo-name>
+    cd <local-repo-name>
+    git remote add upstream git://github.com/anhaidgroup/py_stringmatching.git
 
-This creates the directory `pandas-yourname` and connects your repository to
-the upstream (main project) *pandas* repository.
+This creates the directory `local-repo-name` and connects your repository to
+the upstream (main project) *py_stringmatching* repository.
 
 The testing suite will run automatically on Travis-CI once your pull request is
 submitted.  However, if you wish to run the test suite on a branch prior to
@@ -112,16 +112,16 @@ Creating a branch
 You want your master branch to reflect only production-ready code, so create a
 feature branch for making your changes. For example::
 
-    git branch shiny-new-feature
-    git checkout shiny-new-feature
+    git branch new_feature
+    git checkout new_feature
 
 The above can be simplified to::
 
-    git checkout -b shiny-new-feature
+    git checkout -b new_feature
 
-This changes your working directory to the shiny-new-feature branch.  Keep any
+This changes your working directory to the *new_feature* branch.  Keep any
 changes in this branch specific to one bug or feature so it is clear
-what the branch brings to *pandas*. You can have many shiny-new-features
+what the branch brings to *py_stringmatching*. You can have many new features
 and switch in between them using the git checkout command.
 
 To update this branch, you need to retrieve the changes from the master branch::
@@ -129,8 +129,8 @@ To update this branch, you need to retrieve the changes from the master branch::
     git fetch upstream
     git rebase upstream/master
 
-This will replay your commits on top of the lastest pandas git master.  If this
-leads to merge conflicts, you must resolve these before submitting your pull
+This will replay your commits on top of the lastest py_stringmatching git master.  If this
+leads to merge conflicts, you must resolve them before submitting your pull
 request.  If you have uncommitted changes, you will need to ``stash`` them prior
 to updating.  This will effectively store your changes and they can be reapplied
 after updating.
@@ -140,21 +140,21 @@ after updating.
 Creating a development environment
 ----------------------------------
 
-An easy way to create a *pandas* development environment is as follows.
+An easy way to create a *py_stringmatching* development environment is as follows.
 
 - Install either :ref:`Anaconda <install.anaconda>` or :ref:`miniconda <install.miniconda>`
 - Make sure that you have :ref:`cloned the repository <contributing.forking>`
-- ``cd`` to the *pandas* source directory
+- ``cd`` to the *py_stringmatching* source directory
 
-Tell conda to create a new environment, named ``pandas_dev``, or any other name you would like
+Tell conda to create a new environment, named ``py_stringmatching_dev``, or any other name you would like
 for this environment, by running::
 
-      conda create -n pandas_dev --file ci/requirements_dev.txt
+      conda create -n py_stringmatching_dev --file build_tools/requirements_dev.txt
 
 
 For a python 3 environment::
 
-      conda create -n pandas_dev python=3 --file ci/requirements_dev.txt
+      conda create -n py_stringmatching_dev python=3 --file build_tools/requirements_dev.txt
 
 .. warning::
 
@@ -162,22 +162,21 @@ For a python 3 environment::
 
 This will create the new environment, and not touch any of your existing environments,
 nor any existing python installation. It will install all of the basic dependencies of
-*pandas*, as well as the development and testing tools. If you would like to install
+*py_stringmatching*, as well as the development and testing tools. If you would like to install
 other dependencies, you can install them as follows::
 
-      conda install -n pandas_dev -c pandas pytables scipy
+      conda install -n py_stringmatching_dev nose
+.. To install *all* py_stringmatching dependencies you can do the following::
 
-To install *all* pandas dependencies you can do the following::
-
-      conda install -n pandas_dev -c pandas --file ci/requirements_all.txt
+..     conda install -n py_stringmatching_dev --file build_tools/requirements_all.txt
 
 To work in this environment, Windows users should ``activate`` it as follows::
 
-      activate pandas_dev
+      activate py_stringmatching_dev
 
 Mac OSX / Linux users should use::
 
-      source activate pandas_dev
+      source activate py_stringmatching_dev
 
 You will then see a confirmation message to indicate you are in the new development environment.
 
@@ -206,7 +205,7 @@ To build on Windows, you need to have compilers installed to build the extension
 
 For Python 2.7, you can install the ``mingw`` compiler which will work equivalently to VS 2008::
 
-      conda install -n pandas_dev libpython
+      conda install -n py_stringmatching_dev libpython
 
 or use the `Microsoft Visual Studio VC++ compiler for Python <https://www.microsoft.com/en-us/download/details.aspx?id=44266>`__. Note that you have to check the ``x64`` box to install the ``x64`` extension building capability as this is not installed by default.
 
