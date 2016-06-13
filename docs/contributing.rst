@@ -1,8 +1,8 @@
 .. _contributing:
 
-**********************
-Contributing to pandas
-**********************
+*********************************
+Contributing to py_stringmatching
+*********************************
 
 .. contents:: Table of contents:
    :local:
@@ -13,31 +13,23 @@ Where to start?
 All contributions, bug reports, bug fixes, documentation improvements,
 enhancements and ideas are welcome.
 
-If you are simply looking to start working with the *pandas* codebase, navigate to the
-`GitHub "issues" tab <https://github.com/pydata/pandas/issues>`_ and start looking through
-interesting issues.  There are a number of issues listed under `Docs
-<https://github.com/pydata/pandas/issues?labels=Docs&sort=updated&state=open>`_
-and `Difficulty Novice
-<https://github.com/pydata/pandas/issues?q=is%3Aopen+is%3Aissue+label%3A%22Difficulty+Novice%22>`_
-where you could start out.
+If you are simply looking to start working with the *py_stringmatching* codebase, navigate to the
+`GitHub "issues" tab <https://github.com/anhaidgroup/py_stringmatching/issues>`_ and start looking through
+interesting issues.
 
-Or maybe through using *pandas* you have an idea of your own or are looking for something
+Or maybe through using *py_stringmatching* you have an idea of your own or are looking for something
 in the documentation and thinking 'this can be improved'...you can do something
 about it!
 
 Feel free to ask questions on the `mailing list
-<https://groups.google.com/forum/?fromgroups#!forum/pydata>`_ or on `Gitter
-<https://gitter.im/pydata/pandas>`_.
+<https://groups.google.com/forum/#!forum/py_stringmatching>`_
 
 Bug reports and enhancement requests
 ====================================
 
-Bug reports are an important part of making *pandas* more stable.  Having a complete bug report
-will allow others to reproduce the bug and provide insight into fixing.  Because many versions of
-*pandas* are supported, knowing version information will also identify improvements made since
-previous versions. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise
-to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests
-to see if the issue has already been reported and/or fixed.
+Bug reports are an important part of making *py_stringmatching* more stable.  Having a complete bug report
+will allow others to reproduce the bug and provide insight into fixing. It is important that you provide the
+exact version of *py_stringmatching* where the bug is found. Trying the bug-producing code out on the *master* branch is often a worthwhile exercise to confirm the bug still exists.  It is also worth searching existing bug reports and pull requests to see if the issue has already been reported and/or fixed.
 
 Bug reports must:
 
@@ -46,24 +38,19 @@ Bug reports must:
    <http://github.github.com/github-flavored-markdown/>`_::
 
       ```python
-      >>> from pandas import DataFrame
-      >>> df = DataFrame(...)
+      >>> import py_stringmatching as sm
+      >>> tfidf = sm.TfIdf(...)
       ...
       ```
 
-#. Include the full version string of *pandas* and its dependencies. In versions
-   of *pandas* after 0.12 you can use a built in function::
+#. Include the full version string of *py_stringmatching*. You can find the version as follows::
 
-      >>> from pandas.util.print_versions import show_versions
-      >>> show_versions()
-
-   and in *pandas* 0.13.1 onwards::
-
-      >>> pd.show_versions()
+      >>> import py_stringmatching as sm
+      >>> sm.__version__
 
 #. Explain why the current behavior is wrong/not desired and what you expect instead.
 
-The issue will then show up to the *pandas* community and be open to comments/ideas from others.
+The issue will then show up to the *py_stringmatching* community and be open to comments/ideas from others.
 
 Working with the code
 =====================
