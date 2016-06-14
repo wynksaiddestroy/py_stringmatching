@@ -11,7 +11,7 @@ Contents
     Tutorial
     Tokenizer
     SimilarityMeasure
-
+    Contributing 
 
 Indices and tables
 ==================

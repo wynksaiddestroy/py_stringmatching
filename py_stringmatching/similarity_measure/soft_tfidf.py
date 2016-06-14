@@ -22,6 +22,10 @@ class SoftTfIdf(HybridSimilarityMeasure):
     Attributes:
         sim_func (function): An attribute to store the secondary similarity function.
         threshold (float): An attribute to store the threshold value for the secondary similarity function.
+    
+    Note:
+        Currently, this measure is implemented without dampening. This is similar to setting dampen flag to be False in TF-IDF.
+        We plan to add the dampen flag in the next release.    
     """
 
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,

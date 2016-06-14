@@ -8,7 +8,7 @@ class Jaccard(TokenSimilarityMeasure):
 
      For two sets X and Y, the Jaccard similarity score is:
 
-        :math:`jaccard(X, Y) = \\frac{|X \\cap Y|}{|X| \\cup |Y|}`
+        :math:`jaccard(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
     """
 
     def __init__(self):

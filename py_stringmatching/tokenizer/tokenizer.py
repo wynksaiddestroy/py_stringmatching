@@ -13,7 +13,7 @@ class Tokenizer(object):
         self.return_set = return_set
 
     def get_return_set(self):
-        """Get the value of the return_set flag.
+        """Gets the value of the return_set flag.
 
         Returns:
             The boolean value of the return_set flag. 
@@ -21,7 +21,7 @@ class Tokenizer(object):
         return self.return_set
 
     def set_return_set(self, return_set):
-        """Set the value of the return_set flag.
+        """Sets the value of the return_set flag.
 
         Args:
             return_set (boolean): a flag to indicate whether to return a set of tokens instead of a bag of tokens.

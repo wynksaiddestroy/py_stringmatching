@@ -68,7 +68,7 @@ class QgramTokenizer(DefinitionTokenizer):
         return qgram_list
 
     def get_qval(self):
-        """Get the value of the qval attribute, which is the length of qgrams. 
+        """Gets the value of the qval attribute, which is the length of qgrams. 
 
         Returns:
             The value of the qval attribute. 
@@ -76,7 +76,7 @@ class QgramTokenizer(DefinitionTokenizer):
         return self.qval
 
     def set_qval(self, qval):
-        """Set the value of the qval attribute. 
+        """Sets the value of the qval attribute. 
 
         Args:
             qval (int): A value for q (the length of qgrams). 

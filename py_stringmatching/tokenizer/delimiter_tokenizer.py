@@ -69,7 +69,7 @@ class DelimiterTokenizer(Tokenizer):
         return token_list
 
     def get_delim_set(self):
-        """Get the current set of delimiters.
+        """Gets the current set of delimiters.
         
         Returns:
             A Python set which is the current set of delimiters. 
@@ -77,7 +77,7 @@ class DelimiterTokenizer(Tokenizer):
         return self.__delim_set
 
     def set_delim_set(self, delim_set):
-        """Set the current set of delimiters.
+        """Sets the current set of delimiters.
         
         Args:
             delim_set (set): A set of delimiter strings.
