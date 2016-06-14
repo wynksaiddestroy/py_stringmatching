@@ -302,7 +302,7 @@ Some other important things to know about the docs:
 
 
 How to build the *py_stringmatching* documentation
----------------------------------------
+---------------------------------------------------
 
 Requirements
 ~~~~~~~~~~~~
