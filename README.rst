@@ -1,17 +1,16 @@
 py_stringmatching
 =================
 
-py_stringmatching is a software package in Python that consists of a comprehensive set of tokenizers and string similarity measures (
-such as edit distance, Jaccard, and TF/IDF). It is free, open-source, and BSD-licensed.
+py_stringmatching is a software package in Python that consists of a comprehensive set of tokenizers and string similarity measures (such as edit distance, Jaccard, and TF/IDF). It is free, open-source, and BSD-licensed.
 
 Important links
 ===============
 
- * Installation: http://anhaidgroup.github.io/py_stringmatching/Installation.html
- * Tutorial: http://anhaidgroup.github.io/py_stringmatching/Tutorial.html
- * API Reference: http://anhaidgroup.github.io/py_stringmatching/API.html
  * Repository: https://github.com/anhaidgroup/py_stringmatching
- * Issues: https://github.com/anhaidgroup/py_stringmatching/issues
+ * Documentation: http://anhaidgroup.github.io/py_stringmatching/v0.1.x/index.html 
+ * Tutorial: http://anhaidgroup.github.io/py_stringmatching/v0.1.x/Tutorial.html
+ * Issue Tracker: https://github.com/anhaidgroup/py_stringmatching/issues
+ * Mailing List: https://groups.google.com/forum/#!forum/py_stringmatching
  
 Dependencies
 ============
