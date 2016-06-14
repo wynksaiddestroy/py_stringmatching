@@ -10,7 +10,7 @@ Computing a similarity score between two given strings **x** and **y** then typi
 
 1. Selecting a Similarity Measure
 ----------------------------------
-First, you must select a similarity measure. The package py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". 
+First, you must select a similarity measure. The package py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". (This chapter is available on the package's homepage.)
 
 A major group of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as **sets** of tokens (e.g., Jaccard). Yet another group treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).
 
@@ -163,3 +163,7 @@ Instead, you should tokenize all strings in tables A and B only once, store the 
 Handling Missing Values
 ------------------------
 By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). Handling such cases are tricky and application dependent. For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.
+
+References
+-----------
+AnHai Doan, Alon Halevy, Zachary Ives, "Principles of Data Integration", Morgan Kaufmann, 2012. Chapter 4 "String Matching" (available on the package's homepage). 
