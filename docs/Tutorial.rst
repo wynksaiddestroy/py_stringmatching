@@ -91,6 +91,10 @@ All tokenizers have a **tokenize** method which tokenizes a given input string i
    
 Thus, once you have created the tokenizer, you can use the **tokenize** method to tokenize the two input strings **x** and **y** (see more in Step 4 below). 
 
+.. note::
+
+     The **tokenize** method returns a **Python list** which represents a set of tokens or a bag of tokens, depending on whether the flag return_set is True or False. 
+
 4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score
 -----------------------------------------------------------------------------------
 Recall that in Step 1 you have selected a similarity measure (e.g., Jaccard, Levenshtein). In this step you start by creating a similarity measure object of the selected type, as illustrated by these examples:
@@ -158,4 +162,4 @@ Instead, you should tokenize all strings in tables A and B only once, store the 
 
 Handling Missing Values
 ------------------------
-By "missing values" we means cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). Handling such cases are tricky and application dependent. For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments. 
+By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). Handling such cases are tricky and application dependent. For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.

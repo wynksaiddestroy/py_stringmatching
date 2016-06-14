@@ -5,7 +5,7 @@ Installation
 Requirements
 ------------
     * Python 2.7 or Python 3.3+
-    * C/C++ compiler
+    * C or C++ compiler (parts of the package are in Cython for efficiency reasons, and you need C or C++ compiler to compile these parts) 
 
 Platforms
 ------------
@@ -20,8 +20,14 @@ Dependencies
 
      The py_stringmatching installer will automatically install the above required packages.
 
-There are two ways to install py_stringmatching package: from source distribution or using pip.
+There are two ways to install py_stringmatching package: using pip or source distribution.
 
+Installing Using pip
+--------------------
+The easiest way to install the package is to use pip, which will retrieve py_stringmatching from PyPI then install it::
+
+    pip install py_stringmatching
+    
 Installing from Source Distribution
 -------------------------------------
 Step 1: Download the py_stringmatching package from `here
@@ -39,9 +45,3 @@ Step 2: Unzip the package and execute the following command from the package roo
 
     For more information see the StackOverflow `link
     <http://stackoverflow.com/questions/14179941/how-to-install-python-packages-without-root-privileges>`_.
-
-Installing Using pip
---------------------
-You can also install the package using pip::
-
-    pip install py_stringmatching
