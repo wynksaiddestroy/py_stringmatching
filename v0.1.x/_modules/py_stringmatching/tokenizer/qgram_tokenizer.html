@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>py_stringmatching.tokenizer.qgram_tokenizer &mdash; py_stringmatching 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="py_stringmatching 0.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> py_stringmatching</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#platforms">Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#installing-using-pip">Installing Using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Installation.html#installing-from-source-distribution">Installing from Source Distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#step-1-selecting-a-similarity-measure">Step 1: Selecting a Similarity Measure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#step-2-selecting-a-tokenizer-type">Step 2: Selecting a Tokenizer Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#step-3-creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">Step 3: Creating a Tokenizer Object and Using It to Tokenize the Input Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#step-4-creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">Step 4: Creating a Similarity Measure Object and Using It to Compute a Similarity Score</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#handling-a-large-number-of-string-pairs">Handling a Large Number of String Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#handling-missing-values">Handling Missing Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Tutorial.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Tokenizer.html">Tokenizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../AlphabeticTokenizer.html">Alphabetic Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../AlphanumericTokenizer.html">Alphanumeric Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DelimiterTokenizer.html">Delimiter Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../QgramTokenizer.html">Qgram Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../WhitespaceTokenizer.html">Whitespace Tokenizer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../SimilarityMeasure.html">Similarity Measures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../Affine.html">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Cosine.html">Cosine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../HammingDistance.html">Hamming Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Jaccard.html">Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Jaro.html">Jaro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../JaroWinkler.html">Jaro Winkler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../Levenshtein.html">Levenshtein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../MongeElkan.html">Monge Elkan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../NeedlemanWunsch.html">Needleman Wunsch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../OverlapCoefficient.html">Overlap Coefficient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../SmithWaterman.html">Smith Waterman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../SoftTfIdf.html">Soft TF/IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../TfIdf.html">TF/IDF</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">py_stringmatching</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>py_stringmatching.tokenizer.qgram_tokenizer</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for py_stringmatching.tokenizer.qgram_tokenizer</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.tokenizer.definition_tokenizer</span> <span class="kn">import</span> <span class="n">DefinitionTokenizer</span>
+
+
+<div class="viewcode-block" id="QgramTokenizer"><a class="viewcode-back" href="../../../QgramTokenizer.html#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer">[docs]</a><span class="k">class</span> <span class="nc">QgramTokenizer</span><span class="p">(</span><span class="n">DefinitionTokenizer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns tokens that are sequences of q consecutive characters.</span>
+<span class="sd">    </span>
+<span class="sd">    A qgram of an input string s is a substring t (of s) which is a sequence of q consecutive characters. Qgrams are also known as</span>
+<span class="sd">    ngrams or kgrams. </span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        qval (int): A value for q, that is, the qgram&#39;s length (defaults to 2).</span>
+<span class="sd">        return_set (boolean): A flag to indicate whether to return a set of</span>
+<span class="sd">                              tokens or a bag of tokens (defaults to False).</span>
+<span class="sd">                              </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        qval (int): An attribute to store the q value.</span>
+<span class="sd">        return_set (boolean): An attribute to store the flag return_set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qval</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">qval</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&quot;qval cannot be less than 1&quot;</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">qval</span> <span class="o">=</span> <span class="n">qval</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QgramTokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">return_set</span><span class="p">)</span>
+
+<div class="viewcode-block" id="QgramTokenizer.tokenize"><a class="viewcode-back" href="../../../QgramTokenizer.html#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.tokenize">[docs]</a>    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Tokenizes input string into qgrams.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_string (str): The string to be tokenized. </span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Python list, which is a set or a bag of qgrams, depending on whether return_set flag is True or False. </span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError : If the input is not a string</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; qg2_tok = QgramTokenizer()</span>
+<span class="sd">            &gt;&gt;&gt; qg2_tok.tokenize(&#39;database&#39;)</span>
+<span class="sd">            [&#39;da&#39;,&#39;at&#39;,&#39;ta&#39;,&#39;ab&#39;,&#39;ba&#39;,&#39;as&#39;,&#39;se&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; qg2_tok.tokenize(&#39;a&#39;)</span>
+<span class="sd">            []</span>
+<span class="sd">            &gt;&gt;&gt; qg3_tok = QgramTokenizer(3) </span>
+<span class="sd">            &gt;&gt;&gt; qg3_tok.tokenize(&#39;database&#39;)</span>
+<span class="sd">            [&#39;dat&#39;, &#39;ata&#39;, &#39;tab&#39;, &#39;aba&#39;, &#39;bas&#39;, &#39;ase&#39;]</span>
+<span class="sd">                      </span>
+<span class="sd">            As these examples show, the current qgram tokenizer does not consider the case of appending #s at the </span>
+<span class="sd">            start and the end of the input string. This is left for future work. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_none</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
+
+        <span class="n">qgram_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">qval</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qgram_list</span>
+
+        <span class="n">qgram_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">qval</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> 
+                          <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qval</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))]</span>
+        <span class="n">qgram_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">qgram_list</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_set</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">convert_bag_to_set</span><span class="p">(</span><span class="n">qgram_list</span><span class="p">)</span>            
+
+        <span class="k">return</span> <span class="n">qgram_list</span>
+</div>
+<div class="viewcode-block" id="QgramTokenizer.get_qval"><a class="viewcode-back" href="../../../QgramTokenizer.html#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.get_qval">[docs]</a>    <span class="k">def</span> <span class="nf">get_qval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the value of the qval attribute, which is the length of qgrams. </span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The value of the qval attribute. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qval</span>
+</div>
+<div class="viewcode-block" id="QgramTokenizer.set_qval"><a class="viewcode-back" href="../../../QgramTokenizer.html#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.set_qval">[docs]</a>    <span class="k">def</span> <span class="nf">set_qval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qval</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the value of the qval attribute. </span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            qval (int): A value for q (the length of qgrams). </span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AssertionError : If qval is less than 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">qval</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&quot;qval cannot be less than 1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qval</span> <span class="o">=</span> <span class="n">qval</span>
+        <span class="k">return</span> <span class="bp">True</span></div></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, py_stringmatching Team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
