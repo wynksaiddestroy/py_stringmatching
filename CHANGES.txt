@@ -1,4 +1,4 @@
-v0.1.0 - 06/10/2016
+v0.1.0 - 06/14/2016
   * Initial release. 
   * Contains 5 tokenizers - Alphabetic tokenizer, Alphanumeric tokenizer, Delimiter tokenizer, Qgram tokenizer and
     Whitespace tokenizer.
