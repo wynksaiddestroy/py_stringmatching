@@ -1,6 +1,8 @@
 User Manual for py_stringmatching
 =================================
 
+This document describes how to install and use the package. To contribute to or further develop the package, see 
+
 Contents
 ========
 
