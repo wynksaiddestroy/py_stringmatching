@@ -64,10 +64,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Tutorial">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#step-1-selecting-a-similarity-measure">Step 1: Selecting a Similarity Measure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#step-2-selecting-a-tokenizer-type">Step 2: Selecting a Tokenizer Type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#step-3-creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">Step 3: Creating a Tokenizer Object and Using It to Tokenize the Input Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#step-4-creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">Step 4: Creating a Similarity Measure Object and Using It to Compute a Similarity Score</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#selecting-a-similarity-measure">1. Selecting a Similarity Measure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#selecting-a-tokenizer-type">2. Selecting a Tokenizer Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">3. Creating a Tokenizer Object and Using It to Tokenize the Input Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score</a></li>
 <li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#handling-a-large-number-of-string-pairs">Handling a Large Number of String Pairs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#handling-missing-values">Handling Missing Values</a></li>
 <li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Tutorial#references">References</a></li>
@@ -133,6 +133,7 @@
             
   <div class="section" id="user-manual-for-py-stringmatching">
 <h1>User Manual for py_stringmatching<a class="headerlink" href="#user-manual-for-py-stringmatching" title="Permalink to this headline">¶</a></h1>
+<p>This document shows the users how to install and use the package. To contribute to or further develop the package, see the <a class="reference external" href="https://sites.google.com/site/anhaidgroup/projects/py_stringmatching">project website</a>, section &#8220;For Contributors and Developers&#8221;.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
@@ -175,7 +176,7 @@
 </div>
 <div class="section" id="installing-from-source-distribution">
 <h3>Installing from Source Distribution<a class="headerlink" href="#installing-from-source-distribution" title="Permalink to this headline">¶</a></h3>
-<p>Step 1: Download the py_stringmatching package from <a class="reference external" href="https://testpypi.python.org/pypi/py_stringmatching/0.1.0">here</a>.</p>
+<p>Step 1: Download the py_stringmatching package from <a class="reference external" href="https://github.com/anhaidgroup/py_stringmatching/releases">here</a>.</p>
 <p>Step 2: Unzip the package and execute the following command from the package root:</p>
 <div class="highlight-python"><div class="highlight"><pre>python setup.py install
 </pre></div>
@@ -197,8 +198,8 @@
 </pre></div>
 </div>
 <p>Computing a similarity score between two given strings <strong>x</strong> and <strong>y</strong> then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object (of the selected type) and using it to tokenize the two given strings <strong>x</strong> and <strong>y</strong>, and (4) creating a similarity measure object (of the selected type) and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps.</p>
-<div class="section" id="step-1-selecting-a-similarity-measure">
-<h3>Step 1: Selecting a Similarity Measure<a class="headerlink" href="#step-1-selecting-a-similarity-measure" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="selecting-a-similarity-measure">
+<h3>1. Selecting a Similarity Measure<a class="headerlink" href="#selecting-a-similarity-measure" title="Permalink to this headline">¶</a></h3>
 <p>First, you must select a similarity measure. The package py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book &#8220;Principles of Data Integration&#8221;. (This chapter is available on the package&#8217;s homepage.)</p>
 <p>A major group of similarity measures treats input strings as <strong>sequences</strong> of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as <strong>sets</strong> of tokens (e.g., Jaccard). Yet another group treats input strings as <strong>bags</strong> of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).</p>
 <dl class="docutils">
@@ -213,14 +214,14 @@
 <p>(There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)</p>
 <p>At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Steps 2-3 below).</p>
 </div>
-<div class="section" id="step-2-selecting-a-tokenizer-type">
-<h3>Step 2: Selecting a Tokenizer Type<a class="headerlink" href="#step-2-selecting-a-tokenizer-type" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="selecting-a-tokenizer-type">
+<h3>2. Selecting a Tokenizer Type<a class="headerlink" href="#selecting-a-tokenizer-type" title="Permalink to this headline">¶</a></h3>
 <p>If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings <strong>x</strong> and <strong>y</strong>, and hence do not have to select a tokenizer type.</p>
 <p>Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).</p>
 <p>A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3.</p>
 </div>
-<div class="section" id="step-3-creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">
-<h3>Step 3: Creating a Tokenizer Object and Using It to Tokenize the Input Strings<a class="headerlink" href="#step-3-creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">
+<h3>3. Creating a Tokenizer Object and Using It to Tokenize the Input Strings<a class="headerlink" href="#creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings" title="Permalink to this headline">¶</a></h3>
 <p>If you have selected a tokenizer type in Step 2, then in Step 3 you create a tokenizer object of that type. If the intended similarity measure (selected in Step 1) treats the input strings as <strong>sets</strong> of tokens, then when creating the tokenizer object, you must set the flag return_set to True. Otherwise this flag defaults to False, and the created tokenizer object will tokenize a string into a <strong>bag</strong> of tokens.</p>
 <p>The following examples create tokenizer objects where the flag return_set is not mentioned, thus defaulting to False. So these tokenizer objects will tokenize a string into a bag of tokens.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># create an alphabetical tokenizer that returns a bag of tokens</span>
@@ -278,8 +279,8 @@
 <p class="last">The <strong>tokenize</strong> method returns a <strong>Python list</strong> which represents a set of tokens or a bag of tokens, depending on whether the flag return_set is True or False.</p>
 </div>
 </div>
-<div class="section" id="step-4-creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">
-<h3>Step 4: Creating a Similarity Measure Object and Using It to Compute a Similarity Score<a class="headerlink" href="#step-4-creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">
+<h3>4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score<a class="headerlink" href="#creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score" title="Permalink to this headline">¶</a></h3>
 <p>Recall that in Step 1 you have selected a similarity measure (e.g., Jaccard, Levenshtein). In this step you start by creating a similarity measure object of the selected type, as illustrated by these examples:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># create a Jaccard similarity measure object</span>
 <span class="gp">In [15]: </span><span class="n">jac</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
@@ -2367,7 +2368,7 @@ If the inputs are not lists or if one of the inputs is None.</td>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="gensinglepage.html"><span>Index</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>

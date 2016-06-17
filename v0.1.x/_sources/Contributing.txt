@@ -143,7 +143,7 @@ Creating a development environment
 
 An easy way to create a *py_stringmatching* development environment is as follows.
 
-- Install either `Anaconda <https://www.continuum.io/downloads>`_ or `miniconda <http://conda.pydata.org/miniconda.html>`_
+- Install either :ref:`Anaconda <install.anaconda>` or :ref:`miniconda <install.miniconda>`
 - Make sure that you have :ref:`cloned the repository <contributing.forking>`
 - ``cd`` to the *py_stringmatching* source directory
 
@@ -167,6 +167,9 @@ nor any existing python installation. It will install all of the basic dependenc
 other dependencies, you can install them as follows::
 
       conda install -n py_stringmatching_dev nose
+.. To install *all* py_stringmatching dependencies you can do the following::
+
+..     conda install -n py_stringmatching_dev --file build_tools/requirements_all.txt
 
 To work in this environment, Windows users should ``activate`` it as follows::
 
