@@ -1,59 +1,47 @@
 ============
 Installation
 ============
-This pages describes the requirements, dependencies and provides a step by step instruction
-to install the py_stringmatching package.
-
+ 
 Requirements
 ------------
     * Python 2.7 or Python 3.3+
+    * C or C++ compiler (parts of the package are in Cython for efficiency reasons, and you need C or C++ compiler to compile these parts) 
+
+Platforms
+------------
+py_stringmatching has been tested on Linux (Ubuntu with  Kernel Version 3.13.0-40-generic), OS X (Darwin with Kernel Version: 13.4.0), and Windows 8.1.
 
 Dependencies
 ------------
-    * numpy>=1.7.0
+    * numpy 1.7.0 or higher
     * six
 
 .. note::
 
-    The user need not install these dependency packages before installing the py_stringmatching package.
-    The py_stringmatching installer will automatically install the required packages.
+     The py_stringmatching installer will automatically install the above required packages.
 
+There are two ways to install py_stringmatching package: using pip or source distribution.
 
-Step by Step Installation Instruction
+Installing Using pip
+--------------------
+The easiest way to install the package is to use pip, which will retrieve py_stringmatching from PyPI then install it::
+
+    pip install py_stringmatching
+    
+Installing from Source Distribution
 -------------------------------------
 Step 1: Download the py_stringmatching package from `here
-<http://pradap-www.cs.wisc.edu/py_stringmatching/anhaidgroup/py_stringmatching-0.1.0tar.gz>`_
-into your home directory.
+<https://github.com/anhaidgroup/py_stringmatching/releases>`_.
 
-You can download into any directory within your home directory. For now we assume that you use a
-linux operating system and will download into "HOME/", the top level.
+Step 2: Unzip the package and execute the following command from the package root::
 
-Also, we assume that you have sufficient privileges to install a python package.
-
-Step 2: Unzip the package by executing the following command::
-
-    tar -xzvf py_stringmatching.tar.gz
-
-py_stringmatching will be unpackaged into directory "HOME/py_stringmatching-0.1.0
-
-
-Step 3: At the command prompt execute the following commands::
-
-    cd HOME/py_stringmatching-0.1.0
     python setup.py install
-
-This will install py_stringmatching package.
-
+    
 .. note::
 
-    If the python package installation requires root permission then, you can install the package in
-    your home directory like this::
+    The above command will try to install py_stringmatching into the defaul Python directory on your machine. If you do not have installation permission for that directory then you can install the package in your home directory as follows::
 
         python setup.py install --user
 
-    for more information look at the stackoverflow `link
+    For more information see the StackOverflow `link
     <http://stackoverflow.com/questions/14179941/how-to-install-python-packages-without-root-privileges>`_.
-
-Supported Platforms
--------------------
-It is tested primarily on OSX and Linux, but due to minimal dependencies it should work perfectly on Windows.

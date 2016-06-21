@@ -1,35 +1,27 @@
-"""Jaccard similarity measure"""
-
 from py_stringmatching import utils
 from py_stringmatching.similarity_measure.token_similarity_measure import \
                                                     TokenSimilarityMeasure
 
 
 class Jaccard(TokenSimilarityMeasure):
-    """Jaccard similarity measure class.
+    """Computes Jaccard measure.
+
+     For two sets X and Y, the Jaccard similarity score is:
+
+        :math:`jaccard(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
     """
+
     def __init__(self):
         super(Jaccard, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """
-        Computes the jaccard measure between two sets.
-
-        The Jaccard measure, also known as the Jaccard similarity coefficient, is a statistic used for comparing
-        the similarity and diversity of sample sets. The Jaccard coefficient measures similarity between finite sample
-        sets, and is defined as the size of the intersection divided by the size of the union of the sample sets.
-
-
-        For two sets X and Y, the Jaccard measure is:
-
-        :math:`jaccard(X, Y) = \\frac{|X \\cap Y|}{|X| \\cup |Y|}`
-
+        """Computes the raw Jaccard score between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
-            Jaccard similarity (float)
+            Jaccard similarity score (float).
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.
@@ -43,6 +35,7 @@ class Jaccard(TokenSimilarityMeasure):
             >>> jac.get_raw_score(['data', 'management'], ['data', 'data', 'science'])
             0.3333333333333333
         """
+        
         # input validations
         utils.sim_check_for_none(set1, set2)
         utils.sim_check_for_list_or_set_inputs(set1, set2)
@@ -63,14 +56,13 @@ class Jaccard(TokenSimilarityMeasure):
         return float(len(set1 & set2)) / float(len(set1 | set2))
 
     def get_sim_score(self, set1, set2):
-        """
-        Computes the normalized jaccard similarity between two sets.
+        """Computes the normalized Jaccard similarity between two sets. Simply call get_raw_score.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
 
         Returns:
-            Normalized jaccard similarity (float)
+            Normalized Jaccard similarity (float).
 
         Raises:
             TypeError : If the inputs are not sets (or lists) or if one of the inputs is None.

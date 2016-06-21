@@ -1,5 +1,3 @@
-"""Cosine similarity measure"""
-
 import math
 
 from py_stringmatching import utils
@@ -8,19 +6,18 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class Cosine(TokenSimilarityMeasure):
-    """Cosine similarity measure class.
+    """Computes a variant of cosine measure known as Ochiai coefficient.
+
+    This is not the cosine measure that computes the cosine of the angle between two given vectors. Rather, it computes a variant of cosine measure known as Ochiai coefficient (see the Wikipedia page "Cosine Similarity"). Specifically, for two sets X and Y, this measure computes:
+
+        :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
     """
+
     def __init__(self):
         super(Cosine, self).__init__()
 
     def get_raw_score(self, set1, set2):
-        """
-        Computes the cosine similarity between two sets.
-
-        For two sets X and Y, the cosine similarity is:
-
-        :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
-
+        """Computes the raw cosine score between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.
@@ -41,8 +38,8 @@ class Cosine(TokenSimilarityMeasure):
             0.0
 
         References:
-            * String similarity joins: An Experimental Evaluation (VLDB 2014)
-            * Project flamingo : Mike carey, Vernica
+            * String similarity joins: An Experimental Evaluation (a paper appearing in the VLDB 2014 Conference).
+            * Project Flamingo at http://flamingo.ics.uci.edu.
         """
         # input validations
         utils.sim_check_for_none(set1, set2)
@@ -65,8 +62,7 @@ class Cosine(TokenSimilarityMeasure):
                                           math.sqrt(float(len(set2))))
 
     def get_sim_score(self, set1, set2):
-        """
-        Computes the normalized cosine similarity between two sets.
+        """Computes the normalized cosine similarity between two sets.
 
         Args:
             set1,set2 (set or list): Input sets (or lists). Input lists are converted to sets.

@@ -1,5 +1,3 @@
-"""Jaro similarity measure"""
-
 from py_stringmatching import utils
 from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
@@ -7,23 +5,23 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class Jaro(SequenceSimilarityMeasure):
-    """Jaro similarity measure class.
+    """Computes Jaro measure.
+
+    The Jaro measure is a type of edit distance, developed mainly to compare short strings,
+    such as first and last names.
     """
+
     def __init__(self):
         super(Jaro, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the jaro measure between two strings.
-
-        The Jaro measure is a type of edit distance, This was developed mainly to compare short strings,
-        such as first and last names.
+        """Computes the raw Jaro score between two strings.
 
         Args:
-            string1,string2 (str): Input strings
+            string1,string2 (str): Input strings.
 
         Returns:
-            Jaro measure (float)
+            Jaro similarity score (float).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.
@@ -38,6 +36,7 @@ class Jaro(SequenceSimilarityMeasure):
             0.7666666666666666
 
         """
+        
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.tok_check_for_string_input(string1, string2)
@@ -87,14 +86,13 @@ class Jaro(SequenceSimilarityMeasure):
         return weight
 
     def get_sim_score(self, string1, string2):
-        """
-        Computes the normalized jaro similarity between two strings.
+        """Computes the normalized Jaro similarity score between two strings. Simply call get_raw_score.
 
         Args:
-            string1,string2 (str): Input strings
+            string1,string2 (str): Input strings.
 
         Returns:
-            Normalized jaro similarity (float)
+            Normalized Jaro similarity score (float).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.

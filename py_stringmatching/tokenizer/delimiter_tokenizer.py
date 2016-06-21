@@ -1,5 +1,3 @@
-"""Delimiter based tokenizer"""
-
 import re
 
 from py_stringmatching import utils
@@ -7,33 +5,38 @@ from py_stringmatching.tokenizer.tokenizer import Tokenizer
 
 
 class DelimiterTokenizer(Tokenizer):
-    """Delimiter tokenizer class.
+    """Uses delimiters to find tokens, as apposed to using definitions. 
+    
+    Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens. 
 
-    Parameters:
-        delim_set (set): set of delimiter strings (defaults to space delimiter)
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+    Args:
+        delim_set (set): A set of delimiter strings (defaults to space delimiter).
+        return_set (boolean): A flag to indicate whether to return a set of
+                              tokens instead of a bag of tokens (defaults to False).
+                              
+    Attributes: 
+        return_set (boolean): An attribute to store the value of the flag return_set.
     """
+
     def __init__(self, delim_set=set([' ']), return_set=False):
         self.__delim_set = None
         self.__use_split = None
         self.__delim_str = None
         self.__delim_regex = None
-        self.set_delim_set(delim_set)
+        self._update_delim_set(delim_set)
         super(DelimiterTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string based on the set of delimiters.
+        """Tokenizes input string based on the set of delimiters.
 
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized. 
 
         Returns:
-            Token list (list)
+            A Python list which is a set or a bag of tokens, depending on whether return_set flag is set to True or False. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> delim_tok = DelimiterTokenizer() 
@@ -66,21 +69,22 @@ class DelimiterTokenizer(Tokenizer):
         return token_list
 
     def get_delim_set(self):
-        """
-        Get the current set of delimiters
+        """Gets the current set of delimiters.
         
         Returns:
-            Delimiter set (set)
+            A Python set which is the current set of delimiters. 
         """
         return self.__delim_set
 
     def set_delim_set(self, delim_set):
-        """
-        Set delimiters
+        """Sets the current set of delimiters.
         
         Args:
-            delim_set (set): set of delimiter strings 
+            delim_set (set): A set of delimiter strings.
         """
+        return self._update_delim_set(delim_set)
+
+    def _update_delim_set(self, delim_set):
         if not isinstance(delim_set, set):
             delim_set = set(delim_set)
         self.__delim_set = delim_set
@@ -92,4 +96,4 @@ class DelimiterTokenizer(Tokenizer):
         else:
             self.__delim_regex = re.compile('|'.join(
                                      map(re.escape, self.__delim_set)))
-        return True    
+        return True

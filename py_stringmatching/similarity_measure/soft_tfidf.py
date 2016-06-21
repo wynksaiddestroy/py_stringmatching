@@ -1,5 +1,3 @@
-"""Soft-TfIdf similarity measure"""
-
 from __future__ import division
 from math import sqrt
 import collections
@@ -11,16 +9,25 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class SoftTfIdf(HybridSimilarityMeasure):
-    """Soft-TfIdf similarity measure class.
+    """Computes soft TF/IDF measure.
 
-    Parameters:
+    Args:
         corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
-                                     the input list are considered the only corpus
+                                     the input list are considered the only corpus.
         sim_func (function): Secondary similarity function. This should return a similarity score between two strings (optional),
-                             default is jaro similarity measure
+                             default is the Jaro similarity measure.
         threshold (float): Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
                            of a token pair exceeds the threshold, then the token pair is considered a match.
+
+    Attributes:
+        sim_func (function): An attribute to store the secondary similarity function.
+        threshold (float): An attribute to store the threshold value for the secondary similarity function.
+    
+    Note:
+        Currently, this measure is implemented without dampening. This is similar to setting dampen flag to be False in TF-IDF.
+        We plan to add the dampen flag in the next release.    
     """
+
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,
                  threshold=0.5):
         self.__corpus_list = corpus_list
@@ -33,14 +40,13 @@ class SoftTfIdf(HybridSimilarityMeasure):
         super(SoftTfIdf, self).__init__()
 
     def get_raw_score(self, bag1, bag2):
-        """
-        Compute Soft TF-IDF measure between two lists given the corpus information.
+        """Computes the raw soft TF/IDF score between two lists given the corpus information.
 
         Args:
             bag1,bag2 (list): Input lists
 
         Returns:
-            Soft TF-IDF measure between the input lists (float)
+            Soft TF/IDF score between the input lists (float).
 
         Raises:
             TypeError : If the inputs are not lists or if one of the inputs is None.
@@ -60,8 +66,9 @@ class SoftTfIdf(HybridSimilarityMeasure):
             0.81649658092772592
 
         References:
-            * Principles of Data Integration book
+            * the string matching chapter of the "Principles of Data Integration" book.
         """
+        
         # input validations
         utils.sim_check_for_none(bag1, bag2)
         utils.sim_check_for_list_or_set_inputs(bag1, bag2)
@@ -129,45 +136,40 @@ class SoftTfIdf(HybridSimilarityMeasure):
         return result if v_x_2 == 0 else result / (sqrt(v_x_2) * sqrt(v_y_2))
 
     def get_corpus_list(self):
-        """
-        Get corpus list
+        """Get corpus list.
 
         Returns:
-            corpus list (list of lists)
+            corpus list (list of lists).
         """
         return self.__corpus_list
 
     def get_sim_func(self):
-        """
-        Get secondary similarity function
+        """Get secondary similarity function.
 
         Returns:
-            secondary similarity function (function)
+            secondary similarity function (function).
         """
         return self.sim_func
 
     def get_threshold(self):
-        """
-        Get threshold used for the secondary similarity function
+        """Get threshold used for the secondary similarity function.
 
         Returns:
-            threshold (float)
+            threshold (float).
         """
         return self.threshold
 
     def set_threshold(self, threshold):
-        """
-        Set threshold value for the secondary similarity function
+        """Set threshold value for the secondary similarity function.
 
         Args:
-            threshold (float): threshold value
+            threshold (float): threshold value.
         """
         self.threshold = threshold
         return True
 
     def set_sim_func(self, sim_func):
-        """
-        Set secondary similarity function
+        """Set secondary similarity function.
 
         Args:
             sim_func (function): Secondary similarity function.
@@ -176,11 +178,10 @@ class SoftTfIdf(HybridSimilarityMeasure):
         return True
 
     def set_corpus_list(self, corpus_list):
-        """
-        Set corpus list
+        """Set corpus list.
 
         Args:
-            corpus_list (list of lists): Corpus list
+            corpus_list (list of lists): Corpus list.
         """
         self.__corpus_list = corpus_list
         self.__document_frequency = {}

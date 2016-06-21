@@ -1,5 +1,3 @@
-"""Alphanumeric tokenizer"""
-
 import re
 
 from py_stringmatching import utils
@@ -7,30 +5,31 @@ from py_stringmatching.tokenizer.definition_tokenizer import DefinitionTokenizer
 
 
 class AlphanumericTokenizer(DefinitionTokenizer):
-    """Alphanumeric tokenizer class.
+    """Returns tokens that are maximal sequences of consecutive alphanumeric characters. 
 
-    Parameters:
-        return_set (boolean): flag to indicate whether to return a set of
-                              tokens. (defaults to False) 
+    Args:
+        return_set (boolean): A flag to indicate whether to return a set of
+                              tokens instead of a bag of tokens (defaults to False).
+                              
+    Attributes: 
+        return_set (boolean): An attribute to store the value of the flag return_set.
     """
+    
     def __init__(self, return_set=False):
-        self.alnum_regex = re.compile('[a-zA-Z0-9]+')
+        self.__alnum_regex = re.compile('[a-zA-Z0-9]+')
         super(AlphanumericTokenizer, self).__init__(return_set)
 
     def tokenize(self, input_string):
-        """
-        Tokenizes input string into alphanumeric tokens.
-
-        An alphanumeric token is defined as consecutive sequence of alphanumeric characters.
+        """Tokenizes input string into alphanumeric tokens.
 
         Args:
-            input_string (str): Input string
+            input_string (str): The string to be tokenized.
 
         Returns:
-            Token list (list)
+            A Python list, which represents a set of tokens if the flag return_set is true, and a bag of tokens otherwise. 
 
         Raises:
-            TypeError : If the input is not a string
+            TypeError : If the input is not a string.
 
         Examples:
             >>> alnum_tok = AlphanumericTokenizer()
@@ -46,7 +45,8 @@ class AlphanumericTokenizer(DefinitionTokenizer):
         utils.tok_check_for_none(input_string)
         utils.tok_check_for_string_input(input_string)
 
-        token_list = list(filter(None, self.alnum_regex.findall(input_string)))
+        token_list = list(filter(None,
+                                 self.__alnum_regex.findall(input_string)))
 
         if self.return_set:
             return utils.convert_bag_to_set(token_list)

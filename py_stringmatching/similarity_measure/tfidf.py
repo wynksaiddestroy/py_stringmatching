@@ -1,5 +1,3 @@
-"""Tf-Idf similarity measure"""
-
 from __future__ import division
 from math import log, sqrt
 import collections
@@ -10,13 +8,23 @@ from py_stringmatching.similarity_measure.token_similarity_measure import \
 
 
 class TfIdf(TokenSimilarityMeasure):
-    """Tf-Idf similarity measure class.
+    """Computes TF/IDF measure.
 
-    Parameters:
-        corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
-                                     the input list are considered the only corpus.
-        dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.
+    This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
+    find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
+    is that two strings are similar if they share distinguishing terms. See the string matching chapter in the book "Principles of Data Integration"
+    
+    Note:
+        Currently when you create a TF/IDF similarity measure object, the dampen flag is set to False by default. In most cases, you will want to set this flag to True, so that the TF and IDF formulas use logarithmic. So when creating this object, consider setting the flag to True. This will likely be fixed in the next release. 
+
+    Args:
+        corpus_list (list of lists): The corpus that will be used to compute TF and IDF values. This corpus is a list of strings, where each string has been tokenized into a list of tokens (that is, a bag of tokens). The default is set to None. In this case, when we call this TF/IDF measure on two input strings (using get_raw_score or get_sim_score), the corpus is taken to be the list of those two strings. 
+        dampen (boolean): Flag to indicate whether 'log' should be used in TF and IDF formulas. In general this flag should be set to True. 
+
+    Attributes:
+        dampen (boolean): An attribute to store the dampen flag.
     """
+
     def __init__(self, corpus_list=None, dampen=False):
         self.__corpus_list = corpus_list
         self.__document_frequency = {}
@@ -27,24 +35,21 @@ class TfIdf(TokenSimilarityMeasure):
         super(TfIdf, self).__init__()
 
     def get_raw_score(self, bag1, bag2):
-        """
-        Compute TF-IDF measure between two lists given the corpus information.
-
-        This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
-        find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
-        is that two strings are similar if they share distinguishing terms.
+        """Computes the raw TF/IDF score between two lists.
 
         Args:
-            bag1,bag2 (list): Input lists
+            bag1,bag2 (list): Input lists.
 
         Returns:
-            TF-IDF measure between the input lists (float)
+            TF/IDF score between the input lists (float).
 
         Raises:
-            TypeError : If the inputs are not lists or if one of the inputs is None
+            TypeError : If the inputs are not lists or if one of the inputs is None.
 
         Examples:
             
+            >>> # here the corpus is a list of three strings that 
+            >>> # have been tokenized into three lists of tokens
             >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
             >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'c'])
             0.17541160386140586
@@ -109,21 +114,16 @@ class TfIdf(TokenSimilarityMeasure):
         return 0.0 if v_x_y == 0 else v_x_y / (sqrt(v_x_2) * sqrt(v_y_2))
 
     def get_sim_score(self, bag1, bag2):
-        """
-        Compute normalized TF-IDF similarity between two lists given the corpus information.
-
-        This measure employs the notion of TF/IDF score commonly used in information retrieval (IR) to
-        find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
-        is that two strings are similar if they share distinguishing terms.
+        """Computes the normalized TF/IDF similarity score between two lists. Simply call get_raw_score.
 
         Args:
-            bag1,bag2 (list): Input lists
+            bag1,bag2 (list): Input lists.
 
         Returns:
-            Normalized TF-IDF similarity between the input lists (float)
+            Normalized TF/IDF similarity score between the input lists (float).
 
         Raises:
-            TypeError : If the inputs are not lists or if one of the inputs is None
+            TypeError : If the inputs are not lists or if one of the inputs is None.
 
         Examples:
             
@@ -148,39 +148,35 @@ class TfIdf(TokenSimilarityMeasure):
         return self.get_raw_score(bag1, bag2)
 
     def get_dampen(self):
-        """
-        Get dampen flag
+        """Get dampen flag.
 
         Returns:
-            dampen flag (boolean)
+            dampen flag (boolean).
         """
         return self.dampen
 
     def get_corpus_list(self):
-        """
-        Get corpus list
+        """Get corpus list.
 
         Returns:
-            corpus list (list of lists)
+            corpus list (list of lists).
         """
         return self.__corpus_list
 
     def set_dampen(self, dampen):
-        """
-        Set dampen flag
+        """Set dampen flag.
 
         Args:
-            dampen (boolean): Flag to indicate whether 'log' should be applied to tf and idf measure.
+            dampen (boolean): Flag to indicate whether 'log' should be applied to TF and IDF formulas.
         """
         self.dampen = dampen
         return True
 
     def set_corpus_list(self, corpus_list):
-        """
-        Set corpus list
+        """Set corpus list.
 
         Args:
-            corpus_list (list of lists): Corpus list
+            corpus_list (list of lists): Corpus list.
         """
         self.__corpus_list = corpus_list
         self.__document_frequency = {}

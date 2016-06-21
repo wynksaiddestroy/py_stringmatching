@@ -1,0 +1,6 @@
+v0.1.0 - 06/14/2016
+  * Initial release. 
+  * Contains 5 tokenizers - Alphabetic tokenizer, Alphanumeric tokenizer, Delimiter tokenizer, Qgram tokenizer and
+    Whitespace tokenizer.
+  * Contains 14 similarity measures - Affine, Cosine, Dice, Hamming distance, Jaccard, Jaro, Jaro-Winkler, 
+    Levenshtein, Monge-Elkan, Needleman-Wunsch, Overlap coefficient, Smith-Waterman, Soft TF-IDF, and TF-IDF.

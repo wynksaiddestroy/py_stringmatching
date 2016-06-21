@@ -1,5 +1,3 @@
-"""Hamming distance measure"""
-
 from __future__ import division
 
 from py_stringmatching import utils
@@ -8,28 +6,28 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 
 
 class HammingDistance(SequenceSimilarityMeasure):
-    """Hamming distance measure class.
+    """Computes Hamming distance.
+
+    The Hamming distance between two strings of equal length is the number of positions at which the corresponding
+    symbols are different. Thus, it measures the minimum number of substitutions required to change
+    one string into the other, or the minimum number of errors that could have transformed one string into the other.
     """
+
     def __init__(self):
         super(HammingDistance, self).__init__()
 
     def get_raw_score(self, string1, string2):
-        """
-        Computes the Hamming distance between two strings.
-
-        The Hamming distance between two strings of equal length is the number of positions at which the corresponding
-        symbols are different. In another way, it measures the minimum number of substitutions required to change
-        one string into the other, or the minimum number of errors that could have transformed one string into the other.
+        """Computes the raw hamming distance between two strings.
 
         Args:
-            string1,string2 (str): Input strings
+            string1,string2 (str): Input strings.
 
         Returns:
-            Hamming distance (int)
+            Hamming distance (int).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.
-            ValueError : If the input strings are not of same length
+            ValueError : If the input strings are not of same length.
 
         Examples:
             >>> hd = HammingDistance()
@@ -42,6 +40,7 @@ class HammingDistance(SequenceSimilarityMeasure):
             >>> hd.get_raw_score('JOHN', 'john')
             4
         """
+        
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.tok_check_for_string_input(string1, string2)
@@ -54,18 +53,17 @@ class HammingDistance(SequenceSimilarityMeasure):
         return sum(bool(ord(c1) - ord(c2)) for c1, c2 in zip(string1, string2))
 
     def get_sim_score(self, string1, string2):
-        """
-        Computes the normalized hamming similarity between two strings.
+        """Computes the normalized Hamming similarity score between two strings.
 
         Args:
-            string1,string2 (str): Input strings
+            string1,string2 (str): Input strings.
 
         Returns:
-            Normalized hamming similarity (float)
+            Normalized Hamming similarity score (float).
 
         Raises:
             TypeError : If the inputs are not strings or if one of the inputs is None.
-            ValueError : If the input strings are not of same length
+            ValueError : If the input strings are not of same length.
 
         Examples:
             >>> hd = HammingDistance()
@@ -78,6 +76,7 @@ class HammingDistance(SequenceSimilarityMeasure):
             >>> hd.get_sim_score('JOHN', 'john')
             0.0
         """
+        
         raw_score = self.get_raw_score(string1, string2)
         common_len = len(string1)
         if common_len == 0:
