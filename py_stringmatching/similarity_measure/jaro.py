@@ -45,6 +45,10 @@ class Jaro(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
+        # convert input strings to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         len_s1 = len(string1)
         len_s2 = len(string2)
 

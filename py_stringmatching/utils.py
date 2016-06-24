@@ -73,4 +73,10 @@ def convert_bag_to_set(input_list):
         if seen_tokens.get(token) == None:
             output_set.append(token)
             seen_tokens[token] = True
-    return output_set 
+    return output_set
+
+
+def convert_to_unicode(input_string):
+    if isinstance(input_string, bytes):
+        return input_string.decode('utf-8')
+    return input_string 

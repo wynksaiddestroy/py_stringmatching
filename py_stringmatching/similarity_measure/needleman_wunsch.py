@@ -64,6 +64,10 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
 
+        # convert input strings to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         dist_mat = np.zeros((len(string1) + 1, len(string2) + 1),
                             dtype=np.float)
 

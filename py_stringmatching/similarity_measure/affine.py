@@ -65,6 +65,10 @@ class Affine(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
+        # convert input strings to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         gap_start = -self.gap_start
         gap_continuation = -self.gap_continuation
         m = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
