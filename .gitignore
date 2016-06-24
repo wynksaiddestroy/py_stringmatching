@@ -73,3 +73,6 @@ results/
 
 # Project specific
 cythonize.dat
+
+garage/
+cover/

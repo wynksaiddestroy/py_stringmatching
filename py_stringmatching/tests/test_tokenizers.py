@@ -12,10 +12,16 @@ from py_stringmatching.tokenizer.whitespace_tokenizer import WhitespaceTokenizer
 
 class QgramTokenizerTestCases(unittest.TestCase):
     def setUp(self):
-        self.qg1_tok = QgramTokenizer(1)
-        self.qg2_tok = QgramTokenizer()
-        self.qg2_tok_return_set = QgramTokenizer(return_set=True)
-        self.qg3_tok = QgramTokenizer(3)
+        self.qg1_tok = QgramTokenizer(qval=1, padding=False)
+        self.qg2_tok = QgramTokenizer(padding=False)
+        self.qg2_tok_return_set = QgramTokenizer(padding=False,return_set=True)
+        self.qg3_tok = QgramTokenizer(qval=3, padding=False)
+        self.qg1_tok_wipad = QgramTokenizer(qval=1)
+        self.qg2_tok_wipad = QgramTokenizer()
+        self.qg2_tok_wipad_return_set = QgramTokenizer(return_set=True)
+        self.qg3_tok_wipad = QgramTokenizer(qval=3)
+        self.qg3_tok_wipad_diffpad = QgramTokenizer(qval=3,prefix_pad='^',
+                                                    suffix_pad='!')
 
     def test_qgrams_valid(self):
         self.assertEqual(self.qg2_tok.tokenize(''), [])
@@ -31,16 +37,39 @@ class QgramTokenizerTestCases(unittest.TestCase):
         self.assertEqual(self.qg3_tok.tokenize('database'),
                          ['dat', 'ata', 'tab', 'aba', 'bas', 'ase'])
 
+        self.assertEqual(self.qg2_tok_wipad.tokenize(''), ['#$'])
+        self.assertEqual(self.qg2_tok_wipad.tokenize('a'), ['#a', 'a$'])
+        self.assertEqual(self.qg2_tok_wipad.tokenize('aa'), ['#a', 'aa', 'a$'])
+        self.assertEqual(self.qg2_tok_wipad.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+        self.assertEqual(self.qg2_tok_wipad.tokenize('aabaabcdba'),
+                         ['#a', 'aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba', 'a$'])
+        self.assertEqual(self.qg2_tok_wipad_return_set.tokenize('aabaabcdba'),
+                         ['#a', 'aa', 'ab', 'ba', 'bc', 'cd', 'db', 'a$'])
+        self.assertEqual(self.qg1_tok_wipad.tokenize('d'), ['d'])
+        self.assertEqual(self.qg3_tok_wipad.tokenize('database'),
+                         ['##d', '#da', 'dat', 'ata', 'tab', 'aba', 'bas', 'ase', 'se$', 'e$$'])
+
+        self.assertEqual(self.qg3_tok_wipad_diffpad.tokenize('database'),
+                         ['^^d', '^da', 'dat', 'ata', 'tab', 'aba', 'bas',
+                          'ase', 'se!', 'e!!'])
+
     def test_get_return_set(self):
         self.assertEqual(self.qg2_tok.get_return_set(), False)
         self.assertEqual(self.qg2_tok_return_set.get_return_set(), True)
+        self.assertEqual(self.qg2_tok_wipad.get_return_set(), False)
+        self.assertEqual(self.qg2_tok_wipad_return_set.get_return_set(), True)
+
 
     def test_get_qval(self):
         self.assertEqual(self.qg2_tok.get_qval(), 2)
         self.assertEqual(self.qg3_tok.get_qval(), 3)
+        self.assertEqual(self.qg2_tok_wipad.get_qval(), 2)
+        self.assertEqual(self.qg3_tok_wipad.get_qval(), 3)
+
 
     def test_set_return_set(self):
-        tok = QgramTokenizer()
+        tok = QgramTokenizer(padding=False)
         self.assertEqual(tok.get_return_set(), False)
         self.assertEqual(tok.tokenize('aabaabcdba'),
                          ['aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba'])
@@ -52,9 +81,23 @@ class QgramTokenizerTestCases(unittest.TestCase):
         self.assertEqual(tok.get_return_set(), False)
         self.assertEqual(tok.tokenize('aabaabcdba'),
                          ['aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba'])
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['#a', 'aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba', 'a$'])
+        self.assertEqual(tok.set_return_set(True), True)
+        self.assertEqual(tok.get_return_set(), True)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['#a', 'aa', 'ab', 'ba', 'bc', 'cd', 'db', 'a$'])
+        self.assertEqual(tok.set_return_set(False), True)
+        self.assertEqual(tok.get_return_set(), False)
+        self.assertEqual(tok.tokenize('aabaabcdba'),
+                         ['#a', 'aa', 'ab', 'ba', 'aa', 'ab', 'bc', 'cd', 'db', 'ba', 'a$'])
+
+
 
     def test_set_qval(self):
-        tok = QgramTokenizer()
+        tok = QgramTokenizer(padding=False)
         self.assertEqual(tok.get_qval(), 2)
         self.assertEqual(tok.tokenize('database'),
                          ['da', 'at', 'ta', 'ab', 'ba', 'as', 'se'])
@@ -62,6 +105,16 @@ class QgramTokenizerTestCases(unittest.TestCase):
         self.assertEqual(tok.get_qval(), 3)
         self.assertEqual(tok.tokenize('database'),
                          ['dat', 'ata', 'tab', 'aba', 'bas', 'ase'])
+
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_qval(), 2)
+        self.assertEqual(tok.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+        self.assertEqual(tok.set_qval(3), True)
+        self.assertEqual(tok.get_qval(), 3)
+        self.assertEqual(tok.tokenize('database'),
+                         ['##d', '#da', 'dat', 'ata', 'tab', 'aba', 'bas', 'ase', 'se$', 'e$$'])
+
 
     @raises(TypeError)
     def test_qgrams_none(self):
