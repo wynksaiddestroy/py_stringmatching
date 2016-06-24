@@ -44,7 +44,7 @@ class MongeElkan(HybridSimilarityMeasure):
             0.7866666666666667
             >>> me.get_raw_score(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'], ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'])
             0.8677218614718616
-          >>> me.get_raw_score([''], ['a'])
+            >>> me.get_raw_score([''], ['a'])
             0.0
             >>> me = MongeElkan(sim_func=NeedlemanWunsch().get_raw_score)
             >>> me.get_raw_score(['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'], ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego'])
