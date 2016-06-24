@@ -186,6 +186,7 @@ class QgramTokenizer(DefinitionTokenizer):
         if not len(prefix_pad) == 1:
             raise AssertionError("prefix_pad should have length equal to 1")
         self.prefix_pad = prefix_pad
+        return True
 
     def get_suffix_pad(self):
         """
@@ -196,7 +197,7 @@ class QgramTokenizer(DefinitionTokenizer):
             The suffix pad string.
 
         """
-        return self.prefix_pad
+        return self.suffix_pad
 
     def set_suffix_pad(self, suffix_pad):
         """
@@ -220,3 +221,4 @@ class QgramTokenizer(DefinitionTokenizer):
         if not len(suffix_pad) == 1:
             raise AssertionError("suffix_pad should have length equal to 1")
         self.suffix_pad = suffix_pad
+        return True

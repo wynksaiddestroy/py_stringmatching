@@ -115,6 +115,35 @@ class QgramTokenizerTestCases(unittest.TestCase):
         self.assertEqual(tok.tokenize('database'),
                          ['##d', '#da', 'dat', 'ata', 'tab', 'aba', 'bas', 'ase', 'se$', 'e$$'])
 
+    def test_set_padding(self):
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_padding(), True)
+        self.assertEqual(tok.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+        tok.set_padding(False)
+        self.assertEqual(tok.get_padding(), False)
+        self.assertEqual(tok.tokenize('database'),
+                         ['da', 'at', 'ta', 'ab', 'ba', 'as', 'se'])
+
+    def test_set_prefix_pad(self):
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_prefix_pad(), '#')
+        self.assertEqual(tok.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+        tok.set_prefix_pad('^')
+        self.assertEqual(tok.get_prefix_pad(), '^')
+        self.assertEqual(tok.tokenize('database'),
+                         ['^d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+
+    def test_set_suffix_pad(self):
+        tok = QgramTokenizer()
+        self.assertEqual(tok.get_suffix_pad(), '$')
+        self.assertEqual(tok.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e$'])
+        tok.set_suffix_pad('!')
+        self.assertEqual(tok.get_suffix_pad(), '!')
+        self.assertEqual(tok.tokenize('database'),
+                         ['#d', 'da', 'at', 'ta', 'ab', 'ba', 'as', 'se', 'e!'])
 
     @raises(TypeError)
     def test_qgrams_none(self):
@@ -132,6 +161,51 @@ class QgramTokenizerTestCases(unittest.TestCase):
     def test_set_qval_invalid(self):
         qg_tok = QgramTokenizer()
         qg_tok.set_qval(0)
+
+    @raises(AssertionError)
+    def test_padding_invalid(self):
+        _ = QgramTokenizer(padding=10)
+
+    @raises(AssertionError)
+    def test_set_padding_invalid(self):
+        qg = QgramTokenizer()
+        qg.set_padding(10)
+
+    @raises(AssertionError)
+    def test_prefixpad_invalid1(self):
+        _ = QgramTokenizer(prefix_pad=10)
+
+    @raises(AssertionError)
+    def test_prefixpad_invalid2(self):
+        _ = QgramTokenizer(prefix_pad="###")
+
+    @raises(AssertionError)
+    def test_set_prefix_pad_invalid1(self):
+        qg = QgramTokenizer()
+        qg.set_prefix_pad(10)
+
+    @raises(AssertionError)
+    def test_set_prefix_pad_invalid2(self):
+        qg = QgramTokenizer()
+        qg.set_prefix_pad('###')
+
+    @raises(AssertionError)
+    def test_suffixpad_invalid1(self):
+        _ = QgramTokenizer(suffix_pad=10)
+
+    @raises(AssertionError)
+    def test_suffixpad_invalid2(self):
+        _ = QgramTokenizer(suffix_pad="###")
+
+    @raises(AssertionError)
+    def test_set_suffix_pad_invalid1(self):
+        qg = QgramTokenizer()
+        qg.set_suffix_pad(10)
+
+    @raises(AssertionError)
+    def test_set_suffix_pad_invalid2(self):
+        qg = QgramTokenizer()
+        qg.set_suffix_pad('###')
 
 
 class DelimiterTokenizerTestCases(unittest.TestCase):
