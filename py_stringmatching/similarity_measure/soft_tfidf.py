@@ -83,7 +83,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
 
         # term frequency for input strings
         tf_x, tf_y = collections.Counter(bag1), collections.Counter(bag2)
-         
+        
         # find unique elements in the input lists and their document frequency 
         local_df = {}
         for element in tf_x:

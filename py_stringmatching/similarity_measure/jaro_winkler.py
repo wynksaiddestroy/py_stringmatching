@@ -45,15 +45,16 @@ class JaroWinkler(SequenceSimilarityMeasure):
         
         # input validations
         utils.sim_check_for_none(string1, string2)
+
+        # convert input to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         utils.tok_check_for_string_input(string1, string2)
 
         # if one of the strings is empty return 0
         if utils.sim_check_for_empty(string1, string2):
             return 0
-
-        # convert input strings to unicode.
-        string1 = utils.convert_to_unicode(string1)
-        string2 = utils.convert_to_unicode(string2)
 
         jw_score = Jaro().get_raw_score(string1, string2)
         min_len = min(len(string1), len(string2))

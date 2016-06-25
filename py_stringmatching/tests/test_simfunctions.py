@@ -54,6 +54,7 @@ class AffineTestCases(unittest.TestCase):
     def test_valid_input_non_ascii(self):
         self.assertAlmostEqual(self.affine.get_raw_score(u'dva', u'dáóva'), 1.5)
         self.assertAlmostEqual(self.affine.get_raw_score('dva', 'dáóva'), 1.5)
+        self.assertAlmostEqual(self.affine.get_raw_score('dva', b'd\xc3\xa1\xc3\xb3va'), 1.5)
 
     def test_get_gap_start(self):
         self.assertEqual(self.affine_with_params1.get_gap_start(), 2)
@@ -389,6 +390,9 @@ class JaroTestCases(unittest.TestCase):
                                0.8777777777777779)
         self.assertAlmostEqual(self.jaro.get_raw_score('László', 'Lsáló'),
                                0.8777777777777779)
+        self.assertAlmostEqual(self.jaro.get_raw_score(b'L\xc3\xa1szl\xc3\xb3',
+                                                       b'Ls\xc3\xa1l\xc3\xb3'),
+                               0.8777777777777779)
 
     def test_non_ascii_input_sim_score(self):
         self.assertAlmostEqual(self.jaro.get_sim_score(u'MARTHA', u'MARHTA'),
@@ -396,6 +400,9 @@ class JaroTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.jaro.get_sim_score(u'László', u'Lsáló'),
                                0.8777777777777779)
         self.assertAlmostEqual(self.jaro.get_sim_score('László', 'Lsáló'),
+                               0.8777777777777779)
+        self.assertAlmostEqual(self.jaro.get_sim_score(b'L\xc3\xa1szl\xc3\xb3',
+                                                       b'Ls\xc3\xa1l\xc3\xb3'),
                                0.8777777777777779)
 
     @raises(TypeError)
@@ -484,6 +491,9 @@ class JaroWinklerTestCases(unittest.TestCase):
                                0.8900000000000001)
         self.assertAlmostEqual(self.jw.get_raw_score('László', 'Lsáló'),
                                0.8900000000000001)
+        self.assertAlmostEqual(self.jw.get_raw_score(b'L\xc3\xa1szl\xc3\xb3',
+                                                     b'Ls\xc3\xa1l\xc3\xb3'),
+                               0.8900000000000001)
 
     def test_non_ascii_input_sim_score(self):
         self.assertAlmostEqual(self.jw.get_sim_score(u'MARTHA', u'MARHTA'),
@@ -491,6 +501,9 @@ class JaroWinklerTestCases(unittest.TestCase):
         self.assertAlmostEqual(self.jw.get_sim_score(u'László', u'Lsáló'),
                                0.8900000000000001)
         self.assertAlmostEqual(self.jw.get_sim_score('László', 'Lsáló'),
+                               0.8900000000000001)
+        self.assertAlmostEqual(self.jw.get_sim_score(b'L\xc3\xa1szl\xc3\xb3',
+                                                     b'Ls\xc3\xa1l\xc3\xb3'),
                                0.8900000000000001)
 
     @raises(TypeError)
@@ -602,12 +615,14 @@ class LevenshteinTestCases(unittest.TestCase):
         self.assertEqual(self.lev.get_sim_score('java was neat', 'scala is great'), 1.0 - (7.0/14.0))
 
     def test_valid_input_non_ascii_raw_score(self):
-        self.assertEqual(self.lev.get_raw_score('ác', 'ábc'), 1)
-        self.assertEqual(self.lev.get_raw_score(u'ác', u'ábc'), 1)
+        self.assertEqual(self.lev.get_raw_score('ác', 'áóc'), 1)
+        self.assertEqual(self.lev.get_raw_score(u'ác', u'áóc'), 1)
+        self.assertEqual(self.lev.get_raw_score(b'\xc3\xa1c', b'\xc3\xa1\xc3\xb3c'), 1)
 
     def test_valid_input_non_ascii_sim_score(self):
-        self.assertEqual(self.lev.get_sim_score('ác', 'ábc'), 1.0 - (1.0/3.0))
-        self.assertEqual(self.lev.get_sim_score(u'ác', u'ábc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score('ác', 'áóc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score(u'ác', u'áóc'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.lev.get_sim_score(b'\xc3\xa1c', b'\xc3\xa1\xc3\xb3c'), 1.0 - (1.0/3.0))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -695,10 +710,16 @@ class HammingDistanceTestCases(unittest.TestCase):
     def test_valid_input_non_ascii_raw_score(self):
         self.assertEqual(self.hd.get_raw_score(u'ábó', u'áóó'), 1)
         self.assertEqual(self.hd.get_raw_score('ábó', 'áóó'), 1)
+        self.assertEqual(self.hd.get_raw_score(b'\xc3\xa1b\xc3\xb3',
+                                               b'\xc3\xa1\xc3\xb3\xc3\xb3'),
+                         1)
 
     def test_valid_input_non_ascii_sim_score(self):
         self.assertEqual(self.hd.get_sim_score(u'ábó', u'áóó'), 1.0 - (1.0/3.0))
         self.assertEqual(self.hd.get_sim_score('ábó', 'áóó'), 1.0 - (1.0/3.0))
+        self.assertEqual(self.hd.get_sim_score(b'\xc3\xa1b\xc3\xb3',
+                                               b'\xc3\xa1\xc3\xb3\xc3\xb3'),
+                         1.0 - (1.0/3.0))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -817,6 +838,7 @@ class NeedlemanWunschTestCases(unittest.TestCase):
     def test_valid_input_non_ascii(self):
         self.assertEqual(self.nw.get_raw_score(u'dva', u'dáóva'), 1.0)
         self.assertEqual(self.nw.get_raw_score('dva', 'dáóva'), 1.0)
+        self.assertEqual(self.nw.get_raw_score('dva', b'd\xc3\xa1\xc3\xb3va'), 1.0)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -891,6 +913,8 @@ class SmithWatermanTestCases(unittest.TestCase):
     def test_valid_input_non_ascii(self):
         self.assertEqual(self.sw.get_raw_score(u'óát', u'cát'), 2.0)
         self.assertEqual(self.sw.get_raw_score('óát', 'cát'), 2.0)
+        self.assertEqual(self.sw.get_raw_score(b'\xc3\xb3\xc3\xa1t', b'c\xc3\xa1t'), 
+                         2.0)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -1349,10 +1373,14 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
     def test_valid_input_non_ascii_raw_score(self):
         self.assertEqual(self.gen_jac.get_raw_score([u'Nóáll'], [u'Neál']), 0.7833333333333333)
         self.assertEqual(self.gen_jac.get_raw_score(['Nóáll'], ['Neál']), 0.7833333333333333)
+        self.assertEqual(self.gen_jac.get_raw_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),
+                         0.7833333333333333)
 
     def test_valid_input_non_ascii_sim_score(self):
         self.assertEqual(self.gen_jac.get_sim_score([u'Nóáll'], [u'Neál']), 0.7833333333333333)
         self.assertEqual(self.gen_jac.get_sim_score(['Nóáll'], ['Neál']), 0.7833333333333333)
+        self.assertEqual(self.gen_jac.get_sim_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),
+                         0.7833333333333333)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -1951,6 +1979,8 @@ class MongeElkanTestCases(unittest.TestCase):
     def test_valid_input_non_ascii(self):
         self.assertEqual(self.me.get_raw_score([u'Nóáll'], [u'Neál']), 0.8049999999999999)
         self.assertEqual(self.me.get_raw_score(['Nóáll'], ['Neál']), 0.8049999999999999)
+        self.assertEqual(self.me.get_raw_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),
+                         0.8049999999999999)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):

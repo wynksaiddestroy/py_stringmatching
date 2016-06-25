@@ -41,13 +41,15 @@ class Levenshtein(SequenceSimilarityMeasure):
         
         # input validations
         utils.sim_check_for_none(string1, string2)
-        utils.sim_check_for_string_inputs(string1, string2)
-        if utils.sim_check_for_exact_match(string1, string2):
-            return 0.0
 
-        # convert input strings to unicode.
+        # convert input to unicode.
         string1 = utils.convert_to_unicode(string1)
         string2 = utils.convert_to_unicode(string2)
+
+        utils.tok_check_for_string_input(string1, string2)
+
+        if utils.sim_check_for_exact_match(string1, string2):
+            return 0.0
 
         return levenshtein(string1, string2)
 

@@ -43,11 +43,12 @@ class HammingDistance(SequenceSimilarityMeasure):
         
         # input validations
         utils.sim_check_for_none(string1, string2)
-        utils.tok_check_for_string_input(string1, string2)
 
-        # convert input strings to unicode.
+        # convert input to unicode.
         string1 = utils.convert_to_unicode(string1)
         string2 = utils.convert_to_unicode(string2)
+
+        utils.tok_check_for_string_input(string1, string2)
 
         # for Hamming Distance string length should be same
         utils.sim_check_for_same_len(string1, string2)
@@ -81,7 +82,7 @@ class HammingDistance(SequenceSimilarityMeasure):
             0.0
         """
 
-        # convert input strings to unicode.
+        # convert input to unicode.
         string1 = utils.convert_to_unicode(string1)
         string2 = utils.convert_to_unicode(string2)
         
