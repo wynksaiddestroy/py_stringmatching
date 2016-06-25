@@ -77,6 +77,7 @@ def convert_bag_to_set(input_list):
 
 
 def convert_to_unicode(input_string):
+    """Convert input string to unicode."""
     if isinstance(input_string, bytes):
         return input_string.decode('utf-8')
     return input_string 
