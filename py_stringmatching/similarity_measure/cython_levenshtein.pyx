@@ -25,13 +25,10 @@ cdef inline int int_min(int a, int b, int c):
         return c
 
 
-def levenshtein(object string1, object string2):
+def levenshtein(unicode string1, unicode string2):
 
-    cdef bytes bytes_s1 = string1.encode("UTF-8")
-    cdef bytes bytes_s2 = string2.encode("UTF-8")
-
-    cdef int len_str1 = len(bytes_s1)
-    cdef int len_str2 = len(bytes_s2)
+    cdef int len_str1 = len(string1)
+    cdef int len_str2 = len(string2)
 
     cdef int ins_cost = 1
     cdef int del_cost = 1
@@ -59,9 +56,9 @@ def levenshtein(object string1, object string2):
     cdef unsigned char rchar = 0
 
     for i from 0 <= i < (len_str1):
-        lchar = bytes_s1[i]
+        lchar = string1[i]
         for j from 0 <= j < (len_str2):
-            rchar = bytes_s2[j]
+            rchar = string2[j]
 
             d_mat[i+1,j+1] = int_min(d_mat[i + 1, j] + ins_cost,d_mat[i, j + 1] + del_cost,d_mat[i, j]
                                         + (sub_cost if lchar != rchar else 0))

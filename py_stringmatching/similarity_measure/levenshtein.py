@@ -41,9 +41,16 @@ class Levenshtein(SequenceSimilarityMeasure):
         
         # input validations
         utils.sim_check_for_none(string1, string2)
-        utils.sim_check_for_string_inputs(string1, string2)
+
+        # convert input to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
+        utils.tok_check_for_string_input(string1, string2)
+
         if utils.sim_check_for_exact_match(string1, string2):
             return 0.0
+
         return levenshtein(string1, string2)
 
     def get_sim_score(self, string1, string2):
@@ -68,6 +75,11 @@ class Levenshtein(SequenceSimilarityMeasure):
             0.5
 
         """
+
+        # convert input strings to unicode.
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         raw_score = self.get_raw_score(string1, string2)
         max_len = max(len(string1), len(string2))
         if max_len == 0:
