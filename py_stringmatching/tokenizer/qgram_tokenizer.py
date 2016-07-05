@@ -183,7 +183,7 @@ class QgramTokenizer(DefinitionTokenizer):
 
         Args:
             prefix_pad (str): String that should be prepended to the
-            input string before tokenization.
+                input string before tokenization.
 
         Returns:
             The boolean value of True is returned if the update was
@@ -214,11 +214,11 @@ class QgramTokenizer(DefinitionTokenizer):
 
     def set_suffix_pad(self, suffix_pad):
         """
-        Sets the value of the prefix pad string.
+        Sets the value of the suffix pad string.
 
         Args:
             suffix_pad (str): String that should be appended to the
-            input string before tokenization.
+                input string before tokenization.
 
         Returns:
             The boolean value of True is returned if the update was
