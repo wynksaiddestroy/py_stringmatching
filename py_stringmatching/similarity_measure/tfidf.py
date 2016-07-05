@@ -14,18 +14,15 @@ class TfIdf(TokenSimilarityMeasure):
     find documents that are relevant to keyword queries. The intuition underlying the TF/IDF measure
     is that two strings are similar if they share distinguishing terms. See the string matching chapter in the book "Principles of Data Integration"
     
-    Note:
-        Currently when you create a TF/IDF similarity measure object, the dampen flag is set to False by default. In most cases, you will want to set this flag to True, so that the TF and IDF formulas use logarithmic. So when creating this object, consider setting the flag to True. This will likely be fixed in the next release. 
-
     Args:
         corpus_list (list of lists): The corpus that will be used to compute TF and IDF values. This corpus is a list of strings, where each string has been tokenized into a list of tokens (that is, a bag of tokens). The default is set to None. In this case, when we call this TF/IDF measure on two input strings (using get_raw_score or get_sim_score), the corpus is taken to be the list of those two strings. 
-        dampen (boolean): Flag to indicate whether 'log' should be used in TF and IDF formulas. In general this flag should be set to True. 
+        dampen (boolean): Flag to indicate whether 'log' should be used in TF and IDF formulas (defaults to True). 
 
     Attributes:
         dampen (boolean): An attribute to store the dampen flag.
     """
 
-    def __init__(self, corpus_list=None, dampen=False):
+    def __init__(self, corpus_list=None, dampen=True):
         self.__corpus_list = corpus_list
         self.__document_frequency = {}
         self.__compute_document_frequency()
@@ -51,22 +48,22 @@ class TfIdf(TokenSimilarityMeasure):
             >>> # here the corpus is a list of three strings that 
             >>> # have been tokenized into three lists of tokens
             >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
-            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'c'])
-            0.17541160386140586
+            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['b', 'c'])
+            0.7071067811865475
             >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a'])
-            0.5547001962252291
-            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True)
-            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'c'])
-            0.11166746710505392
+            0.0
             >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']])
             >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a'])
             0.0
-            >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']], True)
-            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a'])
-            0.0
-            >>> tfidf = TfIdf()
+            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], False)
+            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'c'])
+            0.25298221281347033
+            >>> tfidf = TfIdf(dampen=False)
             >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a'])
             0.7071067811865475
+            >>> tfidf = TfIdf()
+            >>> tfidf.get_raw_score(['a', 'b', 'a'], ['a'])
+            0.0
         """
         # input validations
         utils.sim_check_for_none(bag1, bag2)
@@ -126,24 +123,26 @@ class TfIdf(TokenSimilarityMeasure):
             TypeError : If the inputs are not lists or if one of the inputs is None.
 
         Examples:
-            
+
+            >>> # here the corpus is a list of three strings that 
+            >>> # have been tokenized into three lists of tokens
             >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a']])
-            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
-            0.17541160386140586
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['b', 'c'])
+            0.7071067811865475
             >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
-            0.5547001962252291
-            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], True)
-            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
-            0.11166746710505392
+            0.0
             >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']])
             >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
             0.0
-            >>> tfidf = TfIdf([['x', 'y'], ['w'], ['q']], True)
-            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
-            0.0
-            >>> tfidf = TfIdf()
+            >>> tfidf = TfIdf([['a', 'b', 'a'], ['a', 'c'], ['a'], ['b']], False)
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'c'])
+            0.25298221281347033
+            >>> tfidf = TfIdf(dampen=False)
             >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
             0.7071067811865475
+            >>> tfidf = TfIdf()
+            >>> tfidf.get_sim_score(['a', 'b', 'a'], ['a'])
+            0.0            
         """
         return self.get_raw_score(bag1, bag2)
 

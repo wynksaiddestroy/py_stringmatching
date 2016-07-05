@@ -1559,10 +1559,10 @@ class TfidfTestCases(unittest.TestCase):
         corpus2 = [['a', 'b', 'a'], ['a', 'c'], ['a'], ['b'], ['c', 'a', 'b']]
         tfidf = TfIdf(corpus_list=corpus1)
         self.assertEqual(tfidf.get_corpus_list(), corpus1)
-        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7999999999999999)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.5495722661728765)
         self.assertEqual(tfidf.set_corpus_list(corpus2), True)
         self.assertEqual(tfidf.get_corpus_list(), corpus2)
-        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.8320502943378437)
+        self.assertAlmostEqual(tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.5692378887901467)
 
     def test_set_dampen(self):
         tfidf = TfIdf(self.corpus, dampen=False)
@@ -1576,12 +1576,12 @@ class TfidfTestCases(unittest.TestCase):
         self.assertEqual(self.tfidf_with_params1.get_raw_score(['a', 'b', 'a'], ['a', 'c']),
                          0.11166746710505392)
         self.assertEqual(self.tfidf_with_params2.get_raw_score(['a', 'b', 'a'], ['a', 'c']),
-                         0.17541160386140586)
+                         0.0)
         self.assertEqual(self.tfidf_with_params2.get_raw_score(['a', 'b', 'a'], ['a']),
-                         0.5547001962252291)
-        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+                         0.0)
+        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.0)
         self.assertEqual(self.tfidf_with_params3.get_raw_score(['a', 'b', 'a'], ['a']), 0.0)
-        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a']), 0.0)
         self.assertEqual(self.tfidf.get_raw_score(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
         self.assertEqual(self.tfidf.get_raw_score([], ['a', 'b', 'a']), 0.0)
 
@@ -1589,12 +1589,12 @@ class TfidfTestCases(unittest.TestCase):
         self.assertEqual(self.tfidf_with_params1.get_sim_score(['a', 'b', 'a'], ['a', 'c']),
                          0.11166746710505392)
         self.assertEqual(self.tfidf_with_params2.get_sim_score(['a', 'b', 'a'], ['a', 'c']),
-                         0.17541160386140586)
+                         0.0)
         self.assertEqual(self.tfidf_with_params2.get_sim_score(['a', 'b', 'a'], ['a']),
-                         0.5547001962252291)
-        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+                         0.0)
+        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.0)
         self.assertEqual(self.tfidf_with_params3.get_sim_score(['a', 'b', 'a'], ['a']), 0.0)
-        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.7071067811865475)
+        self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a']), 0.0)
         self.assertEqual(self.tfidf.get_sim_score(['a', 'b', 'a'], ['a', 'b', 'a']), 1.0)
         self.assertEqual(self.tfidf.get_sim_score([], ['a', 'b', 'a']), 0.0)
 
