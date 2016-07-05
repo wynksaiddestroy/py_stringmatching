@@ -1,3 +1,8 @@
+v0.2.0 - 07/06/2016
+  * Added prefix and suffix padding support for QgramTokenizer.
+  * Fixed string based measures to handle unicode inputs.
+  * Updated the default value for dampen flag in TfIdf to True.
+
 v0.1.0 - 06/14/2016
   * Initial release. 
   * Contains 5 tokenizers - Alphabetic tokenizer, Alphanumeric tokenizer, Delimiter tokenizer, Qgram tokenizer and
