@@ -11,6 +11,8 @@ class OverlapCoefficient(TokenSimilarityMeasure):
     the smaller of the size of the two sets. For two sets X and Y, the overlap coefficient is:
 
         :math:`overlap\\_coefficient(X, Y) = \\frac{|X \\cap Y|}{\\min(|X|, |Y|)}`
+        
+    NOTE: Paul and Pradap, pls add
     """
 
     def __init__(self):
