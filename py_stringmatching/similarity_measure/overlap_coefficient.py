@@ -12,7 +12,9 @@ class OverlapCoefficient(TokenSimilarityMeasure):
 
         :math:`overlap\\_coefficient(X, Y) = \\frac{|X \\cap Y|}{\\min(|X|, |Y|)}`
         
-    NOTE: Paul and Pradap, pls add
+    Note:
+        * In the case where either X or Y is an empty set, we define their overlap coefficient to be 0.
+        * In the case where both X and Y are empty sets, we define their overlap coefficient to be 1. 
     """
 
     def __init__(self):
