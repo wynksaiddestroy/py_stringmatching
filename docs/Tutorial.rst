@@ -162,9 +162,9 @@ Instead, you should tokenize all strings in tables A and B only once, store the 
 
 Handling Missing Values
 ------------------------
-By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). For example, given a row "David,,36" in a CSV file, the value of the second cell of this row is missing. So when this file is read into a data frame, the corresponding cell in the data frame will have the value NaN. 
+By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). For example, given a row "David,,36" in a CSV file, the value of the second cell of this row is missing. So when this file is read into a data frame, the corresponding cell in the data frame will have the value NaN. Note that missing values are different from empty string values, which are represented as "". 
 
-Handling missing values are tricky and application dependent (see the Developer Manual for a detailed discussion). For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.
+Handling missing values is tricky and application dependent (see the Developer Manual for a detailed discussion). For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.
 
 Adding Prefix and Suffix to the Input String for Qgram Tokenizers
 -----------------------------------------------------------------
