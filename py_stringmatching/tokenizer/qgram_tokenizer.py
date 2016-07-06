@@ -139,7 +139,7 @@ class QgramTokenizer(DefinitionTokenizer):
         padding should be done for the input strings or not.
 
         Returns:
-            The boolean value of the padding flag.
+            The Boolean value of the padding flag.
 
         """
         return self.padding
@@ -153,7 +153,7 @@ class QgramTokenizer(DefinitionTokenizer):
                 done or not.
 
         Returns:
-            The boolean value of True is returned if the update was
+            The Boolean value of True is returned if the update was
             successful.
 
         Raises:
@@ -185,7 +185,7 @@ class QgramTokenizer(DefinitionTokenizer):
                 input string before tokenization.
 
         Returns:
-            The boolean value of True is returned if the update was
+            The Boolean value of True is returned if the update was
             successful.
 
         Raises:
