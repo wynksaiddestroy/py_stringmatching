@@ -11,6 +11,8 @@ class Cosine(TokenSimilarityMeasure):
     This is not the cosine measure that computes the cosine of the angle between two given vectors. Rather, it computes a variant of cosine measure known as Ochiai coefficient (see the Wikipedia page "Cosine Similarity"). Specifically, for two sets X and Y, this measure computes:
 
         :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
+        
+     NOTE: Paul and Pradap, please add some text here. 
     """
 
     def __init__(self):
