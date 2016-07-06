@@ -15,13 +15,13 @@ class QgramTokenizer(DefinitionTokenizer):
         qval (int): A value for q, that is, the qgram's length (defaults to 2).
         return_set (boolean): A flag to indicate whether to return a set of
                               tokens or a bag of tokens (defaults to False).
-        padding (boolean): A flag to indicate whether padding should be done
+        padding (boolean): A flag to indicate whether a prefix and a suffix should be added
                            to the input string (defaults to True).
-        prefix_pad (str): A character (string of length 1) that should be replicated 
-                          qval-1 times and prepended to the input string, if padding was 
+        prefix_pad (str): A character (that is, a string of length 1 in Python) that should be replicated 
+                          (qval-1) times and prepended to the input string, if padding was 
                           set to True (defaults to '#').
-        suffix_pad (str): A character (string of length 1) that should be replicated 
-                          qval-1 times and appended to the input string, if padding was 
+        suffix_pad (str): A character (that is, a string of length 1 in Python) that should be replicated 
+                          (qval-1) times and appended to the input string, if padding was 
                           set to True (defaults to '$').
 
     Attributes:
