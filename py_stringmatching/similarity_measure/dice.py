@@ -10,6 +10,8 @@ class Dice(TokenSimilarityMeasure):
     For two sets X and Y, the Dice similarity score is:
 
         :math:`dice(X, Y) = \\frac{2 * |X \\cap Y|}{|X| + |Y|}`
+        
+    NOTE: In the case X and Y are empty sets, we define their Dice score to be 1. 
     """
 
     def __init__(self):
