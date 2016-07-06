@@ -9,7 +9,11 @@ from py_stringmatching.similarity_measure.hybrid_similarity_measure import \
 
 
 class SoftTfIdf(HybridSimilarityMeasure):
-    """Computes soft TF/IDF measure.
+    """Computes soft TF/IDF measure. 
+    
+    Note:
+        Currently, this measure is implemented without dampening. This is similar to setting dampen flag to be False in TF-IDF.
+        We plan to add the dampen flag in the next release.   
 
     Args:
         corpus_list (list of lists): Corpus list (default is set to None) of strings. If set to None,
@@ -21,11 +25,7 @@ class SoftTfIdf(HybridSimilarityMeasure):
 
     Attributes:
         sim_func (function): An attribute to store the secondary similarity function.
-        threshold (float): An attribute to store the threshold value for the secondary similarity function.
-    
-    Note:
-        Currently, this measure is implemented without dampening. This is similar to setting dampen flag to be False in TF-IDF.
-        We plan to add the dampen flag in the next release.    
+        threshold (float): An attribute to store the threshold value for the secondary similarity function. 
     """
 
     def __init__(self, corpus_list=None, sim_func=Jaro().get_raw_score,
