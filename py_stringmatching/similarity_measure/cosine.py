@@ -13,7 +13,7 @@ class Cosine(TokenSimilarityMeasure):
         :math:`cosine(X, Y) = \\frac{|X \\cap Y|}{\\sqrt{|X| \\cdot |Y|}}`
         
     Note:
-        * In the case where either X or Y is an empty set, we define their cosine score to be 0.
+        * In the case where one of X and Y is an empty set and the other is a non-empty set, we define their cosine score to be 0.
         * In the case where both X and Y are empty sets, we define their cosine score to be 1. 
     """
 
