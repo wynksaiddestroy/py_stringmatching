@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Needleman Wunsch &mdash; py_stringmatching 0.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+        <link rel="up" title="Similarity Measures" href="SimilarityMeasure.html"/>
+        <link rel="next" title="Overlap Coefficient" href="OverlapCoefficient.html"/>
+        <link rel="prev" title="Monge Elkan" href="MongeElkan.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> py_stringmatching
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Affine.html">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jaccard.html">Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jaro.html">Jaro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JaroWinkler.html">Jaro Winkler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Levenshtein.html">Levenshtein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MongeElkan.html">Monge Elkan</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Needleman Wunsch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OverlapCoefficient.html">Overlap Coefficient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SmithWaterman.html">Smith Waterman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SoftTfIdf.html">Soft TF/IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TfIdf.html">TF/IDF</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="SimilarityMeasure.html">Similarity Measures</a> &raquo;</li>
+      
+    <li>Needleman Wunsch</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/NeedlemanWunsch.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="needleman-wunsch">
+<h1>Needleman Wunsch<a class="headerlink" href="#needleman-wunsch" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.needleman_wunsch.</code><code class="descname">NeedlemanWunsch</code><span class="sig-paren">(</span><em>gap_cost=1.0</em>, <em>sim_func=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Needleman-Wunsch measure.</p>
+<p>The Needleman-Wunsch distance generalizes the Levenshtein distance and considers global alignment between two strings.
+Specifically, it is computed by assigning a score to each alignment between the two input strings and choosing the
+score of the best alignment, that is, the maximal score. An alignment between two strings is a set of correspondences
+between their characters, allowing for gaps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gap_cost</strong> (<em>float</em>) &#8211; Cost of gap (defaults to 1.0).</li>
+<li><strong>sim_func</strong> (<em>function</em>) &#8211; Similarity function to give a score for each correspondence between the characters (defaults
+to an identity function, which returns 1 if the two characters are the same and 0 otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="NeedlemanWunsch.gap_cost">
+<code class="descname">gap_cost</code><a class="headerlink" href="#NeedlemanWunsch.gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em></p>
+<p>An attribute to store the gap cost.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="NeedlemanWunsch.sim_func">
+<code class="descname">sim_func</code><a class="headerlink" href="#NeedlemanWunsch.sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>function</em></p>
+<p>An attribute to store the similarity function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_gap_cost">
+<code class="descname">get_gap_cost</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_gap_cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get gap cost.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Gap cost (float).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Needleman-Wunsch score between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Needleman-Wunsch similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeva&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">2.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;GCATGCUA&#39;</span><span class="p">,</span> <span class="s">&#39;GATTACA&#39;</span><span class="p">)</span>
+<span class="go">2.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_sim_func">
+<code class="descname">get_sim_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">similarity function (function).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_gap_cost">
+<code class="descname">set_gap_cost</code><span class="sig-paren">(</span><em>gap_cost</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.set_gap_cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set gap cost.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_cost</strong> (<em>float</em>) &#8211; Cost of gap.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_sim_func">
+<code class="descname">set_sim_func</code><span class="sig-paren">(</span><em>sim_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.set_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) &#8211; Similarity function to give a score for the correspondence between characters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="OverlapCoefficient.html" class="btn btn-neutral float-right" title="Overlap Coefficient" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MongeElkan.html" class="btn btn-neutral" title="Monge Elkan" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, py_stringmatching Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
