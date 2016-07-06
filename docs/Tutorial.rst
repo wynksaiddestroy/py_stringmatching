@@ -162,8 +162,16 @@ Instead, you should tokenize all strings in tables A and B only once, store the 
 
 Handling Missing Values
 ------------------------
-By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). Handling such cases are tricky and application dependent. For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.
+By "missing values" we mean cases where the values of one or more strings are missing (e.g., represented as None or NaN in Python). For example, given a row "David,,36" in a CSV file, the value of the second cell of this row is missing. So when this file is read into a data frame, the corresponding cell in the data frame will have the value NaN. 
+
+Handling missing values are tricky and application dependent (see the Developer Manual for a detailed discussion). For these reasons, the tokenizers and similarity measures in the package py_stringmatching do not handle missing values. If one of their input arguments is missing, they will stop, raising an error. Put differently, they expect non-missing input arguments.
+
+Adding Prefix and Suffix to the Input String for Qgram Tokenizers
+-----------------------------------------------------------------
+Consider computing a similarity score between two strings "mo" and "moo" using 3gram tokenizing followed by Jaccard scoring. Tokenizing "mo" returns an empty set, because "mo" contains no 3gram. Tokenizing "moo" returns the set {"moo"}. As a result, the Jaccard score between "mo" and "moo" is 0. This is somewhat counterintuitive, because the two strings are similar. 
+
+To address such cases, in practice it is common to add a prefix of (q-1) characters (using #) and a suffix of (q-1) characters (using $) to the input string, before generating qgram tokens. For example, "moo" will be padded to be "##moo$$", before tokenizing. The flag "padding" in qgram tokenizers can be set for this purpose (the default is True, in which case the string will be padded). 
 
 References
 -----------
-AnHai Doan, Alon Halevy, Zachary Ives, "Principles of Data Integration", Morgan Kaufmann, 2012. Chapter 4 "String Matching" (available on the package's homepage). 
+AnHai Doan, Alon Halevy, Zachary Ives, "Principles of Data Integration", Morgan Kaufmann, 2012. Chapter 4 "String Matching" (available on the package's homepage).
