@@ -10,7 +10,8 @@ class Jaccard(TokenSimilarityMeasure):
 
         :math:`jaccard(X, Y) = \\frac{|X \\cap Y|}{|X \\cup Y|}`
         
-     NOTE: In the case X and Y are empty sets, we define their Jaccard score to be 1. 
+     Note:
+         In the case where both X and Y are empty sets, we define their Jaccard score to be 1. 
     """
 
     def __init__(self):
