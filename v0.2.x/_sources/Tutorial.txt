@@ -172,6 +172,40 @@ Consider computing a similarity score between two strings "mo" and "moo" using 3
 
 To address such cases, in practice it is common to add a prefix of (q-1) characters (using #) and a suffix of (q-1) characters (using $) to the input string, before generating qgram tokens. For example, "moo" will be padded to be "##moo$$", before tokenizing. The flag "padding" in qgram tokenizers can be set for this purpose (the default is True, in which case the string will be padded). 
 
+Class Hierarchy for Tokenizers and Similarity Measures
+-------------------------------------------------------
+Version 0.2.0 implements the following class hierarchy for tokenizers:
+
+Tokenizer                                                                       
+  * DefinitionTokenizer                                                         
+      * AlphabeticTokenizer                                                     
+      * AlphanumericTokenizer                                                   
+      * QgramTokenizer                                                          
+  * DelimiterTokenizer                                                          
+      * WhitespaceTokenizer 
+
+The version implements the following class hierarchy for similarity measures: 
+
+SimilarityMeasure                                                               
+  * SequenceSimilarityMeasure                                                   
+      * Affine                                                                  
+      * HammingDistance                                                         
+      * Jaro                                                                    
+      * JaroWinkler                                                             
+      * Levenshtein                                                             
+      * NeedlemanWunsch                                                         
+      * SmithWaterman                                                           
+  * TokenSimilarityMeasure                                                      
+      * Cosine                                                                  
+      * Dice                                                                    
+      * Jaccard                                                                 
+      * OverlapCoefficient                                                      
+      * TfIdf                                                                   
+  * HybridSimilarityMeasure                                                     
+      * MongeElkan                                                              
+      * SoftTfIdf   
+
+ 
 References
 -----------
 AnHai Doan, Alon Halevy, Zachary Ives, "Principles of Data Integration", Morgan Kaufmann, 2012. Chapter 4 "String Matching" (available on the package's homepage).

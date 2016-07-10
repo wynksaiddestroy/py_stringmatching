@@ -151,7 +151,7 @@
 </div>
 <div class="section" id="platforms">
 <h3>Platforms<a class="headerlink" href="#platforms" title="Permalink to this headline">¶</a></h3>
-<p>py_stringmatching has been tested on Linux (Ubuntu with  Kernel Version 3.13.0-40-generic), OS X (Darwin with Kernel Version: 13.4.0), and Windows 8.1.</p>
+<p>py_stringmatching has been tested on Linux (Ubuntu with Kernel Version 3.13.0-40-generic), OS X (Darwin with Kernel Version 13.4.0), and Windows 8.1.</p>
 </div>
 <div class="section" id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
@@ -345,6 +345,76 @@
 <h3>Adding Prefix and Suffix to the Input String for Qgram Tokenizers<a class="headerlink" href="#adding-prefix-and-suffix-to-the-input-string-for-qgram-tokenizers" title="Permalink to this headline">¶</a></h3>
 <p>Consider computing a similarity score between two strings &#8220;mo&#8221; and &#8220;moo&#8221; using 3gram tokenizing followed by Jaccard scoring. Tokenizing &#8220;mo&#8221; returns an empty set, because &#8220;mo&#8221; contains no 3gram. Tokenizing &#8220;moo&#8221; returns the set {&#8220;moo&#8221;}. As a result, the Jaccard score between &#8220;mo&#8221; and &#8220;moo&#8221; is 0. This is somewhat counterintuitive, because the two strings are similar.</p>
 <p>To address such cases, in practice it is common to add a prefix of (q-1) characters (using #) and a suffix of (q-1) characters (using $) to the input string, before generating qgram tokens. For example, &#8220;moo&#8221; will be padded to be &#8220;##moo$$&#8221;, before tokenizing. The flag &#8220;padding&#8221; in qgram tokenizers can be set for this purpose (the default is True, in which case the string will be padded).</p>
+</div>
+<div class="section" id="class-hierarchy-for-tokenizers-and-similarity-measures">
+<h3>Class Hierarchy for Tokenizers and Similarity Measures<a class="headerlink" href="#class-hierarchy-for-tokenizers-and-similarity-measures" title="Permalink to this headline">¶</a></h3>
+<p>Version 0.2.0 implements the following class hierarchy for tokenizers:</p>
+<dl class="docutils">
+<dt>Tokenizer</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>DefinitionTokenizer</dt>
+<dd><ul class="first last simple">
+<li>AlphabeticTokenizer</li>
+<li>AlphanumericTokenizer</li>
+<li>QgramTokenizer</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>DelimiterTokenizer</dt>
+<dd><ul class="first last simple">
+<li>WhitespaceTokenizer</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>The version implements the following class hierarchy for similarity measures:</p>
+<dl class="docutils">
+<dt>SimilarityMeasure</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>SequenceSimilarityMeasure</dt>
+<dd><ul class="first last simple">
+<li>Affine</li>
+<li>HammingDistance</li>
+<li>Jaro</li>
+<li>JaroWinkler</li>
+<li>Levenshtein</li>
+<li>NeedlemanWunsch</li>
+<li>SmithWaterman</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>TokenSimilarityMeasure</dt>
+<dd><ul class="first last simple">
+<li>Cosine</li>
+<li>Dice</li>
+<li>Jaccard</li>
+<li>OverlapCoefficient</li>
+<li>TfIdf</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>HybridSimilarityMeasure</dt>
+<dd><ul class="first last simple">
+<li>MongeElkan</li>
+<li>SoftTfIdf</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
 </div>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
