@@ -176,20 +176,34 @@ Class Hierarchy for Tokenizers and Similarity Measures
 -------------------------------------------------------
 Version 0.2.0 implements the following class hierarchy for tokenizers:
 
-Tokenizer -- Definition Tokenizer -- Alphabetic Tokenizer
-                                  -- Alphanumeric Tokenizer
-                                  -- Qgram Tokenizer
-          -- Delimiter Tokenizer  -- Whitespace Tokenizer
-          
+Tokenizer                                                                       
+  * DefinitionTokenizer                                                         
+      * AlphabeticTokenizer                                                     
+      * AlphanumericTokenizer                                                   
+      * QgramTokenizer                                                          
+  * DelimiterTokenizer                                                          
+      * WhitespaceTokenizer 
+
 The version implements the following class hierarchy for similarity measures: 
- 
- SimilarityMeasure 
-     -- SequenceSimilarityMeasure -- Affine, HammingDistance,
-                                     Jaro, JaroWinkler, Levenshtein,
-                                     NeedlemanWunsch, SmithWaterman
-     -- TokenSimilarityMeasure -- Cosine, Dice, Jaccard, 
-                                  OverlapCoefficient, TfIdf
-     -- HybridSimilarityMeasure -- MongeElkan, SoftTfIdf
+
+SimilarityMeasure                                                               
+  * SequenceSimilarityMeasure                                                   
+      * Affine                                                                  
+      * HammingDistance                                                         
+      * Jaro                                                                    
+      * JaroWinkler                                                             
+      * Levenshtein                                                             
+      * NeedlemanWunsch                                                         
+      * SmithWaterman                                                           
+  * TokenSimilarityMeasure                                                      
+      * Cosine                                                                  
+      * Dice                                                                    
+      * Jaccard                                                                 
+      * OverlapCoefficient                                                      
+      * TfIdf                                                                   
+  * HybridSimilarityMeasure                                                     
+      * MongeElkan                                                              
+      * SoftTfIdf   
 
  
 References
