@@ -26,9 +26,18 @@ def install_and_import(package):
 # automatically using pip.
 install_and_import('setuptools')
 
-# make sure numpy is installed, as we need numpy to compile the C extensions.
-# If numpy is not installed, automatically install it using pip.
-install_and_import('numpy')
+from setuptools.command.build_ext import build_ext as _build_ext
+
+class build_ext(_build_ext):
+    def build_extensions(self):
+        import pkg_resources                                                            
+        numpy_incl = pkg_resources.resource_filename('numpy', 'core/include')
+
+        for ext in self.extensions:
+            if (hasattr(ext, 'include_dirs') and
+                    not numpy_incl in ext.include_dirs):
+                ext.include_dirs.append(numpy_incl)
+        _build_ext.build_extensions(self)
 
 def generate_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
@@ -40,6 +49,10 @@ def generate_cython():
                         cwd=cwd)
     if p != 0:
         raise RuntimeError("Running cythonize failed!")
+
+
+cmdclass = {"build_ext": build_ext}
+
 
 if __name__ == "__main__":
 
@@ -56,8 +69,8 @@ if __name__ == "__main__":
     # specify extensions that need to be compiled
     extensions = [setuptools.Extension("py_stringmatching.similarity_measure.cython_levenshtein",
                                        ["py_stringmatching/similarity_measure/cython_levenshtein.c"],
-                                       include_dirs=[numpy.get_include()])]
-
+                                       include_dirs=[])]
+ 
     # find packages to be included. exclude benchmarks.
     packages = setuptools.find_packages(exclude=["benchmarks"])
 
@@ -66,7 +79,7 @@ if __name__ == "__main__":
 
     setuptools.setup(
         name='py_stringmatching',
-        version='0.2.0',
+        version='0.2.1',
         description='Python library for string matching.',
         long_description=LONG_DESCRIPTION,
         url='https://sites.google.com/site/anhaidgroup/projects/py_stringmatching',
@@ -100,8 +113,11 @@ if __name__ == "__main__":
             'numpy >= 1.7.0',
             'six'
         ],
+        setup_requires=[
+            'numpy >= 1.7.0'                                                   
+        ],
         ext_modules=extensions,
+        cmdclass=cmdclass,
         include_package_data=True,
         zip_safe=False
     )
-
