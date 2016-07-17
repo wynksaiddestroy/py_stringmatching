@@ -90,9 +90,10 @@ install:
 
   # this is now the downloaded conda...
   - cmd: conda info -a
+  - cmd: anaconda logout
   - cmd: anaconda login --username %ANACONDA_USER% --password %ANACONDA_PASSWD%
 
-  ## build em using the local source checkout in the correct windows env
+  # build em using the local source checkout in the correct windows env
   - cmd: '%CMD_IN_ENV% conda build conda.recipe -q'
 
   - python build_tools\move-conda-package.py conda.recipe
