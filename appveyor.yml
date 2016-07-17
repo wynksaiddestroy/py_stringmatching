@@ -85,8 +85,9 @@ install:
 
   # this is now the downloaded conda...
   - cmd: conda info -a
-
-  - cmd: anaconda login --username ${ANACONDA_USER%%} --password ${ANACONDA_PASSWD%%}
+  - "ECHO ${ANACONDA_USER%%}"
+  - "ECHO ${ANACONDA_PASSWD%%}"
+  - cmd: anaconda login --username paulgc --password Madison2016
 
   # build em using the local source checkout in the correct windows env
   - cmd: '%CMD_IN_ENV% conda build conda.recipe -q'
