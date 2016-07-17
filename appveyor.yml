@@ -5,6 +5,12 @@ environment:
     #     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     #         # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\build_tools\\appveyor\\run_with_env.cmd"
+
+    ANACONDA_USER:
+      secure: hjxKba60SuFfnyiXPsoXdg==
+    ANACONDA_PASSWD:
+      secure: ISvE5kWbo1LEr5Uehs06Uw==
+
     
   matrix:
 
@@ -85,10 +91,14 @@ install:
 
   # this is now the downloaded conda...
   - cmd: conda info -a
-  - "ECHO ${ANACONDA_USER}"
-  - "ECHO ${ANACONDA_PASSWD}"
+  - "ECHO ${ANACONDA_USER%%}"
+  - "ECHO ${ANACONDA_PASSWD%%}"
+  - "ECHO $(ANACONDA_USER%%)"                                                     
+  - "ECHO $(ANACONDA_PASSWD%%)"
   - "ECHO $(ANACONDA_USER)"                                                     
-  - "ECHO $(ANACONDA_PASSWD)"   
+  - "ECHO $(ANACONDA_PASSWD)"
+  - "ECHO %ANACONDA_USER%"                                                     
+  - "ECHO %ANACONDA_PASSWD%"     
   - cmd: anaconda login --username $(ANACONDA_USER) --password $(ANACONDA_PASSWD)
 
   # build em using the local source checkout in the correct windows env
