@@ -4,7 +4,7 @@ py_stringmatching
 This project seeks to build a Python software package that consists of a comprehensive and scalable set of string tokenizers (such as alphabetical tokenizers, whitespace tokenizers) and string similarity measures (such as edit distance, Jaccard, TF/IDF). The package is free, open-source, and BSD-licensed.
 
 Important links
-===============
+================
 
  * Project Homepage: https://sites.google.com/site/anhaidgroup/projects/py_stringmatching
  * Code repository: https://github.com/anhaidgroup/py_stringmatching
