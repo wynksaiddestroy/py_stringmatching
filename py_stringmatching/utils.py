@@ -1,11 +1,17 @@
 import functools
-
+import re
 import six
+import string
+import sys
 
 """
 This module defines a list of utility and validation functions.
 """
 
+PY3 = sys.version_info[0] == 3
+if PY3:
+    unicode = str
+    string = str
 
 def sim_check_for_none(*args):
     if len(args) > 0 and args[0] is None:
@@ -81,3 +87,41 @@ def convert_to_unicode(input_string):
     if isinstance(input_string, bytes):
         return input_string.decode('utf-8')
     return input_string 
+
+def remove_non_ascii_chars(input_string):
+    if type(input_string) is str:
+        return _remove_non_ascii_chars(input_string)
+    elif type(input_string) is unicode:
+        return _remove_non_ascii_chars(input_string.encode('ascii', 'ignore'))
+    else:
+        return remove_non_ascii_chars(unicode(input_string))
+
+def _remove_non_ascii_chars(input_string):
+    remove_chars = str("").join([chr(i) for i in range(128, 256)])
+    if PY3:
+        translation_table = dict((ord(c), None) for c in remove_chars)
+        return input_string.translate(translation_table)
+    else:
+        return input_string.translate(None, remove_chars)
+
+def process_string(input_string, force_ascii=False):
+    """Process string by
+    -- removing all but letters and numbers
+    -- trim whitespace
+    -- converting string to lower case
+    if force_ascii == True, force convert to ascii"""
+
+    if force_ascii:
+        input_string = remove_non_ascii_chars(input_string)
+
+    regex = re.compile(r"(?ui)\W")
+
+    # Keep only Letters and Numbers.
+    out_string = regex.sub(" ", input_string)
+
+    # Convert String to lowercase.
+    out_string = string.lower(out_string)
+
+    # Remove leading and trailing whitespaces.
+    out_string = string.strip(out_string)
+    return out_string
