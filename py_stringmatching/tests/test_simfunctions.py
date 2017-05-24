@@ -1663,6 +1663,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.tvi_with_params3 = TverskyIndex(0.2, 0.4)
         self.tvi_with_params4 = TverskyIndex(0.9, 0.8)
         self.tvi_with_params5 = TverskyIndex(0.45, 0.85)
+        self.tvi_with_params6 = TverskyIndex(0, 0.6)
 
     def test_get_alpha(self):
         self.assertEqual(self.tvi_with_params5.get_alpha(), 0.45)
@@ -1696,6 +1697,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_raw_score(['data', 'science'], ['science', 'good']),
                          1.0 / (1.0 + 0.5*1 + 0.5*1))
         self.assertEqual(self.tvi.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.tvi.get_raw_score(['data'], []), 0)
         self.assertEqual(self.tvi_with_params2.get_raw_score(['data', 'data', 'science'],
                                                              ['data', 'management']),
                          1.0 / (1.0 + 0.7*1 + 0.8*1))
@@ -1708,13 +1710,17 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_raw_score(set([]), set([])), 1.0)
         self.assertEqual(self.tvi_with_params5.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (3.0 + 0.45*1 + 0.85*4))
-
+        self.assertEqual(self.tvi_with_params6.get_raw_score(['data', 'science'],
+							                                 ['data', 'data', 'management', 'science']),
+                         2.0 / (2.0 + 0 + 0.6*1))
+        
     def test_valid_input_sim_score(self):
         self.assertEqual(self.tvi_with_params1.get_sim_score(['data', 'science'], ['data']),
                          1.0 / (1.0 + 0.5*1 + 0.5*0))
         self.assertEqual(self.tvi.get_sim_score(['data', 'science'], ['science', 'good']),
                          1.0 / (1.0 + 0.5*1 + 0.5*1))
         self.assertEqual(self.tvi.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.tvi.get_sim_score(['data'], []), 0)
         self.assertEqual(self.tvi_with_params2.get_sim_score(['data', 'data', 'science'],
                                                              ['data', 'management']),
                          1.0 / (1.0 + 0.7*1 + 0.8*1))
@@ -1727,6 +1733,9 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_sim_score(set([]), set([])), 1.0)
         self.assertEqual(self.tvi_with_params5.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (3.0 + 0.45*1 + 0.85*4))
+        self.assertEqual(self.tvi_with_params6.get_sim_score(['data', 'science'],
+                                                             ['data', 'data', 'management', 'science']),
+                         2.0 / (2.0 + 0 + 0.6*1))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
