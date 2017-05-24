@@ -59,6 +59,9 @@ class PartialRatio(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         # string1 should be smaller in length than string2. If this is not the case
         # then swap string1 and string2
         if len(string1) > len(string2):
