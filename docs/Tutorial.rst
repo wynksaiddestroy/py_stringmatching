@@ -10,14 +10,15 @@ Computing a similarity score between two given strings **x** and **y** then typi
 
 1. Selecting a Similarity Measure
 ----------------------------------
-First, you must select a similarity measure. The package py_stringmatching currently provides 14 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". (This chapter is available on the package's homepage.)
+First, you must select a similarity measure. The package py_stringmatching currently provides 20 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". (This chapter is available on the package's homepage.)
 
 A major group of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as **sets** of tokens (e.g., Jaccard). Yet another group treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).
 
-For the currently implemented 14 similarity measures, we have: 
-  * sequence-based measures: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, Smith Waterman.
-  * set-based measures: cosine, Dice, Jaccard, overlap coefficient.
+For the currently implemented 20 similarity measures, we have: 
+  * sequence-based measures: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, partial ratio, partial token sort, ratio, Smith Waterman, token sort.
+  * set-based measures: cosine, Dice, Jaccard, overlap coefficient, Tversky Index.
   * bag-based measures: TF/IDF.
+  * phonetic-based measures: soundex.
   
 (There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
 
@@ -193,17 +194,24 @@ SimilarityMeasure
       * Jaro                                                                    
       * JaroWinkler                                                             
       * Levenshtein                                                             
-      * NeedlemanWunsch                                                         
-      * SmithWaterman                                                           
+      * NeedlemanWunsch
+      * PartialRatio
+      * PartialTokenSort
+      * Ratio                                                         
+      * SmithWaterman
+      * TokenSort                                                           
   * TokenSimilarityMeasure                                                      
       * Cosine                                                                  
       * Dice                                                                    
       * Jaccard                                                                 
       * OverlapCoefficient                                                      
-      * TfIdf                                                                   
+      * TfIdf
+      * TverskyIndex                                                                   
   * HybridSimilarityMeasure                                                     
       * MongeElkan                                                              
-      * SoftTfIdf   
+      * SoftTfIdf
+  * PhoneticSimilarityMeasure
+      * Soundex  
 
  
 References

@@ -16,6 +16,12 @@ Similarity Measures
     MongeElkan
     NeedlemanWunsch
     OverlapCoefficient
+    PartialRatio
+    PartialTokenSort
+    Ratio
     SmithWaterman
     SoftTfIdf
+    Soundex
     TfIdf
+    TokenSort
+    TverskyIndex
