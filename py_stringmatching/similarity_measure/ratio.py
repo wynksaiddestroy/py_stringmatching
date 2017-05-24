@@ -59,6 +59,9 @@ class Ratio(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
+        string1 = utils.convert_to_unicode(string1)
+        string2 = utils.convert_to_unicode(string2)
+
         sm = SequenceMatcher(None, string1, string2)
         return int(round(100 * sm.ratio()))
 
