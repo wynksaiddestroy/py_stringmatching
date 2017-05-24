@@ -33,7 +33,8 @@ from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
 from py_stringmatching.similarity_measure.soundex import Soundex
 #fuzzywuzzy similarity measures
 from py_stringmatching.similarity_measure.ratio import Ratio
-
+from py_stringmatching.similarity_measure.partial_token_sort import PartialTokenSort
+from py_stringmatching.similarity_measure.token_sort import TokenSort
 
 # ---------------------- sequence based similarity measures  ----------------------
 
@@ -1665,6 +1666,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.tvi_with_params3 = TverskyIndex(0.2, 0.4)
         self.tvi_with_params4 = TverskyIndex(0.9, 0.8)
         self.tvi_with_params5 = TverskyIndex(0.45, 0.85)
+        self.tvi_with_params6 = TverskyIndex(0, 0.6)
 
     def test_get_alpha(self):
         self.assertEqual(self.tvi_with_params5.get_alpha(), 0.45)
@@ -1698,6 +1700,7 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_raw_score(['data', 'science'], ['science', 'good']),
                          1.0 / (1.0 + 0.5*1 + 0.5*1))
         self.assertEqual(self.tvi.get_raw_score([], ['data']), 0)
+        self.assertEqual(self.tvi.get_raw_score(['data'], []), 0)
         self.assertEqual(self.tvi_with_params2.get_raw_score(['data', 'data', 'science'],
                                                              ['data', 'management']),
                          1.0 / (1.0 + 0.7*1 + 0.8*1))
@@ -1710,13 +1713,17 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_raw_score(set([]), set([])), 1.0)
         self.assertEqual(self.tvi_with_params5.get_raw_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (3.0 + 0.45*1 + 0.85*4))
-
+        self.assertEqual(self.tvi_with_params6.get_raw_score(['data', 'science'],
+							                                 ['data', 'data', 'management', 'science']),
+                         2.0 / (2.0 + 0 + 0.6*1))
+        
     def test_valid_input_sim_score(self):
         self.assertEqual(self.tvi_with_params1.get_sim_score(['data', 'science'], ['data']),
                          1.0 / (1.0 + 0.5*1 + 0.5*0))
         self.assertEqual(self.tvi.get_sim_score(['data', 'science'], ['science', 'good']),
                          1.0 / (1.0 + 0.5*1 + 0.5*1))
         self.assertEqual(self.tvi.get_sim_score([], ['data']), 0)
+        self.assertEqual(self.tvi.get_sim_score(['data'], []), 0)
         self.assertEqual(self.tvi_with_params2.get_sim_score(['data', 'data', 'science'],
                                                              ['data', 'management']),
                          1.0 / (1.0 + 0.7*1 + 0.8*1))
@@ -1729,6 +1736,9 @@ class TverskyIndexTestCases(unittest.TestCase):
         self.assertEqual(self.tvi.get_sim_score(set([]), set([])), 1.0)
         self.assertEqual(self.tvi_with_params5.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}),
                          3.0 / (3.0 + 0.45*1 + 0.85*4))
+        self.assertEqual(self.tvi_with_params6.get_sim_score(['data', 'science'],
+                                                             ['data', 'data', 'management', 'science']),
+                         2.0 / (2.0 + 0 + 0.6*1))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -2129,3 +2139,295 @@ class RatioTestCases(unittest.TestCase):
     @raises(TypeError)
     def test_invalid_input6_sim_score(self):
         self.ratio.get_sim_score(12.90, 12.90)
+
+class PartialTokenSortTestCases(unittest.TestCase):
+    def setUp(self):
+        self.partialTokenSort = PartialTokenSort()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.partialTokenSort.get_raw_score('a', ''), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('', 'a'), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('abc', ''), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('', 'abc'), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('', ''), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('a', 'a'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('abc', 'abc'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('a', 'ab'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('b', 'ab'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score(' ac', 'abc'), 50)
+        self.assertEqual(self.partialTokenSort.get_raw_score('abcdefg', 'xabxcdxxefxgx'), 57)
+        self.assertEqual(self.partialTokenSort.get_raw_score('ab', 'a'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('ab', 'A'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('Ab', 'a'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('Ab', 'A'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('Ab', 'b'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('ab', 'b'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('abc', 'ac'), 50)
+        self.assertEqual(self.partialTokenSort.get_raw_score('xabxcdxxefxgx', 'abcdefg'), 57)
+        self.assertEqual(self.partialTokenSort.get_raw_score('a', 'b'), 0)
+        self.assertEqual(self.partialTokenSort.get_raw_score('ab', 'ac'), 50)
+        self.assertEqual(self.partialTokenSort.get_raw_score('ac', 'bc'), 50)
+        self.assertEqual(self.partialTokenSort.get_raw_score('abc', 'axc'), 67)
+        self.assertEqual(self.partialTokenSort.get_raw_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 54)
+        self.assertEqual(self.partialTokenSort.get_raw_score('example', 'samples'), 71)
+        self.assertEqual(self.partialTokenSort.get_raw_score('bag_distance', 'frankenstein'), 36)
+        self.assertEqual(self.partialTokenSort.get_raw_score('distance', 'difference'), 38)
+        self.assertEqual(self.partialTokenSort.get_raw_score('java was neat', 'scala is great'), 38)
+        self.assertEqual(self.partialTokenSort.get_raw_score('java wAs nEat', 'scala is great'), 38)
+        self.assertEqual(self.partialTokenSort.get_raw_score('great is scala', 'java is great'), 77)
+        self.assertEqual(self.partialTokenSort.get_raw_score('Wisconsin Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++ and Java', 'Java and Python'), 80)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++'), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=True), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=False), 100)
+        self.assertLess(self.partialTokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=False), 100)
+        self.assertLess(self.partialTokenSort.get_raw_score('Java C++', 'C++\u00C1 Java\u00C2', full_process=False), 100)
+        self.assertLess(self.partialTokenSort.get_raw_score('Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 100)
+        self.assertLess(self.partialTokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 100)
+        self.assertLess(self.partialTokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=True, full_process=False), 100)
+        self.assertEqual(self.partialTokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 100)
+
+    def test_valid_input_sim_score(self):
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('a', ''), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('', 'a'), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('abc', ''), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('', 'abc'), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('', ''), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('a', 'a'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('abc', 'abc'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('a', 'ab'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('b', 'ab'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score(' ac', 'abc'), 0.50)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('abcdefg', 'xabxcdxxefxgx'), 0.57)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('ab', 'a'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('ab', 'A'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('Ab', 'a'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('Ab', 'A'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('Ab', 'b'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('ab', 'b'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('abc', 'ac'), 0.50)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('xabxcdxxefxgx', 'abcdefg'), 0.57)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('a', 'b'), 0.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('ab', 'ac'), 0.50)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('ac', 'bc'), 0.50)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('abc', 'axc'), 0.67)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 0.54)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('example', 'samples'), 0.71)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('bag_distance', 'frankenstein'), 0.36)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('distance', 'difference'), 0.38)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('java was neat', 'scala is great'), 0.38)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('java wAs nEat', 'scala is great'), 0.38)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('great is scala', 'java is great'), 0.77)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('Wisconsin Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++ and Java', 'Java and Python'), 0.8)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++'), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=True), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=False), 1.0)
+        self.assertLess(self.partialTokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=False), 1.0)
+        self.assertLess(self.partialTokenSort.get_sim_score('Java C++', 'C++\u00C1 Java\u00C2', full_process=False), 100)
+        self.assertLess(self.partialTokenSort.get_sim_score('Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 1.0)
+        self.assertLess(self.partialTokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 1.0)
+        self.assertLess(self.partialTokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=True, full_process=False), 1.0)
+        self.assertAlmostEqual(self.partialTokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 1.0)
+
+    @raises(TypeError)
+    def test_invalid_input1_raw_score(self):
+        self.partialTokenSort.get_raw_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_raw_score(self):
+        self.partialTokenSort.get_raw_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_raw_score(self):
+        self.partialTokenSort.get_raw_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_raw_score(self):
+        self.partialTokenSort.get_raw_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_raw_score(self):
+        self.partialTokenSort.get_raw_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_raw_score(self):
+        self.partialTokenSort.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.partialTokenSort.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.partialTokenSort.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.partialTokenSort.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.partialTokenSort.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.partialTokenSort.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.partialTokenSort.get_sim_score(12.90, 12.90)
+
+class TokenSortTestCases(unittest.TestCase):
+    def setUp(self):
+        self.tokenSort = TokenSort()
+
+    def test_valid_input_raw_score(self):
+        self.assertEqual(self.tokenSort.get_raw_score('a', ''), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('', 'a'), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('abc', ''), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('', 'abc'), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('', ''), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('a', 'a'), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('abc', 'abc'), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('a', 'ab'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('b', 'ab'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score(' ac', 'abc'), 80)
+        self.assertEqual(self.tokenSort.get_raw_score('abcdefg', 'xabxcdxxefxgx'), 70)
+        self.assertEqual(self.tokenSort.get_raw_score('ab', 'a'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('ab', 'A'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('Ab', 'a'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('Ab', 'A'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('Ab', 'b'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('ab', 'b'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('abc', 'ac'), 80)
+        self.assertEqual(self.tokenSort.get_raw_score('xabxcdxxefxgx', 'abcdefg'), 70)
+        self.assertEqual(self.tokenSort.get_raw_score('a', 'b'), 0)
+        self.assertEqual(self.tokenSort.get_raw_score('ab', 'ac'), 50)
+        self.assertEqual(self.tokenSort.get_raw_score('ac', 'bc'), 50)
+        self.assertEqual(self.tokenSort.get_raw_score('abc', 'axc'), 67)
+        self.assertEqual(self.tokenSort.get_raw_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 54)
+        self.assertEqual(self.tokenSort.get_raw_score('example', 'samples'), 71)
+        self.assertEqual(self.tokenSort.get_raw_score('bag_distance', 'frankenstein'), 33)
+        self.assertEqual(self.tokenSort.get_raw_score('distance', 'difference'), 56)
+        self.assertEqual(self.tokenSort.get_raw_score('java was neat', 'scala is great'), 37)
+        self.assertEqual(self.tokenSort.get_raw_score('java wAs nEat', 'scala is great'), 37)
+        self.assertEqual(self.tokenSort.get_raw_score('great is scala', 'java is great'), 81)
+        self.assertEqual(self.tokenSort.get_raw_score('Wisconsin Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 83)
+        self.assertEqual(self.tokenSort.get_raw_score('C++ and Java', 'Java and Python'), 64)
+        self.assertEqual(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++'), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 100)
+        self.assertEqual(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=True), 100)
+        self.assertLess(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('Java C++', 'C++\u00C1 Java\u00C2', full_process=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 100)
+        self.assertLess(self.tokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=True, full_process=False), 100)
+        self.assertLess(self.tokenSort.get_raw_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 100)
+
+    def test_valid_input_sim_score(self):
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('a', ''), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('', 'a'), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('abc', ''), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('', 'abc'), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('', ''), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('a', 'a'), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('abc', 'abc'), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('a', 'ab'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('b', 'ab'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score(' ac', 'abc'), 0.80)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('abcdefg', 'xabxcdxxefxgx'), 0.70)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('ab', 'a'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('ab', 'A'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('Ab', 'a'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('Ab', 'A'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('Ab', 'b'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('ab', 'b'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('abc', 'ac'), 0.80)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('xabxcdxxefxgx', 'abcdefg'), 0.70)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('a', 'b'), 0.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('ab', 'ac'), 0.50)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('ac', 'bc'), 0.50)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('abc', 'axc'), 0.67)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('xabxcdxxefxgx', '1ab2cd34ef5g6'), 0.54)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('example', 'samples'), 0.71)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('bag_distance', 'frankenstein'), 0.33)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('distance', 'difference'), 0.56)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('java was neat', 'scala is great'), 0.37)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('java wAs nEat', 'scala is great'), 0.37)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('great is scala', 'java is great'), 0.81)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('Wisconsin Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('Badgers vs Chicago Bears', 'Chicago Bears vs Wisconsin Badgers'), 0.83)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('C++ and Java', 'Java and Python'), 0.64)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++'), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=True), 1.0)
+        self.assertAlmostEqual(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=True), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', force_ascii=False), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('C++\u00C1 Java\u00C2', 'Java C++', full_process=False), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('Java C++', 'C++\u00C1 Java\u00C2', full_process=False), 100)
+        self.assertLess(self.tokenSort.get_sim_score('Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=False), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=True, full_process=False), 1.0)
+        self.assertLess(self.tokenSort.get_sim_score('   Java C++', 'C++\u00C1 Java\u00C2', force_ascii=False, full_process=True), 1.0)
+
+    @raises(TypeError)
+    def test_invalid_input1_raw_score(self):
+        self.tokenSort.get_raw_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_raw_score(self):
+        self.tokenSort.get_raw_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_raw_score(self):
+        self.tokenSort.get_raw_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_raw_score(self):
+        self.tokenSort.get_raw_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_raw_score(self):
+        self.tokenSort.get_raw_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_raw_score(self):
+        self.tokenSort.get_raw_score(12.90, 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input1_sim_score(self):
+        self.tokenSort.get_sim_score('a', None)
+
+    @raises(TypeError)
+    def test_invalid_input2_sim_score(self):
+        self.tokenSort.get_sim_score(None, 'b')
+
+    @raises(TypeError)
+    def test_invalid_input3_sim_score(self):
+        self.tokenSort.get_sim_score(None, None)
+
+    @raises(TypeError)
+    def test_invalid_input4_sim_score(self):
+        self.tokenSort.get_sim_score('MARHTA', 12.90)
+
+    @raises(TypeError)
+    def test_invalid_input5_sim_score(self):
+        self.tokenSort.get_sim_score(12.90, 'MARTHA')
+
+    @raises(TypeError)
+    def test_invalid_input6_sim_score(self):
+        self.tokenSort.get_sim_score(12.90, 12.90)
