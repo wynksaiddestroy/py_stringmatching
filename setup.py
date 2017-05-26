@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     setuptools.setup(
         name='py_stringmatching',
-        version='0.2.1',
+        version='0.3.0',
         description='Python library for string matching.',
         long_description=LONG_DESCRIPTION,
         url='https://sites.google.com/site/anhaidgroup/projects/py_stringmatching',
