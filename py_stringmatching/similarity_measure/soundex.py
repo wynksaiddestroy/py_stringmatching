@@ -50,9 +50,15 @@ class Soundex(PhoneticSimilarityMeasure):
         # input validations
         utils.sim_check_for_none(string1, string2)
         utils.sim_check_for_string_inputs(string1, string2)
+
+        # remove all chars but alphanumeric characters
+        string1 = re.sub("[^a-zA-Z0-9]", "", string1)
+        string2 = re.sub("[^a-zA-Z0-9]", "", string2)
+
+        utils.sim_check_for_zero_len(string1, string2)
+
         if utils.sim_check_for_exact_match(string1, string2):
             return 1
-        utils.sim_check_for_zero_len(string1, string2)
 
         string1, string2 = string1.upper(), string2.upper()
         first_letter1, first_letter2 = string1[0], string2[0]
@@ -77,10 +83,6 @@ class Soundex(PhoneticSimilarityMeasure):
         string2 = re.sub('[L]', '4', string2)
         string2 = re.sub('[MN]', '5', string2)
         string2 = re.sub('[R]', '6', string2)
-
-        # remove all chars but digits
-        string1 = re.sub("\D", "", string1)
-        string2 = re.sub("\D", "", string2)
 
         string1 = first_letter1 + string1[:3]
         string2 = first_letter2 + string2[:3]
