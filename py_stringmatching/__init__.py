@@ -22,9 +22,13 @@ from py_stringmatching.similarity_measure.levenshtein import Levenshtein
 from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
 from py_stringmatching.similarity_measure.needleman_wunsch import NeedlemanWunsch
 from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
+from py_stringmatching.similarity_measure.partial_ratio import PartialRatio                   
+from py_stringmatching.similarity_measure.partial_token_sort import PartialTokenSort                    
+from py_stringmatching.similarity_measure.ratio import Ratio                    
 from py_stringmatching.similarity_measure.smith_waterman import SmithWaterman
 from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
 from py_stringmatching.similarity_measure.soundex import Soundex
 from py_stringmatching.similarity_measure.tfidf import TfIdf
+from py_stringmatching.similarity_measure.token_sort import TokenSort                    
 from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
 
