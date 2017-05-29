@@ -1,3 +1,8 @@
+v0.3.0 - 05/29/2017
+  * Added nine new string similarity measures - Bag Distance, Editex,
+  Generalized Jaccard, Partial Ratio, Partial Token Sort, Ratio,
+  Soundex, Token Sort, and Tversky Index.
+
 v0.2.1 - 07/14/2016
   * Remove explicit installation of numpy using pip in setup. Add numpy in setup_requires and compile extensions by including numpy install path.
 
