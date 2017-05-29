@@ -187,8 +187,165 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="generalized-jaccard">
-<h1>Generalized Jaccard<a class="headerlink" href="#generalized-jaccard" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.generalized_jaccard">
+<span id="generalized-jaccard"></span><h1>Generalized Jaccard<a class="headerlink" href="#module-py_stringmatching.similarity_measure.generalized_jaccard" title="Permalink to this headline">¶</a></h1>
+<p>Generalized jaccard similarity measure</p>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.generalized_jaccard.</code><code class="descname">GeneralizedJaccard</code><span class="sig-paren">(</span><em>sim_func=&lt;bound method Jaro.get_raw_score of &lt;py_stringmatching.similarity_measure.jaro.Jaro object&gt;&gt;</em>, <em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generalized jaccard similarity measure class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sim_func</strong> (<em>function</em>) – similarity function. This should return a similarity score between two strings in set (optional),
+default is jaro similarity measure</li>
+<li><strong>threshold</strong> (<em>float</em>) – Threshold value (defaults to 0.5). If the similarity of a token pair exceeds the threshold,
+then the token pair is considered a match.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Generalized Jaccard measure between two sets.</p>
+<p>This similarity measure is softened version of the Jaccard measure. The Jaccard measure is
+promising candidate for tokens which exactly match across the sets. However, in practice tokens
+are often misspelled, such as energy vs. eneryg. THe generalized Jaccard measure will enable
+matching in such cases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists) of strings. Input lists are converted to sets.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generalized Jaccard similarity (float)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the similarity measure doesn’t return values in the range [0,1]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Neal&#39;</span><span class="p">,</span> <span class="s1">&#39;Njall&#39;</span><span class="p">])</span>
+<span class="go">0.43333333333333335</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">JaroWinkler</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Comp&#39;</span><span class="p">,</span> <span class="s1">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Engr&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s1">&#39;Universty&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;Cal,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Deigo&#39;</span><span class="p">],</span>
+<span class="go">                     [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">0.45810185185185187</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_func">
+<code class="descname">get_sim_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get similarity function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">similarity function (function)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized Generalized Jaccard similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists) of strings. Input lists are converted to sets.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Normalized Generalized Jaccard similarity (float)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> – If the similarity measure doesn’t return values in the range [0,1]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Neal&#39;</span><span class="p">,</span> <span class="s1">&#39;Njall&#39;</span><span class="p">])</span>
+<span class="go">0.43333333333333335</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span> <span class="o">=</span> <span class="n">GeneralizedJaccard</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">JaroWinkler</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gj</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;Comp&#39;</span><span class="p">,</span> <span class="s1">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Engr&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s1">&#39;Universty&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;Cal,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Deigo&#39;</span><span class="p">],</span>
+<span class="go">                     [&#39;Department&#39;, &#39;of&#39;, &#39;Computer&#39;, &#39;Science,&#39;, &#39;Univ.&#39;, &#39;Calif.,&#39;, &#39;San&#39;, &#39;Diego&#39;])</span>
+<span class="go">0.45810185185185187</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_threshold">
+<code class="descname">get_threshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.get_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.get_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get threshold used for the similarity function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">threshold (float)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.set_sim_func">
+<code class="descname">set_sim_func</code><span class="sig-paren">(</span><em>sim_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.set_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.set_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set similarity function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – similarity function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/generalized_jaccard.html#GeneralizedJaccard.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.generalized_jaccard.GeneralizedJaccard.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set threshold value for the similarity function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) – threshold value</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

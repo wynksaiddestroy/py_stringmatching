@@ -187,8 +187,113 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="jaro-winkler">
-<h1>Jaro Winkler<a class="headerlink" href="#jaro-winkler" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.jaro_winkler">
+<span id="jaro-winkler"></span><h1>Jaro Winkler<a class="headerlink" href="#module-py_stringmatching.similarity_measure.jaro_winkler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.jaro_winkler.</code><code class="descname">JaroWinkler</code><span class="sig-paren">(</span><em>prefix_weight=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Jaro-Winkler measure.</p>
+<p>The Jaro-Winkler measure is designed to capture cases where two strings have a low Jaro score, but share a prefix and thus are likely to match.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix_weight</strong> (<em>float</em>) – Weight to give to the prefix (defaults to 0.1).</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.prefix_weight">
+<code class="descname">prefix_weight</code><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.prefix_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – An attribute to store the prefix weight.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_prefix_weight">
+<code class="descname">get_prefix_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.get_prefix_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_prefix_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get prefix weight.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">prefix weight (float).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Jaro-Winkler score between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Jaro-Winkler similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span> <span class="o">=</span> <span class="n">JaroWinkler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s1">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9611111111111111</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s1">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.84</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s1">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.8133333333333332</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized Jaro-Winkler similarity score between two strings. Simply call get_raw_score.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized Jaro-Winkler similarity (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span> <span class="o">=</span> <span class="n">JaroWinkler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;MARTHA&#39;</span><span class="p">,</span> <span class="s1">&#39;MARHTA&#39;</span><span class="p">)</span>
+<span class="go">0.9611111111111111</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;DWAYNE&#39;</span><span class="p">,</span> <span class="s1">&#39;DUANE&#39;</span><span class="p">)</span>
+<span class="go">0.84</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jw</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;DIXON&#39;</span><span class="p">,</span> <span class="s1">&#39;DICKSONX&#39;</span><span class="p">)</span>
+<span class="go">0.8133333333333332</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.set_prefix_weight">
+<code class="descname">set_prefix_weight</code><span class="sig-paren">(</span><em>prefix_weight</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaro_winkler.html#JaroWinkler.set_prefix_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaro_winkler.JaroWinkler.set_prefix_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set prefix weight.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prefix_weight</strong> (<em>float</em>) – Weight to give to the prefix.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

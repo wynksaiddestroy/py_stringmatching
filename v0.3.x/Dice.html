@@ -187,8 +187,83 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dice">
-<h1>Dice<a class="headerlink" href="#dice" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.dice">
+<span id="dice"></span><h1>Dice<a class="headerlink" href="#module-py_stringmatching.similarity_measure.dice" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.dice.Dice">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.dice.</code><code class="descname">Dice</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Dice score between two strings.</p>
+<p>The Dice similarity score is defined as twice the shared information (intersection) divided by sum of cardinalities.
+For two sets X and Y, the Dice similarity score is:</p>
+<blockquote>
+<div><span class="math">\(dice(X, Y) = \frac{2 * |X \cap Y|}{|X| + |Y|}\)</span></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the case where both X and Y are empty sets, we define their Dice score to be 1.</p>
+</div>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.dice.Dice.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Dice score between two sets. This score is already in [0,1].</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dice similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.6666666666666666</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.5454545454545454</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Wikipedia article : <a class="reference external" href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient">https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient</a></li>
+<li>SimMetrics library.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.dice.Dice.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/dice.html#Dice.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.dice.Dice.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized dice similarity score between two sets. Simply call get_raw_score.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized dice similarity (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.6666666666666666</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.5454545454545454</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

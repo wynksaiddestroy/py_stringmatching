@@ -187,8 +187,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cosine">
-<h1>Cosine<a class="headerlink" href="#cosine" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.cosine">
+<span id="cosine"></span><h1>Cosine<a class="headerlink" href="#module-py_stringmatching.similarity_measure.cosine" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.cosine.</code><code class="descname">Cosine</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a variant of cosine measure known as Ochiai coefficient.</p>
+<p>This is not the cosine measure that computes the cosine of the angle between two given vectors. Rather, it computes a variant of cosine measure known as Ochiai coefficient (see the Wikipedia page “Cosine Similarity”). Specifically, for two sets X and Y, this measure computes:</p>
+<blockquote>
+<div><span class="math">\(cosine(X, Y) = \frac{|X \cap Y|}{\sqrt{|X| \cdot |Y|}}\)</span></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>In the case where one of X and Y is an empty set and the other is a non-empty set, we define their cosine score to be 0.</li>
+<li>In the case where both X and Y are empty sets, we define their cosine score to be 1.</li>
+</ul>
+</div>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw cosine score between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Cosine similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span> <span class="o">=</span> <span class="n">Cosine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">])</span>
+<span class="go">0.4999999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>String similarity joins: An Experimental Evaluation (a paper appearing in the VLDB 2014 Conference).</li>
+<li>Project Flamingo at <a class="reference external" href="http://flamingo.ics.uci.edu">http://flamingo.ics.uci.edu</a>.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.cosine.Cosine.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/cosine.html#Cosine.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.cosine.Cosine.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized cosine similarity between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized cosine similarity (float)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span> <span class="o">=</span> <span class="n">Cosine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.7071067811865475</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">])</span>
+<span class="go">0.4999999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

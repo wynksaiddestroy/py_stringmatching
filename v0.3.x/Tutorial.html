@@ -174,26 +174,6 @@
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <p>Once the package has been installed, you can import the package as follows:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-1-171c4a62eee4&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
-
-<span class="nn">/Users/pradap/Documents/Research/Python-Package/anhaid/scripts/local_tmp/main_repo/py_stringmatching/__init__.py</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.jaro</span> <span class="kn">import</span> <span class="n">Jaro</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.jaro_winkler</span> <span class="kn">import</span> <span class="n">JaroWinkler</span>
-<span class="ne">---&gt; </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.levenshtein</span> <span class="kn">import</span> <span class="n">Levenshtein</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.monge_elkan</span> <span class="kn">import</span> <span class="n">MongeElkan</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.needleman_wunsch</span> <span class="kn">import</span> <span class="n">NeedlemanWunsch</span>
-
-<span class="nn">/Users/pradap/Documents/Research/Python-Package/anhaid/scripts/local_tmp/main_repo/py_stringmatching/similarity_measure/levenshtein.py</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.cython_levenshtein</span> <span class="kn">import</span> <span class="n">levenshtein</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.sequence_similarity_measure</span> <span class="kn">import</span> \
-
-<span class="ne">ImportError</span>: cannot import name utils
 </pre></div>
 </div>
 <p>Computing a similarity score between two given strings <strong>x</strong> and <strong>y</strong> then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object (of the selected type) and using it to tokenize the two given strings <strong>x</strong> and <strong>y</strong>, and (4) creating a similarity measure object (of the selected type) and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps.</p>
@@ -226,78 +206,30 @@
 <p>The following examples create tokenizer objects where the flag return_set is not mentioned, thus defaulting to False. So these tokenizer objects will tokenize a string into a bag of tokens.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go"># create an alphabetical tokenizer that returns a bag of tokens</span>
 <span class="gp">In [2]: </span><span class="n">alphabet_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphabeticTokenizer</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-2-e636eea06128&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alphabet_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphabeticTokenizer</span><span class="p">()</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create an alphanumeric tokenizer</span>
+<span class="go"># create an alphanumeric tokenizer</span>
 <span class="gp">In [3]: </span><span class="n">alnum_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphanumericTokenizer</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-3-a35d1109bdb0&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alnum_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphanumericTokenizer</span><span class="p">()</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a delimiter tokenizer using comma as a delimiter</span>
+<span class="go"># create a delimiter tokenizer using comma as a delimiter</span>
 <span class="gp">In [4]: </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">DelimiterTokenizer</span><span class="p">(</span><span class="n">delim_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;,&#39;</span><span class="p">])</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-4-742d57ca92fa&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">delim_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">DelimiterTokenizer</span><span class="p">(</span><span class="n">delim_set</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;,&#39;</span><span class="p">])</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a qgram tokenizer using q=3</span>
+<span class="go"># create a qgram tokenizer using q=3</span>
 <span class="gp">In [5]: </span><span class="n">qg3_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">qval</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-5-046d472d5d82&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">qg3_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">qval</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a whitespace tokenizer</span>
+<span class="go"># create a whitespace tokenizer</span>
 <span class="gp">In [6]: </span><span class="n">ws_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-6-40c5e964aa4e&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ws_tok</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
 </pre></div>
 </div>
 <p>Given the string “up up and away”, the tokenizer alphabet_tok (defined above) will convert it into a bag of tokens [‘up’, ‘up’, ‘and’, ‘away’], where the token ‘up’ appears twice.</p>
 <p>The following examples create tokenizer objects where the flag return_set is set to True. Thus these tokenizers will tokenize a string into a set of tokens.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go"># create an alphabetical tokenizer that returns a set of tokens</span>
 <span class="gp">In [7]: </span><span class="n">alphabet_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphabeticTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-7-cf4bc04afbb3&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alphabet_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">AlphabeticTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a whitespace tokenizer that returns a set of tokens</span>
+<span class="go"># create a whitespace tokenizer that returns a set of tokens</span>
 <span class="gp">In [8]: </span><span class="n">ws_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-8-c3acd9f9314d&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ws_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a qgram tokenizer with q=3 that returns a set of tokens</span>
+<span class="go"># create a qgram tokenizer with q=3 that returns a set of tokens</span>
 <span class="gp">In [9]: </span><span class="n">qg3_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">qval</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-9-33ee69cbd77d&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">qg3_tok_set</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">qval</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
 </pre></div>
 </div>
 <p>So given the same string “up up and away”, the tokenizer alphabet_tok_set (defined above) will convert it into a set of tokens [‘up’, ‘and’, ‘away’].</p>
@@ -306,39 +238,19 @@
 
 <span class="go"># tokenize into a bag of alphabetical tokens</span>
 <span class="gp">In [11]: </span><span class="n">alphabet_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-11-d6f0346864d1&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alphabet_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
+<span class="gh">Out[11]: </span><span class="go">[&#39;hello&#39;, &#39;world&#39;, &#39;data&#39;, &#39;science&#39;, &#39;is&#39;, &#39;amazing&#39;, &#39;hello&#39;]</span>
 
-<span class="ne">NameError</span>: name &#39;alphabet_tok&#39; is not defined
-
-<span class="c1"># tokenize into alphabetical tokens (with return_set set to True)</span>
+<span class="go"># tokenize into alphabetical tokens (with return_set set to True)</span>
 <span class="gp">In [12]: </span><span class="n">alphabet_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-12-83b45bcc4272&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">alphabet_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
+<span class="gh">Out[12]: </span><span class="go">[&#39;hello&#39;, &#39;world&#39;, &#39;data&#39;, &#39;science&#39;, &#39;is&#39;, &#39;amazing&#39;]</span>
 
-<span class="ne">NameError</span>: name &#39;alphabet_tok_set&#39; is not defined
-
-<span class="c1"># tokenize using comma as the delimiter</span>
+<span class="go"># tokenize using comma as the delimiter</span>
 <span class="gp">In [13]: </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-13-e0a7dc29a918&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
+<span class="gh">Out[13]: </span><span class="go">[&#39; .hello&#39;, &#39; world!! data&#39;, &#39; science&#39;, &#39; is    amazing!!. hello.&#39;]</span>
 
-<span class="ne">NameError</span>: name &#39;delim_tok&#39; is not defined
-
-<span class="c1"># tokenize using whitespace as the delimiter</span>
+<span class="go"># tokenize using whitespace as the delimiter</span>
 <span class="gp">In [14]: </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-14-e6628a297693&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;ws_tok&#39; is not defined
+<span class="gh">Out[14]: </span><span class="go">[&#39;.hello,&#39;, &#39;world!!&#39;, &#39;data,&#39;, &#39;science,&#39;, &#39;is&#39;, &#39;amazing!!.&#39;, &#39;hello.&#39;]</span>
 </pre></div>
 </div>
 <p>Thus, once you have created the tokenizer, you can use the <strong>tokenize</strong> method to tokenize the two input strings <strong>x</strong> and <strong>y</strong> (see more in Step 4 below).</p>
@@ -352,21 +264,9 @@
 <p>Recall that in Step 1 you have selected a similarity measure (e.g., Jaccard, Levenshtein). In this step you start by creating a similarity measure object of the selected type, as illustrated by these examples:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go"># create a Jaccard similarity measure object</span>
 <span class="gp">In [15]: </span><span class="n">jac</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-15-17edba11af82&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">jac</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
 
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
-
-<span class="c1"># create a Levenshtein similarity measure object</span>
+<span class="go"># create a Levenshtein similarity measure object</span>
 <span class="gp">In [16]: </span><span class="n">lev</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Levenshtein</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-16-06ad66de5bf4&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lev</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Levenshtein</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;sm&#39; is not defined
 </pre></div>
 </div>
 <p>There are two main types of similarity measures.</p>
@@ -385,51 +285,26 @@
 
 <span class="go"># compute Jaccard score over sets of tokens of x and y, tokenized using whitespace</span>
 <span class="gp">In [19]: </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-19-1d4fcaaf41b0&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="gh">Out[19]: </span><span class="go">0.5</span>
 
-<span class="ne">NameError</span>: name &#39;jac&#39; is not defined
-
-<span class="c1"># compute Jaccard score over sets of tokens of x and y, tokenized into qgrams (with q=3)</span>
+<span class="go"># compute Jaccard score over sets of tokens of x and y, tokenized into qgrams (with q=3)</span>
 <span class="gp">In [20]: </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-20-cd8608a2299d&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="gh">Out[20]: </span><span class="go">0.4375</span>
 
-<span class="ne">NameError</span>: name &#39;jac&#39; is not defined
-
-<span class="c1"># compute Levenshtein distance between x and y</span>
+<span class="go"># compute Levenshtein distance between x and y</span>
 <span class="gp">In [21]: </span><span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-21-fe45c31b74dc&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;lev&#39; is not defined
+<span class="gh">Out[21]: </span><span class="go">6</span>
 </pre></div>
 </div>
 <p>Note that in the above examples, the Jaccard measure treats the input strings as sets of tokens. And indeed, the two tokenizers ws_tok_set and qg3_tok_set as defined earlier would tokenize a string into a set of tokens. The Levenshtein measure, on the other hand, treats the input strings as sequences of characters. Hence when using it we do not have to tokenize the two strings <strong>x</strong> and <strong>y</strong>.</p>
 <p>Here are some example of using the <strong>get_sim_score</strong> method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="go"># get normalized Levenshtein similarity score between x and y</span>
 <span class="gp">In [22]: </span><span class="n">lev</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-22-55f5f0e1ed94&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lev</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gh">Out[22]: </span><span class="go">0.7391304347826086</span>
 
-<span class="ne">NameError</span>: name &#39;lev&#39; is not defined
-
-<span class="c1"># get normalized Jaccard similarity score (this is the same as the raw score)</span>
+<span class="go"># get normalized Jaccard similarity score (this is the same as the raw score)</span>
 <span class="gp">In [23]: </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-23-27455616b324&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-
-<span class="ne">NameError</span>: name &#39;jac&#39; is not defined
+<span class="gh">Out[23]: </span><span class="go">0.5</span>
 </pre></div>
 </div>
 <p>So depending on what you want, you can call <strong>get_raw_score</strong> or <strong>get_sim_score</strong>. Note, however, that certain measures such as affine gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a <strong>get_sim_score</strong> method, because there is no straightforward way to normalize the raw scores of these measures into similarity scores in [0,1] (see the Developer Manual for further explanation).</p>

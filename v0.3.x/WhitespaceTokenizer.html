@@ -169,8 +169,104 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="whitespace-tokenizer">
-<h1>Whitespace Tokenizer<a class="headerlink" href="#whitespace-tokenizer" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.tokenizer.whitespace_tokenizer">
+<span id="whitespace-tokenizer"></span><h1>Whitespace Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.whitespace_tokenizer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer">
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.whitespace_tokenizer.</code><code class="descname">WhitespaceTokenizer</code><span class="sig-paren">(</span><em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/whitespace_tokenizer.html#WhitespaceTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segments the input string using whitespaces then returns the segments as tokens.</p>
+<p>Currently using the split function in Python, so whitespace character refers to
+the actual whitespace character as well as the tab and newline characters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) – A flag to indicate whether to return a set of
+tokens instead of a bag of tokens (defaults to False).</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.return_set">
+<code class="descname">return_set</code><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.return_set" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>boolean</em> – An attribute to store the flag return_set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.get_delim_set">
+<code class="descname">get_delim_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.get_delim_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current set of delimiters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A Python set which is the current set of delimiters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.get_return_set">
+<code class="descname">get_return_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.get_return_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the value of the return_set flag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The boolean value of the return_set flag.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.set_return_set">
+<code class="descname">set_return_set</code><span class="sig-paren">(</span><em>return_set</em><span class="sig-paren">)</span><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.set_return_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value of the return_set flag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) – a flag to indicate whether to return a set of tokens instead of a bag of tokens.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.tokenize">
+<code class="descname">tokenize</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/whitespace_tokenizer.html#WhitespaceTokenizer.tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.whitespace_tokenizer.WhitespaceTokenizer.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tokenizes input string based on white space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) – The string to be tokenized.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A Python list, which is a set or a bag of tokens, depending on whether return_set is True or False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the input is not a string.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span> <span class="o">=</span> <span class="n">WhitespaceTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data        science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data   science&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span> <span class="o">=</span> <span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data   science data integration&#39;</span><span class="p">)</span>
+<span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;integration&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

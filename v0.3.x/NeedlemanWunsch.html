@@ -189,6 +189,130 @@
             
   <div class="section" id="needleman-wunsch">
 <h1>Needleman Wunsch<a class="headerlink" href="#needleman-wunsch" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.needleman_wunsch.</code><code class="descname">NeedlemanWunsch</code><span class="sig-paren">(</span><em>gap_cost=1.0</em>, <em>sim_func=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Needleman-Wunsch measure.</p>
+<p>The Needleman-Wunsch distance generalizes the Levenshtein distance and considers global alignment between two strings.
+Specifically, it is computed by assigning a score to each alignment between the two input strings and choosing the
+score of the best alignment, that is, the maximal score. An alignment between two strings is a set of correspondences
+between their characters, allowing for gaps.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gap_cost</strong> (<em>float</em>) – Cost of gap (defaults to 1.0).</li>
+<li><strong>sim_func</strong> (<em>function</em>) – Similarity function to give a score for each correspondence between the characters (defaults
+to an identity function, which returns 1 if the two characters are the same and 0 otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="NeedlemanWunsch.gap_cost">
+<code class="descname">gap_cost</code><a class="headerlink" href="#NeedlemanWunsch.gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – An attribute to store the gap cost.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="NeedlemanWunsch.sim_func">
+<code class="descname">sim_func</code><a class="headerlink" href="#NeedlemanWunsch.sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>function</em> – An attribute to store the similarity function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_gap_cost">
+<code class="descname">get_gap_cost</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_gap_cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get gap cost.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Gap cost (float).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>string1</em>, <em>string2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Needleman-Wunsch score between two strings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Needleman-Wunsch similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;dva&#39;</span><span class="p">,</span> <span class="s1">&#39;deeva&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;dva&#39;</span><span class="p">,</span> <span class="s1">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">2.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;dva&#39;</span><span class="p">,</span> <span class="s1">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span> <span class="o">=</span> <span class="n">NeedlemanWunsch</span><span class="p">(</span><span class="n">gap_cost</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nw</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;GCATGCUA&#39;</span><span class="p">,</span> <span class="s1">&#39;GATTACA&#39;</span><span class="p">)</span>
+<span class="go">2.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_sim_func">
+<code class="descname">get_sim_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.get_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.get_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">similarity function (function).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_gap_cost">
+<code class="descname">set_gap_cost</code><span class="sig-paren">(</span><em>gap_cost</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.set_gap_cost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_gap_cost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set gap cost.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_cost</strong> (<em>float</em>) – Cost of gap.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_sim_func">
+<code class="descname">set_sim_func</code><span class="sig-paren">(</span><em>sim_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/needleman_wunsch.html#NeedlemanWunsch.set_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.needleman_wunsch.NeedlemanWunsch.set_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Similarity function to give a score for the correspondence between characters.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

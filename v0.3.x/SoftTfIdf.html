@@ -189,6 +189,166 @@
             
   <div class="section" id="soft-tf-idf">
 <h1>Soft TF/IDF<a class="headerlink" href="#soft-tf-idf" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.soft_tfidf.</code><code class="descname">SoftTfIdf</code><span class="sig-paren">(</span><em>corpus_list=None</em>, <em>sim_func=jaro_function</em>, <em>threshold=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes soft TF/IDF measure.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, this measure is implemented without dampening. This is similar to setting dampen flag to be False in TF-IDF.
+We plan to add the dampen flag in the next release.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>corpus_list</strong> (<em>list of lists</em>) – Corpus list (default is set to None) of strings. If set to None,
+the input list are considered the only corpus.</li>
+<li><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function. This should return a similarity score between two strings (optional),
+default is the Jaro similarity measure.</li>
+<li><strong>threshold</strong> (<em>float</em>) – Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
+of a token pair exceeds the threshold, then the token pair is considered a match.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="SoftTfIdf.sim_func">
+<code class="descname">sim_func</code><a class="headerlink" href="#SoftTfIdf.sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>function</em> – An attribute to store the secondary similarity function.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="SoftTfIdf.threshold">
+<code class="descname">threshold</code><a class="headerlink" href="#SoftTfIdf.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> – An attribute to store the threshold value for the secondary similarity function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_corpus_list">
+<code class="descname">get_corpus_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.get_corpus_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_corpus_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get corpus list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">corpus list (list of lists).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw soft TF/IDF score between two lists given the corpus information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1</strong><strong>,</strong><strong>bag2</strong> (<em>list</em>) – Input lists</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Soft TF/IDF score between the input lists (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not lists or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">0.17541160386140586</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.5547001962252291</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">Affine</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bb&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ab&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">])</span>
+<span class="go">0.81649658092772592</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>the string matching chapter of the “Principles of Data Integration” book.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_sim_func">
+<code class="descname">get_sim_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.get_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">secondary similarity function (function).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_threshold">
+<code class="descname">get_threshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.get_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get threshold used for the secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">threshold (float).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_corpus_list">
+<code class="descname">set_corpus_list</code><span class="sig-paren">(</span><em>corpus_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.set_corpus_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_corpus_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set corpus list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>corpus_list</strong> (<em>list of lists</em>) – Corpus list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_sim_func">
+<code class="descname">set_sim_func</code><span class="sig-paren">(</span><em>sim_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.set_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/soft_tfidf.html#SoftTfIdf.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set threshold value for the secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) – threshold value.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

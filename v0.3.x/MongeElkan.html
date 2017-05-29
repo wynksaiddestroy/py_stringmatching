@@ -189,6 +189,99 @@
             
   <div class="section" id="monge-elkan">
 <h1>Monge Elkan<a class="headerlink" href="#monge-elkan" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.monge_elkan.</code><code class="descname">MongeElkan</code><span class="sig-paren">(</span><em>sim_func=jaro_winkler_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Monge-Elkan measure.</p>
+<p>The Monge-Elkan similarity measure is a type of hybrid similarity measure that combines the benefits of
+sequence-based and set-based methods. This can be effective for domains in which more control is needed
+over the similarity measure. It implicitly uses a secondary similarity measure, such as Levenshtein to compute
+over all similarity score. See the string matching chapter in the DI book (Principles of Data Integration).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function. This is expected to be a sequence-based
+similarity measure (defaults to Jaro-Winkler similarity measure).</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="MongeElkan.sim_func">
+<code class="descname">sim_func</code><a class="headerlink" href="#MongeElkan.sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>function</em> – An attribute to store the secondary similarity function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>bag1</em>, <em>bag2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Monge-Elkan score between two bags (lists).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1</strong><strong>,</strong><strong>bag2</strong> (<em>list</em>) – Input lists.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Monge-Elkan similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not lists or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">me</span> <span class="o">=</span> <span class="n">MongeElkan</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Neal&#39;</span><span class="p">])</span>
+<span class="go">0.8049999999999999</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Niall&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Nigel&#39;</span><span class="p">])</span>
+<span class="go">0.7866666666666667</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Comput.&#39;</span><span class="p">,</span> <span class="s1">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Eng.&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s1">&#39;University&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;California,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Department&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;Computer&#39;</span><span class="p">,</span> <span class="s1">&#39;Science,&#39;</span><span class="p">,</span> <span class="s1">&#39;Univ.&#39;</span><span class="p">,</span> <span class="s1">&#39;Calif.,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">])</span>
+<span class="go">0.8677218614718616</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span> <span class="o">=</span> <span class="n">MongeElkan</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">NeedlemanWunsch</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Comput.&#39;</span><span class="p">,</span> <span class="s1">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Eng.&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s1">&#39;University&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;California,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Department&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;Computer&#39;</span><span class="p">,</span> <span class="s1">&#39;Science,&#39;</span><span class="p">,</span> <span class="s1">&#39;Univ.&#39;</span><span class="p">,</span> <span class="s1">&#39;Calif.,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">])</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span> <span class="o">=</span> <span class="n">MongeElkan</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">Affine</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">me</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;Comput.&#39;</span><span class="p">,</span> <span class="s1">&#39;Sci.&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Eng.&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept.,&#39;</span><span class="p">,</span> <span class="s1">&#39;University&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;California,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Department&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;Computer&#39;</span><span class="p">,</span> <span class="s1">&#39;Science,&#39;</span><span class="p">,</span> <span class="s1">&#39;Univ.&#39;</span><span class="p">,</span> <span class="s1">&#39;Calif.,&#39;</span><span class="p">,</span> <span class="s1">&#39;San&#39;</span><span class="p">,</span> <span class="s1">&#39;Diego&#39;</span><span class="p">])</span>
+<span class="go">2.25</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Principles of Data Integration book</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_sim_func">
+<code class="descname">get_sim_func</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan.get_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan.get_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">secondary similarity function (function).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.monge_elkan.MongeElkan.set_sim_func">
+<code class="descname">set_sim_func</code><span class="sig-paren">(</span><em>sim_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/monge_elkan.html#MongeElkan.set_sim_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.monge_elkan.MongeElkan.set_sim_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the secondary similarity function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

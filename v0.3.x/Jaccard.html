@@ -187,8 +187,77 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="jaccard">
-<h1>Jaccard<a class="headerlink" href="#jaccard" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.jaccard">
+<span id="jaccard"></span><h1>Jaccard<a class="headerlink" href="#module-py_stringmatching.similarity_measure.jaccard" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.jaccard.</code><code class="descname">Jaccard</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Jaccard measure.</p>
+<p>For two sets X and Y, the Jaccard similarity score is:</p>
+<blockquote>
+<div><span class="math">\(jaccard(X, Y) = \frac{|X \cap Y|}{|X \cup Y|}\)</span></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the case where both X and Y are empty sets, we define their Jaccard score to be 1.</p>
+</div>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw Jaccard score between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Jaccard similarity score (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span> <span class="o">=</span> <span class="n">Jaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.375</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.jaccard.Jaccard.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/jaccard.html#Jaccard.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.jaccard.Jaccard.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized Jaccard similarity between two sets. Simply call get_raw_score.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized Jaccard similarity (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span> <span class="o">=</span> <span class="n">Jaccard</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
+<span class="go">0.375</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="go">0.3333333333333333</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

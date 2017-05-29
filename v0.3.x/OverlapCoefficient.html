@@ -187,8 +187,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overlap-coefficient">
-<h1>Overlap Coefficient<a class="headerlink" href="#overlap-coefficient" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-py_stringmatching.similarity_measure.overlap_coefficient">
+<span id="overlap-coefficient"></span><h1>Overlap Coefficient<a class="headerlink" href="#module-py_stringmatching.similarity_measure.overlap_coefficient" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient">
+<em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.overlap_coefficient.</code><code class="descname">OverlapCoefficient</code><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes overlap coefficient measure.</p>
+<p>The overlap coefficient is a similarity measure related to the Jaccard
+measure  that measures the overlap between two sets, and is defined as the size of the intersection divided by
+the smaller of the size of the two sets. For two sets X and Y, the overlap coefficient is:</p>
+<blockquote>
+<div><span class="math">\(overlap\_coefficient(X, Y) = \frac{|X \cap Y|}{\min(|X|, |Y|)}\)</span></div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>In the case where one of X and Y is an empty set and the other is a non-empty set, we define their overlap coefficient to be 0.</li>
+<li>In the case where both X and Y are empty sets, we define their overlap coefficient to be 1.</li>
+</ul>
+</div>
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_raw_score">
+<code class="descname">get_raw_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient.get_raw_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_raw_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the raw overlap coefficient score between two sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Overlap coefficient (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span> <span class="o">=</span> <span class="n">OverlapCoefficient</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Wikipedia article : <a class="reference external" href="https://en.wikipedia.org/wiki/Overlap_coefficient">https://en.wikipedia.org/wiki/Overlap_coefficient</a></li>
+<li>SimMetrics library</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_sim_score">
+<code class="descname">get_sim_score</code><span class="sig-paren">(</span><em>set1</em>, <em>set2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/overlap_coefficient.html#OverlapCoefficient.get_sim_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.overlap_coefficient.OverlapCoefficient.get_sim_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the normalized overlap coefficient between two sets. Simply call get_raw_score.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized overlap coefficient (float).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span> <span class="o">=</span> <span class="n">OverlapCoefficient</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">oc</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
