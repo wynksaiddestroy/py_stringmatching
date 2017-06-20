@@ -28,9 +28,9 @@ from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
 # phonetic similarity measures
 from py_stringmatching.similarity_measure.soundex import Soundex
 
-df1 = pd.read_csv(str(input('Enter the short data set path: ')))
-df2 = pd.read_csv(str(input('Enter the medium data set path: ')))
-df3 = pd.read_csv(str(input('Enter the long data set path: ')))
+df1 = pd.read_csv(str(input('Enter the short strings data set path: ')))
+df2 = pd.read_csv(str(input('Enter the medium strings data set path: ')))
+df3 = pd.read_csv(str(input('Enter the long strings data set path: ')))
 
 
 short_setA = df1['SET A']
