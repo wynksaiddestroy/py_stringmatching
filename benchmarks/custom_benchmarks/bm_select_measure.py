@@ -4,30 +4,29 @@ from math import floor
 import pandas as pd
 from openpyxl import load_workbook
 
-import benchmarks.benchmark as bm
+import benchmarks.custom_benchmarks.benchmark as bm
 from py_stringmatching.similarity_measure.affine import Affine
 from py_stringmatching.similarity_measure.bag_distance import BagDistance
-from py_stringmatching.similarity_measure.editex import Editex
-from py_stringmatching.similarity_measure.hamming_distance import HammingDistance
-from py_stringmatching.similarity_measure.jaro import Jaro
-from py_stringmatching.similarity_measure.jaro_winkler import JaroWinkler
-from py_stringmatching.similarity_measure.levenshtein import Levenshtein
-from py_stringmatching.similarity_measure.needleman_wunsch import NeedlemanWunsch
-from py_stringmatching.similarity_measure.smith_waterman import SmithWaterman
 # token based similarity measures
 from py_stringmatching.similarity_measure.cosine import Cosine
 from py_stringmatching.similarity_measure.dice import Dice
-from py_stringmatching.similarity_measure.jaccard import Jaccard
-from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
-from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
-from py_stringmatching.similarity_measure.tfidf import TfIdf
-from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
+from py_stringmatching.similarity_measure.editex import Editex
 # hybrid similarity measures
 from py_stringmatching.similarity_measure.generalized_jaccard import GeneralizedJaccard
+from py_stringmatching.similarity_measure.hamming_distance import HammingDistance
+from py_stringmatching.similarity_measure.jaccard import Jaccard
+from py_stringmatching.similarity_measure.jaro import Jaro
+from py_stringmatching.similarity_measure.jaro_winkler import JaroWinkler
+from py_stringmatching.similarity_measure.levenshtein import Levenshtein
 from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
+from py_stringmatching.similarity_measure.needleman_wunsch import NeedlemanWunsch
+from py_stringmatching.similarity_measure.overlap_coefficient import OverlapCoefficient
+from py_stringmatching.similarity_measure.smith_waterman import SmithWaterman
+from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
 # phonetic similarity measures
 from py_stringmatching.similarity_measure.soundex import Soundex
-
+from py_stringmatching.similarity_measure.tfidf import TfIdf
+from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
 
 # User input for dataset path and reading the csv file
 df1 = pd.read_csv(str(input('Enter the short strings data set path: ')))
