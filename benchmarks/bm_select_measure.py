@@ -28,11 +28,13 @@ from py_stringmatching.similarity_measure.monge_elkan import MongeElkan
 # phonetic similarity measures
 from py_stringmatching.similarity_measure.soundex import Soundex
 
+
+# User input for dataset path and reading the csv file
 df1 = pd.read_csv(str(input('Enter the short strings data set path: ')))
 df2 = pd.read_csv(str(input('Enter the medium strings data set path: ')))
 df3 = pd.read_csv(str(input('Enter the long strings data set path: ')))
 
-
+# Converting each column in dataset to separate sets
 short_setA = df1['SET A']
 short_setB = df1['SET B']
 medium_setA = df2['SET A']
@@ -40,6 +42,7 @@ medium_setB = df2['SET B']
 long_setA = df3['SET A']
 long_setB = df3['SET B']
 
+# Dict of Current Measures
 present_measures = {
     # sequence based similarity measures
     'Affine': Affine,
@@ -67,15 +70,18 @@ present_measures = {
 
 }
 
+# User input to select the measure to be benchmarked
 bench_measure = input('Choose one measure to benchmark among the following available measures: Affine, BagDistance,\n' \
                       ' Editex, HammingDistance, Jaro, JaroWinkler,Levenshtein,\n\
                       NeedlemanWunsch, SmithWaterman, Cosine, Dice, Jaccard, OverlapCoefficient, SoftTfIdf, TfIdf,\n \
                       TverskyIndex, GeneralizedJaccard, MongeElkan, Soundex ')
 
+# User input for the size of dataset to be benchmarked
 if present_measures.keys().__contains__(bench_measure):
     bench_measure = present_measures.get(bench_measure)
     bm_size =input('Enter the size of the dataset to be benchmarked: ')
 
+# Changing the index in dataframe
     new_index = ['short_short', 'short_medium', 'short_long', 'medium_medium', 'medium_long', 'long_long']
     writer = pd.ExcelWriter('benchmark.xlsx')
     if os.path.isfile('benchmark.xlsx'):

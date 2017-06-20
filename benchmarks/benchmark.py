@@ -11,6 +11,14 @@ class Benchmark:
         self.bm_pairs = bm_pairs
 
     def get_benchmark(self, measure, set1, set2):
+        """ To get the total runtime for the string matching operation on given sets of strings.
+        Args:
+            measure (function): Similarity measure to be benchmarked.
+            set1, set2 (Set): input sets to compare the strings and get the score.
+        Return:
+            Total runtime to do the string matching operation in seconds.
+
+        """
         result = []
         bm_result = []
         start = timeit.default_timer()
