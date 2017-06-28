@@ -56,19 +56,6 @@ class JaroWinkler(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
-        # jw_score = jaro(string1, string2)
-        # min_len = min(len(string1), len(string2))
-        #
-        # # prefix length can be at max 4
-        # j = min(min_len, 4)
-        # i = 0
-        # while i < j and string1[i] == string2[i] and string1[i]:
-        #     i += 1
-        #
-        # if i:
-        #     jw_score += i * self.prefix_weight * (1 - jw_score)
-        #
-        # return jw_score
         return jaro_winkler(string1, string2, self.get_prefix_weight())
 
     def get_sim_score(self, string1, string2):
