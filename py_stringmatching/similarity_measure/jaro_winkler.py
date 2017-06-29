@@ -56,7 +56,7 @@ class JaroWinkler(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
-        return jaro_winkler(string1, string2, self.get_prefix_weight())
+        return jaro_winkler(string1, string2, self.prefix_weight)
 
     def get_sim_score(self, string1, string2):
         """Computes the normalized Jaro-Winkler similarity score between two strings. Simply call get_raw_score.

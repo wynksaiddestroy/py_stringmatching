@@ -75,6 +75,9 @@ if __name__ == "__main__":
                                        include_dirs=[]),
                   setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_jaro_winkler",
                                        ["py_stringmatching/similarity_measure/cython/cython_jaro_winkler.c"],
+                                       include_dirs=[]),
+                  setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_utils",
+                                       ["py_stringmatching/similarity_measure/cython/cython_utils.c"],
                                        include_dirs=[])
                   ]
  

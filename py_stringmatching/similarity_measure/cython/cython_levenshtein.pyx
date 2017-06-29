@@ -5,7 +5,7 @@ cimport cython
 
 import numpy as np
 cimport numpy as np
-
+from py_stringmatching.similarity_measure.cython.cython_utils import int_min_three
 from numpy import int32
 from numpy cimport int32_t
 
@@ -15,14 +15,6 @@ ctypedef np.int_t DTYPE_t
 @cython.boundscheck(False)
 @cython.wraparound(False)
 
-
-cdef inline int int_min(int a, int b, int c):
-    if (a<=b) and (a<= c):
-        return a
-    elif (b<=c):
-        return b
-    else:
-        return c
 
 
 def levenshtein(unicode string1, unicode string2):
@@ -60,6 +52,6 @@ def levenshtein(unicode string1, unicode string2):
         for j from 0 <= j < (len_str2):
             rchar = string2[j]
 
-            d_mat[i+1,j+1] = int_min(d_mat[i + 1, j] + ins_cost,d_mat[i, j + 1] + del_cost,d_mat[i, j]
+            d_mat[i+1,j+1] = int_min_three(d_mat[i + 1, j] + ins_cost,d_mat[i, j + 1] + del_cost,d_mat[i, j]
                                         + (sub_cost if lchar != rchar else 0))
     return d_mat[len_str1,len_str2]
