@@ -1,7 +1,6 @@
 # cython: boundscheck=False
 
 from __future__ import division
-cimport cython
 
 import numpy as np
 cimport numpy as np
@@ -52,6 +51,6 @@ def levenshtein(unicode string1, unicode string2):
         for j from 0 <= j < (len_str2):
             rchar = string2[j]
 
-            d_mat[i+1,j+1] = int_min_three(d_mat[i + 1, j] + ins_cost,d_mat[i, j + 1] + del_cost,d_mat[i, j]
+            d_mat[i+1,j+1] = int_min_three(d_mat[i + 1, j] + ins_cost, d_mat[i, j + 1] + del_cost, d_mat[i, j]
                                         + (sub_cost if lchar != rchar else 0))
-    return d_mat[len_str1,len_str2]
+    return d_mat[len_str1, len_str2]

@@ -1971,9 +1971,10 @@ class MongeElkanTestCases(unittest.TestCase):
         fn2 = NeedlemanWunsch().get_raw_score
         me = MongeElkan(sim_func=fn1)
         self.assertEqual(me.get_sim_func(), fn1)
-        self.assertAlmostEqual(me.get_raw_score(
+        self.assertAlmostEqual(me.get_raw_score(round(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 0.8364448051948052)
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            NUMBER_OF_DECIMAL_PLACES), round(0.8364448051948052, NUMBER_OF_DECIMAL_PLACES))
         self.assertEqual(me.set_sim_func(fn2), True)
         self.assertEqual(me.get_sim_func(), fn2)
         self.assertAlmostEqual(me.get_raw_score(
