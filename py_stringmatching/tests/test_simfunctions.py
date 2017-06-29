@@ -1283,6 +1283,7 @@ class JaccardTestCases(unittest.TestCase):
         self.jac.get_sim_score('MARTHA', 'MARTHA')
 
 
+# Modified test cases to overcome the decimal points matching
 class GeneralizedJaccardTestCases(unittest.TestCase):
     def setUp(self):
         self.gen_jac = GeneralizedJaccard()
@@ -1302,7 +1303,7 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
     def test_set_threshold(self):
         gj = GeneralizedJaccard(threshold=0.8)
         self.assertEqual(gj.get_threshold(), 0.8)
-        self.assertAlmostEqual(round(gj.get_raw_score(['Niall'], ['Neal', 'Njall']),5), round(0.43333333333333335,5))
+        self.assertAlmostEqual(round(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 5), round(0.43333333333333335, 5))
         self.assertEqual(gj.set_threshold(0.9), True)
         self.assertEqual(gj.get_threshold(), 0.9)
         self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.0)
@@ -1315,7 +1316,7 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
         self.assertAlmostEqual(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 0.44)
         self.assertEqual(gj.set_sim_func(fn2), True)
         self.assertEqual(gj.get_sim_func(), fn2)
-        self.assertAlmostEqual(round(gj.get_raw_score(['Niall'], ['Neal', 'Njall']),5), round(0.43333333333333335,5))
+        self.assertAlmostEqual(round(gj.get_raw_score(['Niall'], ['Neal', 'Njall']), 5), round(0.43333333333333335, 5))
 
     def test_valid_input_raw_score(self):
         self.assertEqual(self.gen_jac.get_raw_score([''], ['']), 1.0)  # need to check this
@@ -1324,27 +1325,27 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
         self.assertEqual(self.gen_jac.get_raw_score(['a'], ['a']), 1.0)
 
         self.assertEqual(self.gen_jac.get_raw_score([], ['Nigel']), 0.0)
-        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Neal']),5), round(0.7833333333333333,5))
-        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Njall', 'Neal']),5), round(0.43333333333333335,5))
-        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Neal', 'Njall']),5), round(0.43333333333333335,5))
+        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Neal']), 5), round(0.7833333333333333, 5))
+        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Njall', 'Neal']), 5), round(0.43333333333333335, 5))
+        self.assertEqual(round(self.gen_jac.get_raw_score(['Niall'], ['Neal', 'Njall']), 5), round(0.43333333333333335, 5))
         self.assertEqual(round(self.gen_jac.get_raw_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.6800468975468975,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.6800468975468975, 5))
 
         self.assertEqual(round(self.gen_jac_with_jw.get_raw_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.7220003607503608,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.7220003607503608, ))
         self.assertEqual(round(self.gen_jac_with_jw.get_raw_score(
                 ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.7075277777777778,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.7075277777777778, 5))
 
         self.assertEqual(round(self.gen_jac_with_jw_08.get_raw_score(
                 ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.45810185185185187,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.45810185185185187, 5))
 
     def test_valid_input_sim_score(self):
         self.assertEqual(self.gen_jac.get_sim_score([''], ['']), 1.0)  # need to check this
@@ -1353,39 +1354,39 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
         self.assertEqual(self.gen_jac.get_sim_score(['a'], ['a']), 1.0)
 
         self.assertEqual(self.gen_jac.get_sim_score([], ['Nigel']), 0.0)
-        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Neal']),5), round(0.7833333333333333,5))
-        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Njall', 'Neal']),5), round(0.43333333333333335,5))
-        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Neal', 'Njall']),5), round(0.43333333333333335,5))
+        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Neal']), 5), round(0.7833333333333333, 5))
+        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Njall', 'Neal']), 5), round(0.43333333333333335, 5))
+        self.assertEqual(round(self.gen_jac.get_sim_score(['Niall'], ['Neal', 'Njall']), 5), round(0.43333333333333335, 5))
         self.assertEqual(round(self.gen_jac.get_sim_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.6800468975468975,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.6800468975468975, 5))
 
         self.assertEqual(round(self.gen_jac_with_jw.get_sim_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.7220003607503608,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.7220003607503608, 5))
         self.assertEqual(round(self.gen_jac_with_jw.get_sim_score(
                 ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.7075277777777778,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.7075277777777778, 5))
 
         self.assertEqual(round(self.gen_jac_with_jw_08.get_sim_score(
                 ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
-            round(0.45810185185185187,5))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
+            round(0.45810185185185187, 5))
 
     def test_valid_input_non_ascii_raw_score(self):
-        self.assertEqual(round(self.gen_jac.get_raw_score([u'Nóáll'], [u'Neál']),5), round(0.7833333333333333,5))
-        self.assertEqual(round(self.gen_jac.get_raw_score(['Nóáll'], ['Neál']),5), round(0.7833333333333333,5))
+        self.assertEqual(round(self.gen_jac.get_raw_score([u'Nóáll'], [u'Neál']), 5), round(0.7833333333333333, 5))
+        self.assertEqual(round(self.gen_jac.get_raw_score(['Nóáll'], ['Neál']), 5), round(0.7833333333333333, 5))
         self.assertEqual(round(self.gen_jac.get_raw_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),5),
-                         round(0.7833333333333333,5))
+                         round(0.7833333333333333, 5))
 
     def test_valid_input_non_ascii_sim_score(self):
-        self.assertEqual(round(self.gen_jac.get_sim_score([u'Nóáll'], [u'Neál']),5), round(0.7833333333333333,5))
-        self.assertEqual(round(self.gen_jac.get_sim_score(['Nóáll'], ['Neál']),5), round(0.7833333333333333,5))
-        self.assertEqual(round(self.gen_jac.get_sim_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),5),
-                         round(0.7833333333333333,5))
+        self.assertEqual(round(self.gen_jac.get_sim_score([u'Nóáll'], [u'Neál']),5), round(0.7833333333333333, 5))
+        self.assertEqual(round(self.gen_jac.get_sim_score(['Nóáll'], ['Neál']),5), round(0.7833333333333333, 5))
+        self.assertEqual(round(self.gen_jac.get_sim_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']), 5),
+                         round(0.7833333333333333, 5))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -1940,6 +1941,7 @@ class Soft_TfidfTestCases(unittest.TestCase):
         self.soft_tfidf.get_raw_score('MARTHA', 'MARTHA')
 
 
+# Modified test cases to overcome the decimal points matching
 class MongeElkanTestCases(unittest.TestCase):
     def setUp(self):
         self.me = MongeElkan()
@@ -1971,8 +1973,8 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(self.me.get_raw_score([''], ['a']), 0.0)
         self.assertEqual(self.me.get_raw_score(['a'], ['a']), 1.0)
 
-        self.assertEqual(round(self.me.get_raw_score(['Niall'], ['Neal']),5), round(0.8049999999999999, 5))
-        self.assertEqual(round(self.me.get_raw_score(['Niall'], ['Njall']),5), 0.88)
+        self.assertEqual(round(self.me.get_raw_score(['Niall'], ['Neal']), 5), round(0.8049999999999999, 5))
+        self.assertEqual(round(self.me.get_raw_score(['Niall'], ['Njall']), 5), 0.88)
         self.assertEqual(round(self.me.get_raw_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
                 ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),5),
@@ -1990,10 +1992,10 @@ class MongeElkanTestCases(unittest.TestCase):
         self.assertEqual(self.me.get_raw_score([], ['Nigel']), 0.0)
 
     def test_valid_input_non_ascii(self):
-        self.assertEqual(round(self.me.get_raw_score([u'Nóáll'], [u'Neál']),5), round(0.8049999999999999,5))
-        self.assertEqual(round(self.me.get_raw_score(['Nóáll'], ['Neál']),5), round(0.8049999999999999,5))
+        self.assertEqual(round(self.me.get_raw_score([u'Nóáll'], [u'Neál']),5), round(0.8049999999999999, 5))
+        self.assertEqual(round(self.me.get_raw_score(['Nóáll'], ['Neál']),5), round(0.8049999999999999, 5))
         self.assertEqual(round(self.me.get_raw_score([b'N\xc3\xb3\xc3\xa1ll'], [b'Ne\xc3\xa1l']),5),
-                         round(0.8049999999999999,5))
+                         round(0.8049999999999999, 5))
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
