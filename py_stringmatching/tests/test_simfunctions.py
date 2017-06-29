@@ -1225,7 +1225,8 @@ class JaccardTestCases(unittest.TestCase):
                                                 ['data', 'data', 'science']), 1.0 / 3.0)
         self.assertEqual(self.jac.get_sim_score([], []), 1.0)
         self.assertEqual(self.jac.get_sim_score(set([]), set([])), 1.0)
-        self.assertEqual(self.jac.get_sim_score({1, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
+        self.assertEqual(self.jac.get_sim_score({1, 1, 2, 3, 4},
+                                                {2, 3, 4, 5, 6, 7, 7, 8}), 3.0 / 8.0)
 
     @raises(TypeError)
     def test_invalid_input1_raw_score(self):
@@ -1341,8 +1342,8 @@ class GeneralizedJaccardTestCases(unittest.TestCase):
 
         self.assertEqual(round(self.gen_jac_with_jw.get_raw_score(
                 ['Comput.', 'Sci.', 'and', 'Eng.', 'Dept.,', 'University', 'of', 'California,', 'San', 'Diego'],
-                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']), 5),
-            round(0.7220003607503608, NUMBER_OF_DECIMAL_PLACES ))
+                ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
+            NUMBER_OF_DECIMAL_PLACES), round(0.7220003607503608, NUMBER_OF_DECIMAL_PLACES ))
         self.assertEqual(round(self.gen_jac_with_jw.get_raw_score(
                 ['Comp', 'Sci.', 'and', 'Engr', 'Dept.,', 'Universty', 'of', 'Cal,', 'San', 'Deigo'],
                 ['Department', 'of', 'Computer', 'Science,', 'Univ.', 'Calif.,', 'San', 'Diego']),
