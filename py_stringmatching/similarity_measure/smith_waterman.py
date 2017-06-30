@@ -8,10 +8,6 @@ from py_stringmatching.similarity_measure.sequence_similarity_measure import \
 from py_stringmatching.similarity_measure.cython.cython_smith_waterman import smith_waterman
 
 
-def sim_ident(char1, char2):
-    return int(char1 == char2)
-
-
 class SmithWaterman(SequenceSimilarityMeasure):
     """Computes Smith-Waterman measure.
 
