@@ -68,7 +68,7 @@ class NeedlemanWunsch(SequenceSimilarityMeasure):
         utils.tok_check_for_string_input(string1, string2)
 
         # returns the similarity score from the cython function
-        return needleman_wunsch(string1, string2, self.get_gap_cost(), self.get_sim_func())
+        return needleman_wunsch(string1, string2, self.gap_cost, self.sim_func)
 
     def get_gap_cost(self):
         """Get gap cost.

@@ -1,8 +1,6 @@
 import cython
 import numpy as np
 cimport numpy as np
-from py_stringmatching.similarity_measure.cython.cython_utils import cython_sim_ident
-
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
