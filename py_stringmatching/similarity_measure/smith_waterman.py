@@ -1,6 +1,5 @@
 # coding=utf-8
 
-import numpy as np
 from py_stringmatching.similarity_measure.cython.cython_utils import cython_sim_ident
 from py_stringmatching import utils
 from six.moves import xrange
