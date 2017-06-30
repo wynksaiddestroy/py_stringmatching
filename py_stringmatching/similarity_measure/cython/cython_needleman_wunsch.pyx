@@ -33,9 +33,6 @@ def needleman_wunsch(unicode string1, unicode string2, float gap_cost,
         dist_mat[0, j] = -(j * gap_cost)
 
 
-    if sim_score.__name__ == "sim_ident":
-        sim_score = cython_sim_ident
-
     # Needleman-Wunsch DP calculation
     for i from 1 <= i < (len_s1 + 1):
         for j from 1 <= j < (len_s2 + 1):
