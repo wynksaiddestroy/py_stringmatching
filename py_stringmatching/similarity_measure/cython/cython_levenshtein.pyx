@@ -1,7 +1,7 @@
 # cython: boundscheck=False
 
 from __future__ import division
-
+import cython
 import numpy as np
 cimport numpy as np
 from py_stringmatching.similarity_measure.cython.cython_utils import int_min_three
