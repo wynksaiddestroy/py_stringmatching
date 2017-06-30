@@ -78,7 +78,11 @@ if __name__ == "__main__":
                                        include_dirs=[]),
                   setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_utils",
                                        ["py_stringmatching/similarity_measure/cython/cython_utils.c"],
+                                       include_dirs=[]),
+                  setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_needleman_wunsch",
+                                       ["py_stringmatching/similarity_measure/cython/cython_needleman_wunsch.c"],
                                        include_dirs=[])
+
                   ]
  
     # find packages to be included. exclude benchmarks.
