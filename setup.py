@@ -84,6 +84,9 @@ if __name__ == "__main__":
                                        include_dirs=[]),
                   setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_smith_waterman",
                                        ["py_stringmatching/similarity_measure/cython/cython_smith_waterman.c"],
+                                       include_dirs=[]),
+                  setuptools.Extension("py_stringmatching.similarity_measure.cython.cython_affine",
+                                       ["py_stringmatching/similarity_measure/cython/cython_affine.c"],
                                        include_dirs=[])
 
                   ]
