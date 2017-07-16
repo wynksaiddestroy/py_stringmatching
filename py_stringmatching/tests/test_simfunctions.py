@@ -55,8 +55,8 @@ class AffineTestCases(unittest.TestCase):
     def test_valid_input(self):
         self.assertAlmostEqual(self.affine.get_raw_score('dva', 'deeva'), 1.5)
         self.assertAlmostEqual(self.affine_with_params1.get_raw_score('dva', 'deeve'), -0.5)
-        self.assertAlmostEqual(self.affine_with_params2.get_raw_score('AAAGAATTCA', 'AAATCA'),
-                               4.4)
+        self.assertAlmostEqual(round(self.affine_with_params2.get_raw_score('AAAGAATTCA',
+                                                                            'AAATCA'),NUMBER_OF_DECIMAL_PLACES), 4.4)
         self.assertAlmostEqual(self.affine_with_params2.get_raw_score(' ', ' '), 1)
         self.assertEqual(self.affine.get_raw_score('', 'deeva'), 0)
 
