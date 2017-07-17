@@ -1,7 +1,9 @@
 import cython
 
+
 def cython_sim_ident(unicode char1, unicode char2):
     return 1 if char1 == char2 else 0
+
 
 def int_max_two(int a, int b):
     """Finds the maximum integer of the given two integers.
@@ -12,6 +14,7 @@ def int_max_two(int a, int b):
     """
     if a > b : return a
     else: return b
+
 
 def int_max_three(int a, int b, int c):
     """Finds the maximum integer of the given three integers.
@@ -25,9 +28,8 @@ def int_max_three(int a, int b, int c):
         max_int = b
     if c > max_int:
         max_int = c
-        if b > c:
-            max_int = b
     return max_int
+
 
 def float_max_two(float a, float b):
     """Finds the maximum float of the given two floats.
@@ -38,6 +40,7 @@ def float_max_two(float a, float b):
     """
     if a > b : return a
     else: return b
+
 
 def float_max_three(float a, float b, float c):
     """Finds the maximum float of the given two float.
@@ -51,10 +54,7 @@ def float_max_three(float a, float b, float c):
         max_float = b
     if c > max_float:
         max_float = c
-        if b > c:
-            max_float = b
     return max_float
-
 
 
 def int_min_two(int a, int b):
@@ -67,6 +67,7 @@ def int_min_two(int a, int b):
     if a > b : return b
     else: return a
 
+
 def int_min_three(int a, int b, int c):
     """Finds the minimum integer of the given two integers.
     Args:
@@ -74,10 +75,9 @@ def int_min_three(int a, int b, int c):
     Returns:
         Minimum integer (int).
     """
-
-    if a <= b and a <= c:
-        return a
-    elif b <= c:
-        return b
-    else:
-        return c
+    cdef int min_int = a
+    if b < min_int:
+        min_int = b
+    if c < min_int:
+        min_int = c
+    return min_int
