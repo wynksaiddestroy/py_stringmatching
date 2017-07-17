@@ -1,14 +1,10 @@
-import numpy as np
 
 from py_stringmatching import utils
 from six.moves import xrange
 from py_stringmatching.similarity_measure.sequence_similarity_measure import \
                                                     SequenceSimilarityMeasure
-
-
-def sim_ident(char1, char2):
-    return int(char1 == char2)
-
+from py_stringmatching.similarity_measure.cython.cython_affine import affine
+from py_stringmatching.similarity_measure.cython.cython_utils import cython_sim_ident
 
 class Affine(SequenceSimilarityMeasure):
     """Returns the affine gap score between two strings. 
@@ -28,7 +24,7 @@ class Affine(SequenceSimilarityMeasure):
         sim_func (function): An attribute to store the similarity function.
     """
 
-    def __init__(self, gap_start=1, gap_continuation=0.5, sim_func=sim_ident):
+    def __init__(self, gap_start=1, gap_continuation=0.5, sim_func=cython_sim_ident):
         self.gap_start = gap_start
         self.gap_continuation = gap_continuation
         self.sim_func = sim_func
@@ -70,43 +66,7 @@ class Affine(SequenceSimilarityMeasure):
         if utils.sim_check_for_empty(string1, string2):
             return 0
 
-        gap_start = -self.gap_start
-        gap_continuation = -self.gap_continuation
-        m = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
-        x = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
-        y = np.zeros((len(string1) + 1, len(string2) + 1), dtype=np.float)
-
-        # DP initialization
-        for i in xrange(1, len(string1) + 1):
-            m[i][0] = -float("inf")
-            x[i][0] = gap_start + (i - 1) * gap_continuation
-            y[i][0] = -float("inf")
-
-        # DP initialization
-        for j in xrange(1, len(string2) + 1):
-            m[0][j] = -float("inf")
-            x[0][j] = -float("inf")
-            y[0][j] = gap_start + (j - 1) * gap_continuation
-
-        # affine gap calculation using DP
-        for i in xrange(1, len(string1) + 1):
-            for j in xrange(1, len(string2) + 1):
-                # best score between x_1....x_i and y_1....y_j
-                # given that x_i is aligned to y_j
-                m[i][j] = (self.sim_func(string1[i - 1], string2[j - 1]) +
-                           max(m[i - 1][j - 1], x[i - 1][j - 1],
-                               y[i - 1][j - 1]))
-
-                # the best score given that x_i is aligned to a gap
-                x[i][j] = max(gap_start + m[i - 1][j],
-                              gap_continuation + x[i - 1][j])
-
-                # the best score given that y_j is aligned to a gap
-                y[i][j] = max(gap_start + m[i][j - 1],
-                              gap_continuation + y[i][j - 1])
-
-        return max(m[len(string1)][len(string2)], x[len(string1)][len(string2)],
-                   y[len(string1)][len(string2)])
+        return affine(string1, string2, self.gap_start, self.gap_continuation, self.sim_func)
 
     def get_gap_start(self):
         """Get gap start cost.

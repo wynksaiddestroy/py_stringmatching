@@ -1,5 +1,5 @@
 
-from py_stringmatching.similarity_measure.cython.cython_utils import int_max
+from py_stringmatching.similarity_measure.cython.cython_utils import int_max_two
 import numpy as np
 cimport numpy as np
 
@@ -15,7 +15,7 @@ def jaro(unicode string1, unicode string2):
 
 
     cdef int len_str1 = len(string1), len_str2 = len(string2)
-    cdef int max_len = int_max(len_str1, len_str2)
+    cdef int max_len = int_max_two(len_str1, len_str2)
     cdef int search_range = (max_len // 2) - 1
 
     if search_range < 0:
