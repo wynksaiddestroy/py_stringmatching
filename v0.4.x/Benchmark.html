@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Benchmark &mdash; py_stringmatching 0.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+        <link rel="prev" title="Tversky Index" href="TverskyIndex.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> py_stringmatching
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-benchmark">Running the benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpreting-the-results">Interpreting the results</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Benchmark</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/Benchmark.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="benchmark">
+<h1>Benchmark<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h1>
+<p>py_stringmatching consists of similarity measures which could be applied over
+larger number of string pairs. In order to quantify the performance of the
+similarity measures, py_stringmatching has scripts to benchmark the similarity
+measures.</p>
+<div class="section" id="running-the-benchmark">
+<h2>Running the benchmark<a class="headerlink" href="#running-the-benchmark" title="Permalink to this headline">¶</a></h2>
+<p>User can run the benchmark using the following steps.</p>
+<p>Step 1: Clone the py_stringmatching package from GitHub using the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/anhaidgroup/py_stringmatching.git
+</pre></div>
+</div>
+<p>Step 2: Change the working directory to py_stringmatching/benchmarks/custom_benchmarks</p>
+<p>Step 3: Run the benchmark using the following sequence of commands.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_entitymatching</span> <span class="kn">as</span> <span class="nn">em</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">read_csv_metadata</span><span class="p">(</span><span class="s">&#39;path_to_csv_dir/table_A.csv&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s">&#39;ID&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">read_csv_metadata</span><span class="p">(</span><span class="s">&#39;path_to_csv_dir/table_B.csv&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s">&#39;ID&#39;</span><span class="p">)</span>
+<span class="go"># import py_stringmatching package and benchmark script</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">run_benchmark</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="go"># create an object for the similarity measure you need to benchmark</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jaccard</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
+<span class="go"># create a tokenizer object (in case of token-based measures)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="go"># Set dataset paths</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/short_strings.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">medium_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/medium_strings.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">long_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/long_strings.csv&#39;</span>
+<span class="go"># Data size (number of string pairs) over which the benchmark should be run</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_size</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="go"># Number of times to repeat</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num_repeat</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="go"># Output file where the benchmark results should be written</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_file</span> <span class="o">=</span> <span class="s">&#39;benchmark_results.csv&#39;</span>
+<span class="go"># run the benchmark</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">run_benchmark</span><span class="p">(</span><span class="n">short_strings_path</span><span class="p">,</span> <span class="n">medium_strings_path</span><span class="p">,</span> <span class="n">long_strings_path</span><span class="p">,</span> <span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">,</span> <span class="n">jaccard</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">tokenize</span><span class="p">,</span> <span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="n">output_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above command will run benchmark for 9 different configurations
+(short-short, short-medium, short-long, medium-short, medium-medium, medium-long,
+long-short, long-medium, long-long) for the provided similarity measure, and
+writes the result to the provided output file.</p>
+</div>
+<div class="section" id="interpreting-the-results">
+<h2>Interpreting the results<a class="headerlink" href="#interpreting-the-results" title="Permalink to this headline">¶</a></h2>
+<p>The benchmark results will be a CSV file containing the following information,</p>
+<blockquote>
+<div><ul class="simple">
+<li>Configuration</li>
+<li>Runtime (in secs) for each run of a configuration (note that each configuration is run for <cite>num_repeat</cite> times)</li>
+<li>Average runtime (in secs) for each configuration</li>
+</ul>
+</div></blockquote>
+<p>An example output file will look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>configuration,run_1 (in secs),run_2 (in secs),run_3 (in secs),average (in secs)
+short_short,0.112642049789,0.112892866135,0.112852096558,0.112795670827
+short_medium,0.115404129028,0.115512132645,0.115454912186,0.115457057953
+short_long,0.194123983383,0.193922996521,0.193790912628,0.193945964177
+medium_short,0.11647105217,0.116579055786,0.116438865662,0.116496324539
+medium_medium,0.118470907211,0.118409156799,0.118496894836,0.118458986282
+medium_long,0.206312894821,0.206974983215,0.206708908081,0.206665595373
+long_short,0.205050945282,0.205410957336,0.205253124237,0.205238342285
+long_medium,0.217441797256,0.21806883812,0.218235015869,0.217915217082
+long_long,0.770321846008,0.76869893074,0.768806934357,0.769275903702
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="TverskyIndex.html" class="btn btn-neutral" title="Tversky Index" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, py_stringmatching Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
