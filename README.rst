@@ -6,7 +6,7 @@ This project seeks to build a Python software package that consists of a compreh
 Important links
 ===============
 
- * Project Homepage: https://sites.google.com/site/anhaidgroup/projects/py_stringmatching
+ * Project Homepage: https://sites.google.com/site/anhaidgroup/projects/magellan/py_stringmatching
  * Code repository: https://github.com/anhaidgroup/py_stringmatching
  * User Manual: http://anhaidgroup.github.io/py_stringmatching/v0.4.x/index.html 
  * Tutorial: http://anhaidgroup.github.io/py_stringmatching/v0.4.x/Tutorial.html
