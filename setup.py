@@ -92,7 +92,7 @@ if __name__ == "__main__":
                   ]
  
     # find packages to be included. exclude benchmarks.
-    packages = setuptools.find_packages(exclude=["benchmarks"])
+    packages = setuptools.find_packages(exclude=["benchmarks", "benchmarks.custom_benchmarks"])
 
     with open('README.rst') as f:
         LONG_DESCRIPTION = f.read()
