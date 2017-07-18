@@ -11,7 +11,7 @@ Important links
  * User Manual: http://anhaidgroup.github.io/py_stringmatching/v0.4.x/index.html 
  * Tutorial: http://anhaidgroup.github.io/py_stringmatching/v0.4.x/Tutorial.html
  * How to Contribute: http://anhaidgroup.github.io/py_stringmatching/v0.4.x/Contributing.html
- * Developer Manual: http://pages.cs.wisc.edu/~anhai/py_stringmatching/v0.2.0/dev-manual-v0.2.0.pdf
+ * Developer Manual: http://pages.cs.wisc.edu/~anhai/py_stringmatching/v0.4.0/dev-manual-v0.4.0.pdf
  * Issue Tracker: https://github.com/anhaidgroup/py_stringmatching/issues
  * Mailing List: https://groups.google.com/forum/#!forum/py_stringmatching
  
