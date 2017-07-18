@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     setuptools.setup(
         name='py_stringmatching',
-        version='0.2.1',
+        version='0.4.0',
         description='Python library for string matching.',
         long_description=LONG_DESCRIPTION,
         url='https://sites.google.com/site/anhaidgroup/projects/py_stringmatching',
@@ -124,6 +124,7 @@ if __name__ == "__main__":
             'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',                            
             'Topic :: Scientific/Engineering',
             'Topic :: Utilities',
             'Topic :: Software Development :: Libraries',

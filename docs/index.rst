@@ -14,6 +14,7 @@ Contents
     Tutorial
     Tokenizer
     SimilarityMeasure
+    Benchmark
 
 Indices and tables
 ==================
