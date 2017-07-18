@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Benchmark &mdash; py_stringmatching 0.4 documentation</title>
+  <title>Runtime Benchmark &mdash; py_stringmatching 0.4 documentation</title>
   
 
   
@@ -86,9 +86,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Benchmark</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-benchmark">Running the benchmark</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interpreting-the-results">Interpreting the results</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Runtime Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-benchmark">Running the Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpreting-the-results">Interpreting the Results</a></li>
 </ul>
 </li>
 </ul>
@@ -121,7 +121,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Benchmark</li>
+    <li>Runtime Benchmark</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -135,26 +135,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="benchmark">
-<h1>Benchmark<a class="headerlink" href="#benchmark" title="Permalink to this headline">¶</a></h1>
-<p>py_stringmatching consists of similarity measures which could be applied over
-larger number of string pairs. In order to quantify the performance of the
-similarity measures, py_stringmatching has scripts to benchmark the similarity
-measures.</p>
+  <div class="section" id="runtime-benchmark">
+<h1>Runtime Benchmark<a class="headerlink" href="#runtime-benchmark" title="Permalink to this headline">¶</a></h1>
+<p>For this package, we add a runtime benchmark (consisting of a script and several datasets) to measure the runtime performance of similarity measures. This benchmark can be used by users to judge whether similarity measures are fast enough for their purposes, and used by developers to speed up the measures.</p>
 <div class="section" id="running-the-benchmark">
-<h2>Running the benchmark<a class="headerlink" href="#running-the-benchmark" title="Permalink to this headline">¶</a></h2>
-<p>User can run the benchmark using the following steps.</p>
+<h2>Running the Benchmark<a class="headerlink" href="#running-the-benchmark" title="Permalink to this headline">¶</a></h2>
+<p>The user can run the benchmark as follows:</p>
 <p>Step 1: Clone the py_stringmatching package from GitHub using the following command:</p>
 <div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/anhaidgroup/py_stringmatching.git
 </pre></div>
 </div>
 <p>Step 2: Change the working directory to py_stringmatching/benchmarks/custom_benchmarks</p>
-<p>Step 3: Run the benchmark using the following sequence of commands.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_entitymatching</span> <span class="kn">as</span> <span class="nn">em</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">read_csv_metadata</span><span class="p">(</span><span class="s">&#39;path_to_csv_dir/table_A.csv&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s">&#39;ID&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="n">read_csv_metadata</span><span class="p">(</span><span class="s">&#39;path_to_csv_dir/table_B.csv&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s">&#39;ID&#39;</span><span class="p">)</span>
-<span class="go"># import py_stringmatching package and benchmark script</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
+<p>Step 3: Run the benchmark using the following sequence of commands:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">run_benchmark</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="go"># create an object for the similarity measure you need to benchmark</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jaccard</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
@@ -174,14 +167,16 @@ measures.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">run_benchmark</span><span class="p">(</span><span class="n">short_strings_path</span><span class="p">,</span> <span class="n">medium_strings_path</span><span class="p">,</span> <span class="n">long_strings_path</span><span class="p">,</span> <span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">,</span> <span class="n">jaccard</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">tokenize</span><span class="p">,</span> <span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="n">output_file</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above command will run benchmark for 9 different configurations
+<p>The benchmark contains three datasets in the <cite>datasets</cite> directory: (1) short_strings.csv, (2) medium_strings.csv, and (3) long_strings.csv. Each dataset contains 5000 strings. Specifically, short_strings.csv contains strings with length in the range of 2-15 (avg. of 10), medium_strings.csv contains strings with length in the range of 18-39 (avg. of 25), and
+long_strings.csv contains strings with length in the range of 60-1726 (avg. of 127).</p>
+<p>The above command will run the benchmark for 9 different configurations
 (short-short, short-medium, short-long, medium-short, medium-medium, medium-long,
 long-short, long-medium, long-long) for the provided similarity measure, and
-writes the result to the provided output file.</p>
+writes the result to the provided output file. See below for additional details.</p>
 </div>
 <div class="section" id="interpreting-the-results">
-<h2>Interpreting the results<a class="headerlink" href="#interpreting-the-results" title="Permalink to this headline">¶</a></h2>
-<p>The benchmark results will be a CSV file containing the following information,</p>
+<h2>Interpreting the Results<a class="headerlink" href="#interpreting-the-results" title="Permalink to this headline">¶</a></h2>
+<p>The benchmark results will be a CSV file containing the following information:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Configuration</li>

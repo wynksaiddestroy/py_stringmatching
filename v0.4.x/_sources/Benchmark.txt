@@ -1,15 +1,12 @@
-Benchmark 
-==========
+Runtime Benchmark 
+=================
 
-py_stringmatching consists of similarity measures which could be applied over 
-larger number of string pairs. In order to quantify the performance of the 
-similarity measures, py_stringmatching has scripts to benchmark the similarity 
-measures.
+For this package, we add a runtime benchmark (consisting of a script and several datasets) to measure the runtime performance of similarity measures. This benchmark can be used by users to judge whether similarity measures are fast enough for their purposes, and used by developers to speed up the measures.
 
-Running the benchmark
+Running the Benchmark
 ---------------------
 
-User can run the benchmark using the following steps.
+The user can run the benchmark as follows:
 
 Step 1: Clone the py_stringmatching package from GitHub using the following command::
     
@@ -17,12 +14,8 @@ Step 1: Clone the py_stringmatching package from GitHub using the following comm
 
 Step 2: Change the working directory to py_stringmatching/benchmarks/custom_benchmarks
 
-Step 3: Run the benchmark using the following sequence of commands.
+Step 3: Run the benchmark using the following sequence of commands:
 
-    >>> import py_entitymatching as em
-    >>> A = em.read_csv_metadata('path_to_csv_dir/table_A.csv', key='ID')
-    >>> B = em.read_csv_metadata('path_to_csv_dir/table_B.csv', key='ID')
-    # import py_stringmatching package and benchmark script
     >>> import py_stringmatching as sm
     >>> from run_benchmark import *
     # create an object for the similarity measure you need to benchmark
@@ -42,16 +35,18 @@ Step 3: Run the benchmark using the following sequence of commands.
     # run the benchmark
     >>> run_benchmark(short_strings_path, medium_strings_path, long_strings_path, data_size = data_size, jaccard.get_sim_score, ws.tokenize, num_repeat = num_repeat, output_file = output_file)
 
+The benchmark contains three datasets in the `datasets` directory: (1) short_strings.csv, (2) medium_strings.csv, and (3) long_strings.csv. Each dataset contains 5000 strings. Specifically, short_strings.csv contains strings with length in the range of 2-15 (avg. of 10), medium_strings.csv contains strings with length in the range of 18-39 (avg. of 25), and
+long_strings.csv contains strings with length in the range of 60-1726 (avg. of 127).
 
-The above command will run benchmark for 9 different configurations 
+The above command will run the benchmark for 9 different configurations 
 (short-short, short-medium, short-long, medium-short, medium-medium, medium-long, 
 long-short, long-medium, long-long) for the provided similarity measure, and
-writes the result to the provided output file. 
+writes the result to the provided output file. See below for additional details.
 
-Interpreting the results
+Interpreting the Results
 --------------------------
 
-The benchmark results will be a CSV file containing the following information,
+The benchmark results will be a CSV file containing the following information:
 
    * Configuration
    * Runtime (in secs) for each run of a configuration (note that each configuration is run for `num_repeat` times)
