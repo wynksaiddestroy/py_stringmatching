@@ -1,7 +1,7 @@
 What is New? 
 ============
 
-Compared to Version 0.3.0, the following are new:
+Compared to Version 0.3.0, the followings are new:
 
   * Five similarity measures written in Python have been Cythonized to run much faster. These are Affine, Jaro, Jaro Winkler, Needleman Wunsch, and Smith Waterman. 
 
@@ -11,4 +11,4 @@ Compared to Version 0.3.0, the following are new:
 
   * In subsequent versions, it would be highly desirable to Cythonize remaining similarity measures, including Dice, cosine, etc.
 
-  * For this package, we add a runtime benchmark (consisting of several datasets and scripts) to measure the runtime performance of similarity measures. This benchmark can be used by users to judge whether similarity measures are fast enough for their purposes, and used by developers to speed up the measures. 
+  * For this package, we add a runtime benchmark (consisting of a script and several datasets) to measure the runtime performance of similarity measures. This benchmark can be used by users to judge whether similarity measures are fast enough for their purposes, and used by developers to speed up the measures. 
