@@ -175,7 +175,7 @@ To address such cases, in practice it is common to add a prefix of (q-1) charact
 
 Class Hierarchy for Tokenizers and Similarity Measures
 -------------------------------------------------------
-Version 0.2.0 implements the following class hierarchy for tokenizers:
+The current version implements the following class hierarchy for tokenizers:
 
 Tokenizer                                                                       
   * DefinitionTokenizer                                                         
