@@ -20,7 +20,7 @@ The currently implemented similarity measures include:
   * bag-based measures: TF/IDF.
   * phonetic-based measures: soundex.
   
-(There are also three hybrid similarity measures: Monge Elkan, Soft TF/IDF, and Generalized Jaccard. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
+(There are also hybrid similarity measures: Monge Elkan, Soft TF/IDF, and Generalized Jaccard. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
 
 At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Steps 2-3 below). 
 
