@@ -28,7 +28,7 @@ At this point, you should know if the selected similarity measure treats input s
 -----------------------------
 If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings **x** and **y**, and hence do not have to select a tokenizer type. 
 
-Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
+Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides a set of different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
 
 A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3. 
 
