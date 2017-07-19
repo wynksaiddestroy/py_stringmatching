@@ -1,4 +1,4 @@
-Tutorial
+lTutorial
 ========
 Once the package has been installed, you can import the package as follows:
 
@@ -10,17 +10,17 @@ Computing a similarity score between two given strings **x** and **y** then typi
 
 1. Selecting a Similarity Measure
 ----------------------------------
-First, you must select a similarity measure. The package py_stringmatching currently provides 20 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". (This chapter is available on the package's homepage.)
+First, you must select a similarity measure. The package py_stringmatching currently provides a set of different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book "Principles of Data Integration". (This chapter is available on the package's homepage.)
 
 A major group of similarity measures treats input strings as **sequences** of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as **sets** of tokens (e.g., Jaccard). Yet another group treats input strings as **bags** of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).
 
-For the currently implemented 20 similarity measures, we have: 
-  * sequence-based measures: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, partial ratio, partial token sort, ratio, Smith Waterman, token sort.
+The currently implemented similarity measures include: 
+  * sequence-based measures: affine gap, bag distance, editex, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, partial ratio, partial token sort, ratio, Smith Waterman, token sort.
   * set-based measures: cosine, Dice, Jaccard, overlap coefficient, Tversky Index.
   * bag-based measures: TF/IDF.
   * phonetic-based measures: soundex.
   
-(There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
+(There are also three hybrid similarity measures: Monge Elkan, Soft TF/IDF, and Generalized Jaccard. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)
 
 At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Steps 2-3 below). 
 
@@ -28,7 +28,7 @@ At this point, you should know if the selected similarity measure treats input s
 -----------------------------
 If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings **x** and **y**, and hence do not have to select a tokenizer type. 
 
-Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
+Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides a set of different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).
 
 A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3. 
 
@@ -175,7 +175,7 @@ To address such cases, in practice it is common to add a prefix of (q-1) charact
 
 Class Hierarchy for Tokenizers and Similarity Measures
 -------------------------------------------------------
-Version 0.2.0 implements the following class hierarchy for tokenizers:
+The current version implements the following class hierarchy for tokenizers:
 
 Tokenizer                                                                       
   * DefinitionTokenizer                                                         
@@ -189,7 +189,9 @@ The version implements the following class hierarchy for similarity measures:
 
 SimilarityMeasure                                                               
   * SequenceSimilarityMeasure                                                   
-      * Affine                                                                  
+      * Affine
+      * BagDistance
+      * Editex                                                                  
       * HammingDistance                                                         
       * Jaro                                                                    
       * JaroWinkler                                                             
@@ -207,7 +209,8 @@ SimilarityMeasure
       * OverlapCoefficient                                                      
       * TfIdf
       * TverskyIndex                                                                   
-  * HybridSimilarityMeasure                                                     
+  * HybridSimilarityMeasure
+      * GeneralizedJaccard                                                     
       * MongeElkan                                                              
       * SoftTfIdf
   * PhoneticSimilarityMeasure
