@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Dice &mdash; py_stringmatching 0.2 documentation</title>
+  <title>Dice &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="index.html"/>
         <link rel="up" title="Similarity Measures" href="SimilarityMeasure.html"/>
         <link rel="next" title="Editex" href="Editex.html"/>
         <link rel="prev" title="Cosine" href="Cosine.html"/> 
@@ -47,7 +42,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -67,7 +61,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -88,10 +82,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
@@ -100,7 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Affine.html">Affine Gap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="BagDistance.html">Bag Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Dice</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Dice</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Editex.html">Editex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GeneralizedJaccard.html">Generalized Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
@@ -134,10 +125,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
       </nav>
 
 
@@ -150,38 +139,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
           <li><a href="SimilarityMeasure.html">Similarity Measures</a> &raquo;</li>
-        
-      <li>Dice</li>
-    
-    
+      
+    <li>Dice</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/Dice.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/Dice.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -209,21 +181,22 @@ For two sets X and Y, the Dice similarity score is:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dice similarity score (float).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
 <span class="go">0.6666666666666666</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
 <span class="go">0.5454545454545454</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
 <span class="go">0.5</span>
 </pre></div>
 </div>
@@ -242,21 +215,22 @@ For two sets X and Y, the Dice similarity score is:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1</strong><strong>,</strong><strong>set2</strong> (<em>set</em><em> or </em><em>list</em>) – Input sets (or lists). Input lists are converted to sets.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>set1,set2</strong> (<em>set or list</em>) &#8211; Input sets (or lists). Input lists are converted to sets.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Normalized dice similarity (float).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not sets (or lists) or if one of the inputs is None.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not sets (or lists) or if one of the inputs is None.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Dice</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">])</span>
 <span class="go">0.6666666666666666</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">})</span>
 <span class="go">0.5454545454545454</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;science&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dice</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">([</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;management&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;science&#39;</span><span class="p">])</span>
 <span class="go">0.5</span>
 </pre></div>
 </div>
@@ -268,18 +242,15 @@ For two sets X and Y, the Dice similarity score is:</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Editex.html" class="btn btn-neutral float-right" title="Editex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Editex.html" class="btn btn-neutral float-right" title="Editex" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Cosine.html" class="btn btn-neutral" title="Cosine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Cosine.html" class="btn btn-neutral" title="Cosine" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -288,7 +259,7 @@ For two sets X and Y, the Dice similarity score is:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -310,17 +281,16 @@ For two sets X and Y, the Dice similarity score is:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

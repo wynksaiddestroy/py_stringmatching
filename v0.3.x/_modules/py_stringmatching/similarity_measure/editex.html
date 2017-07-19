@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>py_stringmatching.similarity_measure.editex &mdash; py_stringmatching 0.2 documentation</title>
+  <title>py_stringmatching.similarity_measure.editex &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -45,7 +40,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -65,7 +59,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -86,10 +80,7 @@
           
             
             
-              
-            
-            
-              <ul>
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a></li>
@@ -107,10 +98,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">py_stringmatching</a>
       </nav>
 
 
@@ -123,56 +112,39 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
-      <li>py_stringmatching.similarity_measure.editex</li>
-    
-    
+      
+    <li>py_stringmatching.similarity_measure.editex</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for py_stringmatching.similarity_measure.editex</h1><div class="highlight"><pre>
-<span></span><span class="c1"># coding=utf-8</span>
+<span class="c"># coding=utf-8</span>
 <span class="sd">&quot;&quot;&quot;Editex distance measure&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
 <span class="kn">import</span> <span class="nn">unicodedata</span>
 <span class="kn">import</span> <span class="nn">six</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">six.moves</span> <span class="k">import</span> <span class="n">xrange</span>
-<span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">text_type</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.sequence_similarity_measure</span> <span class="k">import</span> \
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">six.moves</span> <span class="kn">import</span> <span class="nb">xrange</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">text_type</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.sequence_similarity_measure</span> <span class="kn">import</span> \
                                                     <span class="n">SequenceSimilarityMeasure</span>
 
 
@@ -186,12 +158,12 @@
 <span class="sd">        local (boolean): Local variant on/off, default=False</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_cost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">group_cost</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mismatch_cost</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                 <span class="n">local</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                 <span class="n">local</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_cost</span> <span class="o">=</span> <span class="n">match_cost</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group_cost</span> <span class="o">=</span> <span class="n">group_cost</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_cost</span> <span class="o">=</span> <span class="n">mismatch_cost</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">local</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Editex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Editex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Editex.get_raw_score"><a class="viewcode-back" href="../../../Editex.html#py_stringmatching.similarity_measure.editex.Editex.get_raw_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -233,19 +205,19 @@
 <span class="sd">            * Abydos Library - https://github.com/chrislit/abydos/blob/master/abydos/distance.py</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># input validations</span>
+        <span class="c"># input validations</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_string_inputs</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">0</span>
 
-        <span class="c1"># convert both the strings to NFKD normalized unicode</span>
-        <span class="n">string1</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text_type</span><span class="p">(</span><span class="n">string1</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
-        <span class="n">string2</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text_type</span><span class="p">(</span><span class="n">string2</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+        <span class="c"># convert both the strings to NFKD normalized unicode</span>
+        <span class="n">string1</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text_type</span><span class="p">(</span><span class="n">string1</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+        <span class="n">string2</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text_type</span><span class="p">(</span><span class="n">string2</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
 
-        <span class="c1"># convert ß to SS (for Python2)</span>
-        <span class="n">string1</span> <span class="o">=</span> <span class="n">string1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ß&#39;</span><span class="p">,</span> <span class="s1">&#39;SS&#39;</span><span class="p">)</span>
-        <span class="n">string2</span> <span class="o">=</span> <span class="n">string2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ß&#39;</span><span class="p">,</span> <span class="s1">&#39;SS&#39;</span><span class="p">)</span>
+        <span class="c"># convert ß to SS (for Python2)</span>
+        <span class="n">string1</span> <span class="o">=</span> <span class="n">string1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;ß&#39;</span><span class="p">,</span> <span class="s">&#39;SS&#39;</span><span class="p">)</span>
+        <span class="n">string2</span> <span class="o">=</span> <span class="n">string2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;ß&#39;</span><span class="p">,</span> <span class="s">&#39;SS&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_cost</span>
@@ -255,22 +227,22 @@
         <span class="n">d_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
         <span class="n">len1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string1</span><span class="p">)</span>
         <span class="n">len2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">string2</span><span class="p">)</span>
-        <span class="n">string1</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">string1</span>
-        <span class="n">string2</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">string2</span>
+        <span class="n">string1</span> <span class="o">=</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string1</span>
+        <span class="n">string2</span> <span class="o">=</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">string2</span>
         <span class="n">editex_helper</span> <span class="o">=</span> <span class="n">EditexHelper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">match_cost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_cost</span><span class="p">,</span>
                                      <span class="bp">self</span><span class="o">.</span><span class="n">group_cost</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">local</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">editex_helper</span><span class="o">.</span><span class="n">d_cost</span><span class="p">(</span>
                                                     <span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">d_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">d_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">editex_helper</span><span class="o">.</span><span class="n">d_cost</span><span class="p">(</span><span class="n">string2</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span>
                                                                  <span class="n">string2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">d_mat</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">editex_helper</span><span class="o">.</span><span class="n">d_cost</span><span class="p">(</span>
                                                     <span class="n">string1</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
                                   <span class="n">d_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">editex_helper</span><span class="o">.</span><span class="n">d_cost</span><span class="p">(</span>
@@ -359,7 +331,7 @@
 <span class="sd">            match_cost (int): Weight to give the correct char match</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_cost</span> <span class="o">=</span> <span class="n">match_cost</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
 <div class="viewcode-block" id="Editex.set_group_cost"><a class="viewcode-back" href="../../../Editex.html#py_stringmatching.similarity_measure.editex.Editex.set_group_cost">[docs]</a>    <span class="k">def</span> <span class="nf">set_group_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_cost</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -369,7 +341,7 @@
 <span class="sd">            group_cost (int): Weight to give if the chars are in the same editex group</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group_cost</span> <span class="o">=</span> <span class="n">group_cost</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
 <div class="viewcode-block" id="Editex.set_mismatch_cost"><a class="viewcode-back" href="../../../Editex.html#py_stringmatching.similarity_measure.editex.Editex.set_mismatch_cost">[docs]</a>    <span class="k">def</span> <span class="nf">set_mismatch_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mismatch_cost</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -379,7 +351,7 @@
 <span class="sd">            mismatch_cost (int): Weight to give the incorrect char match</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mismatch_cost</span> <span class="o">=</span> <span class="n">mismatch_cost</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
 <div class="viewcode-block" id="Editex.set_local"><a class="viewcode-back" href="../../../Editex.html#py_stringmatching.similarity_measure.editex.Editex.set_local">[docs]</a>    <span class="k">def</span> <span class="nf">set_local</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -389,23 +361,23 @@
 <span class="sd">            local (boolean): Local variant on/off</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">local</span> <span class="o">=</span> <span class="n">local</span>
-        <span class="k">return</span> <span class="kc">True</span></div></div>
+        <span class="k">return</span> <span class="bp">True</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">EditexHelper</span><span class="p">:</span>
     <span class="n">letter_groups</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;E&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">]</span> \
-        <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;Q&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;L&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;G&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;J&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
-    <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s1">&#39;J&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
-    <span class="n">all_letters</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="s1">&#39;AEIOUYBPCKQDTLRMNGJFVSXZ&#39;</span><span class="p">)</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;E&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;I&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;O&#39;</span><span class="p">]</span> \
+        <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;U&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;K&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;Q&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;D&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;L&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;R&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;M&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;N&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;J&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;F&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;V&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;S&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;X&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;Z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;S&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">letter_groups</span><span class="p">[</span><span class="s">&#39;J&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">all_letters</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="s">&#39;AEIOUYBPCKQDTLRMNGJFVSXZ&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_cost</span><span class="p">,</span> <span class="n">mismatch_cost</span><span class="p">,</span> <span class="n">group_cost</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">match_cost</span> <span class="o">=</span> <span class="n">match_cost</span>
@@ -426,14 +398,11 @@
     <span class="k">def</span> <span class="nf">d_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return d(a,b) according to Zobel &amp; Dart&#39;s definition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">ch1</span> <span class="o">!=</span> <span class="n">ch2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ch1</span> <span class="o">==</span> <span class="s1">&#39;H&#39;</span> <span class="ow">or</span> <span class="n">ch1</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ch1</span> <span class="o">!=</span> <span class="n">ch2</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ch1</span> <span class="o">==</span> <span class="s">&#39;H&#39;</span> <span class="ow">or</span> <span class="n">ch1</span> <span class="o">==</span> <span class="s">&#39;W&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_cost</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">r_cost</span><span class="p">(</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">)</span>
 </pre></div>
 
-           </div>
-           <div class="articleComments">
-            
            </div>
           </div>
           <footer>
@@ -443,7 +412,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -465,17 +434,16 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

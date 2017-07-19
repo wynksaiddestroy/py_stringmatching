@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>py_stringmatching.similarity_measure.soft_tfidf &mdash; py_stringmatching 0.2 documentation</title>
+  <title>py_stringmatching.similarity_measure.soft_tfidf &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -45,7 +40,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -65,7 +59,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -86,10 +80,7 @@
           
             
             
-              
-            
-            
-              <ul>
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a></li>
@@ -107,10 +98,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">py_stringmatching</a>
       </nav>
 
 
@@ -123,49 +112,32 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
-      <li>py_stringmatching.similarity_measure.soft_tfidf</li>
-    
-    
+      
+    <li>py_stringmatching.similarity_measure.soft_tfidf</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for py_stringmatching.similarity_measure.soft_tfidf</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 
-<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.jaro</span> <span class="k">import</span> <span class="n">Jaro</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.hybrid_similarity_measure</span> <span class="k">import</span> \
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.jaro</span> <span class="kn">import</span> <span class="n">Jaro</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.hybrid_similarity_measure</span> <span class="kn">import</span> \
                                                     <span class="n">HybridSimilarityMeasure</span>
 
 
@@ -189,16 +161,16 @@
 <span class="sd">        threshold (float): An attribute to store the threshold value for the secondary similarity function. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">corpus_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">corpus_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span>
                  <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="o">=</span> <span class="n">corpus_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__document_frequency</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__compute_document_frequency</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_size</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_size</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">(</span>
                                                          <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sim_func</span> <span class="o">=</span> <span class="n">sim_func</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SoftTfIdf</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SoftTfIdf</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="SoftTfIdf.get_raw_score"><a class="viewcode-back" href="../../../SoftTfIdf.html#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.get_raw_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Computes the raw soft TF/IDF score between two lists given the corpus information.</span>
@@ -230,57 +202,57 @@
 <span class="sd">            * the string matching chapter of the &quot;Principles of Data Integration&quot; book.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
-        <span class="c1"># input validations</span>
+        <span class="c"># input validations</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">)</span>
 
-        <span class="c1"># if the strings match exactly return 1.0</span>
+        <span class="c"># if the strings match exactly return 1.0</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mf">1.0</span>
 
-        <span class="c1"># if one of the strings is empty return 0</span>
+        <span class="c"># if one of the strings is empty return 0</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">bag1</span><span class="p">,</span> <span class="n">bag2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">0</span>
 
-        <span class="c1"># term frequency for input strings</span>
+        <span class="c"># term frequency for input strings</span>
         <span class="n">tf_x</span><span class="p">,</span> <span class="n">tf_y</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag1</span><span class="p">),</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">bag2</span><span class="p">)</span>
         
-        <span class="c1"># find unique elements in the input lists and their document frequency </span>
+        <span class="c"># find unique elements in the input lists and their document frequency </span>
         <span class="n">local_df</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">tf_x</span><span class="p">:</span>
             <span class="n">local_df</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">tf_y</span><span class="p">:</span>
             <span class="n">local_df</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-        <span class="c1"># if corpus is not provided treat input string as corpus</span>
-        <span class="n">curr_df</span><span class="p">,</span> <span class="n">corpus_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">local_df</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span>
+        <span class="c"># if corpus is not provided treat input string as corpus</span>
+        <span class="n">curr_df</span><span class="p">,</span> <span class="n">corpus_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">local_df</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">(</span>
                                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__document_frequency</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_size</span><span class="p">))</span>
 
-        <span class="c1"># calculating the term sim score against the input string 2,</span>
-        <span class="c1"># construct similarity map</span>
+        <span class="c"># calculating the term sim score against the input string 2,</span>
+        <span class="c"># construct similarity map</span>
         <span class="n">similarity_map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">term_x</span> <span class="ow">in</span> <span class="n">tf_x</span><span class="p">:</span>
             <span class="n">max_score</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="k">for</span> <span class="n">term_y</span> <span class="ow">in</span> <span class="n">tf_y</span><span class="p">:</span>
                 <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim_func</span><span class="p">(</span><span class="n">term_x</span><span class="p">,</span> <span class="n">term_y</span><span class="p">)</span>
-                <span class="c1"># adding sim only if it is above threshold and</span>
-                <span class="c1"># highest for this element</span>
+                <span class="c"># adding sim only if it is above threshold and</span>
+                <span class="c"># highest for this element</span>
                 <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="ow">and</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">max_score</span><span class="p">:</span>
                     <span class="n">similarity_map</span><span class="p">[</span><span class="n">term_x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">term_x</span><span class="p">,</span> <span class="n">term_y</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
                     <span class="n">max_score</span> <span class="o">=</span> <span class="n">score</span>
 
-        <span class="c1"># position of first string, second string and sim score</span>
-        <span class="c1"># in the tuple</span>
+        <span class="c"># position of first string, second string and sim score</span>
+        <span class="c"># in the tuple</span>
         <span class="n">first_string_pos</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">second_string_pos</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">sim_score_pos</span> <span class="o">=</span> <span class="mi">2</span>
 
         <span class="n">result</span><span class="p">,</span> <span class="n">v_x_2</span><span class="p">,</span> <span class="n">v_y_2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
-        <span class="c1"># soft-tfidf calculation</span>
+        <span class="c"># soft-tfidf calculation</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">local_df</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">curr_df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curr_df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="c1"># numerator</span>
+            <span class="c"># numerator</span>
             <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">similarity_map</span><span class="p">:</span>
                 <span class="n">sim</span> <span class="o">=</span> <span class="n">similarity_map</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
                 <span class="n">idf_first</span> <span class="o">=</span> <span class="n">corpus_size</span> <span class="o">/</span> <span class="n">curr_df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">first_string_pos</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
@@ -288,7 +260,7 @@
                 <span class="n">v_x</span> <span class="o">=</span> <span class="n">idf_first</span> <span class="o">*</span> <span class="n">tf_x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">first_string_pos</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">v_y</span> <span class="o">=</span> <span class="n">idf_second</span> <span class="o">*</span> <span class="n">tf_y</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="n">second_string_pos</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="n">result</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">v_y</span> <span class="o">*</span> <span class="n">sim</span><span class="p">[</span><span class="n">sim_score_pos</span><span class="p">]</span>
-            <span class="c1"># denominator</span>
+            <span class="c"># denominator</span>
             <span class="n">idf</span> <span class="o">=</span> <span class="n">corpus_size</span> <span class="o">/</span> <span class="n">curr_df</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
             <span class="n">v_x</span> <span class="o">=</span> <span class="n">idf</span> <span class="o">*</span> <span class="n">tf_x</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">v_x_2</span> <span class="o">+=</span> <span class="n">v_x</span> <span class="o">*</span> <span class="n">v_x</span>
@@ -327,7 +299,7 @@
 <span class="sd">            threshold (float): threshold value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
 <div class="viewcode-block" id="SoftTfIdf.set_sim_func"><a class="viewcode-back" href="../../../SoftTfIdf.html#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_sim_func">[docs]</a>    <span class="k">def</span> <span class="nf">set_sim_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sim_func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set secondary similarity function.</span>
@@ -336,7 +308,7 @@
 <span class="sd">            sim_func (function): Secondary similarity function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sim_func</span> <span class="o">=</span> <span class="n">sim_func</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
 <div class="viewcode-block" id="SoftTfIdf.set_corpus_list"><a class="viewcode-back" href="../../../SoftTfIdf.html#py_stringmatching.similarity_measure.soft_tfidf.SoftTfIdf.set_corpus_list">[docs]</a>    <span class="k">def</span> <span class="nf">set_corpus_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">corpus_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set corpus list.</span>
@@ -347,21 +319,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="o">=</span> <span class="n">corpus_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__document_frequency</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__compute_document_frequency</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_size</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_size</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">(</span>
                                                          <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span><span class="p">))</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
     <span class="k">def</span> <span class="nf">__compute_document_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__corpus_list</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">document</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__document_frequency</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">__document_frequency</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
 </pre></div>
 
-           </div>
-           <div class="articleComments">
-            
            </div>
           </div>
           <footer>
@@ -371,7 +340,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -393,17 +362,16 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

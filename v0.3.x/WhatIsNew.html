@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What is New? &mdash; py_stringmatching 0.2 documentation</title>
+  <title>What is New? &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="index.html"/>
         <link rel="next" title="Installation" href="Installation.html"/>
         <link rel="prev" title="User Manual for py_stringmatching" href="index.html"/> 
 
@@ -46,7 +41,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +60,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -87,11 +81,8 @@
           
             
             
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">What is New?</a></li>
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
@@ -108,10 +99,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
       </nav>
 
 
@@ -124,36 +113,19 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>What is New?</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>What is New?</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/WhatIsNew.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/WhatIsNew.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -161,30 +133,25 @@
             
   <div class="section" id="what-is-new">
 <h1>What is New?<a class="headerlink" href="#what-is-new" title="Permalink to this headline">¶</a></h1>
-<p>Compared to Version 0.1.0, the following are new:</p>
+<p>Compared to Version 0.2.1, the following is new:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Qgram tokenizers have been modified to take a flag called “padding”. If this flag is True (the default), then a prefix and a suffix will be added to the input string before tokenizing (see the Tutorial for a reason for this).</li>
-<li>Version 0.1.0 does not handle strings in unicode correctly. Specifically, if an input string contains non-ascii characters, a string similarity measure may interpret the string incorrectly and thus compute an incorrect similarity score. In this version we have fixed the string similarity measures. Specifically, we convert the input strings into unicode before computing similarity measures. NOTE: the tokenizers are still not yet unicode-aware.</li>
-<li>In Version 0.1.0, the flag “dampen” for TF/IDF similarity measure has the default value of False. In this version we have modified it to have the default value of True, which is the more common value for this flag in practice.</li>
+<li>Added nine new string similarity measures - Bag Distance, Editex, Generalized Jaccard, Partial Ratio, Partial Token Sort, Ratio, Soundex, Token Sort, and Tversky Index.</li>
 </ul>
 </div></blockquote>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="User Manual for py_stringmatching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="User Manual for py_stringmatching" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -193,7 +160,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -215,17 +182,16 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Delimiter Tokenizer &mdash; py_stringmatching 0.2 documentation</title>
+  <title>Delimiter Tokenizer &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="index.html"/>
         <link rel="up" title="Tokenizers" href="Tokenizer.html"/>
         <link rel="next" title="Qgram Tokenizer" href="QgramTokenizer.html"/>
         <link rel="prev" title="Alphanumeric Tokenizer" href="AlphanumericTokenizer.html"/> 
@@ -47,7 +42,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -67,7 +61,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -88,17 +82,14 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tokenizer.html">Tokenizers</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="AlphabeticTokenizer.html">Alphabetic Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AlphanumericTokenizer.html">Alphanumeric Tokenizer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Delimiter Tokenizer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Delimiter Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="QgramTokenizer.html">Qgram Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="WhitespaceTokenizer.html">Whitespace Tokenizer</a></li>
 </ul>
@@ -116,10 +107,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
       </nav>
 
 
@@ -132,38 +121,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
           <li><a href="Tokenizer.html">Tokenizers</a> &raquo;</li>
-        
-      <li>Delimiter Tokenizer</li>
-    
-    
+      
+    <li>Delimiter Tokenizer</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/DelimiterTokenizer.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/DelimiterTokenizer.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -173,7 +145,7 @@
 <span id="delimiter-tokenizer"></span><h1>Delimiter Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.delimiter_tokenizer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer">
-<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.delimiter_tokenizer.</code><code class="descname">DelimiterTokenizer</code><span class="sig-paren">(</span><em>delim_set=set([‘ ‘])</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.delimiter_tokenizer.</code><code class="descname">DelimiterTokenizer</code><span class="sig-paren">(</span><em>delim_set=set([' '])</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses delimiters to find tokens, as apposed to using definitions.</p>
 <p>Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -181,8 +153,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>delim_set</strong> (<em>set</em>) – A set of delimiter strings (defaults to space delimiter).</li>
-<li><strong>return_set</strong> (<em>boolean</em>) – A flag to indicate whether to return a set of
+<li><strong>delim_set</strong> (<em>set</em>) &#8211; A set of delimiter strings (defaults to space delimiter).</li>
+<li><strong>return_set</strong> (<em>boolean</em>) &#8211; A flag to indicate whether to return a set of
 tokens instead of a bag of tokens (defaults to False).</li>
 </ul>
 </td>
@@ -192,7 +164,8 @@ tokens instead of a bag of tokens (defaults to False).</li>
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer.return_set">
 <code class="descname">return_set</code><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer.return_set" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>boolean</em> – An attribute to store the value of the flag return_set.</p>
+<dd><p><em>boolean</em></p>
+<p>An attribute to store the value of the flag return_set.</p>
 </dd></dl>
 
 <dl class="method">
@@ -231,7 +204,7 @@ tokens instead of a bag of tokens (defaults to False).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delim_set</strong> (<em>set</em>) – A set of delimiter strings.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delim_set</strong> (<em>set</em>) &#8211; A set of delimiter strings.</td>
 </tr>
 </tbody>
 </table>
@@ -245,7 +218,7 @@ tokens instead of a bag of tokens (defaults to False).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) – a flag to indicate whether to return a set of tokens instead of a bag of tokens.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) &#8211; a flag to indicate whether to return a set of tokens instead of a bag of tokens.</td>
 </tr>
 </tbody>
 </table>
@@ -259,26 +232,27 @@ tokens instead of a bag of tokens (defaults to False).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) – The string to be tokenized.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; The string to be tokenized.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A Python list which is a set or a bag of tokens, depending on whether return_set flag is set to True or False.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the input is not a string.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data science&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data science&#39;</span><span class="p">)</span>
 <span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s1">&#39;$#$&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data$#$science&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;$#$&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data$#$science&#39;</span><span class="p">)</span>
 <span class="go">[&#39;data&#39;, &#39;science&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
 <span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;data&#39;, &#39;integration&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">],</span> <span class="n">return_set</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span> <span class="o">=</span> <span class="n">DelimiterTokenizer</span><span class="p">([</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">],</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;data,science.data,integration.&#39;</span><span class="p">)</span>
 <span class="go">[&#39;data&#39;, &#39;science&#39;, &#39;integration&#39;]</span>
 </pre></div>
 </div>
@@ -290,18 +264,15 @@ tokens instead of a bag of tokens (defaults to False).</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="QgramTokenizer.html" class="btn btn-neutral float-right" title="Qgram Tokenizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="QgramTokenizer.html" class="btn btn-neutral float-right" title="Qgram Tokenizer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="AlphanumericTokenizer.html" class="btn btn-neutral" title="Alphanumeric Tokenizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="AlphanumericTokenizer.html" class="btn btn-neutral" title="Alphanumeric Tokenizer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -310,7 +281,7 @@ tokens instead of a bag of tokens (defaults to False).</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -332,17 +303,16 @@ tokens instead of a bag of tokens (defaults to False).</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Qgram Tokenizer &mdash; py_stringmatching 0.2 documentation</title>
+  <title>Qgram Tokenizer &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="index.html"/>
         <link rel="up" title="Tokenizers" href="Tokenizer.html"/>
         <link rel="next" title="Whitespace Tokenizer" href="WhitespaceTokenizer.html"/>
         <link rel="prev" title="Delimiter Tokenizer" href="DelimiterTokenizer.html"/> 
@@ -47,7 +42,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -67,7 +61,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -88,10 +82,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
@@ -99,7 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="AlphabeticTokenizer.html">Alphabetic Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="AlphanumericTokenizer.html">Alphanumeric Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DelimiterTokenizer.html">Delimiter Tokenizer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Qgram Tokenizer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Qgram Tokenizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="WhitespaceTokenizer.html">Whitespace Tokenizer</a></li>
 </ul>
 </li>
@@ -116,10 +107,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
       </nav>
 
 
@@ -132,38 +121,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
           <li><a href="Tokenizer.html">Tokenizers</a> &raquo;</li>
-        
-      <li>Qgram Tokenizer</li>
-    
-    
+      
+    <li>Qgram Tokenizer</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/QgramTokenizer.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/QgramTokenizer.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -173,7 +145,7 @@
 <span id="qgram-tokenizer"></span><h1>Qgram Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.qgram_tokenizer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer">
-<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.qgram_tokenizer.</code><code class="descname">QgramTokenizer</code><span class="sig-paren">(</span><em>qval=2</em>, <em>padding=True</em>, <em>prefix_pad=’#’</em>, <em>suffix_pad=’$’</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/qgram_tokenizer.html#QgramTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.qgram_tokenizer.</code><code class="descname">QgramTokenizer</code><span class="sig-paren">(</span><em>qval=2</em>, <em>padding=True</em>, <em>prefix_pad='#'</em>, <em>suffix_pad='$'</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/qgram_tokenizer.html#QgramTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns tokens that are sequences of q consecutive characters.</p>
 <p>A qgram of an input string s is a substring t (of s) which is a sequence of q consecutive characters. Qgrams are also known as
 ngrams or kgrams.</p>
@@ -182,17 +154,17 @@ ngrams or kgrams.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>qval</strong> (<em>int</em>) – A value for q, that is, the qgram’s length (defaults to 2).</li>
-<li><strong>return_set</strong> (<em>boolean</em>) – A flag to indicate whether to return a set of
+<li><strong>qval</strong> (<em>int</em>) &#8211; A value for q, that is, the qgram&#8217;s length (defaults to 2).</li>
+<li><strong>return_set</strong> (<em>boolean</em>) &#8211; A flag to indicate whether to return a set of
 tokens or a bag of tokens (defaults to False).</li>
-<li><strong>padding</strong> (<em>boolean</em>) – A flag to indicate whether a prefix and a suffix should be added
+<li><strong>padding</strong> (<em>boolean</em>) &#8211; A flag to indicate whether a prefix and a suffix should be added
 to the input string (defaults to True).</li>
-<li><strong>prefix_pad</strong> (<em>str</em>) – A character (that is, a string of length 1 in Python) that should be replicated
+<li><strong>prefix_pad</strong> (<em>str</em>) &#8211; A character (that is, a string of length 1 in Python) that should be replicated
 (qval-1) times and prepended to the input string, if padding was
-set to True (defaults to ‘#’).</li>
-<li><strong>suffix_pad</strong> (<em>str</em>) – A character (that is, a string of length 1 in Python) that should be replicated
+set to True (defaults to &#8216;#&#8217;).</li>
+<li><strong>suffix_pad</strong> (<em>str</em>) &#8211; A character (that is, a string of length 1 in Python) that should be replicated
 (qval-1) times and appended to the input string, if padding was
-set to True (defaults to ‘$’).</li>
+set to True (defaults to &#8216;$&#8217;).</li>
 </ul>
 </td>
 </tr>
@@ -201,31 +173,36 @@ set to True (defaults to ‘$’).</li>
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.qval">
 <code class="descname">qval</code><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.qval" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> – An attribute to store the q value.</p>
+<dd><p><em>int</em></p>
+<p>An attribute to store the q value.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.return_set">
 <code class="descname">return_set</code><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.return_set" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>boolean</em> – An attribute to store the flag return_set.</p>
+<dd><p><em>boolean</em></p>
+<p>An attribute to store the flag return_set.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.padding">
 <code class="descname">padding</code><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.padding" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>boolean</em> – An attribute to store the padding flag.</p>
+<dd><p><em>boolean</em></p>
+<p>An attribute to store the padding flag.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.prefix_pad">
 <code class="descname">prefix_pad</code><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.prefix_pad" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – An attribute to store the prefix string that should be used for padding.</p>
+<dd><p><em>str</em></p>
+<p>An attribute to store the prefix string that should be used for padding.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.suffix_pad">
 <code class="descname">suffix_pad</code><a class="headerlink" href="#py_stringmatching.tokenizer.qgram_tokenizer.QgramTokenizer.suffix_pad" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>str</em> – An attribute to store the suffix string that should
+<dd><p><em>str</em></p>
+<p>An attribute to store the suffix string that should
 be used for padding.</p>
 </dd></dl>
 
@@ -308,13 +285,14 @@ padding should be done for the input strings or not.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>padding</strong> (<em>boolean</em>) – Flag to indicate whether padding should be
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>padding</strong> (<em>boolean</em>) &#8211; Flag to indicate whether padding should be
 done or not.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The Boolean value of True is returned if the update was
 successful.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If the padding is not of type boolean</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If the padding is not of type boolean</td>
 </tr>
 </tbody>
 </table>
@@ -328,7 +306,7 @@ successful.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>prefix_pad</strong> (<em>str</em>) – String that should be prepended to the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>prefix_pad</strong> (<em>str</em>) &#8211; String that should be prepended to the
 input string before tokenization.</p>
 </td>
 </tr>
@@ -337,8 +315,10 @@ successful.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If the prefix_pad is not of type string.</li>
-<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If the length of prefix_pad is not one.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If the prefix_pad is not of type string.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If the length of prefix_pad is not one.</li>
 </ul>
 </td>
 </tr>
@@ -354,9 +334,10 @@ successful.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qval</strong> (<em>int</em>) – A value for q (the length of qgrams).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qval</strong> (<em>int</em>) &#8211; A value for q (the length of qgrams).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If qval is less than 1.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If qval is less than 1.</td>
 </tr>
 </tbody>
 </table>
@@ -370,7 +351,7 @@ successful.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) – a flag to indicate whether to return a set of tokens instead of a bag of tokens.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>return_set</strong> (<em>boolean</em>) &#8211; a flag to indicate whether to return a set of tokens instead of a bag of tokens.</td>
 </tr>
 </tbody>
 </table>
@@ -384,7 +365,7 @@ successful.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>suffix_pad</strong> (<em>str</em>) – String that should be appended to the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>suffix_pad</strong> (<em>str</em>) &#8211; String that should be appended to the
 input string before tokenization.</p>
 </td>
 </tr>
@@ -393,8 +374,10 @@ successful.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If the suffix_pad is not of type string.</li>
-<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> – If the length of suffix_pad is not one.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If the suffix_pad is not of type string.</li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">AssertionError</span></code> &#8211;
+If the length of suffix_pad is not one.</li>
 </ul>
 </td>
 </tr>
@@ -410,28 +393,29 @@ successful.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) – The string to be tokenized.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> (<em>str</em>) &#8211; The string to be tokenized.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A Python list, which is a set or a bag of qgrams, depending on whether return_set flag is True or False.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the input is not a string</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the input is not a string</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
 <span class="go">[&#39;#d&#39;, &#39;da&#39;, &#39;at&#39;, &#39;ta&#39;, &#39;ab&#39;, &#39;ba&#39;, &#39;as&#39;, &#39;se&#39;, &#39;e$&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg2_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
 <span class="go">[&#39;#a&#39;, &#39;a$&#39;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_tok</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">qval</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
 <span class="go">[&#39;##d&#39;, &#39;#da&#39;, &#39;dat&#39;, &#39;ata&#39;, &#39;tab&#39;, &#39;aba&#39;, &#39;bas&#39;, &#39;ase&#39;, &#39;se$&#39;, &#39;e$$&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_nopad</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">padding</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_nopad</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_nopad</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">padding</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_nopad</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
 <span class="go">[&#39;da&#39;, &#39;at&#39;, &#39;ta&#39;, &#39;ab&#39;, &#39;ba&#39;, &#39;as&#39;, &#39;se&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_diffpads</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">prefix_pad</span><span class="o">=</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">suffix_pad</span><span class="o">=</span><span class="s1">&#39;!&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_diffpads</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_diffpads</span> <span class="o">=</span> <span class="n">QgramTokenizer</span><span class="p">(</span><span class="n">prefix_pad</span><span class="o">=</span><span class="s">&#39;^&#39;</span><span class="p">,</span> <span class="n">suffix_pad</span><span class="o">=</span><span class="s">&#39;!&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qg3_diffpads</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">)</span>
 <span class="go">[&#39;^d&#39;, &#39;da&#39;, &#39;at&#39;, &#39;ta&#39;, &#39;ab&#39;, &#39;ba&#39;, &#39;as&#39;, &#39;se&#39;, &#39;e!&#39;]</span>
 </pre></div>
 </div>
@@ -443,18 +427,15 @@ successful.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="WhitespaceTokenizer.html" class="btn btn-neutral float-right" title="Whitespace Tokenizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="WhitespaceTokenizer.html" class="btn btn-neutral float-right" title="Whitespace Tokenizer" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="DelimiterTokenizer.html" class="btn btn-neutral" title="Delimiter Tokenizer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="DelimiterTokenizer.html" class="btn btn-neutral" title="Delimiter Tokenizer" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -463,7 +444,7 @@ successful.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -485,17 +466,16 @@ successful.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

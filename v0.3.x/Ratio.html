@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Ratio &mdash; py_stringmatching 0.2 documentation</title>
+  <title>Ratio &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="index.html"/>
         <link rel="up" title="Similarity Measures" href="SimilarityMeasure.html"/>
         <link rel="next" title="Smith Waterman" href="SmithWaterman.html"/>
         <link rel="prev" title="Partial Token Sort" href="PartialTokenSort.html"/> 
@@ -47,7 +42,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -67,7 +61,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -88,10 +82,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
@@ -113,7 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="OverlapCoefficient.html">Overlap Coefficient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PartialRatio.html">Partial Ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PartialTokenSort.html">Partial Token Sort</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Ratio</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SmithWaterman.html">Smith Waterman</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SoftTfIdf.html">Soft TF/IDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Soundex.html">Soundex</a></li>
@@ -134,10 +125,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">py_stringmatching</a>
       </nav>
 
 
@@ -150,38 +139,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
           <li><a href="SimilarityMeasure.html">Similarity Measures</a> &raquo;</li>
-        
-      <li>Ratio</li>
-    
-    
+      
+    <li>Ratio</li>
       <li class="wy-breadcrumbs-aside">
         
-            
-            <a href="_sources/Ratio.rst.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/Ratio.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -216,21 +188,22 @@ This score is in the range [0,100].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Ratio measure raw score (int) is returned</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Ratio</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;Robert&#39;</span><span class="p">,</span> <span class="s1">&#39;Rupert&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Ratio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;Robert&#39;</span><span class="p">,</span> <span class="s">&#39;Rupert&#39;</span><span class="p">)</span>
 <span class="go">67</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;Sue&#39;</span><span class="p">,</span> <span class="s1">&#39;sue&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;Sue&#39;</span><span class="p">,</span> <span class="s">&#39;sue&#39;</span><span class="p">)</span>
 <span class="go">67</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">,</span> <span class="s1">&#39;samples&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;samples&#39;</span><span class="p">)</span>
 <span class="go">71</span>
 </pre></div>
 </div>
@@ -249,21 +222,22 @@ This score is in the range [0,1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Ratio measure similarity score (float) is returned</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
+If the inputs are not strings</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Ratio</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;Robert&#39;</span><span class="p">,</span> <span class="s1">&#39;Rupert&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Ratio</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;Robert&#39;</span><span class="p">,</span> <span class="s">&#39;Rupert&#39;</span><span class="p">)</span>
 <span class="go">0.67</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;Sue&#39;</span><span class="p">,</span> <span class="s1">&#39;sue&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;Sue&#39;</span><span class="p">,</span> <span class="s">&#39;sue&#39;</span><span class="p">)</span>
 <span class="go">0.67</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">,</span> <span class="s1">&#39;samples&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;samples&#39;</span><span class="p">)</span>
 <span class="go">0.71</span>
 </pre></div>
 </div>
@@ -279,18 +253,15 @@ This score is in the range [0,1].</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SmithWaterman.html" class="btn btn-neutral float-right" title="Smith Waterman" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="SmithWaterman.html" class="btn btn-neutral float-right" title="Smith Waterman" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="PartialTokenSort.html" class="btn btn-neutral" title="Partial Token Sort" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="PartialTokenSort.html" class="btn btn-neutral" title="Partial Token Sort" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -299,7 +270,7 @@ This score is in the range [0,1].</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -321,17 +292,16 @@ This score is in the range [0,1].</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

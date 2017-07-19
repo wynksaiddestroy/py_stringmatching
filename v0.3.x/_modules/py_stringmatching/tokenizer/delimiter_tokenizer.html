@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>py_stringmatching.tokenizer.delimiter_tokenizer &mdash; py_stringmatching 0.2 documentation</title>
+  <title>py_stringmatching.tokenizer.delimiter_tokenizer &mdash; py_stringmatching 0.3 documentation</title>
   
 
-  
-  
   
   
 
@@ -32,10 +30,7 @@
   
 
   
-        <link rel="index" title="Index"
-              href="../../../genindex.html"/>
-        <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="py_stringmatching 0.2 documentation" href="../../../index.html"/>
+    <link rel="top" title="py_stringmatching 0.3 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -45,7 +40,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -65,7 +59,7 @@
             
             
               <div class="version">
-                0.2
+                0.3
               </div>
             
           
@@ -86,10 +80,7 @@
           
             
             
-              
-            
-            
-              <ul>
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a></li>
@@ -107,10 +98,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">py_stringmatching</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">py_stringmatching</a>
       </nav>
 
 
@@ -123,46 +112,29 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
-      <li>py_stringmatching.tokenizer.delimiter_tokenizer</li>
-    
-    
+      
+    <li>py_stringmatching.tokenizer.delimiter_tokenizer</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for py_stringmatching.tokenizer.delimiter_tokenizer</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.tokenizer.tokenizer</span> <span class="k">import</span> <span class="n">Tokenizer</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.tokenizer.tokenizer</span> <span class="kn">import</span> <span class="n">Tokenizer</span>
 
 
 <div class="viewcode-block" id="DelimiterTokenizer"><a class="viewcode-back" href="../../../DelimiterTokenizer.html#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer">[docs]</a><span class="k">class</span> <span class="nc">DelimiterTokenizer</span><span class="p">(</span><span class="n">Tokenizer</span><span class="p">):</span>
@@ -180,13 +152,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-                 <span class="n">delim_set</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39; &#39;</span><span class="p">]),</span> <span class="n">return_set</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_str</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_regex</span> <span class="o">=</span> <span class="kc">None</span>
+                 <span class="n">delim_set</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="s">&#39; &#39;</span><span class="p">]),</span> <span class="n">return_set</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_str</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__delim_regex</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_delim_set</span><span class="p">(</span><span class="n">delim_set</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DelimiterTokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">return_set</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DelimiterTokenizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">return_set</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DelimiterTokenizer.tokenize"><a class="viewcode-back" href="../../../DelimiterTokenizer.html#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer.tokenize">[docs]</a>    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_string</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Tokenizes input string based on the set of delimiters.</span>
@@ -219,10 +191,10 @@
         <span class="n">utils</span><span class="o">.</span><span class="n">tok_check_for_string_input</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
     
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span><span class="p">:</span>
-            <span class="n">token_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">token_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span>
                                      <span class="n">input_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__delim_str</span><span class="p">)))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">token_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">token_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span>
                                      <span class="bp">self</span><span class="o">.</span><span class="n">__delim_regex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">input_string</span><span class="p">)))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_set</span><span class="p">:</span>
@@ -250,20 +222,17 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">delim_set</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
             <span class="n">delim_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">delim_set</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span> <span class="o">=</span> <span class="n">delim_set</span>
-        <span class="c1"># if there is only one delimiter string, use split instead of regex</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c"># if there is only one delimiter string, use split instead of regex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__delim_str</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__use_split</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__delim_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__delim_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                                      <span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__delim_set</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+        <span class="k">return</span> <span class="bp">True</span></div>
 </pre></div>
 
-           </div>
-           <div class="articleComments">
-            
            </div>
           </div>
           <footer>
@@ -273,7 +242,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, py_stringmatching Team.
+        &copy; Copyright 2017, py_stringmatching Team.
 
     </p>
   </div>
@@ -295,17 +264,16 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.2',
+            VERSION:'0.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
