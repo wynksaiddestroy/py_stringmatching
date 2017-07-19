@@ -203,25 +203,25 @@
 <p>Computing a similarity score between two given strings <strong>x</strong> and <strong>y</strong> then typically consists of four steps: (1) selecting a similarity measure type, (2) selecting a tokenizer type, (3) creating a tokenizer object (of the selected type) and using it to tokenize the two given strings <strong>x</strong> and <strong>y</strong>, and (4) creating a similarity measure object (of the selected type) and applying it to the output of the tokenizer to compute a similarity score. We now elaborate on these steps.</p>
 <div class="section" id="selecting-a-similarity-measure">
 <h3>1. Selecting a Similarity Measure<a class="headerlink" href="#selecting-a-similarity-measure" title="Permalink to this headline">¶</a></h3>
-<p>First, you must select a similarity measure. The package py_stringmatching currently provides 20 different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book &#8220;Principles of Data Integration&#8221;. (This chapter is available on the package&#8217;s homepage.)</p>
+<p>First, you must select a similarity measure. The package py_stringmatching currently provides a set of different measures (with plan to add more). Examples of such measures are Jaccard, Levenshtein, TF/IDF, etc. To understand more about these measures, a good place to start is the string matching chapter of the book &#8220;Principles of Data Integration&#8221;. (This chapter is available on the package&#8217;s homepage.)</p>
 <p>A major group of similarity measures treats input strings as <strong>sequences</strong> of characters (e.g., Levenshtein, Smith Waterman). Another group treats input strings as <strong>sets</strong> of tokens (e.g., Jaccard). Yet another group treats input strings as <strong>bags</strong> of tokens (e.g., TF/IDF). A bag of tokens is a collection of tokens such that a token can appear multiple times in the collection (as opposed to a set of tokens, where each token can appear only once).</p>
 <dl class="docutils">
-<dt>For the currently implemented 20 similarity measures, we have:</dt>
+<dt>The currently implemented similarity measures include:</dt>
 <dd><ul class="first last simple">
-<li>sequence-based measures: affine gap, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, partial ratio, partial token sort, ratio, Smith Waterman, token sort.</li>
+<li>sequence-based measures: affine gap, bag distance, editex, Hamming distance, Jaro, Jaro Winkler, Levenshtein, Needleman Wunsch, partial ratio, partial token sort, ratio, Smith Waterman, token sort.</li>
 <li>set-based measures: cosine, Dice, Jaccard, overlap coefficient, Tversky Index.</li>
 <li>bag-based measures: TF/IDF.</li>
 <li>phonetic-based measures: soundex.</li>
 </ul>
 </dd>
 </dl>
-<p>(There are also two hybrid similarity measures: Monge Elkan and Soft TF/IDF. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)</p>
+<p>(There are also three hybrid similarity measures: Monge Elkan, Soft TF/IDF, and Generalized Jaccard. They are so called because each of these measures uses multiple similarity measures. See their descriptions in this user manual to understand what types of input they expect.)</p>
 <p>At this point, you should know if the selected similarity measure treats input strings as sequences, bags, or sets, so that later you can set the parameters of the tokenizing function properly (see Steps 2-3 below).</p>
 </div>
 <div class="section" id="selecting-a-tokenizer-type">
 <h3>2. Selecting a Tokenizer Type<a class="headerlink" href="#selecting-a-tokenizer-type" title="Permalink to this headline">¶</a></h3>
 <p>If the above selected similarity measure treats input strings as sequences of characters, then you do not need to tokenize the input strings <strong>x</strong> and <strong>y</strong>, and hence do not have to select a tokenizer type.</p>
-<p>Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides five different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).</p>
+<p>Otherwise, you need to select a tokenizer type. The package py_stringmatching currently provides a set of different tokenizer types: alphabetical tokenizer, alphanumeric tokenizer, delimiter-based tokenizer, qgram tokenizer, and whitespace tokenizer (more tokenizer types can easily be added).</p>
 <p>A tokenizer will convert an input string into a set or a bag of tokens, as discussed in Step 3.</p>
 </div>
 <div class="section" id="creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">
@@ -352,7 +352,7 @@
 </div>
 <div class="section" id="class-hierarchy-for-tokenizers-and-similarity-measures">
 <h3>Class Hierarchy for Tokenizers and Similarity Measures<a class="headerlink" href="#class-hierarchy-for-tokenizers-and-similarity-measures" title="Permalink to this headline">¶</a></h3>
-<p>Version 0.2.0 implements the following class hierarchy for tokenizers:</p>
+<p>The current version implements the following class hierarchy for tokenizers:</p>
 <dl class="docutils">
 <dt>Tokenizer</dt>
 <dd><ul class="first last">
@@ -385,6 +385,8 @@
 <dt>SequenceSimilarityMeasure</dt>
 <dd><ul class="first last simple">
 <li>Affine</li>
+<li>BagDistance</li>
+<li>Editex</li>
 <li>HammingDistance</li>
 <li>Jaro</li>
 <li>JaroWinkler</li>
@@ -415,6 +417,7 @@
 <li><dl class="first docutils">
 <dt>HybridSimilarityMeasure</dt>
 <dd><ul class="first last simple">
+<li>GeneralizedJaccard</li>
 <li>MongeElkan</li>
 <li>SoftTfIdf</li>
 </ul>
