@@ -1,6 +1,6 @@
 package:
   name: py_stringmatching
-  version: "0.2.1"
+  version: "0.4.0"
 
 source:
     git_url: ../
@@ -63,7 +63,7 @@ test:
     # - nose
 
 about:
-  home: https://sites.google.com/site/anhaidgroup/projects/py_stringmatching
+  home: https://sites.google.com/site/anhaidgroup/projects/magellan/py_stringmatching
   license: BSD License
   summary: 'Python library for string matching.'
 
