@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +86,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a></li>
@@ -99,8 +108,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">py_stringmatching</a>
+        
       </nav>
 
 
@@ -113,35 +124,52 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>py_stringmatching.similarity_measure.token_sort</li>
+        
+      <li>py_stringmatching.similarity_measure.token_sort</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for py_stringmatching.similarity_measure.token_sort</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Fuzzy Wuzzy Token Sort Similarity Measure&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Fuzzy Wuzzy Token Sort Similarity Measure&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
-<span class="kn">from</span> <span class="nn">difflib</span> <span class="kn">import</span> <span class="n">SequenceMatcher</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">difflib</span> <span class="k">import</span> <span class="n">SequenceMatcher</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="k">import</span> <span class="n">utils</span>
 
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.sequence_similarity_measure</span> <span class="kn">import</span> \
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.sequence_similarity_measure</span> <span class="k">import</span> \
                                                     <span class="n">SequenceSimilarityMeasure</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.ratio</span> <span class="kn">import</span> <span class="n">Ratio</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.ratio</span> <span class="k">import</span> <span class="n">Ratio</span>
 
 
 <div class="viewcode-block" id="TokenSort"><a class="viewcode-back" href="../../../TokenSort.html#py_stringmatching.similarity_measure.token_sort.TokenSort">[docs]</a><span class="k">class</span> <span class="nc">TokenSort</span><span class="p">(</span><span class="n">SequenceSimilarityMeasure</span><span class="p">):</span>
@@ -161,19 +189,19 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">_process_string_and_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">force_ascii</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_process_string_and_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">force_ascii</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a string with tokens sorted. Processes the string if</span>
 <span class="sd">        full_process flag is enabled. If force_ascii flag is enabled then</span>
 <span class="sd">        processing removes non ascii characters from the string.&quot;&quot;&quot;</span>
-        <span class="c"># pull tokens</span>
+        <span class="c1"># pull tokens</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">process_string</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="n">force_ascii</span><span class="p">)</span> <span class="k">if</span> <span class="n">full_process</span> <span class="k">else</span> <span class="n">s</span>
         <span class="n">tokens</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
-        <span class="c"># sort tokens and join</span>
-        <span class="n">sorted_string</span> <span class="o">=</span> <span class="s">u&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
+        <span class="c1"># sort tokens and join</span>
+        <span class="n">sorted_string</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tokens</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">sorted_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-<div class="viewcode-block" id="TokenSort.get_raw_score"><a class="viewcode-back" href="../../../TokenSort.html#py_stringmatching.similarity_measure.token_sort.TokenSort.get_raw_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="TokenSort.get_raw_score"><a class="viewcode-back" href="../../../TokenSort.html#py_stringmatching.similarity_measure.token_sort.TokenSort.get_raw_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the Fuzzy Wuzzy token sort measure raw score between two strings.</span>
 <span class="sd">        This score is in the range [0,100].</span>
@@ -203,11 +231,11 @@
 <span class="sd">        References:</span>
 <span class="sd">            * https://pypi.python.org/pypi/fuzzywuzzy</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># input validations</span>
+        <span class="c1"># input validations</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_string_inputs</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">)</span>
 
-        <span class="c"># if one of the strings is empty return 0</span>
+        <span class="c1"># if one of the strings is empty return 0</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">0</span>
 
@@ -216,7 +244,7 @@
         <span class="n">ratio</span> <span class="o">=</span> <span class="n">Ratio</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">ratio</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">sorted1</span><span class="p">,</span> <span class="n">sorted2</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TokenSort.get_sim_score"><a class="viewcode-back" href="../../../TokenSort.html#py_stringmatching.similarity_measure.token_sort.TokenSort.get_sim_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_sim_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="TokenSort.get_sim_score"><a class="viewcode-back" href="../../../TokenSort.html#py_stringmatching.similarity_measure.token_sort.TokenSort.get_sim_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_sim_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">full_process</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the Fuzzy Wuzzy token sort similarity score between two strings.</span>
 <span class="sd">        This score is in the range [0,1].</span>
@@ -252,6 +280,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -285,13 +316,14 @@
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

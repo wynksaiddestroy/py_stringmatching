@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="index.html"/>
         <link rel="prev" title="Tversky Index" href="TverskyIndex.html"/> 
 
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,13 +86,16 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Runtime Benchmark</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Runtime Benchmark</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-benchmark">Running the Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#interpreting-the-results">Interpreting the Results</a></li>
 </ul>
@@ -103,8 +112,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">py_stringmatching</a>
+        
       </nav>
 
 
@@ -117,19 +128,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Runtime Benchmark</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Runtime Benchmark</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/Benchmark.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/Benchmark.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -142,27 +170,27 @@
 <h2>Running the Benchmark<a class="headerlink" href="#running-the-benchmark" title="Permalink to this headline">¶</a></h2>
 <p>The user can run the benchmark as follows:</p>
 <p>Step 1: Clone the py_stringmatching package from GitHub using the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/anhaidgroup/py_stringmatching.git
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">anhaidgroup</span><span class="o">/</span><span class="n">py_stringmatching</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 <p>Step 2: Change the working directory to py_stringmatching/benchmarks/custom_benchmarks</p>
 <p>Step 3: Run the benchmark using the following sequence of commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="kn">as</span> <span class="nn">sm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">run_benchmark</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">py_stringmatching</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">run_benchmark</span> <span class="k">import</span> <span class="o">*</span>
 <span class="go"># create an object for the similarity measure you need to benchmark</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jaccard</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Jaccard</span><span class="p">()</span>
 <span class="go"># create a tokenizer object (in case of token-based measures)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ws</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">WhitespaceTokenizer</span><span class="p">(</span><span class="n">return_set</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="go"># Set dataset paths</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">short_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/short_strings.csv&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">medium_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/medium_strings.csv&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">long_strings_path</span> <span class="o">=</span> <span class="s">&#39;datasets/long_strings.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short_strings_path</span> <span class="o">=</span> <span class="s1">&#39;datasets/short_strings.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">medium_strings_path</span> <span class="o">=</span> <span class="s1">&#39;datasets/medium_strings.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">long_strings_path</span> <span class="o">=</span> <span class="s1">&#39;datasets/long_strings.csv&#39;</span>
 <span class="go"># Data size (number of string pairs) over which the benchmark should be run</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_size</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="go"># Number of times to repeat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">num_repeat</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="go"># Output file where the benchmark results should be written</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">output_file</span> <span class="o">=</span> <span class="s">&#39;benchmark_results.csv&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;benchmark_results.csv&#39;</span>
 <span class="go"># run the benchmark</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">run_benchmark</span><span class="p">(</span><span class="n">short_strings_path</span><span class="p">,</span> <span class="n">medium_strings_path</span><span class="p">,</span> <span class="n">long_strings_path</span><span class="p">,</span> <span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">,</span> <span class="n">jaccard</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">tokenize</span><span class="p">,</span> <span class="n">num_repeat</span> <span class="o">=</span> <span class="n">num_repeat</span><span class="p">,</span> <span class="n">output_file</span> <span class="o">=</span> <span class="n">output_file</span><span class="p">)</span>
 </pre></div>
@@ -185,16 +213,16 @@ writes the result to the provided output file. See below for additional details.
 </ul>
 </div></blockquote>
 <p>An example output file will look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>configuration,run_1 (in secs),run_2 (in secs),run_3 (in secs),average (in secs)
-short_short,0.112642049789,0.112892866135,0.112852096558,0.112795670827
-short_medium,0.115404129028,0.115512132645,0.115454912186,0.115457057953
-short_long,0.194123983383,0.193922996521,0.193790912628,0.193945964177
-medium_short,0.11647105217,0.116579055786,0.116438865662,0.116496324539
-medium_medium,0.118470907211,0.118409156799,0.118496894836,0.118458986282
-medium_long,0.206312894821,0.206974983215,0.206708908081,0.206665595373
-long_short,0.205050945282,0.205410957336,0.205253124237,0.205238342285
-long_medium,0.217441797256,0.21806883812,0.218235015869,0.217915217082
-long_long,0.770321846008,0.76869893074,0.768806934357,0.769275903702
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">configuration</span><span class="p">,</span><span class="n">run_1</span> <span class="p">(</span><span class="ow">in</span> <span class="n">secs</span><span class="p">),</span><span class="n">run_2</span> <span class="p">(</span><span class="ow">in</span> <span class="n">secs</span><span class="p">),</span><span class="n">run_3</span> <span class="p">(</span><span class="ow">in</span> <span class="n">secs</span><span class="p">),</span><span class="n">average</span> <span class="p">(</span><span class="ow">in</span> <span class="n">secs</span><span class="p">)</span>
+<span class="n">short_short</span><span class="p">,</span><span class="mf">0.112642049789</span><span class="p">,</span><span class="mf">0.112892866135</span><span class="p">,</span><span class="mf">0.112852096558</span><span class="p">,</span><span class="mf">0.112795670827</span>
+<span class="n">short_medium</span><span class="p">,</span><span class="mf">0.115404129028</span><span class="p">,</span><span class="mf">0.115512132645</span><span class="p">,</span><span class="mf">0.115454912186</span><span class="p">,</span><span class="mf">0.115457057953</span>
+<span class="n">short_long</span><span class="p">,</span><span class="mf">0.194123983383</span><span class="p">,</span><span class="mf">0.193922996521</span><span class="p">,</span><span class="mf">0.193790912628</span><span class="p">,</span><span class="mf">0.193945964177</span>
+<span class="n">medium_short</span><span class="p">,</span><span class="mf">0.11647105217</span><span class="p">,</span><span class="mf">0.116579055786</span><span class="p">,</span><span class="mf">0.116438865662</span><span class="p">,</span><span class="mf">0.116496324539</span>
+<span class="n">medium_medium</span><span class="p">,</span><span class="mf">0.118470907211</span><span class="p">,</span><span class="mf">0.118409156799</span><span class="p">,</span><span class="mf">0.118496894836</span><span class="p">,</span><span class="mf">0.118458986282</span>
+<span class="n">medium_long</span><span class="p">,</span><span class="mf">0.206312894821</span><span class="p">,</span><span class="mf">0.206974983215</span><span class="p">,</span><span class="mf">0.206708908081</span><span class="p">,</span><span class="mf">0.206665595373</span>
+<span class="n">long_short</span><span class="p">,</span><span class="mf">0.205050945282</span><span class="p">,</span><span class="mf">0.205410957336</span><span class="p">,</span><span class="mf">0.205253124237</span><span class="p">,</span><span class="mf">0.205238342285</span>
+<span class="n">long_medium</span><span class="p">,</span><span class="mf">0.217441797256</span><span class="p">,</span><span class="mf">0.21806883812</span><span class="p">,</span><span class="mf">0.218235015869</span><span class="p">,</span><span class="mf">0.217915217082</span>
+<span class="n">long_long</span><span class="p">,</span><span class="mf">0.770321846008</span><span class="p">,</span><span class="mf">0.76869893074</span><span class="p">,</span><span class="mf">0.768806934357</span><span class="p">,</span><span class="mf">0.769275903702</span>
 </pre></div>
 </div>
 </div>
@@ -202,13 +230,16 @@ long_long,0.770321846008,0.76869893074,0.768806934357,0.769275903702
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="TverskyIndex.html" class="btn btn-neutral" title="Tversky Index" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="TverskyIndex.html" class="btn btn-neutral" title="Tversky Index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -242,13 +273,14 @@ long_long,0.770321846008,0.76869893074,0.768806934357,0.769275903702
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

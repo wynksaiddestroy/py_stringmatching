@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="#"/>
         <link rel="next" title="What is New?" href="WhatIsNew.html"/> 
 
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +86,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
@@ -99,8 +108,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">py_stringmatching</a>
+        
       </nav>
 
 
@@ -113,19 +124,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>User Manual for py_stringmatching</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>User Manual for py_stringmatching</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -133,7 +161,7 @@
             
   <div class="section" id="user-manual-for-py-stringmatching">
 <h1>User Manual for py_stringmatching<a class="headerlink" href="#user-manual-for-py-stringmatching" title="Permalink to this headline">¶</a></h1>
-<p>This document shows the users how to install and use the package. To contribute to or further develop the package, see the <a class="reference external" href="https://sites.google.com/site/anhaidgroup/projects/py_stringmatching">project website</a>, section &#8220;For Contributors and Developers&#8221;.</p>
+<p>This document shows the users how to install and use the package. To contribute to or further develop the package, see the <a class="reference external" href="https://sites.google.com/site/anhaidgroup/projects/py_stringmatching">project website</a>, section “For Contributors and Developers”.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
@@ -170,8 +198,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Affine.html">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BagDistance.html">Bag Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Editex.html">Editex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GeneralizedJaccard.html">Generalized Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaccard.html">Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaro.html">Jaro</a></li>
@@ -202,20 +233,23 @@
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="WhatIsNew.html" class="btn btn-neutral float-right" title="What is New?" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="WhatIsNew.html" class="btn btn-neutral float-right" title="What is New?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -250,13 +284,14 @@
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

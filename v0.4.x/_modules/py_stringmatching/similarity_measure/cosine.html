@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
@@ -40,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +86,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Tutorial.html">Tutorial</a></li>
@@ -99,8 +108,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">py_stringmatching</a>
+        
       </nav>
 
 
@@ -113,29 +124,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>py_stringmatching.similarity_measure.cosine</li>
+        
+      <li>py_stringmatching.similarity_measure.cosine</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <h1>Source code for py_stringmatching.similarity_measure.cosine</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">math</span>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.token_similarity_measure</span> <span class="kn">import</span> \
+<span class="kn">from</span> <span class="nn">py_stringmatching</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">py_stringmatching.similarity_measure.token_similarity_measure</span> <span class="k">import</span> \
                                                     <span class="n">TokenSimilarityMeasure</span>
 
 
@@ -152,7 +180,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Cosine</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cosine</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Cosine.get_raw_score"><a class="viewcode-back" href="../../../Cosine.html#py_stringmatching.similarity_measure.cosine.Cosine.get_raw_score">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Computes the raw cosine score between two sets.</span>
@@ -179,15 +207,15 @@
 <span class="sd">            * String similarity joins: An Experimental Evaluation (a paper appearing in the VLDB 2014 Conference).</span>
 <span class="sd">            * Project Flamingo at http://flamingo.ics.uci.edu.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># input validations</span>
+        <span class="c1"># input validations</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_none</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
         <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_list_or_set_inputs</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">)</span>
 
-        <span class="c"># if exact match return 1.0</span>
+        <span class="c1"># if exact match return 1.0</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_exact_match</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mf">1.0</span>
 
-        <span class="c"># if one of the strings is empty return 0</span>
+        <span class="c1"># if one of the strings is empty return 0</span>
         <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">sim_check_for_empty</span><span class="p">(</span><span class="n">set1</span><span class="p">,</span> <span class="n">set2</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">0</span>
 
@@ -225,6 +253,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -258,13 +289,14 @@
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

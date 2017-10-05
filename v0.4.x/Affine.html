@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,9 +32,12 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="index.html"/>
         <link rel="up" title="Similarity Measures" href="SimilarityMeasure.html"/>
-        <link rel="next" title="Cosine" href="Cosine.html"/>
+        <link rel="next" title="Bag Distance" href="BagDistance.html"/>
         <link rel="prev" title="Similarity Measures" href="SimilarityMeasure.html"/> 
 
   
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,15 +88,21 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Affine Gap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BagDistance.html">Bag Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Editex.html">Editex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GeneralizedJaccard.html">Generalized Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaccard.html">Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaro.html">Jaro</a></li>
@@ -123,8 +135,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">py_stringmatching</a>
+        
       </nav>
 
 
@@ -137,21 +151,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="SimilarityMeasure.html">Similarity Measures</a> &raquo;</li>
-      
-    <li>Affine Gap</li>
+        
+      <li>Affine Gap</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/Affine.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/Affine.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -164,15 +195,15 @@
 <em class="property">class </em><code class="descclassname">py_stringmatching.similarity_measure.affine.</code><code class="descname">Affine</code><span class="sig-paren">(</span><em>gap_start=1</em>, <em>gap_continuation=0.5</em>, <em>sim_func=identity_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/similarity_measure/affine.html#Affine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.similarity_measure.affine.Affine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the affine gap score between two strings.</p>
 <p>The affine gap measure is an extension of the Needleman-Wunsch measure that handles the longer gaps more
-gracefully. For more information refer to the string matching chapter in the DI book (&#8220;Principles of Data Integration&#8221;).</p>
+gracefully. For more information refer to the string matching chapter in the DI book (“Principles of Data Integration”).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>gap_start</strong> (<em>float</em>) &#8211; Cost for the gap at the start (defaults to 1).</li>
-<li><strong>gap_continuation</strong> (<em>float</em>) &#8211; Cost for the gap continuation (defaults to 0.5).</li>
-<li><strong>sim_func</strong> (<em>function</em>) &#8211; Function computing similarity score between two characters, which are represented as strings (defaults
+<li><strong>gap_start</strong> (<em>float</em>) – Cost for the gap at the start (defaults to 1).</li>
+<li><strong>gap_continuation</strong> (<em>float</em>) – Cost for the gap continuation (defaults to 0.5).</li>
+<li><strong>sim_func</strong> (<em>function</em>) – Function computing similarity score between two characters, which are represented as strings (defaults
 to an identity function, which returns 1 if the two characters are the same and returns 0 otherwise).</li>
 </ul>
 </td>
@@ -182,22 +213,19 @@ to an identity function, which returns 1 if the two characters are the same and 
 <dl class="attribute">
 <dt id="Affine.gap_start">
 <code class="descname">gap_start</code><a class="headerlink" href="#Affine.gap_start" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em></p>
-<p>An attribute to store the gap cost at the start.</p>
+<dd><p><em>float</em> – An attribute to store the gap cost at the start.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Affine.gap_continuation">
 <code class="descname">gap_continuation</code><a class="headerlink" href="#Affine.gap_continuation" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em></p>
-<p>An attribute to store the gap continuation cost.</p>
+<dd><p><em>float</em> – An attribute to store the gap continuation cost.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="Affine.sim_func">
 <code class="descname">sim_func</code><a class="headerlink" href="#Affine.sim_func" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>function</em></p>
-<p>An attribute to store the similarity function.</p>
+<dd><p><em>function</em> – An attribute to store the similarity function.</p>
 </dd></dl>
 
 <dl class="method">
@@ -236,24 +264,23 @@ to an identity function, which returns 1 if the two characters are the same and 
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1,string2</strong> (<em>str</em>) &#8211; Input strings.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string1</strong><strong>,</strong><strong>string2</strong> (<em>str</em>) – Input strings.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Affine gap score betwen the two input strings (float).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
-If the inputs are not strings or if one of the inputs is None.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not strings or if one of the inputs is None.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeva&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;dva&#39;</span><span class="p">,</span> <span class="s1">&#39;deeva&#39;</span><span class="p">)</span>
 <span class="go">1.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span><span class="n">gap_start</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;dva&#39;</span><span class="p">,</span> <span class="s">&#39;deeve&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;dva&#39;</span><span class="p">,</span> <span class="s1">&#39;deeve&#39;</span><span class="p">)</span>
 <span class="go">-0.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span><span class="n">gap_continuation</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">sim_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s">&#39;AAAGAATTCA&#39;</span><span class="p">,</span> <span class="s">&#39;AAATCA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aff</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="s1">&#39;AAAGAATTCA&#39;</span><span class="p">,</span> <span class="s1">&#39;AAATCA&#39;</span><span class="p">)</span>
 <span class="go">4.4</span>
 </pre></div>
 </div>
@@ -281,7 +308,7 @@ If the inputs are not strings or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_continuation</strong> (<em>float</em>) &#8211; Cost for the gap continuation.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_continuation</strong> (<em>float</em>) – Cost for the gap continuation.</td>
 </tr>
 </tbody>
 </table>
@@ -295,7 +322,7 @@ If the inputs are not strings or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_start</strong> (<em>float</em>) &#8211; Cost for the gap at the start.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gap_start</strong> (<em>float</em>) – Cost for the gap at the start.</td>
 </tr>
 </tbody>
 </table>
@@ -309,7 +336,7 @@ If the inputs are not strings or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) &#8211; Function computing similarity score between two characters, represented as strings.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Function computing similarity score between two characters, represented as strings.</td>
 </tr>
 </tbody>
 </table>
@@ -321,15 +348,18 @@ If the inputs are not strings or if one of the inputs is None.</td>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Cosine.html" class="btn btn-neutral float-right" title="Cosine" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BagDistance.html" class="btn btn-neutral float-right" title="Bag Distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SimilarityMeasure.html" class="btn btn-neutral" title="Similarity Measures" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SimilarityMeasure.html" class="btn btn-neutral" title="Similarity Measures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -363,13 +393,14 @@ If the inputs are not strings or if one of the inputs is None.</td>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

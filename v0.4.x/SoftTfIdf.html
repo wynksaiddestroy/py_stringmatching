@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -30,6 +32,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="py_stringmatching 0.4 documentation" href="index.html"/>
         <link rel="up" title="Similarity Measures" href="SimilarityMeasure.html"/>
         <link rel="next" title="Soundex" href="Soundex.html"/>
@@ -42,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -82,15 +88,21 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="WhatIsNew.html">What is New?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tokenizer.html">Tokenizers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="SimilarityMeasure.html">Similarity Measures</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Affine.html">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BagDistance.html">Bag Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cosine.html">Cosine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Dice.html">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Editex.html">Editex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GeneralizedJaccard.html">Generalized Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HammingDistance.html">Hamming Distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaccard.html">Jaccard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Jaro.html">Jaro</a></li>
@@ -103,7 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PartialTokenSort.html">Partial Token Sort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Ratio.html">Ratio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SmithWaterman.html">Smith Waterman</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Soft TF/IDF</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Soft TF/IDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Soundex.html">Soundex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="TfIdf.html">TF/IDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="TokenSort.html">Token Sort</a></li>
@@ -123,8 +135,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">py_stringmatching</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">py_stringmatching</a>
+        
       </nav>
 
 
@@ -137,21 +151,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
           <li><a href="SimilarityMeasure.html">Similarity Measures</a> &raquo;</li>
-      
-    <li>Soft TF/IDF</li>
+        
+      <li>Soft TF/IDF</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/SoftTfIdf.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/SoftTfIdf.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -173,11 +204,11 @@ We plan to add the dampen flag in the next release.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>corpus_list</strong> (<em>list of lists</em>) &#8211; Corpus list (default is set to None) of strings. If set to None,
+<li><strong>corpus_list</strong> (<em>list of lists</em>) – Corpus list (default is set to None) of strings. If set to None,
 the input list are considered the only corpus.</li>
-<li><strong>sim_func</strong> (<em>function</em>) &#8211; Secondary similarity function. This should return a similarity score between two strings (optional),
+<li><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function. This should return a similarity score between two strings (optional),
 default is the Jaro similarity measure.</li>
-<li><strong>threshold</strong> (<em>float</em>) &#8211; Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
+<li><strong>threshold</strong> (<em>float</em>) – Threshold value for the secondary similarity function (defaults to 0.5). If the similarity
 of a token pair exceeds the threshold, then the token pair is considered a match.</li>
 </ul>
 </td>
@@ -187,15 +218,13 @@ of a token pair exceeds the threshold, then the token pair is considered a match
 <dl class="attribute">
 <dt id="SoftTfIdf.sim_func">
 <code class="descname">sim_func</code><a class="headerlink" href="#SoftTfIdf.sim_func" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>function</em></p>
-<p>An attribute to store the secondary similarity function.</p>
+<dd><p><em>function</em> – An attribute to store the secondary similarity function.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="SoftTfIdf.threshold">
 <code class="descname">threshold</code><a class="headerlink" href="#SoftTfIdf.threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float</em></p>
-<p>An attribute to store the threshold value for the secondary similarity function.</p>
+<dd><p><em>float</em> – An attribute to store the threshold value for the secondary similarity function.</p>
 </dd></dl>
 
 <dl class="method">
@@ -220,33 +249,32 @@ of a token pair exceeds the threshold, then the token pair is considered a match
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1,bag2</strong> (<em>list</em>) &#8211; Input lists</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bag1</strong><strong>,</strong><strong>bag2</strong> (<em>list</em>) – Input lists</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Soft TF/IDF score between the input lists (float).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> &#8211;
-If the inputs are not lists or if one of the inputs is None.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">TypeError</span></code> – If the inputs are not lists or if one of the inputs is None.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]],</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="n">sim_func</span><span class="o">=</span><span class="n">Jaro</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
 <span class="go">0.17541160386140586</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
 <span class="go">0.5547001962252291</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;q&#39;</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">([[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
 <span class="go">0.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span> <span class="o">=</span> <span class="n">SoftTfIdf</span><span class="p">(</span><span class="n">sim_func</span><span class="o">=</span><span class="n">Affine</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s">&#39;aa&#39;</span><span class="p">,</span> <span class="s">&#39;bb&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="s">&#39;ba&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soft_tfidf</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">([</span><span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bb&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;ab&#39;</span><span class="p">,</span> <span class="s1">&#39;ba&#39;</span><span class="p">])</span>
 <span class="go">0.81649658092772592</span>
 </pre></div>
 </div>
 <p class="rubric">References</p>
 <ul class="simple">
-<li>the string matching chapter of the &#8220;Principles of Data Integration&#8221; book.</li>
+<li>the string matching chapter of the “Principles of Data Integration” book.</li>
 </ul>
 </dd></dl>
 
@@ -286,7 +314,7 @@ If the inputs are not lists or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>corpus_list</strong> (<em>list of lists</em>) &#8211; Corpus list.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>corpus_list</strong> (<em>list of lists</em>) – Corpus list.</td>
 </tr>
 </tbody>
 </table>
@@ -300,7 +328,7 @@ If the inputs are not lists or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) &#8211; Secondary similarity function.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sim_func</strong> (<em>function</em>) – Secondary similarity function.</td>
 </tr>
 </tbody>
 </table>
@@ -314,7 +342,7 @@ If the inputs are not lists or if one of the inputs is None.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) &#8211; threshold value.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) – threshold value.</td>
 </tr>
 </tbody>
 </table>
@@ -326,15 +354,18 @@ If the inputs are not lists or if one of the inputs is None.</td>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Soundex.html" class="btn btn-neutral float-right" title="Soundex" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Soundex.html" class="btn btn-neutral float-right" title="Soundex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SmithWaterman.html" class="btn btn-neutral" title="Smith Waterman" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SmithWaterman.html" class="btn btn-neutral" title="Smith Waterman" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -368,13 +399,14 @@ If the inputs are not lists or if one of the inputs is None.</td>
             VERSION:'0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
