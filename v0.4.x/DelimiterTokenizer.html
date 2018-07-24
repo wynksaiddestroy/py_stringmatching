@@ -24,28 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.4 documentation" href="index.html"/>
-        <link rel="up" title="Tokenizers" href="Tokenizer.html"/>
-        <link rel="next" title="Qgram Tokenizer" href="QgramTokenizer.html"/>
-        <link rel="prev" title="Alphanumeric Tokenizer" href="AlphanumericTokenizer.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Qgram Tokenizer" href="QgramTokenizer.html" />
+    <link rel="prev" title="Alphanumeric Tokenizer" href="AlphanumericTokenizer.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -116,7 +107,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">py_stringmatching</a>
@@ -124,9 +115,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -174,7 +166,7 @@
 <span id="delimiter-tokenizer"></span><h1>Delimiter Tokenizer<a class="headerlink" href="#module-py_stringmatching.tokenizer.delimiter_tokenizer" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer">
-<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.delimiter_tokenizer.</code><code class="descname">DelimiterTokenizer</code><span class="sig-paren">(</span><em>delim_set=set([‘ ‘])</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">py_stringmatching.tokenizer.delimiter_tokenizer.</code><code class="descname">DelimiterTokenizer</code><span class="sig-paren">(</span><em>delim_set={' '}</em>, <em>return_set=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/py_stringmatching/tokenizer/delimiter_tokenizer.html#DelimiterTokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#py_stringmatching.tokenizer.delimiter_tokenizer.DelimiterTokenizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses delimiters to find tokens, as apposed to using definitions.</p>
 <p>Examples of delimiters include white space and punctuations. Examples of definitions include alphabetical and qgram tokens.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -291,9 +283,7 @@ tokens instead of a bag of tokens (defaults to False).</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -311,11 +301,11 @@ tokens instead of a bag of tokens (defaults to False).</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, py_stringmatching Team.
+        &copy; Copyright 2016, py_stringmatching Team.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -334,6 +324,7 @@ tokens instead of a bag of tokens (defaults to False).</li>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0.4',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -343,23 +334,17 @@ tokens instead of a bag of tokens (defaults to False).</li>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

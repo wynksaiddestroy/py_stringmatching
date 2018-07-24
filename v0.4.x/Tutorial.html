@@ -24,27 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="py_stringmatching 0.4 documentation" href="index.html"/>
-        <link rel="next" title="Tokenizers" href="Tokenizer.html"/>
-        <link rel="prev" title="Installation" href="Installation.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tokenizers" href="Tokenizer.html" />
+    <link rel="prev" title="Installation" href="Installation.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -119,7 +111,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">py_stringmatching</a>
@@ -127,9 +119,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -243,15 +236,15 @@
 
 <span class="go"># tokenize into alphabetical tokens (with return_set set to True)</span>
 <span class="gp">In [12]: </span><span class="n">alphabet_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gh">Out[12]: </span><span class="go">[&#39;hello&#39;, &#39;world&#39;, &#39;data&#39;, &#39;science&#39;, &#39;is&#39;, &#39;amazing&#39;]</span>
+<span class="go">                                                                         Out[12]: [&#39;hello&#39;, &#39;world&#39;, &#39;data&#39;, &#39;science&#39;, &#39;is&#39;, &#39;amazing&#39;]</span>
 
 <span class="go"># tokenize using comma as the delimiter</span>
 <span class="gp">In [13]: </span><span class="n">delim_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gh">Out[13]: </span><span class="go">[&#39; .hello&#39;, &#39; world!! data&#39;, &#39; science&#39;, &#39; is    amazing!!. hello.&#39;]</span>
+<span class="go">                                                                                                                                         Out[13]: [&#39; .hello&#39;, &#39; world!! data&#39;, &#39; science&#39;, &#39; is    amazing!!. hello.&#39;]</span>
 
 <span class="go"># tokenize using whitespace as the delimiter</span>
 <span class="gp">In [14]: </span><span class="n">ws_tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">test_string</span><span class="p">)</span>
-<span class="gh">Out[14]: </span><span class="go">[&#39;.hello,&#39;, &#39;world!!&#39;, &#39;data,&#39;, &#39;science,&#39;, &#39;is&#39;, &#39;amazing!!.&#39;, &#39;hello.&#39;]</span>
+<span class="go">                                                                                                                                                                                                                       Out[14]: [&#39;.hello,&#39;, &#39;world!!&#39;, &#39;data,&#39;, &#39;science,&#39;, &#39;is&#39;, &#39;amazing!!.&#39;, &#39;hello.&#39;]</span>
 </pre></div>
 </div>
 <p>Thus, once you have created the tokenizer, you can use the <strong>tokenize</strong> method to tokenize the two input strings <strong>x</strong> and <strong>y</strong> (see more in Step 4 below).</p>
@@ -290,11 +283,11 @@
 
 <span class="go"># compute Jaccard score over sets of tokens of x and y, tokenized into qgrams (with q=3)</span>
 <span class="gp">In [20]: </span><span class="n">jac</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">qg3_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-<span class="gh">Out[20]: </span><span class="go">0.4375</span>
+<span class="go">             Out[20]: 0.4375</span>
 
 <span class="go"># compute Levenshtein distance between x and y</span>
 <span class="gp">In [21]: </span><span class="n">lev</span><span class="o">.</span><span class="n">get_raw_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="gh">Out[21]: </span><span class="go">6</span>
+<span class="go">                             Out[21]: 6</span>
 </pre></div>
 </div>
 <p>Note that in the above examples, the Jaccard measure treats the input strings as sets of tokens. And indeed, the two tokenizers ws_tok_set and qg3_tok_set as defined earlier would tokenize a string into a set of tokens. The Levenshtein measure, on the other hand, treats the input strings as sequences of characters. Hence when using it we do not have to tokenize the two strings <strong>x</strong> and <strong>y</strong>.</p>
@@ -305,7 +298,7 @@
 
 <span class="go"># get normalized Jaccard similarity score (this is the same as the raw score)</span>
 <span class="gp">In [23]: </span><span class="n">jac</span><span class="o">.</span><span class="n">get_sim_score</span><span class="p">(</span><span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ws_tok_set</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-<span class="gh">Out[23]: </span><span class="go">0.5</span>
+<span class="go">                            Out[23]: 0.5</span>
 </pre></div>
 </div>
 <p>So depending on what you want, you can call <strong>get_raw_score</strong> or <strong>get_sim_score</strong>. Note, however, that certain measures such as affine gap, Monge-Elkan, Needleman-Wunsch, Smith-Waterman and Soft TF/IDF do not have a <strong>get_sim_score</strong> method, because there is no straightforward way to normalize the raw scores of these measures into similarity scores in [0,1] (see the Developer Manual for further explanation).</p>
@@ -421,9 +414,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -441,11 +432,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, py_stringmatching Team.
+        &copy; Copyright 2016, py_stringmatching Team.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -464,6 +455,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0.4',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -473,23 +465,17 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
