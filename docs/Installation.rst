@@ -20,7 +20,11 @@ Dependencies
 
      The py_stringmatching installer will automatically install the above required packages.
 
-There are two ways to install py_stringmatching package: using pip or source distribution.
+C Compiler Required
+-------------------
+Before installing this package, you need to make sure that you have a C compiler installed. This is necessary because this package contains Cython files. Go `here <https://sites.google.com/site/anhaidgroup/projects/magellan/issues>`_ for more information about how to check whether you already have a C compiler and how to install a C compiler.
+
+After you have confirmed that you have a C compiler installed, you are ready to install the package. There are two ways to install py_stringmatching package: using pip or source distribution.
 
 Installing Using pip
 --------------------
