@@ -44,7 +44,7 @@ class BagDistance(SequenceSimilarityMeasure):
             5
 
         References:
-            * http://www.icmlc.org/icmlc2011/018_icmlc2011.pdf
+            * String Matching with Metric Trees Using an Approximate Distance: http://www-db.disi.unibo.it/research/papers/SPIRE02.pdf
         """
         # input validations
         utils.sim_check_for_none(string1, string2)
