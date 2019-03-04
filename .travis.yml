@@ -52,7 +52,7 @@ before_install:
   - export PATH="$HOME/miniconda/bin:$PATH"
 
 install:
-  - conda create -n py_stringmatching_test_env python=$PYTHON_VERSION
+  - conda create --yes -n py_stringmatching_test_env python=$PYTHON_VERSION
   - source activate py_stringmatching_test
   - python --version
   - pip install numpy six nose Cython coveralls
