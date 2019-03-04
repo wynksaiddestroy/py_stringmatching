@@ -53,7 +53,7 @@ before_install:
 
 install:
   - conda create --yes -n py_stringmatching_test_env python=$PYTHON_VERSION
-  - source activate py_stringmatching_test
+  - source activate py_stringmatching_test_env
   - python --version
   - pip install numpy six nose Cython coveralls
   - python setup.py build_ext --inplace
