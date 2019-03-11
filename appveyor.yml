@@ -8,7 +8,9 @@ environment:
     - python : 35
     - python : 35-x64
     - python : 36                                                               
-    - python : 36-x64  
+    - python : 36-x64
+    - python : 37
+    - python : 37-x64
 
 install:
 
