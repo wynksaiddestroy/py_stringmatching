@@ -97,7 +97,7 @@ class BagDistance(SequenceSimilarityMeasure):
             0.0
 
         References:
-            * http://www.icmlc.org/icmlc2011/018_icmlc2011.pdf
+            * String Matching with Metric Trees Using an Approximate Distance: http://www-db.disi.unibo.it/research/papers/SPIRE02.pdf
         """
         raw_score = self.get_raw_score(string1, string2)
         string1_len = len(string1)
