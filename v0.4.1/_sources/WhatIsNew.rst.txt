@@ -1,14 +1,8 @@
 What is New? 
 ============
 
-Compared to Version 0.3.0, the followings are new:
+Compared to Version 0.4.0, the followings are new:
 
-  * Five similarity measures written in Python have been Cythonized to run much faster. These are Affine, Jaro, Jaro Winkler, Needleman Wunsch, and Smith Waterman. 
+  * Cython version was updated. The package is now built with updated Cython version >= 0.27.3.
 
-  * We have also empirically evaluated the runtime of Jaccard (written in Python) and found that it is already very fast. Thus, Cythonizing it is unlikely to yield much of a speedup.
-
-  * Note that in Version 0.3.x (and earlier versions), edit distance has been Cythonized. Thus, the set of all Cythonized similarity measures consists of edit distance, Affine, Jaro, Jaro Winkler, Needleman Wunsch, and Smith Waterman.
-
-  * In subsequent versions, it would be highly desirable to Cythonize remaining similarity measures, including Dice, cosine, etc.
-
-  * For this package, we add a runtime benchmark (consisting of a script and several datasets) to measure the runtime performance of similarity measures. This benchmark can be used by users to judge whether similarity measures are fast enough for their purposes, and used by developers to speed up the measures. 
+  * Added support for Python 3.7 version and dropped Testing support for Python 3.3 version.

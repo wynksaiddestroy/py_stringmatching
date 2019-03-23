@@ -49,7 +49,7 @@
           
 
           
-            <a href="singlepage.html#document-index" class="icon icon-home"> py_stringmatching
+            <a href="index.html#document-index" class="icon icon-home"> py_stringmatching
           
 
           
@@ -76,65 +76,65 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-WhatIsNew">What is New?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Installation">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#platforms">Platforms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#c-compiler-required">C Compiler Required</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#installing-using-pip">Installing Using pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#installing-from-source-distribution">Installing from Source Distribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-WhatIsNew">What is New?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-Installation">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#platforms">Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#c-compiler-required">C Compiler Required</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#installing-using-pip">Installing Using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#installing-from-source-distribution">Installing from Source Distribution</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Tutorial">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#selecting-a-similarity-measure">1. Selecting a Similarity Measure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#selecting-a-tokenizer-type">2. Selecting a Tokenizer Type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">3. Creating a Tokenizer Object and Using It to Tokenize the Input Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#handling-a-large-number-of-string-pairs">Handling a Large Number of String Pairs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#handling-missing-values">Handling Missing Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#adding-prefix-and-suffix-to-the-input-string-for-qgram-tokenizers">Adding Prefix and Suffix to the Input String for Qgram Tokenizers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#class-hierarchy-for-tokenizers-and-similarity-measures">Class Hierarchy for Tokenizers and Similarity Measures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-Tutorial">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#selecting-a-similarity-measure">1. Selecting a Similarity Measure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#selecting-a-tokenizer-type">2. Selecting a Tokenizer Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-tokenizer-object-and-using-it-to-tokenize-the-input-strings">3. Creating a Tokenizer Object and Using It to Tokenize the Input Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#creating-a-similarity-measure-object-and-using-it-to-compute-a-similarity-score">4. Creating a Similarity Measure Object and Using It to Compute a Similarity Score</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#handling-a-large-number-of-string-pairs">Handling a Large Number of String Pairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#handling-missing-values">Handling Missing Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#adding-prefix-and-suffix-to-the-input-string-for-qgram-tokenizers">Adding Prefix and Suffix to the Input String for Qgram Tokenizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#class-hierarchy-for-tokenizers-and-similarity-measures">Class Hierarchy for Tokenizers and Similarity Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#references">References</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Tokenizer">Tokenizers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-AlphabeticTokenizer">Alphabetic Tokenizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-AlphanumericTokenizer">Alphanumeric Tokenizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-DelimiterTokenizer">Delimiter Tokenizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-QgramTokenizer">Qgram Tokenizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-WhitespaceTokenizer">Whitespace Tokenizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-Tokenizer">Tokenizers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-AlphabeticTokenizer">Alphabetic Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-AlphanumericTokenizer">Alphanumeric Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-DelimiterTokenizer">Delimiter Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-QgramTokenizer">Qgram Tokenizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-WhitespaceTokenizer">Whitespace Tokenizer</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-SimilarityMeasure">Similarity Measures</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Affine">Affine Gap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-BagDistance">Bag Distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Cosine">Cosine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Dice">Dice</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Editex">Editex</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-GeneralizedJaccard">Generalized Jaccard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-HammingDistance">Hamming Distance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Jaccard">Jaccard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Jaro">Jaro</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-JaroWinkler">Jaro Winkler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Levenshtein">Levenshtein</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-MongeElkan">Monge Elkan</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-NeedlemanWunsch">Needleman Wunsch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-OverlapCoefficient">Overlap Coefficient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-PartialRatio">Partial Ratio</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-PartialTokenSort">Partial Token Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Ratio">Ratio</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-SmithWaterman">Smith Waterman</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-SoftTfIdf">Soft TF/IDF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-Soundex">Soundex</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-TfIdf">TF/IDF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-TokenSort">Token Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#document-TverskyIndex">Tversky Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-SimilarityMeasure">Similarity Measures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Affine">Affine Gap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-BagDistance">Bag Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Cosine">Cosine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Dice">Dice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Editex">Editex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-GeneralizedJaccard">Generalized Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-HammingDistance">Hamming Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Jaccard">Jaccard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Jaro">Jaro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-JaroWinkler">Jaro Winkler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Levenshtein">Levenshtein</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-MongeElkan">Monge Elkan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-NeedlemanWunsch">Needleman Wunsch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-OverlapCoefficient">Overlap Coefficient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-PartialRatio">Partial Ratio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-PartialTokenSort">Partial Token Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Ratio">Ratio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-SmithWaterman">Smith Waterman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-SoftTfIdf">Soft TF/IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-Soundex">Soundex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-TfIdf">TF/IDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-TokenSort">Token Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-TverskyIndex">Tversky Index</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="singlepage.html#document-Benchmark">Runtime Benchmark</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#running-the-benchmark">Running the Benchmark</a></li>
-<li class="toctree-l2"><a class="reference internal" href="singlepage.html#interpreting-the-results">Interpreting the Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-Benchmark">Runtime Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#running-the-benchmark">Running the Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#interpreting-the-results">Interpreting the Results</a></li>
 </ul>
 </li>
 </ul>
@@ -151,7 +151,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="singlepage.html#document-index">py_stringmatching</a>
+          <a href="index.html#document-index">py_stringmatching</a>
         
       </nav>
 
@@ -180,7 +180,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="singlepage.html#document-index">Docs</a> &raquo;</li>
+      <li><a href="index.html#document-index">Docs</a> &raquo;</li>
         
       <li>py_stringmatching 0.2 documentation</li>
     
