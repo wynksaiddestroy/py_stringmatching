@@ -27,4 +27,4 @@ from py_stringmatching.similarity_measure.soft_tfidf import SoftTfIdf
 from py_stringmatching.similarity_measure.soundex import Soundex
 from py_stringmatching.similarity_measure.tfidf import TfIdf
 from py_stringmatching.similarity_measure.tversky_index import TverskyIndex
-
+from py_stringmatching.similarity_measure.partial_ratio import PartialRatio
